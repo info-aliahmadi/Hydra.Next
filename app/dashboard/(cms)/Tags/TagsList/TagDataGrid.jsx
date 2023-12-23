@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import TagService from 'modules/cms/services/TagsService';
 import { Edit, Tag, Add, Delete } from '@mui/icons-material';
-import AddOrEditTag from '../AddOrEditTag';
+import AddOrEditTag from '../../_components/AddOrEditTag';
 import DeleteTag from '../DeleteTag';
 
 
