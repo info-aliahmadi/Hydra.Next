@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // project import
 import AuthLogin from './auth-forms/AuthLogin';
-import { AuthenticationProvider } from '@dashboard/auth/_service/Authentication/AuthenticationProvider';
+import { AuthenticationProvider } from '@dashboard/(auth)/_service/Authentication/AuthenticationProvider';
 import Box from '@mui/material/Box';
 
 // ================================|| LOGIN ||================================ //

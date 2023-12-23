@@ -1,10 +1,10 @@
 import { Avatar, Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import SlideshowService from 'modules/cms/services/SlideshowsService';
 import {
   Edit,
@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 import AddOrEditSlideshow from '../AddOrEditSlideshow';
 import DeleteSlideshow from '../DeleteSlideshow';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import { Stack } from '@mui/system';
 import CONFIG from 'config';
 

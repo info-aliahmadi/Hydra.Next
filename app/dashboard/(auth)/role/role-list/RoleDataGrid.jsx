@@ -3,10 +3,10 @@ import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import RoleService from 'modules/auth/services/RoleService';
 import { Delete } from '@mui/icons-material';
 import { Edit } from '@mui/icons-material';

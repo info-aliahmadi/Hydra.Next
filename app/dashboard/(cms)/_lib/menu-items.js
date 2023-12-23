@@ -67,7 +67,7 @@ const pages = {
       id: 'links',
       title: 'Links',
       type: 'item',
-      url: '/LinksList',
+      url: '/dashboard/Link/List',
       icon: icons.Link,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'

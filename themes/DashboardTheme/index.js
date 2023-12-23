@@ -22,15 +22,14 @@ import i18n from '/Localization/i18n';
 import IranSans from './fonts/IranSans';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers';
 import AdapterDateFnsJalali from '@mui/x-date-pickers/AdapterDateFnsJalali/AdapterDateFnsJalali';
 import '/public/css/customStyle/dashboard.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 import LocalizationService from '/Localization/LocalizationService';
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
 export default function DashboardThemeCustomization({ children }) {
-
   let localizationService = new LocalizationService();
   const themeModeStorage = new LocalStorageService(CONFIG.DASHBOARD_THEME_MODE_STORAGE_NAME);
   const themeMode = themeModeStorage.getItem();

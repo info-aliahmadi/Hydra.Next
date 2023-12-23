@@ -1,15 +1,15 @@
 import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import MenuService from 'modules/cms/services/MenuService';
 import { Edit, Menu, Add, Delete, Save } from '@mui/icons-material';
 import AddOrEditMenu from '../AddOrEditMenu';
 import DeleteMenu from '../DeleteMenu';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import { Stack } from '@mui/system';
 
 function MenuDataGrid() {

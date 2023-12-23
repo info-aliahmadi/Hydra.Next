@@ -4,11 +4,11 @@ import { Box, IconButton, Link, Tooltip } from '@mui/material';
 // project import
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import MessagesService from 'modules/crm/services/MessagesService';
 import { Delete, PushPin, AttachFile } from '@mui/icons-material';
 import DeleteMessage from '../DeleteMessage';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import MessageTypeChip from '../MessageTypeChip';
 import { MessageTypes } from '../MessageType';
 // ===============================|| COLOR BOX ||=============================== //

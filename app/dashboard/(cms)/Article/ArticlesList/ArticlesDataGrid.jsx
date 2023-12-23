@@ -3,10 +3,10 @@ import { Avatar, Box, Button, CardMedia, Chip, Grid, IconButton, InputLabel, Out
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import ArticlesService from 'modules/cms/services/ArticlesService';
 import { Delete, Edit, RestoreFromTrash, PostAddOutlined, PushPin, EventNote } from '@mui/icons-material';
 import CONFIG from 'config';
@@ -17,7 +17,7 @@ import SelectTopic from '../../Topic/SelectTopic';
 import ImageUpload from 'components/FileUpload/ImageUpload';
 import SelectTag from '../../Tags/SelectTag';
 import DeleteArticle from '../DeleteArticle';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 // ===============================|| COLOR BOX ||=============================== //
 
 function ArticlesDataGrid() {

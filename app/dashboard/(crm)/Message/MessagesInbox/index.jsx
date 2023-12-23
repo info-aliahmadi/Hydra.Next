@@ -12,7 +12,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import { RestoreFromTrash, Send, Drafts } from '@mui/icons-material';
 
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import MessagesPrivateInboxDataGrid from './MessagesPrivateInboxDataGrid';
 import MessagesPublicInboxDataGrid from './MessagesPublicInboxDataGrid';
 

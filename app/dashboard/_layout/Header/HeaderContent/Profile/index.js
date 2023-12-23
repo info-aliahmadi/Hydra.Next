@@ -32,7 +32,7 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 import CONFIG from '/config';
 import Transitions from '@dashboard/_components/@extended/Transitions';
 import MainCard from '@dashboard/_components/MainCard';
-import { AuthenticationContext } from '@dashboard/auth/_service/Authentication/AuthenticationProvider';
+import { AuthenticationContext } from '@dashboard/(auth)/_service/Authentication/AuthenticationProvider';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {

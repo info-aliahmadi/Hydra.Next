@@ -31,7 +31,7 @@ import { Formik } from 'formik';
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
-import { AuthenticationContext, AuthenticationProvider } from '@dashboard/auth/_service/Authentication/AuthenticationProvider';
+import { AuthenticationContext, AuthenticationProvider } from '@dashboard/(auth)/_service/Authentication/AuthenticationProvider';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 

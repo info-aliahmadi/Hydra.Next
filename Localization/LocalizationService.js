@@ -1,5 +1,5 @@
 'use client';
-import AuthenticationService from '@dashboard/auth/_service/Authentication/AuthenticationService';
+import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
 import axios from 'axios';
 import CONFIG from '/config.js';
 import { setAuthenticationHeader } from '/utils/axiosHeaders';

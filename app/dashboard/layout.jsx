@@ -6,9 +6,9 @@ import DashboardLayout from './_layout/Index';
 import { store } from '/store';
 import { Suspense } from 'react';
 import Loader from './_components/Loader';
-import { AuthenticationProvider } from './auth/_service/Authentication/AuthenticationProvider';
-import Authenticate from './auth/_service/Authentication/Authenticate';
-import { AuthorizationProvider } from './auth/_service/Authorization/AuthorizationProvider';
+import { AuthenticationProvider } from './(auth)/_service/Authentication/AuthenticationProvider';
+import Authenticate from './(auth)/_service/Authentication/Authenticate';
+import { AuthorizationProvider } from './(auth)/_service/Authorization/AuthorizationProvider';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 

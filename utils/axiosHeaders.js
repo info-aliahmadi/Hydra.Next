@@ -1,4 +1,4 @@
-import AuthenticationService from '@dashboard/auth/_service/Authentication/AuthenticationService';
+import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
 import axios from 'axios';
 
 export function setDefaultHeader(contentType) {

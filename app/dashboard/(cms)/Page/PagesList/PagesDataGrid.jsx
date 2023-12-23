@@ -3,10 +3,10 @@ import { Avatar, Box, Button, CardMedia, Chip, Grid, IconButton, InputAdornment,
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import PagesService from 'modules/cms/services/PagesService';
 import { Delete, Edit, Description, EventNote } from '@mui/icons-material';
 import CONFIG from 'config';
@@ -15,7 +15,7 @@ import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import SelectTag from '../../Tags/SelectTag';
 import DeletePage from '../DeletePage';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 // ===============================|| COLOR BOX ||=============================== //
 
 function PagesDataGrid() {

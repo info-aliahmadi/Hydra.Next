@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import SlideshowService from 'modules/cms/services/SlideshowsService';
 
 const DeleteSlideshow = ({ row, open, setOpen, refetch }) => {

@@ -7,11 +7,11 @@ import { ArrowBack, Save, Send, EventNote } from '@mui/icons-material';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import ArticlesService from 'modules/cms/services/ArticlesService';
 import { useNavigate, useParams } from 'react-router-dom';
 import CONFIG from 'config';

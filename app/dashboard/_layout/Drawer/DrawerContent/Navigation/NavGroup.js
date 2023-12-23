@@ -7,7 +7,7 @@ import { Box, List, Typography } from '@mui/material';
 // project import
 import NavItem from './NavItem';
 import { useTranslation } from 'react-i18next';
-import Authorize from '@dashboard/auth/_service/Authorization/Authorize';
+import Authorize from '@dashboard/(auth)/_service/Authorization/Authorize';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 

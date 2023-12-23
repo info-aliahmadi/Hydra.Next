@@ -11,7 +11,6 @@ import {
   Grid,
   InputLabel,
   OutlinedInput,
-  Snackbar,
   Stack,
   Tooltip
 } from '@mui/material';
@@ -21,18 +20,17 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import AnimateButton from 'components/@extended/AnimateButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Save from '@mui/icons-material/Save';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import AccountService from 'modules/auth/services/AccountService';
-import AuthenticationService from 'modules/auth/services/Authentication/AuthenticationService';
 import CONFIG from 'config';
-import Anonymous from 'assets/images/users/anonymous.png';
-import Notify from 'components/@extended/Notify';
+import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
+import Notify from '@dashboard/_components/@extended/Notify';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
+import AccountService from '@dashboard/(auth)/_service/AccountService';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const ProfileForm = () => {
@@ -136,7 +134,7 @@ const ProfileForm = () => {
                         <input type="file" hidden accept="image/*" name="avatarFile" onChange={(e) => changeAvatar(e, setFieldValue)} />
                         <Avatar
                           alt=""
-                          src={avatarPreview ? avatarPreview : values?.avatar ? CONFIG.AVATAR_BASEPATH + values?.avatar : Anonymous}
+                          src={avatarPreview ? avatarPreview : values?.avatar ? CONFIG.AVATAR_BASEPATH + values?.avatar : '/images/users/anonymous.png'}
                           sx={{ width: 85, height: 85 }}
                         ></Avatar>
                       </ButtonBase>

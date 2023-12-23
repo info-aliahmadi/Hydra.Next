@@ -1,14 +1,13 @@
 import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
-import TopicService from 'modules/cms/services/TopicService';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import { Edit, Topic, Add, Delete } from '@mui/icons-material';
-import AddOrEditTopic from '../AddOrEditTopic';
-import DeleteTopic from '../DeleteTopic';
+import AddOrEditTopic from './AddOrEditTopic';
+import DeleteTopic from './DeleteTopic';
 
 function TopicDataGrid() {
   const [t] = useTranslation();

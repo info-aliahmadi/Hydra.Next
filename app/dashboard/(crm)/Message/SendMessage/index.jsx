@@ -4,22 +4,21 @@ import { ArrowBack, Save, Send } from '@mui/icons-material';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
-import MessagesService from 'modules/crm/services/MessagesService';
-import { useNavigate, useParams } from 'react-router-dom';
+import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import setServerErrors from 'utils/setServerErrors';
+import { useRouter } from 'next/navigation';
+import MessagesService from '@dashboard/(crm)/_service/MessagesService';
+import SelectUser from '@dashboard/(auth)/_components/SelectUser';
+import Editor from '@dashboard/_components/Editor/Editor';
+import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 
-import Editor from 'components/Editor/Editor';
-import FileUpload from 'components/FileUpload/FileUpload';
-import SelectUser from 'modules/auth/pages/Shared/SelectUser';
 
-export default function SendMessage() {
+export default function SendMessage({params}) {
   const [t] = useTranslation();
-  const params = useParams();
   const operation = params.operation;
   const toUserId = params.toUser;
   const id = params.id;
@@ -29,7 +28,7 @@ export default function SendMessage() {
   const [message, setMessage] = useState();
   const [isPublicMessage, setIsPublicMessage] = useState(false);
   const [notify, setNotify] = useState({ open: false });
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
   const loadMessage = () => {
     messageService.getMessageByIdForSender(id).then((result) => {
@@ -248,7 +247,7 @@ export default function SendMessage() {
                               <Button
                                 size="large"
                                 onClick={() => {
-                                  navigate(-1);
+                                  navigate.back();
                                 }}
                                 variant="outlined"
                                 color="secondary"

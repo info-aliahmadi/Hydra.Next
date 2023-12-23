@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import MessagesService from 'modules/crm/services/MessagesService';
 
 const DeleteMessage = ({ row, open, setOpen, refetch }) => {

@@ -19,11 +19,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import AddIcon from '@mui/icons-material/Add';
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import LinkService from 'modules/cms/services/LinkService';
 import setServerErrors from 'utils/setServerErrors';
 import ImageUpload from 'components/FileUpload/ImageUpload';

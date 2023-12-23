@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 
 // material-ui
-import { Button, FormHelperText, Grid, InputLabel, OutlinedInput, Stack, TextareaAutosize } from '@mui/material';
+import { Button, Grid, InputLabel, Stack } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import Save from '@mui/icons-material/Save';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
-import MessagesService from 'modules/crm/services/MessagesService';
-import SelectUser from 'modules/auth/pages/Shared/SelectUser';
+import Notify from '@dashboard/_components/@extended/Notify';
+import MessagesService from '../_service/MessagesService';
+import SelectUser from '@dashboard/(auth)/_components/SelectUser';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const MessageSetting = () => {

@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState, useEffect } from 'react';
-import RoleService from 'modules/auth/services/RoleService';
 import { useTranslation } from 'react-i18next';
+import RoleService from '../_service/RoleService';
 
 export default function SelectRole({ defaultValues, id, setFieldValue, error, disabled }) {
   const [t] = useTranslation();

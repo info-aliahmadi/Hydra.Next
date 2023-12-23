@@ -4,13 +4,13 @@ import { Avatar, Box, Button, Grid, IconButton, Stack, Tooltip } from '@mui/mate
 // project import
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import { Delete, Edit, ImageNotSupported, Save } from '@mui/icons-material';
 import LinkIcon from '@mui/icons-material/Link';
 
 import DeleteLink from '../DeleteLink';
 import LinkService from 'modules/cms/services/LinkService';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import AddOrEditLink from '../AddOrEditLink';
 import CONFIG from 'config';
 let mediaExtensions = CONFIG.IMAGES_EXTENSIONS.concat(CONFIG.VIDEOS_EXTENSIONS);

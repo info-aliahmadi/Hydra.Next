@@ -20,7 +20,7 @@ const pages = {
       id: 'users',
       title: 'Users',
       type: 'item',
-      url: '/usersList',
+      url: '/dashboard/users/list',
       icon: icons.People,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -29,7 +29,7 @@ const pages = {
       id: 'roles',
       title: 'Roles',
       type: 'item',
-      url: '/roleList',
+      url: '/dashboard/role/list',
       icon: icons.Badge,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -38,7 +38,7 @@ const pages = {
       id: 'permissions',
       title: 'Permissions',
       type: 'item',
-      url: '/PermissionList',
+      url: '/dashboard/permission/List',
       icon: icons.Security,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'

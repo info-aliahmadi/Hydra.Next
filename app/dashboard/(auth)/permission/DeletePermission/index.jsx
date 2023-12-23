@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import PermissionService from 'modules/auth/services/PermissionService';
 
 const DeletePermission = ({ row, open, setOpen, refetch }) => {

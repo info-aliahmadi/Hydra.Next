@@ -1,22 +1,22 @@
-// material-ui
+'use client';
 import { Grid, Typography } from '@mui/material';
 
 // project import
-import TopicDataGrid from './TopicDataGrid';
+import UserDataGrid from '../../_components/UsersDataGrid';
 import { useTranslation } from 'react-i18next';
 // ===============================|| COLOR BOX ||=============================== //
 
-function TopicList() {
+function UsersList() {
   const [t] = useTranslation();
   return (
     <>
       <Grid container justifyContent="center" direction="row" alignItems="flex-start">
-        <Grid container spacing={3} item xs={12} sm={12} md={12} lg={12} xl={8} direction="column">
+        <Grid container spacing={3} item xs={12} sm={12} md={12} lg={12} direction="column">
           <Grid item>
-            <Typography variant="h5">{t('pages.topics')}</Typography>
+            <Typography variant="h5">{t('pages.users')}</Typography>
           </Grid>
           <Grid item>
-            <TopicDataGrid />
+            <UserDataGrid />
           </Grid>
         </Grid>
       </Grid>
@@ -24,4 +24,4 @@ function TopicList() {
   );
 }
 
-export default TopicList;
+export default UsersList;

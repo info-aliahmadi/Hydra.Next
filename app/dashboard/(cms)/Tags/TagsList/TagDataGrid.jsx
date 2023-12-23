@@ -1,10 +1,10 @@
 import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import TagService from 'modules/cms/services/TagsService';
 import { Edit, Tag, Add, Delete } from '@mui/icons-material';
 import AddOrEditTag from '../AddOrEditTag';

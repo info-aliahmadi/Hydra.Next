@@ -1,8 +1,8 @@
 'use client';
+import FilesList from '@dashboard/(filestorage)/_components/FilesList';
 import { Grid, Typography } from '@mui/material';
 
 // project import
-import FilesList from '../../_components/FilesList';
 import { useTranslation } from 'react-i18next';
 // ===============================|| COLOR BOX ||=============================== //
 

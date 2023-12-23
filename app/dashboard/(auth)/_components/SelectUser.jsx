@@ -4,7 +4,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import UsersService from 'modules/auth/services/UsersService';
+import UsersService from '@dashboard/(auth)/_service/UsersService';
 import { Chip, FormControl } from '@mui/material';
 import _ from 'lodash';
 

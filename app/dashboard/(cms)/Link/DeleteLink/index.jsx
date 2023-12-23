@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import LinkService from 'modules/cms/services/LinkService';
 
 const DeleteLink = ({ row, linkSection, data, setData, open, setOpen, refetch }) => {

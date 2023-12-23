@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 
 // material-ui
@@ -8,13 +9,13 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import Save from '@mui/icons-material/Save';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import SiteSettingsService from 'modules/cms/services/SiteSettingsService';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
+import SiteSettingsService from '../_service/SiteSettingsService';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const SiteSetting = () => {

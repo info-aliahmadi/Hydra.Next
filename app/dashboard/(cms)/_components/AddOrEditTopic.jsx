@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react';
 
 // material-ui
@@ -19,17 +20,17 @@ import CloseIcon from '@mui/icons-material/Close';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import AddIcon from '@mui/icons-material/Add';
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
-import TopicService from 'modules/cms/services/TopicService';
+import Notify from '@dashboard/_components/@extended/Notify';
 import setServerErrors from 'utils/setServerErrors';
+import TopicsService from '@dashboard/(cms)/_service/TopicService';
 
 const AddOrEditTopic = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let topicService = new TopicService();
+  let topicService = new TopicsService();
   const [fieldsName, validation, buttonName] = ['fields.topic.', 'validation.topic.', 'buttons.topic.'];
   const [topic, setTopic] = useState();
   const [notify, setNotify] = useState({ open: false });

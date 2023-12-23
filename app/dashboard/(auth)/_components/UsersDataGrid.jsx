@@ -1,6 +1,5 @@
 // material-ui
 import {
-  Autocomplete,
   Avatar,
   Box,
   Button,
@@ -10,31 +9,27 @@ import {
   InputLabel,
   ListItemIcon,
   MenuItem,
-  OutlinedInput,
-  TextField,
-  Tooltip
-} from '@mui/material';
+  OutlinedInput} from '@mui/material';
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
-import UsersService from 'modules/auth/services/UsersService';
-import { AccountCircle, Send, PersonAdd, PeopleAlt } from '@mui/icons-material';
-import Anonymous from 'assets/images/users/anonymous.png';
+import UsersService from '@dashboard/(auth)/_service/UsersService';
+import { AccountCircle, Send, PersonAdd } from '@mui/icons-material';
 import CONFIG from 'config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
-import { useNavigate } from 'react-router-dom';
-import SelectRole from '../../Role/SelectRole';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
+import SelectRole from '../role/SelectRole';
+import TableCard from '@dashboard/_components/TableCard';
+import { useRouter } from 'next/navigation';
 // ===============================|| COLOR BOX ||=============================== //
 
 function UsersDataGrid() {
   const [t, i18n] = useTranslation();
   const service = new UsersService();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const [fieldsName, buttonName] = ['fields.user.', 'buttons.user.'];
 
@@ -56,7 +51,7 @@ function UsersDataGrid() {
             <Avatar
               loading="lazy"
               alt="profile user"
-              src={row.original.avatar ? CONFIG.AVATAR_BASEPATH + row.original.avatar : Anonymous}
+              src={row.original.avatar ? CONFIG.AVATAR_BASEPATH + row.original.avatar : '/images/users/anonymous.png'}
               sx={{ width: 40, height: 40 }}
             ></Avatar>
             {/* using renderedCellValue instead of cell.getValue() preserves filter match highlighting */}
@@ -114,7 +109,7 @@ function UsersDataGrid() {
         color="primary"
         variant="contained"
         onClick={() => {
-          navigate('/user/add/0');
+          router.push('/user/add/0');
         }}
         startIcon={<PersonAdd />}
       >
@@ -128,7 +123,7 @@ function UsersDataGrid() {
       <MenuItem
         key={0}
         onClick={() => {
-          navigate('/user/edit/' + row.original.id);
+          router.push('/user/edit/' + row.original.id);
         }}
         sx={{ m: 0 }}
       >
@@ -169,7 +164,7 @@ function UsersDataGrid() {
                 <Avatar
                   loading="lazy"
                   alt="profile user"
-                  src={row.original.avatar ? CONFIG.AVATAR_BASEPATH + row.original.avatar : Anonymous}
+                  src={row.original.avatar ? CONFIG.AVATAR_BASEPATH + row.original.avatar : '/images/users/anonymous.png'}
                   sx={{ width: 100, height: 100 }}
                 ></Avatar>
                 <span>{row.original.name}</span>

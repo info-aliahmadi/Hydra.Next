@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthorizationContext } from './AuthorizationProvider';
-import AccessDenied from '@dashboard/auth/_lib/AccessDenied';
+import AccessDenied from '@dashboard/(auth)/_components/AccessDenied';
 import Loader from '@dashboard/_components/Loader';
 
 function Authorize(props) {

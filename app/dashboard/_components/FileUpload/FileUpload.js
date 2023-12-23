@@ -24,7 +24,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { setTokenBearer } from 'utils/axiosHeaders';
 import CONFIG from '/config';
-import FileStorageService from '@dashboard/filestorage/_service/FileStorageService';
+import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
 
 export default function FileUpload({
   id,

@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useState } from 'react';
 
 // material-ui
@@ -20,7 +21,6 @@ import {
   Typography,
   Select,
   MenuItem,
-  Chip,
   ButtonGroup
 } from '@mui/material';
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
@@ -35,24 +35,22 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
-import UsersService from 'modules/auth/services/UsersService';
-import { useNavigate, useParams } from 'react-router-dom';
-import Anonymous from 'assets/images/users/anonymous.png';
 import CONFIG from 'config';
 import MainCard from '@dashboard/_components/MainCard';
 import languageList from 'Localization/languageList';
-import DeleteUser from '../DeleteUser';
+import DeleteUser from '../../../_components/DeleteUser';
 import setServerErrors from 'utils/setServerErrors';
-import SelectRole from '../../Role/SelectRole';
+import Notify from '@dashboard/_components/@extended/Notify';
+import UsersService from '@dashboard/(auth)/_service/UsersService';
+import SelectRole from '@dashboard/(auth)/role/SelectRole';
+import { useRouter } from 'next/navigation';
 
-export default function AddOrEditUser() {
+export default function AddOrEditUser({params}) {
   const [t] = useTranslation();
-  const params = useParams();
   const operation = params.operation;
   const id = params.id;
   let userService = new UsersService();
@@ -63,7 +61,7 @@ export default function AddOrEditUser() {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordLevel, setPasswordLevel] = useState();
   const [openDelete, setOpenDelete] = useState(false);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const loadUser = () => {
     userService.getUserById(id).then((result) => {
@@ -198,7 +196,7 @@ export default function AddOrEditUser() {
                                 />
                                 <Avatar
                                   alt=""
-                                  src={avatarPreview ? avatarPreview : values.avatar ? CONFIG.AVATAR_BASEPATH + values.avatar : Anonymous}
+                                  src={avatarPreview ? avatarPreview : values.avatar ? CONFIG.AVATAR_BASEPATH + values.avatar : '/images/users/anonymous.png'}
                                   sx={{ width: 85, height: 85 }}
                                 ></Avatar>
                               </ButtonBase>
@@ -507,7 +505,7 @@ export default function AddOrEditUser() {
                                 <Button
                                   size="large"
                                   onClick={() => {
-                                    navigate('/usersList');
+                                    router.push('/user/list');
                                   }}
                                   variant="outlined"
                                   color="secondary"

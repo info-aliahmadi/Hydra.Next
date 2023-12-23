@@ -7,8 +7,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import Notify from 'components/@extended/Notify';
-import UsersService from 'modules/auth/services/UsersService';
+import Notify from '@dashboard/_components/@extended/Notify';
+import UsersService from '@dashboard/(auth)/_service/UsersService';
 
 const DeleteUser = ({ userId, open, setOpen }) => {
   const [t] = useTranslation();

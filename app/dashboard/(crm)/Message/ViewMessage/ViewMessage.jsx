@@ -1,7 +1,7 @@
 import { Button, Chip, Grid, InputLabel, Link, OutlinedInput, Stack, Tooltip, Typography } from '@mui/material';
 import { ArrowBack, Reply, EventNote, Person } from '@mui/icons-material';
 
-import AnimateButton from 'components/@extended/AnimateButton';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 import { useNavigate } from 'react-router-dom';
 import MainCard from '@dashboard/_components/MainCard';

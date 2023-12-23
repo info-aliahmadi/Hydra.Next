@@ -4,16 +4,16 @@ import { Box, Chip, IconButton, Link, Tooltip } from '@mui/material';
 // project import
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import MaterialTable from 'components/MaterialTable/MaterialTable';
+import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import MessagesService from 'modules/crm/services/MessagesService';
 import { DeleteSweep, AttachFile, Person } from '@mui/icons-material';
-import Notify from 'components/@extended/Notify';
+import Notify from '@dashboard/_components/@extended/Notify';
 import MessageTypeChip from '../MessageTypeChip';
 import RemoveDraftMessage from '../RemoveDraftMessage';
 import { useNavigate } from 'react-router-dom';
 import { MessageTypes } from '../MessageType';
 import MainCard from '@dashboard/_components/MainCard';
-import TableCard from 'components/TableCard';
+import TableCard from '@dashboard/_components/TableCard';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function MessagesDraftDataGrid() {

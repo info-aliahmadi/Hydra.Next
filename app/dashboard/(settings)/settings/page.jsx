@@ -1,8 +1,8 @@
 'use client';
 // material-ui
 import MainCard from '@dashboard/_components/MainCard';
-import SiteSetting from '@dashboard/cms/settings/page';
-import MessageSetting from '@dashboard/crm/settings/page';
+import SiteSetting from '@dashboard/(cms)/_components/SiteSetting';
+import MessageSetting from '@dashboard/(crm)/_components/MessageSetting';
 import { Grid, Typography } from '@mui/material';
 
 // project import
