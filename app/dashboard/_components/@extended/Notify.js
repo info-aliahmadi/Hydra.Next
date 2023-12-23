@@ -13,6 +13,7 @@ function Notify({ notify, setNotify, position, sx }) {
   const [open, setOpen] = useState();
   const [t] = useTranslation();
   let description = notify.type == 'error' ? t('notification.error-description') : t('notification.success-description');
+
   if (notify.type === 'error' && notify.description) {
     if (notify.description?.response?.data?.message) {
       description = notify.description?.response?.data?.message;

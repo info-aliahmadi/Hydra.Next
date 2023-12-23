@@ -14,16 +14,16 @@ registerPlugin(
   FilePondPluginGetFile
 );
 // Import FilePond styles
-import '/css/filepond.min.css';
-import '/css/filepond-plugin-image-preview.css';
-import '/css/filepond-plugin-file-poster.min.css';
-import '/css/filepond-plugin-get-file.min.css';
+import '/public/css/filepond.min.css';
+import '/public/css/filepond-plugin-image-preview.css';
+import '/public/css/filepond-plugin-file-poster.min.css';
+import '/public/css/filepond-plugin-get-file.min.css';
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { setTokenBearer } from 'utils/axiosHeaders';
 import CONFIG from 'config';
-import FileStorageService from 'modules/fileStorage/services/FileStorageService';
+import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
 
 const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize, disabled, filePosterMaxHeight, allowMultiple }) => {
   const [files, setFiles] = useState([]);

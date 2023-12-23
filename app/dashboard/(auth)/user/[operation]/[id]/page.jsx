@@ -42,11 +42,11 @@ import { useTranslation } from 'react-i18next';
 import CONFIG from 'config';
 import MainCard from '@dashboard/_components/MainCard';
 import languageList from 'Localization/languageList';
-import DeleteUser from '../../../_components/DeleteUser';
+import DeleteUser from '../../../_components/User/DeleteUser';
 import setServerErrors from 'utils/setServerErrors';
 import Notify from '@dashboard/_components/@extended/Notify';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
-import SelectRole from '@dashboard/(auth)/role/SelectRole';
+import SelectRole from '@dashboard/(auth)/_components/Role/SelectRole';
 import { useRouter } from 'next/navigation';
 
 export default function AddOrEditUser({params}) {
@@ -179,9 +179,6 @@ export default function AddOrEditUser({params}) {
                 <Grid item>
                   <MainCard>
                     <Grid container spacing={3} direction="column">
-                      <Grid item xs={12} md={12}>
-                        <Divider textAlign="left">{t('pages.cards.user-profile')}</Divider>
-                      </Grid>
                       <Grid container item spacing={0} direction="row" justifyContent="flex-end" alignItems="flex-start">
                         <Grid item xs={12} md={2}>
                           <Stack justifyContent="center" alignItems="center">
@@ -505,13 +502,13 @@ export default function AddOrEditUser({params}) {
                                 <Button
                                   size="large"
                                   onClick={() => {
-                                    router.push('/user/list');
+                                    router.back();
                                   }}
                                   variant="outlined"
                                   color="secondary"
                                   startIcon={<ArrowBack />}
                                 >
-                                  {t('buttons.cancel')}
+                                  {t('buttons.back')}
                                 </Button>
                               </AnimateButton>
                               <AnimateButton>

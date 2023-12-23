@@ -1,10 +1,15 @@
+'use client';
 // Import React FilePond
 import { useTranslation } from 'react-i18next';
 import { setTokenBearer } from 'utils/axiosHeaders';
 import CONFIG from 'config';
-import FileStorageService from 'modules/fileStorage/services/FileStorageService';
-import SunEditor from 'suneditor-react';
-import '/css/suneditor.min.css';
+import dynamic from 'next/dynamic';
+const SunEditor = dynamic(() => import('suneditor-react'), {
+  ssr: false
+});
+// import SunEditor from 'suneditor-react';
+import '/public/css/suneditor.min.css';
+import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
 
 const Editor = ({ id, name, setFieldValue, error, defaultValue, height, minHeight, placeholder }) => {
   const [t, i18n] = useTranslation();

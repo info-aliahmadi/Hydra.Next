@@ -15,7 +15,7 @@ import Save from '@mui/icons-material/Save';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MessagesService from '../_service/MessagesService';
-import SelectUser from '@dashboard/(auth)/_components/SelectUser';
+import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const MessageSetting = () => {

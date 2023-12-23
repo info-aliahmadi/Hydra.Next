@@ -13,7 +13,7 @@ import CONFIG from 'config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-import SelectTag from '../../Tags/SelectTag';
+import SelectTag from '../../_components/Tag/SelectTag';
 import DeletePage from '../DeletePage';
 import Notify from '@dashboard/_components/@extended/Notify';
 // ===============================|| COLOR BOX ||=============================== //

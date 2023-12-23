@@ -22,7 +22,7 @@ const pages = {
       id: 'article',
       title: 'Articles',
       type: 'item',
-      url: '/ArticlesList',
+      url: '/dashboard/article/list',
       icon: icons.Article,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -31,7 +31,7 @@ const pages = {
       id: 'page',
       title: 'Pages',
       type: 'item',
-      url: '/PagesList',
+      url: '/dashboard/page/list',
       icon: icons.Description,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -40,7 +40,7 @@ const pages = {
       id: 'topic',
       title: 'Topics',
       type: 'item',
-      url: '/TopicsList',
+      url: '/dashboard/topic/list',
       icon: icons.Topic,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -49,7 +49,7 @@ const pages = {
       id: 'menus',
       title: 'Menus',
       type: 'item',
-      url: '/MenusList',
+      url: '/dashboard/menu/list',
       icon: icons.Menu,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -58,7 +58,7 @@ const pages = {
       id: 'slideshow',
       title: 'Slideshow',
       type: 'item',
-      url: '/SlideshowsList',
+      url: '/dashboard/slideshows/list',
       icon: icons.Slideshow,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -67,7 +67,7 @@ const pages = {
       id: 'links',
       title: 'Links',
       type: 'item',
-      url: '/dashboard/Link/List',
+      url: '/dashboard/link/list',
       icon: icons.Link,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'

@@ -12,7 +12,7 @@ import MainCard from '@dashboard/_components/MainCard';
 import setServerErrors from 'utils/setServerErrors';
 import { useRouter } from 'next/navigation';
 import MessagesService from '@dashboard/(crm)/_service/MessagesService';
-import SelectUser from '@dashboard/(auth)/_components/SelectUser';
+import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';
 import Editor from '@dashboard/_components/Editor/Editor';
 import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 
