@@ -1,31 +1,26 @@
 // material-ui
-import { Box, Chip, IconButton, Link, Tooltip } from '@mui/material';
+import { Box, IconButton, Link, Tooltip } from '@mui/material';
 
 // project import
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import MessagesService from 'modules/crm/services/MessagesService';
-import { DeleteSweep, AttachFile, Person } from '@mui/icons-material';
+import { AttachFile, RestoreFromTrash } from '@mui/icons-material';
 import Notify from '@dashboard/_components/@extended/Notify';
-import MessageTypeChip from '../MessageTypeChip';
-import RemoveDraftMessage from '../RemoveDraftMessage';
-import { MessageTypes } from '../MessageType';
+import MessageTypeChip from './MessageTypeChip';
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
-import { useRouter } from 'next/navigation';
+import { MessageTypes } from './MessageType';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
 // ===============================|| COLOR BOX ||=============================== //
 
-export default function MessagesDraftDataGrid() {
+export default function MessagesTrashDataGrid() {
   const [t] = useTranslation();
 
-  const [openDelete, setOpenDelete] = useState(false);
-  const [row, setRow] = useState({});
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
-  const router = useRouter();
 
-  const messagesService = new MessagesService();
+  const messagesService = new MessageService();
 
   const fieldsName = 'fields.message.messageInbox.';
 
@@ -52,9 +47,9 @@ export default function MessagesDraftDataGrid() {
         enableResizing: true,
         Cell: ({ renderedCellValue, row }) => (
           <Link
-            href={'/message/edit/' + row.original.id}
+            href={'/message/inbox/view/' + row.original.id}
             underline="none"
-            variant={row.original.isDraft ? 'subtitle2' : 'subtitle1'}
+            variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
             display="block"
           >
             {renderedCellValue}
@@ -63,32 +58,34 @@ export default function MessagesDraftDataGrid() {
         )
       },
       {
-        accessorKey: 'toUsers',
-        header: t(fieldsName + 'toUsers'),
+        accessorKey: 'fromUser',
+        header: t(fieldsName + 'fromUser'),
         enableClickToCopy: false,
         type: 'string',
         enableResizing: true,
         maxSize: 100,
         Cell: ({ renderedCellValue, row }) =>
-          renderedCellValue.length > 0 &&
-          renderedCellValue.map((user) => {
-            return (
-              <Chip
-                key={user?.toUserId}
-                onClick={() => {
-                  router.push('/dashboard/message/new/0/' + user?.toUserId);
-                }}
-                icon={<Person />}
-                title={user?.toUser?.name}
-                label={user?.toUser?.userName}
-                variant="filled"
-                size="medium"
-                sx={{ borderRadius: '16px', m: '0 2px' }}
-              />
-            );
-          })
+          row.original.fromUserId > 0 ? (
+            <Link
+              href={'/message/inbox/view/' + row.original.id}
+              underline="none"
+              title={renderedCellValue.email}
+              variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
+              display="block"
+            >
+              {renderedCellValue.name}
+            </Link>
+          ) : (
+            <Link
+              href={'/sendEmail/' + row.original.email}
+              title={row.original.email}
+              variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
+              display="block"
+            >
+              {row.original.name ? row.original.name : row.original.email}
+            </Link>
+          )
       },
-
       {
         accessorKey: 'registerDate',
         header: t(fieldsName + 'registerDate'),
@@ -98,24 +95,32 @@ export default function MessagesDraftDataGrid() {
     ],
     []
   );
-  const handleRemoveRow = (row) => {
-    setRow(row);
-    setOpenDelete(true);
-  };
+
   const handleRefetch = () => {
     setRefetch(Date.now());
   };
-
+  const handleRestoreRow = (row) => {
+    let messageId = row.original.id;
+    messagesService
+      .restoreMessage(messageId)
+      .then(() => {
+        setNotify({ open: true });
+        handleRefetch();
+      })
+      .catch((error) => {
+        setNotify({ open: true, type: 'error', description: error });
+      });
+  };
   const handleMessageList = useCallback(async (filters) => {
-    return await messagesService.getDraftMessages(filters);
+    return await messagesService.getDeletedInboxMessages(filters);
   }, []);
 
-  const Remove = useCallback(
+  const Restore = useCallback(
     ({ row }) => (
       <Box sx={{ display: 'flex', gap: '1rem', flexWrap: 'nowrap' }}>
-        <Tooltip arrow placement="top-start" title={t('buttons.remove')}>
-          <IconButton color="error" onClick={() => handleRemoveRow(row)}>
-            <DeleteSweep />
+        <Tooltip arrow placement="top-start" title={t('buttons.restore')}>
+          <IconButton color="success" onClick={() => handleRestoreRow(row)}>
+            <RestoreFromTrash />
           </IconButton>
         </Tooltip>
       </Box>
@@ -126,14 +131,14 @@ export default function MessagesDraftDataGrid() {
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
-      <MainCard title={t('pages.cards.messagesDraft')}>
+      <MainCard title={t('pages.cards.messagesDeleted')}>
         <TableCard>
           <MaterialTable
             refetch={refetch}
             columns={columns}
             dataApi={handleMessageList}
             enableRowActions={true}
-            renderRowActions={Remove}
+            renderRowActions={Restore}
             displayColumnDefOptions={{
               'mrt-row-actions': {
                 //header: 'Change Account Settings', //change header text
@@ -144,7 +149,6 @@ export default function MessagesDraftDataGrid() {
           />
         </TableCard>
       </MainCard>
-      <RemoveDraftMessage row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} />
     </>
   );
 }

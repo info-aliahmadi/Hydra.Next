@@ -2,7 +2,7 @@ import axios from 'axios';
 import { setDefaultHeader } from 'utils/axiosHeaders';
 import CONFIG from 'config.js';
 
-export default class MessagesService {
+export default class MessageService {
   constructor() {
     setDefaultHeader();
   }

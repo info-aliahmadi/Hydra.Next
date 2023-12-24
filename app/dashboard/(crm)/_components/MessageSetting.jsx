@@ -14,13 +14,13 @@ import Save from '@mui/icons-material/Save';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import MessagesService from '../_service/MessagesService';
 import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';
+import MessageService from '../_service/MessageService';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const MessageSetting = () => {
   const [t] = useTranslation();
-  let settingsService = new MessagesService();
+  let settingsService = new MessageService();
 
   const [fieldsName, validation, buttonName] = ['fields.message.messageSettings.', 'validation.message.messageSettings', 'buttons.'];
   const [settings, setSettings] = useState();

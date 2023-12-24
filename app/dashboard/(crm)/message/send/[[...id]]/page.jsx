@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import { Button, Checkbox, FormControlLabel, FormHelperText, Grid, InputLabel, OutlinedInput, Stack, Typography } from '@mui/material';
 import { ArrowBack, Save, Send } from '@mui/icons-material';
@@ -11,24 +13,25 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import setServerErrors from 'utils/setServerErrors';
 import { useRouter } from 'next/navigation';
-import MessagesService from '@dashboard/(crm)/_service/MessagesService';
+import MessagesService from '@dashboard/(crm)/_service/MessageService';
 import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';
 import Editor from '@dashboard/_components/Editor/Editor';
 import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 
-
-export default function SendMessage({params}) {
+export default function SendMessage({ params }) {
   const [t] = useTranslation();
-  const operation = params.operation;
-  const toUserId = params.toUser;
-  const id = params.id;
+  debugger;
+  const [id, toUserId] = params.id;
+  let sss = params.id;
+  // const toUserId = params.toUser;
+  // const id = params.id;
 
   let messageService = new MessagesService();
   const [fieldsName, validation, buttonName] = ['fields.message.messageInbox.', 'validation.message.', 'buttons.message.messageInbox.'];
   const [message, setMessage] = useState();
   const [isPublicMessage, setIsPublicMessage] = useState(false);
   const [notify, setNotify] = useState({ open: false });
-  const navigate = useRouter();
+  const router = useRouter();
 
   const loadMessage = () => {
     messageService.getMessageByIdForSender(id).then((result) => {
@@ -36,8 +39,8 @@ export default function SendMessage({params}) {
     });
   };
   useEffect(() => {
-    if (operation == 'edit' && id > 0) loadMessage();
-  }, [operation, id]);
+    if (id > 0) loadMessage();
+  }, [id, toUserId]);
 
   const handleSubmit = async (message, resetForm, setErrors, setSubmitting) => {
     if (!message.isDraft) {
@@ -46,7 +49,7 @@ export default function SendMessage({params}) {
         messageService
           .sendPublicMessage(message)
           .then(() => {
-            if (operation == 'new') {
+            if (!(id > 0)) {
               resetForm();
               setSubmitting(true);
             }
@@ -61,7 +64,7 @@ export default function SendMessage({params}) {
         messageService
           .sendPrivateMessage(message)
           .then(() => {
-            if (operation == 'new') {
+            if (!(id > 0)) {
               resetForm();
               setSubmitting(true);
             }
@@ -123,7 +126,7 @@ export default function SendMessage({params}) {
             handleSubmit(values, resetForm, setErrors, setSubmitting);
           } catch (err) {
             console.error(err);
-            setStatus({ success: false }); 
+            setStatus({ success: false });
             setErrors({ submit: err.message });
             setSubmitting(false);
           }
@@ -149,7 +152,7 @@ export default function SendMessage({params}) {
                               multiple={true}
                               disabled={isPublicMessage}
                               setFieldValue={setFieldValue}
-                              defaultValues={operation == 'edit' ? values?.toUserIds || [] : toUserId > 0 ? [toUserId] : []}
+                              defaultValues={id > 0 ? values?.toUserIds || [] : toUserId > 0 ? [toUserId] : []}
                               error={Boolean(touched.toUserIds && errors.toUserIds)}
                             />
                             {touched.toUserIds && errors.toUserIds && (
@@ -247,7 +250,7 @@ export default function SendMessage({params}) {
                               <Button
                                 size="large"
                                 onClick={() => {
-                                  navigate.back();
+                                  router.back();
                                 }}
                                 variant="outlined"
                                 color="secondary"

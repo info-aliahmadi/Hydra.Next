@@ -1,19 +1,17 @@
 // material-ui
-import { Box, Chip, IconButton, Link, Tooltip } from '@mui/material';
+import { Chip, Link } from '@mui/material';
 
 // project import
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import MessagesService from 'modules/crm/services/MessagesService';
-import { DeleteSweep, AttachFile, Person } from '@mui/icons-material';
-import Notify from '@dashboard/_components/@extended/Notify';
-import MessageTypeChip from '../MessageTypeChip';
-import RemoveDraftMessage from '../RemoveDraftMessage';
+import { AttachFile, Person } from '@mui/icons-material';
+import MessageTypeChip from './MessageTypeChip';
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
-import { MessageTypes } from '../MessageType';
+import { MessageTypes } from './MessageType';
 import { useRouter } from 'next/navigation';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function MessagesOutboxDataGrid() {
@@ -21,7 +19,7 @@ export default function MessagesOutboxDataGrid() {
   const [refetch, setRefetch] = useState();
   const router = useRouter();
 
-  const messagesService = new MessagesService();
+  const messagesService = new MessageService();
 
   const fieldsName = 'fields.message.messageInbox.';
 
@@ -47,7 +45,7 @@ export default function MessagesOutboxDataGrid() {
         type: 'string',
         enableResizing: true,
         Cell: ({ renderedCellValue, row }) => (
-          <Link href={'/message/outbox/view/' + row.original.id} underline="none" variant={'subtitle2'} display="block">
+          <Link href={'/dashboard/message/outbox/' + row.original.id} underline="none" variant={'subtitle2'} display="block">
             {renderedCellValue}
             {row.original.haveAttachment && <AttachFile fontSize="medium" sx={{ verticalAlign: 'middle' }} />}
           </Link>
@@ -67,7 +65,7 @@ export default function MessagesOutboxDataGrid() {
               <Chip
                 key={user?.toUserId}
                 onClick={() => {
-                  router.push('/dashboard/message/new/0/' + user?.toUserId);
+                  router.push('/dashboard/message/send/0/' + user?.toUserId);
                 }}
                 icon={<Person />}
                 title={user?.toUser?.name}

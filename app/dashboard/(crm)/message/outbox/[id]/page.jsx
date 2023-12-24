@@ -1,14 +1,15 @@
+'use client'
+
 import { useEffect, useState } from 'react';
 
 
-import MessagesService from 'modules/crm/services/MessagesService';
-
-import ViewMessage from './ViewMessage';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
+import ViewMessage from '@dashboard/(crm)/_components/message/ViewMessage';
 
 export default function ViewOutboxMessage({params}) {
   const id = params.id;
 
-  let messageService = new MessagesService();
+  let messageService = new MessageService();
   const [message, setMessage] = useState();
 
   const loadMessage = () => {

@@ -6,7 +6,6 @@ import { Box, Card, CircularProgress, Grid, Stack, Typography } from '@mui/mater
 // project import
 import MainCard from '@dashboard/_components/MainCard';
 import ComponentSkeleton from './ComponentSkeleton';
-import Authorize from 'modules/auth/services/Authorization/Authorize';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -62,7 +61,6 @@ const ComponentColor = () => (
   <ComponentSkeleton>
     <Grid container spacing={3}>
       <Grid item xs={12} sm={6} md={4}>
-        <Authorize permission="admin">
           <MainCard title="Primary Color">
             <Stack>
               <ColorBox bgcolor="primary.lighter" data={{ label: 'Blue-1', color: '#e6f7ff' }} title="primary.lighter" dark />
@@ -77,7 +75,6 @@ const ComponentColor = () => (
               <ColorBox bgcolor="primary.900" data={{ label: 'Blue-10', color: '#002766' }} title="primary.900" />
             </Stack>
           </MainCard>
-        </Authorize>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <MainCard title="Secondary Color" codeHighlight>

@@ -5,12 +5,12 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 import MainCard from '@dashboard/_components/MainCard';
 
-import FileUpload from 'components/FileUpload/FileUpload';
-import MessageTypeChip from '../MessageTypeChip';
+import MessageTypeChip from './MessageTypeChip';
 import CONFIG from 'config';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';
+import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 
 export default function ViewMessage({ message, fromPage }) {
   const [fieldsName, buttonName] = ['fields.message.messageInbox.', 'buttons.message.messageInbox.'];

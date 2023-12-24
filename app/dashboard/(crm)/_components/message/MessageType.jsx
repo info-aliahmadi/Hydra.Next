@@ -1,5 +1,3 @@
-import { Chip } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 // ===============================|| COLOR BOX ||=============================== //
 
 export const renderColor = (m) => {

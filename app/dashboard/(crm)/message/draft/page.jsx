@@ -1,12 +1,16 @@
-// material-ui
+'use client';
 import { Button, Grid, Typography } from '@mui/material';
 
 // project import
 import { useTranslation } from 'react-i18next';
-import { Send } from '@mui/icons-material';
+import { ArrowBack, Send } from '@mui/icons-material';
 
-import MessagesDraftDataGrid from './MessagesDraftDataGrid';
 import { useRouter } from 'next/navigation';
+import MessagesDraftDataGrid from '@dashboard/(crm)/_components/message/MessagesDraftDataGrid';
+import MainCard from '@dashboard/_components/MainCard';
+import TableCard from '@dashboard/_components/TableCard';
+import Link from 'next/link';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -20,18 +24,20 @@ export default function MessagesOutbox() {
     return (
       <Grid container item direction="row" justifyContent="space-between" alignItems="center">
         <Grid item>
-          {
+          <AnimateButton>
             <Button
-              color="primary"
-              variant="contained"
+              size="large"
               onClick={() => {
-                router.push('/dashboard/message/new');
+                router.back();
               }}
-              startIcon={<Send />}
+              variant="outlined"
+              color="secondary"
+              startIcon={<ArrowBack />}
             >
-              {t(buttonName + 'send')}
+            {t('pages.cards.messagesInbox')}
             </Button>
-          }
+          </AnimateButton>
+        
         </Grid>
       </Grid>
     );
@@ -44,7 +50,11 @@ export default function MessagesOutbox() {
             <Typography variant="h5">{t('pages.messagesDraft')}</Typography>
           </Grid>
           <Grid item>
-            <MessagesDraftDataGrid />
+            <MainCard title={<MessageHeader />}>
+              <TableCard>
+                <MessagesDraftDataGrid />
+              </TableCard>
+            </MainCard>
           </Grid>
         </Grid>
       </Grid>

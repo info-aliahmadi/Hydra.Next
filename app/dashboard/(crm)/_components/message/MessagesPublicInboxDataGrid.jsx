@@ -1,14 +1,15 @@
 // material-ui
-import { Chip, Link } from '@mui/material';
+import { Chip } from '@mui/material';
 
 // project import
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import MessagesService from 'modules/crm/services/MessagesService';
 import { AttachFile } from '@mui/icons-material';
 import Notify from '@dashboard/_components/@extended/Notify';
-import { MessageTypes } from '../MessageType';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
+import Link from 'next/link';
+import { MessageTypes } from './MessageType';
 
 function MessagesPublicInboxDataGrid() {
   const [t] = useTranslation();
@@ -16,7 +17,7 @@ function MessagesPublicInboxDataGrid() {
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const messagesService = new MessagesService();
+  const messagesService = new MessageService();
 
   const fieldsName = 'fields.message.messageInbox.';
 
@@ -45,7 +46,7 @@ function MessagesPublicInboxDataGrid() {
         type: 'string',
         enableResizing: true,
         Cell: ({ renderedCellValue, row }) => (
-          <Link href={'/message/inbox/view/' + row.original.id} underline="none" variant="subtitle1" display="block">
+          <Link href={'/dashboard/message/inbox/' + row.original.id} underline="none" variant="subtitle1" display="block">
             {renderedCellValue}
             {row.original.haveAttachment && <AttachFile fontSize="medium" sx={{ verticalAlign: 'middle' }} />}
           </Link>
@@ -60,7 +61,7 @@ function MessagesPublicInboxDataGrid() {
         maxSize: 100,
         Cell: ({ renderedCellValue, row }) => (
           <Link
-            href={'/message/inbox/view/' + row.original.id}
+            href={'/dashboard/message/inbox/' + row.original.id}
             underline="none"
             title={renderedCellValue.email}
             variant="subtitle1"

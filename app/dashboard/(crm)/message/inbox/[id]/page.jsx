@@ -1,14 +1,15 @@
+'use client'
 import { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import MessagesService from 'modules/crm/services/MessagesService';
-import ViewMessage from './ViewMessage';
+import ViewMessage from '../../../_components/message/ViewMessage';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
 
 export default function ViewInboxMessage({params}) {
   const [t, i18n] = useTranslation();
   const id = params.id;
 
-  let messageService = new MessagesService();
+  let messageService = new MessageService();
   const [message, setMessage] = useState();
 
   const loadMessage = () => {

@@ -8,11 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import MessagesService from 'modules/crm/services/MessagesService';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
 
 const RemoveDraftMessage = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let messageService = new MessagesService();
+  let messageService = new MessageService();
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

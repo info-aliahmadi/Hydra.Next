@@ -1,4 +1,4 @@
-// material-ui
+'use client';
 import { Box, Button, Chip, Grid, Typography } from '@mui/material';
 
 // project import
@@ -13,9 +13,10 @@ import { RestoreFromTrash, Send, Drafts } from '@mui/icons-material';
 
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
-import MessagesPrivateInboxDataGrid from './MessagesPrivateInboxDataGrid';
-import MessagesPublicInboxDataGrid from './MessagesPublicInboxDataGrid';
 import { useRouter } from 'next/navigation';
+import MessagesPrivateInboxDataGrid from '@dashboard/(crm)/_components/message/MessagesPrivateInboxDataGrid';
+import MessagesPublicInboxDataGrid from '@dashboard/(crm)/_components/message/MessagesPublicInboxDataGrid';
+import Link from 'next/link';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -34,21 +35,19 @@ function MessagesInbox() {
       <Grid container item direction="row" justifyContent="space-between" alignItems="center">
         <Grid item>
           <Button
+            component={Link}
             color="primary"
             variant="contained"
-            onClick={() => {
-              router.push('/dashboard/message/new');
-            }}
+            href='/dashboard/message/send/0'
             startIcon={<Send />}
           >
             {t(buttonName + 'send')}
-          </Button>{' '}
+          </Button>
           <Button
+            component={Link}
             color="warning"
             variant="contained"
-            onClick={() => {
-              router.push('/dashboard/messages/draft');
-            }}
+            href='/dashboard/message/draft'
             startIcon={<Drafts />}
             sx={{ m: '0 15px' }}
           >
@@ -57,9 +56,9 @@ function MessagesInbox() {
         </Grid>
         <Grid item>
           <Chip
-            href="/messages/inbox/trash"
+            href="/dashboard/message/inbox/trash"
             clickable
-            component="a"
+            component={Link}
             target="_blank"
             icon={<RestoreFromTrash />}
             label={t('pages.messagesTrash')}

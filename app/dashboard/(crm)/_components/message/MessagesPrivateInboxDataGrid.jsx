@@ -5,22 +5,23 @@ import { Box, IconButton, Link, Tooltip } from '@mui/material';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import MessagesService from 'modules/crm/services/MessagesService';
-import { AttachFile, RestoreFromTrash } from '@mui/icons-material';
+import { Delete, PushPin, AttachFile } from '@mui/icons-material';
 import Notify from '@dashboard/_components/@extended/Notify';
-import MessageTypeChip from '../MessageTypeChip';
-import MainCard from '@dashboard/_components/MainCard';
-import TableCard from '@dashboard/_components/TableCard';
-import { MessageTypes } from '../MessageType';
+import MessageService from '@dashboard/(crm)/_service/MessageService';
+import MessageTypeChip from './MessageTypeChip';
+import DeleteMessage from './DeleteMessage';
+import { MessageTypes } from './MessageType';
 // ===============================|| COLOR BOX ||=============================== //
 
-export default function MessagesTrashDataGrid() {
+function MessagesPrivateInboxDataGrid() {
   const [t] = useTranslation();
 
+  const [openDelete, setOpenDelete] = useState(false);
+  const [row, setRow] = useState({});
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const messagesService = new MessagesService();
+  const messagesService = new MessageService();
 
   const fieldsName = 'fields.message.messageInbox.';
 
@@ -47,7 +48,7 @@ export default function MessagesTrashDataGrid() {
         enableResizing: true,
         Cell: ({ renderedCellValue, row }) => (
           <Link
-            href={'/message/inbox/view/' + row.original.id}
+            href={'/dashboard/message/inbox/' + row.original.id}
             underline="none"
             variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
             display="block"
@@ -63,11 +64,12 @@ export default function MessagesTrashDataGrid() {
         enableClickToCopy: false,
         type: 'string',
         enableResizing: true,
+
         maxSize: 100,
         Cell: ({ renderedCellValue, row }) =>
           row.original.fromUserId > 0 ? (
             <Link
-              href={'/message/inbox/view/' + row.original.id}
+              href={'/dashboard/message/inbox/' + row.original.id}
               underline="none"
               title={renderedCellValue.email}
               variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
@@ -86,6 +88,7 @@ export default function MessagesTrashDataGrid() {
             </Link>
           )
       },
+
       {
         accessorKey: 'registerDate',
         header: t(fieldsName + 'registerDate'),
@@ -95,16 +98,18 @@ export default function MessagesTrashDataGrid() {
     ],
     []
   );
-
+  const handleDeleteRow = (row) => {
+    setRow(row);
+    setOpenDelete(true);
+  };
   const handleRefetch = () => {
     setRefetch(Date.now());
   };
-  const handleRestoreRow = (row) => {
-    let messageId = row.original.id;
+
+  const handlePinRow = (messageId) => {
     messagesService
-      .restoreMessage(messageId)
+      .pinMessage(messageId)
       .then(() => {
-        setNotify({ open: true });
         handleRefetch();
       })
       .catch((error) => {
@@ -112,15 +117,21 @@ export default function MessagesTrashDataGrid() {
       });
   };
   const handleMessageList = useCallback(async (filters) => {
-    return await messagesService.getDeletedInboxMessages(filters);
+    return await messagesService.getInboxMessages(filters);
   }, []);
 
-  const Restore = useCallback(
+  const DeleteOrPin = useCallback(
     ({ row }) => (
       <Box sx={{ display: 'flex', gap: '1rem', flexWrap: 'nowrap' }}>
-        <Tooltip arrow placement="top-start" title={t('buttons.restore')}>
-          <IconButton color="success" onClick={() => handleRestoreRow(row)}>
-            <RestoreFromTrash />
+        <Tooltip arrow placement="top-start" title={t('buttons.delete')}>
+          <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+            <Delete />
+          </IconButton>
+        </Tooltip>
+
+        <Tooltip arrow placement="top-start" title={t('buttons.pin')}>
+          <IconButton onClick={() => handlePinRow(row.original.id)} color={row.original.toUser.isPin ? 'warning' : 'secondary'}>
+            <PushPin />
           </IconButton>
         </Tooltip>
       </Box>
@@ -131,24 +142,23 @@ export default function MessagesTrashDataGrid() {
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
-      <MainCard title={t('pages.cards.messagesDeleted')}>
-        <TableCard>
-          <MaterialTable
-            refetch={refetch}
-            columns={columns}
-            dataApi={handleMessageList}
-            enableRowActions={true}
-            renderRowActions={Restore}
-            displayColumnDefOptions={{
-              'mrt-row-actions': {
-                //header: 'Change Account Settings', //change header text
-                size: 40 //make actions column wider
-              }
-            }}
-            defaultDensity="compact"
-          />
-        </TableCard>
-      </MainCard>
+      <MaterialTable
+        refetch={refetch}
+        columns={columns}
+        dataApi={handleMessageList}
+        enableRowActions={true}
+        renderRowActions={DeleteOrPin}
+        displayColumnDefOptions={{
+          'mrt-row-actions': {
+            //header: 'Change Account Settings', //change header text
+            size: 40 //make actions column wider
+          }
+        }}
+        defaultDensity="compact"
+      />
+      <DeleteMessage row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} />
     </>
   );
 }
+
+export default MessagesPrivateInboxDataGrid;

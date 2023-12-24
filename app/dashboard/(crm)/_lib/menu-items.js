@@ -19,7 +19,7 @@ const pages = {
       id: 'messageInbox',
       title: 'Message Inbox',
       type: 'item',
-      url: '/messages/inbox',
+      url: '/dashboard/message/inbox',
       icon: icons.Message,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -28,7 +28,7 @@ const pages = {
       id: 'messageOutbox',
       title: 'Message Outbox',
       type: 'item',
-      url: '/messages/outbox',
+      url: '/dashboard/message/outbox',
       icon: icons.Outbox,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -37,7 +37,7 @@ const pages = {
       id: 'emailInbox',
       title: 'Email Inbox',
       type: 'item',
-      url: '/emails/inbox',
+      url: '/dashboard/email/inbox',
       icon: icons.Email,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
@@ -46,7 +46,7 @@ const pages = {
       id: 'emailOutbox',
       title: 'Email Outbox',
       type: 'item',
-      url: '/emails/outbox',
+      url: '/dashboard/email/outbox',
       icon: icons.ForwardToInbox,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
