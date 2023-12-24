@@ -25,38 +25,38 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import setServerErrors from 'utils/setServerErrors';
-import TagsService from '@dashboard/(cms)/_service/TagsService';
+import LinkSectionService from '@dashboard/(cms)/_service/LinkSectionService';
 
-const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
+const AddOrEditLinkSection = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let tagService = new TagsService();
-  const [fieldsName, validation, buttonName] = ['fields.tag.', 'validation.tag.', 'buttons.tag.'];
-  const [tag, setTag] = useState();
+  let linkSectionService = new LinkSectionService();
+  const [fieldsName, validation, buttonName] = ['fields.linkSection.', 'validation.linkSection.', 'buttons.linkSection.'];
+  const [linkSection, setLinkSection] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const loadTag = () => {
-    tagService.getTagById(row?.original?.id).then((result) => {
-      setTag(result);
+  const loadLinkSection = () => {
+    linkSectionService.getLinkSectionById(row?.original?.id).then((result) => {
+      setLinkSection(result);
     });
   };
   const onClose = () => {
     setOpen(false);
-    setTag({});
+    setLinkSection({});
   };
   useEffect(() => {
     if (isNew == false && row?.original?.id > 0) {
-      loadTag();
+      loadLinkSection();
     } else {
-      setTag({});
+      setLinkSection({});
     }
   }, [row, isNew, open]);
 
-  const handleSubmit = (tag, setErrors) => {
+  const handleSubmit = (linkSection, setErrors) => {
     if (isNew == true) {
-      tagService
-        .addTag(tag)
+      linkSectionService
+        .addLinkSection(linkSection)
         .then(() => {
-          setTag({});
+          setLinkSection({});
           onClose();
           setNotify({ open: true });
           refetch();
@@ -66,10 +66,10 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
           setServerErrors(error, setErrors);
         });
     } else {
-      tagService
-        .updateTag(tag)
+      linkSectionService
+        .updateLinkSection(linkSection)
         .then(() => {
-          setTag({});
+          setLinkSection({});
           onClose();
           setNotify({ open: true });
           refetch();
@@ -98,17 +98,21 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
-      <Dialog open={open} fullWidth={'xs'}>
+      <Dialog open={open} fullWidth={true}>
         <Formik
           initialValues={{
-            id: tag?.id,
-            title: tag?.title
+            id: linkSection?.id,
+            title: linkSection?.title,
+            key: linkSection?.key
           }}
           enableReinitialize={true}
           validationSchema={Yup.object().shape({
+            key: Yup.string()
+              .max(255)
+              .required(t(validation + 'requiredKey')),
             title: Yup.string()
               .max(255)
-              .required(t(validation + 'requiredTagTitle'))
+              .required(t(validation + 'requiredTitle'))
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -120,14 +124,35 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
             }
           }}
         >
-          {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+          {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (
             <form noValidate onSubmit={handleSubmit}>
               <DialogTitle>
-                {isNew == true ? t('dialog.tag.add') : t('dialog.edit.title', { item: values.title })}
+                {isNew == true ? t('dialog.linkSection.add') : t('dialog.edit.title', { item: values.key })}
                 <CloseDialog />
               </DialogTitle>
               <DialogContent>
                 <Grid container spacing={3} direction="column">
+                  <Grid item>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="key">{t(fieldsName + 'key')}</InputLabel>
+                      <OutlinedInput
+                        id="key"
+                        type="text"
+                        value={values?.key || ''}
+                        name="key"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder={t(fieldsName + 'key')}
+                        fullWidth
+                        error={Boolean(touched.key && errors.key)}
+                      />
+                      {touched.key && errors.key && (
+                        <FormHelperText error id="helper-text-key">
+                          {errors.key}
+                        </FormHelperText>
+                      )}
+                    </Stack>
+                  </Grid>
                   <Grid item>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="title">{t(fieldsName + 'title')}</InputLabel>
@@ -178,4 +203,4 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
   );
 };
 
-export default AddOrEditTag;
+export default AddOrEditLinkSection;

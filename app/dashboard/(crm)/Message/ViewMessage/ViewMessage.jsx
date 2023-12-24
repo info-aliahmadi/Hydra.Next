@@ -3,7 +3,6 @@ import { ArrowBack, Reply, EventNote, Person } from '@mui/icons-material';
 
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
-import { useNavigate } from 'react-router-dom';
 import MainCard from '@dashboard/_components/MainCard';
 
 import FileUpload from 'components/FileUpload/FileUpload';
@@ -11,10 +10,11 @@ import MessageTypeChip from '../MessageTypeChip';
 import CONFIG from 'config';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/navigation';
 
 export default function ViewMessage({ message, fromPage }) {
   const [fieldsName, buttonName] = ['fields.message.messageInbox.', 'buttons.message.messageInbox.'];
-  const navigate = useNavigate();
+  const router = useRouter();
   const [t, i18n] = useTranslation();
   return (
     <>
@@ -38,8 +38,8 @@ export default function ViewMessage({ message, fromPage }) {
                             <Tooltip title={t('tooltips.reply')}>
                               <Chip
                                 onClick={() => {
-                                  navigate(
-                                    message?.fromUserId > 0 ? '/message/new/0/' + message?.fromUserId : '/email/new/0/' + message?.email
+                                  router.push(
+                                    message?.fromUserId > 0 ? '/dashboard/message/new/0/' + message?.fromUserId : '/dashboard/email/new/0/' + message?.email
                                   );
                                 }}
                                 icon={<Person />}
@@ -62,7 +62,7 @@ export default function ViewMessage({ message, fromPage }) {
                                 <Tooltip title={t('tooltips.reply')} key={user?.toUserId}>
                                   <Chip
                                     onClick={() => {
-                                      navigate('/message/new/0/' + user?.toUserId);
+                                      router.push('/dashboard/message/new/0/' + user?.toUserId);
                                     }}
                                     icon={<Person />}
                                     title={user?.toUser?.name}
@@ -138,7 +138,7 @@ export default function ViewMessage({ message, fromPage }) {
                         <Button
                           size="large"
                           onClick={() => {
-                            navigate(-1);
+                            router.back();
                           }}
                           variant="outlined"
                           color="secondary"
@@ -155,8 +155,8 @@ export default function ViewMessage({ message, fromPage }) {
                             variant="contained"
                             color="info"
                             onClick={() => {
-                              navigate(
-                                message?.fromUserId > 0 ? '/message/new/0/' + message?.fromUserId : '/email/new/0/' + message?.email
+                              router.push(
+                                message?.fromUserId > 0 ? '/dashboard/message/new/0/' + message?.fromUserId : '/dashboard/email/new/0/' + message?.email
                               );
                             }}
                             startIcon={<Reply />}

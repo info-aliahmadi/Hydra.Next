@@ -6,13 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { Send } from '@mui/icons-material';
 
 import MessagesDraftDataGrid from './MessagesDraftDataGrid';
+import { useRouter } from 'next/navigation';
 
-import { useNavigate } from 'react-router-dom';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function MessagesOutbox() {
   const [t] = useTranslation();
-  let navigate = useNavigate();
+  let router = useRouter();
 
   const buttonName = 'buttons.message.messageInbox.';
 
@@ -25,7 +25,7 @@ export default function MessagesOutbox() {
               color="primary"
               variant="contained"
               onClick={() => {
-                navigate('/message/new');
+                router.push('/dashboard/message/new');
               }}
               startIcon={<Send />}
             >

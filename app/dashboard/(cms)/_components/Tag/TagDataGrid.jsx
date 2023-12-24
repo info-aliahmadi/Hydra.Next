@@ -5,14 +5,15 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Edit, Topic, Add, Delete } from '@mui/icons-material';
-import AddOrEditTopic from './AddOrEditTopic';
-import DeleteTopic from './DeleteTopic';
-import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import { Edit, Tag, Add, Delete } from '@mui/icons-material';
+import TagsService from '@dashboard/(cms)/_service/TagsService';
+import AddOrEditTag from './AddOrEditTag';
+import DeleteTag from './DeleteTag';
 
-function TopicDataGrid() {
+
+function TagDataGrid() {
   const [t] = useTranslation();
-  const service = new TopicsService();
+  const service = new TagsService();
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -23,7 +24,7 @@ function TopicDataGrid() {
     () => [
       {
         accessorKey: 'title',
-        header: 'Topic Name',
+        header: t('fields.tag.title'),
         enableClickToCopy: true,
         type: 'string'
         // filterVariant: 'text' | 'select' | 'multi-select' | 'range' | 'range-slider' | 'checkbox',
@@ -50,13 +51,14 @@ function TopicDataGrid() {
     setRefetch(Date.now());
   };
 
-  const handleTopicList = useCallback(() => {
-    return service.getTopicList();
+  const handleTagList = useCallback(async (filters) => {
+    return await service.getTagList(filters);
   }, []);
+
   const AddRow = useCallback(
     () => (
-      <Button color="primary" onClick={() => handleNewRow(null)} variant="contained" startIcon={<Topic />}>
-        {t('buttons.topic.addMainTopic')}
+      <Button color="primary" onClick={() => handleNewRow(null)} variant="contained" startIcon={<Tag />}>
+        {t('buttons.tag.add')}
       </Button>
     ),
     []
@@ -64,19 +66,14 @@ function TopicDataGrid() {
   const DeleteOrEdit = useCallback(
     ({ row }) => (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
-        <Tooltip arrow placement="top-start" title={t('buttons.topic.delete')}>
+        <Tooltip arrow placement="top-start" title={t('buttons.tag.delete')}>
           <IconButton color="error" onClick={() => handleDeleteRow(row)}>
             <Delete />
           </IconButton>
         </Tooltip>
-        <Tooltip arrow placement="top-start" title={t('buttons.topic.edit')}>
+        <Tooltip arrow placement="top-start" title={t('buttons.tag.edit')}>
           <IconButton onClick={() => handleEditRow(row)}>
             <Edit />
-          </IconButton>
-        </Tooltip>
-        <Tooltip arrow placement="top-start" title={t('buttons.topic.addSubTopic')}>
-          <IconButton onClick={() => handleNewRow(row)}>
-            <Add />
           </IconButton>
         </Tooltip>
       </Box>
@@ -90,27 +87,17 @@ function TopicDataGrid() {
           <MaterialTable
             refetch={refetch}
             columns={columns}
-            dataApi={handleTopicList}
-            enableExpanding={true}
-            enableExpandAll={true}
-            getSubRows={(originalRow) => originalRow.childs}
-            enablePagination={false}
-            enableColumnOrdering={false}
-            enableColumnFilters={false}
-            enableColumnResizing={false}
-            enableBottomToolbar={false}
-            enableGlobalFilterModes={false}
-            enableColumnFilterModes={false}
+            dataApi={handleTagList}
             enableRowActions
             renderRowActions={DeleteOrEdit}
             // renderTopToolbarCustomActions={AddRow}
           />
         </TableCard>
       </MainCard>
-      <AddOrEditTopic isNew={isNew} row={row} open={open} setOpen={setOpen} refetch={handleRefetch} />
-      <DeleteTopic row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} />
+      <AddOrEditTag isNew={isNew} row={row} open={open} setOpen={setOpen} refetch={handleRefetch} />
+      <DeleteTag row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} />
     </>
   );
 }
 
-export default TopicDataGrid;
+export default TagDataGrid;

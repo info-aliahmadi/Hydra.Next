@@ -25,38 +25,39 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import setServerErrors from 'utils/setServerErrors';
-import TagsService from '@dashboard/(cms)/_service/TagsService';
+import MenuService from '@dashboard/(cms)/_service/MenuService';
+import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
 
-const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
+const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let tagService = new TagsService();
-  const [fieldsName, validation, buttonName] = ['fields.tag.', 'validation.tag.', 'buttons.tag.'];
-  const [tag, setTag] = useState();
+  let menuService = new MenuService();
+  const [fieldsName, validation, buttonName] = ['fields.menu.', 'validation.menu.', 'buttons.menu.'];
+  const [menu, setMenu] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const loadTag = () => {
-    tagService.getTagById(row?.original?.id).then((result) => {
-      setTag(result);
+  const loadMenu = () => {
+    menuService.getMenuById(row?.original?.id).then((result) => {
+      setMenu(result);
     });
   };
   const onClose = () => {
     setOpen(false);
-    setTag({});
+    setMenu({});
   };
   useEffect(() => {
     if (isNew == false && row?.original?.id > 0) {
-      loadTag();
+      loadMenu();
     } else {
-      setTag({});
+      setMenu({});
     }
   }, [row, isNew, open]);
 
-  const handleSubmit = (tag, setErrors) => {
+  const handleSubmit = (menu, setErrors) => {
     if (isNew == true) {
-      tagService
-        .addTag(tag)
+      menuService
+        .addMenu(menu)
         .then(() => {
-          setTag({});
+          setMenu({});
           onClose();
           setNotify({ open: true });
           refetch();
@@ -66,10 +67,10 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
           setServerErrors(error, setErrors);
         });
     } else {
-      tagService
-        .updateTag(tag)
+      menuService
+        .updateMenu(menu)
         .then(() => {
-          setTag({});
+          setMenu({});
           onClose();
           setNotify({ open: true });
           refetch();
@@ -98,17 +99,23 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
-      <Dialog open={open} fullWidth={'xs'}>
+      <Dialog open={open} fullWidth={true}>
         <Formik
           initialValues={{
-            id: tag?.id,
-            title: tag?.title
+            id: menu?.id,
+            title: menu?.title,
+            url: menu?.url,
+            previewImageId: menu?.previewImageId,
+            parentId: row?.original?.id > 0 && isNew == true ? row?.original?.id : menu?.parentId
           }}
           enableReinitialize={true}
           validationSchema={Yup.object().shape({
             title: Yup.string()
               .max(255)
-              .required(t(validation + 'requiredTagTitle'))
+              .required(t(validation + 'requiredMenuTitle')),
+            url: Yup.string()
+              .max(255)
+              .required(t(validation + 'requiredMenuUrl'))
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -120,10 +127,14 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
             }
           }}
         >
-          {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+          {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (
             <form noValidate onSubmit={handleSubmit}>
               <DialogTitle>
-                {isNew == true ? t('dialog.tag.add') : t('dialog.edit.title', { item: values.title })}
+                {isNew == true
+                  ? row
+                    ? t('dialog.menu.addSub', { parentTitle: '"' + row?.original?.title + '"' })
+                    : t('dialog.menu.addMain')
+                  : t('dialog.edit.title', { item: values.title })}
                 <CloseDialog />
               </DialogTitle>
               <DialogContent>
@@ -147,6 +158,38 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
                           {errors.title}
                         </FormHelperText>
                       )}
+                    </Stack>
+                  </Grid>
+                  <Grid item>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="url">{t(fieldsName + 'url')}</InputLabel>
+                      <OutlinedInput
+                        id="url"
+                        type="text"
+                        value={values?.url || ''}
+                        name="url"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder={t(fieldsName + 'url')}
+                        fullWidth
+                        error={Boolean(touched.url && errors.url)}
+                      />
+                      {touched.url && errors.url && (
+                        <FormHelperText error id="helper-text-url">
+                          {errors.url}
+                        </FormHelperText>
+                      )}
+                    </Stack>
+                  </Grid>
+                  <Grid item>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="previewImageId">{t(fieldsName + 'previewImageId')}</InputLabel>
+                      <ImageUpload
+                        id="previewImageId"
+                        setFieldValue={setFieldValue}
+                        value={values?.previewImageId || ''}
+                        filePosterMaxHeight={400}
+                      />
                     </Stack>
                   </Grid>
                 </Grid>
@@ -178,4 +221,4 @@ const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
   );
 };
 
-export default AddOrEditTag;
+export default AddOrEditMenu;

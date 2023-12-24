@@ -171,7 +171,7 @@ export function ArticlesDataGrid() {
         </Grid>
         <Grid item>
           <Chip
-            href="/ArticlesTrashList"
+            href="/dashboard/article/trash-list"
             clickable
             component="a"
             target="_blank"

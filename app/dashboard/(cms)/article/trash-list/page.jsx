@@ -1,8 +1,9 @@
+'use client'
 // material-ui
+import ArticlesTrashDataGrid from '@dashboard/(cms)/_components/Article/ArticlesTrashDataGrid';
 import { Grid, Typography } from '@mui/material';
 
 // project import
-import ArticleTrashDataGrid from '../../_components/Article/ArticlesTashDataGrid';
 import { useTranslation } from 'react-i18next';
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -16,7 +17,7 @@ function ArticlesTrashList() {
             <Typography variant="h5">{t('pages.articlesTrash')}</Typography>
           </Grid>
           <Grid item>
-            <ArticleTrashDataGrid />
+            <ArticlesTrashDataGrid />
           </Grid>
         </Grid>
       </Grid>

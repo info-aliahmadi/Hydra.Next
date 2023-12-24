@@ -10,16 +10,16 @@ import { DeleteSweep, AttachFile, Person } from '@mui/icons-material';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MessageTypeChip from '../MessageTypeChip';
 import RemoveDraftMessage from '../RemoveDraftMessage';
-import { useNavigate } from 'react-router-dom';
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import { MessageTypes } from '../MessageType';
+import { useRouter } from 'next/navigation';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function MessagesOutboxDataGrid() {
   const [t] = useTranslation();
   const [refetch, setRefetch] = useState();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const messagesService = new MessagesService();
 
@@ -67,7 +67,7 @@ export default function MessagesOutboxDataGrid() {
               <Chip
                 key={user?.toUserId}
                 onClick={() => {
-                  navigate('/message/new/0/' + user?.toUserId);
+                  router.push('/dashboard/message/new/0/' + user?.toUserId);
                 }}
                 icon={<Person />}
                 title={user?.toUser?.name}

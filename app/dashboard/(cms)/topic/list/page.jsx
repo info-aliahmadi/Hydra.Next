@@ -1,6 +1,6 @@
 'use client';
+import TopicDataGrid from '@dashboard/(cms)/_components/Topic/TopicDataGrid';
 // material-ui
-import TopicDataGrid from '@dashboard/(cms)/_components/TopicDataGrid';
 import { Grid, Typography } from '@mui/material';
 
 // project import

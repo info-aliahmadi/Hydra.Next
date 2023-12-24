@@ -8,28 +8,37 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import LinkService from '@dashboard/(cms)/_service/LinkService';
 
-const DeleteTopic = ({ row, open, setOpen, refetch }) => {
+const DeleteLink = ({ row, linkSection, data, setData, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let topicService = new TopicsService();
+  let linkService = new LinkService();
   const [notify, setNotify] = useState({ open: false });
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
-    let topicId = row.original.id;
-    topicService
-      .deleteTopic(topicId)
+    setDisableBtn(true);
+    let linkId = row.original.id;
+    linkService
+      .deleteLink(linkId)
       .then(() => {
         onClose();
+        let index = data.findIndex((x) => x.id == linkId);
+        data.splice(index, 1);
+        setData([...data]);
+        linkSection.original.links = [...data];
         setNotify({ open: true });
         refetch();
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (
@@ -53,7 +62,7 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
       <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
           <Typography variant="caption" fontSize={17} fontWeight={600}>
-            {t('buttons.topic.delete')}
+            {t('buttons.link.delete')}
           </Typography>
           <CloseDialog />
         </DialogTitle>
@@ -67,7 +76,7 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation disable={disableBtn} onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>
@@ -76,4 +85,4 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
   );
 };
 
-export default DeleteTopic;
+export default DeleteLink;

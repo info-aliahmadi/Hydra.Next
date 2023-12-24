@@ -15,13 +15,13 @@ import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import MessagesPrivateInboxDataGrid from './MessagesPrivateInboxDataGrid';
 import MessagesPublicInboxDataGrid from './MessagesPublicInboxDataGrid';
+import { useRouter } from 'next/navigation';
 
-import { useNavigate } from 'react-router-dom';
 // ===============================|| COLOR BOX ||=============================== //
 
 function MessagesInbox() {
   const [t] = useTranslation();
-  let navigate = useNavigate();
+  let router = useRouter();
   const [value, setValue] = useState('1');
 
   const buttonName = 'buttons.message.messageInbox.';
@@ -37,7 +37,7 @@ function MessagesInbox() {
             color="primary"
             variant="contained"
             onClick={() => {
-              navigate('/message/new');
+              router.push('/dashboard/message/new');
             }}
             startIcon={<Send />}
           >
@@ -47,7 +47,7 @@ function MessagesInbox() {
             color="warning"
             variant="contained"
             onClick={() => {
-              navigate('/messages/draft');
+              router.push('/dashboard/messages/draft');
             }}
             startIcon={<Drafts />}
             sx={{ m: '0 15px' }}

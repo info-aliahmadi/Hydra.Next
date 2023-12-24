@@ -58,7 +58,7 @@ const pages = {
       id: 'slideshow',
       title: 'Slideshow',
       type: 'item',
-      url: '/dashboard/slideshows/list',
+      url: '/dashboard/slideshow/list',
       icon: icons.Slideshow,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'

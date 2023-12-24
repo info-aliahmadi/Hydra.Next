@@ -2,14 +2,14 @@ import axios from 'axios';
 import { setDefaultHeader } from 'utils/axiosHeaders';
 import CONFIG from 'config.js';
 
-export default class MenuService {
+export default class SlideshowService {
   constructor() {
     setDefaultHeader();
   }
-  getMenuList = async () => {
+  getSlideshowList = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetMenusHierarchy')
+        .get(CONFIG.API_BASEPATH + '/cms/GetSlideshowList')
         .then((response) => {
           resolve(response.data);
         })
@@ -18,10 +18,10 @@ export default class MenuService {
         });
     });
   };
-  getMenuById = async (menuId) => {
+  getSlideshowById = async (slideshowId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/getMenuById', { params: { menuId: menuId } })
+        .get(CONFIG.API_BASEPATH + '/cms/getSlideshowById', { params: { slideshowId: slideshowId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -30,10 +30,10 @@ export default class MenuService {
         });
     });
   };
-  addMenu = async (menu) => {
+  addSlideshow = async (slideshow) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/cms/addMenu', menu)
+        .post(CONFIG.API_BASEPATH + '/cms/addSlideshow', slideshow)
         .then((response) => {
           resolve(response.data);
         })
@@ -42,10 +42,10 @@ export default class MenuService {
         });
     });
   };
-  updateMenu = async (menu) => {
+  updateSlideshow = async (slideshow) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/cms/updateMenu', menu)
+        .post(CONFIG.API_BASEPATH + '/cms/updateSlideshow', slideshow)
         .then((response) => {
           resolve(response.data.data);
         })
@@ -54,10 +54,11 @@ export default class MenuService {
         });
     });
   };
-  updateMenuOrders = async (menuList) => {
+
+  updateSlideshowOrders = async (slideshowList) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/cms/updateMenuOrders', menuList)
+        .post(CONFIG.API_BASEPATH + '/cms/updateSlideshowOrders', slideshowList)
         .then((response) => {
           resolve(response.data.data);
         })
@@ -66,10 +67,22 @@ export default class MenuService {
         });
     });
   };
-  deleteMenu = async (menuId) => {
+  visibleSlideshow = async (slideshowId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/deleteMenu', { params: { menuId: menuId } })
+        .get(CONFIG.API_BASEPATH + '/cms/VisibleSlideshow', { params: { slideshowId: slideshowId } })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+  deleteSlideshow = async (slideshowId) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(CONFIG.API_BASEPATH + '/cms/deleteSlideshow', { params: { slideshowId: slideshowId } })
         .then((response) => {
           resolve(response.data);
         })

@@ -8,11 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import LinkSectionService from '@dashboard/(cms)/_service/LinkSectionService';
 
-const DeleteTopic = ({ row, open, setOpen, refetch }) => {
+const DeleteLinkSection = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let topicService = new TopicsService();
+  let linkSectionService = new LinkSectionService();
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {
@@ -20,9 +20,9 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
   };
 
   const handleSubmit = () => {
-    let topicId = row.original.id;
-    topicService
-      .deleteTopic(topicId)
+    let linkSectionId = row.original.id;
+    linkSectionService
+      .deleteLinkSection(linkSectionId)
       .then(() => {
         onClose();
         setNotify({ open: true });
@@ -53,7 +53,7 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
       <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
           <Typography variant="caption" fontSize={17} fontWeight={600}>
-            {t('buttons.topic.delete')}
+            {t('buttons.linkSection.delete')}
           </Typography>
           <CloseDialog />
         </DialogTitle>
@@ -76,4 +76,4 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
   );
 };
 
-export default DeleteTopic;
+export default DeleteLinkSection;

@@ -8,11 +8,11 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import MenuService from '@dashboard/(cms)/_service/MenuService';
 
-const DeleteTopic = ({ row, open, setOpen, refetch }) => {
+const DeleteMenu = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let topicService = new TopicsService();
+  let menuService = new MenuService();
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {
@@ -20,9 +20,9 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
   };
 
   const handleSubmit = () => {
-    let topicId = row.original.id;
-    topicService
-      .deleteTopic(topicId)
+    let menuId = row.original.id;
+    menuService
+      .deleteMenu(menuId)
       .then(() => {
         onClose();
         setNotify({ open: true });
@@ -53,7 +53,7 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
       <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
           <Typography variant="caption" fontSize={17} fontWeight={600}>
-            {t('buttons.topic.delete')}
+            {t('buttons.menu.delete')}
           </Typography>
           <CloseDialog />
         </DialogTitle>
@@ -76,4 +76,4 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
   );
 };
 
-export default DeleteTopic;
+export default DeleteMenu;

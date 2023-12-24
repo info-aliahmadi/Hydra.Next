@@ -1,23 +1,47 @@
 'use client';
 // Import React FilePond
-import { useTranslation } from 'react-i18next';
-import { setTokenBearer } from 'utils/axiosHeaders';
-import CONFIG from 'config';
-import dynamic from 'next/dynamic';
-const SunEditor = dynamic(() => import('suneditor-react'), {
-  ssr: false
-});
-// import SunEditor from 'suneditor-react';
-import '/public/css/suneditor.min.css';
-import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import { $getRoot, $getSelection } from 'lexical';
+import { useEffect } from 'react';
 
-const Editor = ({ id, name, setFieldValue, error, defaultValue, height, minHeight, placeholder }) => {
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { TableCellNode, TableNode, TableRowNode } from '@lexical/table';
+import { ListItemNode, ListNode } from '@lexical/list';
+import { CodeHighlightNode, CodeNode } from '@lexical/code';
+import { AutoLinkNode, LinkNode } from '@lexical/link';
+import { TRANSFORMERS } from '@lexical/markdown';
+
+/* Lexical Plugins Remote */
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin';
+import { ListPlugin } from '@lexical/react/LexicalListPlugin';
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin';
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
+
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
+
+import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import { useTranslation } from 'react-i18next';
+import EditorTheme from './EditorTheme';
+
+export default function Editor({ id, name, setFieldValue, error, defaultValue, height, minHeight, placeholder }) {
   const [t, i18n] = useTranslation();
   let isRtl = i18n.dir() == 'rtl' ? true : false;
   var fileUploadService = new FileStorageService();
 
-  function setChange(contents, core) {
-    setFieldValue(id, contents);
+  function setChange(editorState) {
+    debugger;
+    // Call toJSON on the EditorState object, which produces a serialization safe string
+    const editorStateJSON = editorState.toJSON();
+    // However, we still have a JavaScript object, so we need to convert it to an actual string with JSON.stringify
+    setFieldValue(id, JSON.stringify(editorStateJSON));
+    // setFieldValue(id, contents);
   }
   const uploadImage = async (img, uploadHandler) => {
     if (img?.dataset && img?.src.startsWith('data:image')) {
@@ -31,109 +55,54 @@ const Editor = ({ id, name, setFieldValue, error, defaultValue, height, minHeigh
       });
     }
   };
-
+  function onError(error) {
+    console.error(error);
+  }
+  const theme = EditorTheme;
+  // const initialConfig = {
+  //   namespace: 'MyEditor',
+  //   theme,
+  //   onError,
+  // };
+  const editorConfig = {
+    // The editor theme
+    theme: EditorTheme,
+    // namespace: 'daily-standup-editor',
+    // editorState: textDailyStandup,
+    // Handling of errors during update
+    onError,
+    // Any custom nodes go here
+    nodes: [
+      HeadingNode,
+      ListNode,
+      ListItemNode,
+      QuoteNode,
+      CodeNode,
+      CodeHighlightNode,
+      TableNode,
+      TableCellNode,
+      TableRowNode,
+      AutoLinkNode,
+      LinkNode
+    ]
+  };
   return (
-    <SunEditor
-      id={id || 'editor'}
-      name={name || 'editor'}
-      setContents={defaultValue || ''}
-      setDefaultStyle={
-        isRtl ? 'font-family :Iran Sans, sans-serif; font-size: 14px' : 'font-family :"Public Sans", sans-serif; font-size: 14px'
-      }
-      // defaultValue={defaultValue || ''}
-      setAllPlugins={true}
-      onChange={setChange}
-      error={error}
-      onImageUpload={uploadImage}
-      setOptions={{
-        rtl: isRtl,
-        font: isRtl ? CONFIG.RTL_FONTS_EDITOR : CONFIG.LTR_FONTS_EDITOR,
-        height: height || 400,
-        imageGalleryUrl: 'https://localhost:7134/FileStorage/GetGalleyFiles',
-        imageGalleryHeader: {
-          Authorization: setTokenBearer(),
-          UploadAction: 'Rename'
-        },
-        // imageUploadUrl: 'https://localhost:7134/FileStorage/UploadFile',
-        // imageUploadHeader: {
-        //   Authorization: setTokenBearer(),
-        //   'Content-Type': 'multipart/form-data',
-        //   accept: '*/*'
-        // },
-        minHeight: minHeight || 200,
-        templates: [
-          {
-            name: 'Template-1',
-            html: '<p>HTML source1</p>'
-          },
-          {
-            name: 'Template-2',
-            html: '<p>HTML source2</p>'
-          }
-        ],
-        buttonList: [
-          // Default
-          ['undo', 'redo'],
-          ['font', 'fontSize', 'formatBlock'],
-          ['paragraphStyle', 'blockquote'],
-          ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],
-          ['fontColor', 'hiliteColor', 'textStyle'],
-          ['removeFormat'],
-          ['outdent', 'indent'],
-          ['align', 'horizontalRule', 'list', 'lineHeight'],
-          ['table', 'link', 'image', 'video', 'audio'],
-          ['imageGallery'],
-          ['fullScreen', 'showBlocks', 'codeView'],
-          ['preview', 'print', 'template'],
-          ['-left', '#fix', 'dir_ltr', 'dir_rtl'],
-          // (min-width:992px)
-          [
-            '%992',
-            [
-              ['undo', 'redo'],
-              [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
-              ['bold', 'underline', 'italic', 'strike'],
-              [':t-More Text-default.more_text', 'subscript', 'superscript', 'fontColor', 'hiliteColor', 'textStyle'],
-              ['removeFormat'],
-              ['outdent', 'indent'],
-              ['align', 'horizontalRule', 'list', 'lineHeight'],
-              ['-right', 'dir'],
-              ['-right', ':i-More Misc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'template'],
-              ['-right', ':r-More Rich-default.more_plus', 'table', 'link', 'image', 'video', 'audio', 'imageGallery']
-            ]
-          ],
-          // (min-width:768px)
-          [
-            '%768',
-            [
-              ['undo', 'redo'],
-              [':p-More Paragraph-default.more_paragraph', 'font', 'fontSize', 'formatBlock', 'paragraphStyle', 'blockquote'],
-              [
-                ':t-More Text-default.more_text',
-                'bold',
-                'underline',
-                'italic',
-                'strike',
-                'subscript',
-                'superscript',
-                'fontColor',
-                'hiliteColor',
-                'textStyle',
-                'removeFormat'
-              ],
-              [':e-More Line-default.more_horizontal', 'outdent', 'indent', 'align', 'horizontalRule', 'list', 'lineHeight'],
-              [':r-More Rich-default.more_plus', 'table', 'link', 'image', 'video', 'audio', 'imageGallery'],
-              ['-right', 'dir'],
-              ['-right', ':i-More Misc-default.more_vertical', 'fullScreen', 'showBlocks', 'codeView', 'preview', 'print', 'template']
-            ]
-          ]
-        ]
-        //buttonList: buttonList.formatting // Or Array of button list, eg. [['font', 'align'], ['image']]
-        // plugins: [font] set plugins, all plugins are set by default
-        // Other option
-      }}
-      placeholder={placeholder || ''}
-    />
+    <LexicalComposer initialConfig={editorConfig}>
+      <RichTextPlugin
+        contentEditable={<ContentEditable className="editor-input" />}
+        placeholder={<div className="editor-placeholder">Enter some rich text...</div>}
+        ErrorBoundary={LexicalErrorBoundary}
+      />
+      <ListPlugin />
+      <HistoryPlugin />
+      <AutoFocusPlugin />
+      {/* <CodeHighlightPlugin /> */}
+      <LinkPlugin />
+      <TabIndentationPlugin />
+      {/* <AutoLinkPlugin /> */}
+      <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+      <HistoryPlugin />
+      <OnChangePlugin onChange={setChange} />
+    </LexicalComposer>
   );
-};
-export default Editor;
+}

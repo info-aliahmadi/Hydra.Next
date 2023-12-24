@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import {
@@ -113,7 +112,7 @@ const AuthRegister = () => {
                     error={Boolean(touched.lastname && errors.lastname)}
                     id="lastname-signup"
                     type="lastname"
-                    value={values?.lastname|| ''}
+                    value={values?.lastname || ''}
                     name="lastname"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -134,7 +133,7 @@ const AuthRegister = () => {
                     fullWidth
                     error={Boolean(touched.company && errors.company)}
                     id="company-signup"
-                    value={values?.company|| ''}
+                    value={values?.company || ''}
                     name="company"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -156,7 +155,7 @@ const AuthRegister = () => {
                     error={Boolean(touched.email && errors.email)}
                     id="email-login"
                     type="email"
-                    value={values?.email|| ''}
+                    value={values?.email || ''}
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -178,7 +177,7 @@ const AuthRegister = () => {
                     error={Boolean(touched.password && errors.password)}
                     id="password-signup"
                     type={showPassword ? 'text' : 'password'}
-                    value={values?.password|| ''}
+                    value={values?.password || ''}
                     name="password"
                     onBlur={handleBlur}
                     onChange={(e) => {
@@ -223,11 +222,11 @@ const AuthRegister = () => {
               <Grid item xs={12}>
                 <Typography variant="body2">
                   By Signing up, you agree to our &nbsp;
-                  <Link variant="subtitle2" component={RouterLink} to="#">
+                  <Link variant="subtitle2" href="#">
                     Terms of Service
                   </Link>
                   &nbsp; and &nbsp;
-                  <Link variant="subtitle2" component={RouterLink} to="#">
+                  <Link variant="subtitle2" href="#">
                     Privacy Policy
                   </Link>
                 </Typography>
