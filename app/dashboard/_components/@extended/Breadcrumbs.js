@@ -16,7 +16,7 @@ const Breadcrumbs = ({ navigation, title, ...others }) => {
   const [main, setMain] = useState();
   const [item, setItem] = useState();
   const path = usePathname();
-
+debugger
   // set active item state
   const getCollapse = (menu) => {
     if (menu.children) {
@@ -35,6 +35,7 @@ const Breadcrumbs = ({ navigation, title, ...others }) => {
   };
 
   useEffect(() => {
+    debugger
     navigation?.items?.map((menu) => {
       if (menu.type && menu.type === 'group') {
         getCollapse(menu);
