@@ -35,6 +35,7 @@
     "emails": "Emails",
     "emailInbox": "Email Inbox",
     "emailOutbox": "Email Outbox",
+    "subscribe": "Subscribes",
     "fileStorage": "Storage"
   },
   "pages": {
@@ -60,6 +61,7 @@
     "messagesOutbox": "Message Outbox",
     "messagesDraft": "Message Draft",
     "messagesTrash": "Message Trash",
+    "subscribes": "Subscribes",
     "cards": {
       "users-list": "Users List",
       "user-add": "Add New User",
@@ -95,7 +97,10 @@
       "messagesTrash": "Messages Trash",
       "messagesDeleted": "Deleted Messages",
       "siteSettings": "Site Settings",
-      "messageSettings": "Message Settings"
+      "messageSettings": "Message Settings",
+      "subscribes-list": "Subscribes List",
+      "subscribe-add": "Add New Subscribe",
+      "subscribe-edit": "Edit Subscribe"
     }
   },
   "fields": {
@@ -205,6 +210,11 @@
       "imagePreviewId": "Image Preview",
       "userName": "Created By"
     },
+    "subscribe": {
+      "subscribeLabelTitle": "Label",
+      "email": "Email",
+      "insertDate": "Insert Date"
+    },
     "message": {
       "messageInbox": {
         "messageType": {
@@ -293,6 +303,12 @@
       "add": "New Page",
       "edit": "Edit Page",
       "delete": "Delete Page"
+    },
+    "subscribe": {
+      "save": "Save",
+      "add": "New Subscribe",
+      "edit": "Edit Subscribe",
+      "delete": "Delete Subscribe"
     },
     "menu": {
       "add": "New Menu",
@@ -455,6 +471,9 @@
     },
     "link": {
       "add": "Add New Link"
+    },
+    "subscribe": {
+      "add": "Add New Subscribe"
     }
   }
 }

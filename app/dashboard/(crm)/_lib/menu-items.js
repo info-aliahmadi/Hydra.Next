@@ -1,11 +1,12 @@
 // assets
-import { Message, Email, Outbox, ForwardToInbox } from '@mui/icons-material';
+import { Message, Email, Outbox, ForwardToInbox, FollowTheSigns } from '@mui/icons-material';
 // icons
 const icons = {
   Message,
   Email,
   Outbox,
-  ForwardToInbox
+  ForwardToInbox,
+  FollowTheSigns
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
@@ -48,6 +49,15 @@ const pages = {
       type: 'item',
       url: '/dashboard/email/outbox',
       icon: icons.ForwardToInbox,
+      breadcrumbs: false,
+      permission: 'AUTH.GET_PERMISSION_LIST'
+    },
+    {
+      id: 'subscribe',
+      title: 'Subscribes',
+      type: 'item',
+      url: '/dashboard/subscribe/list',
+      icon: icons.FollowTheSigns,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
     }

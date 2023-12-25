@@ -9,7 +9,7 @@ export default class SubscribeService {
   getSubscribeList = async (searchParams) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/subscribe/GetSubscribeList', searchParams)
+        .post(CONFIG.API_BASEPATH + '/cms/GetSubscribeList', searchParams)
         .then((response) => {
           resolve(response.data);
         })
@@ -21,7 +21,7 @@ export default class SubscribeService {
   getAllSubscribes = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/subscribe/GetAllSubscribes')
+        .get(CONFIG.API_BASEPATH + '/cms/GetAllSubscribes')
         .then((response) => {
           resolve(response.data);
         })
@@ -33,7 +33,7 @@ export default class SubscribeService {
   getSubscribeById = async (subscribeId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/subscribe/getSubscribeById', { params: { subscribeId: subscribeId } })
+        .get(CONFIG.API_BASEPATH + '/cms/getSubscribeById', { params: { subscribeId: subscribeId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -45,7 +45,7 @@ export default class SubscribeService {
   addSubscribe = async (subscribe) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/subscribe/addSubscribe', subscribe)
+        .post(CONFIG.API_BASEPATH + '/cms/addSubscribe', subscribe)
         .then((response) => {
           resolve(response.data);
         })
@@ -57,7 +57,7 @@ export default class SubscribeService {
   updateSubscribe = async (subscribe) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/subscribe/updateSubscribe', subscribe)
+        .post(CONFIG.API_BASEPATH + '/cms/updateSubscribe', subscribe)
         .then((response) => {
           resolve(response.data.data);
         })
@@ -69,7 +69,7 @@ export default class SubscribeService {
   deleteSubscribe = async (subscribeId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/subscribe/deleteSubscribe', { params: { subscribeId: subscribeId } })
+        .get(CONFIG.API_BASEPATH + '/cms/deleteSubscribe', { params: { subscribeId: subscribeId } })
         .then((response) => {
           resolve(response.data);
         })
