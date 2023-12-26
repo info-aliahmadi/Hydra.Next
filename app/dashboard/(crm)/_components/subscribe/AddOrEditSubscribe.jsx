@@ -11,8 +11,11 @@ import {
   Grid,
   InputLabel,
   OutlinedInput,
+  Box,
+  MenuItem,
   Stack
 } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 // third party
@@ -33,15 +36,23 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
   let subscribeService = new SubscribeService();
   const [fieldsName, validation, buttonName] = ['fields.subscribe.', 'validation.subscribe.', 'buttons.subscribe.'];
   const [subscribe, setSubscribe] = useState();
+  const [subscribeLabels, setSubscribeLabels] = useState([]);
   const [notify, setNotify] = useState({ open: false });
 
   const loadSubscribe = () => {
     subscribeService.getSubscribeById(subscribeId).then((result) => {
       setSubscribe(result);
-      console.log(result)
     });
   };
+  const loadSubscribeLabels = () => {
+    subscribeService.getSubscribeLabelForSelect().then((result) => {
+      setSubscribeLabels(result);
+    });
+  };
+
   useEffect(() => {
+    loadSubscribeLabels();
+
     if (isNew == false && subscribeId > 0) {
       loadSubscribe();
     } else {
@@ -106,14 +117,12 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
           initialValues={{
             id: subscribe?.id,
             email: subscribe?.email,
-            normalizedName: subscribe?.normalizedName
+            subscribeLabelId: subscribe?.subscribeLabelId
           }}
           enableReinitialize={true}
           validationSchema={Yup.object().shape({
-            email: Yup.string()
-              .max(255)
-              .required(t(validation + 'required-email')),
-            normalizedName: Yup.string().max(255, t(validation + 'required-email'))
+            subscribeLabelId: Yup.number().required('Label is required'),
+            email: Yup.string().email('Must be a valid email').max(255).required('Email is required')
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -134,6 +143,36 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
               </DialogTitle>
               <DialogContent>
                 <Grid container spacing={3} direction="column">
+                  <Grid item>
+                    <Stack spacing={1}>
+                      <InputLabel htmlFor="subscribeLabelId">{t(fieldsName + 'subscribeLabelId')}</InputLabel>
+                      <Select
+                        labelId="subscribeLabelId"
+                        label={t(fieldsName + 'subscribeLabelId')}
+                        id="subscribeLabelId"
+                        name='subscribeLabelId'
+                        value={subscribe?.subscribeLabelId}
+                        subscribeLabelId="subscribeLabelId"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        placeholder={t(fieldsName + 'subscribeLabelId')}
+                        defaultValue={subscribeLabels?.filter((x) => subscribe?.subscribeLabelId == x.id).id ?? []}
+                        fullWidth
+                        error={Boolean(touched.subscribeLabelId && errors.subscribeLabelId)}
+                      >
+                        {subscribeLabels?.map((label) => (
+                          <MenuItem key={'page' + label.id} value={label.id}>
+                            {label.title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      {touched.subscribeLabelId && errors.subscribeLabelId && (
+                        <FormHelperText error id="helper-text-email">
+                          {errors.subscribeLabelId}
+                        </FormHelperText>
+                      )}
+                    </Stack>
+                  </Grid>
                   <Grid item>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="email">{t(fieldsName + 'email')}</InputLabel>

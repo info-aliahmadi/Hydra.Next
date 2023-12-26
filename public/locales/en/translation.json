@@ -211,6 +211,7 @@
       "userName": "Created By"
     },
     "subscribe": {
+      "subscribeLabelId": "Label",
       "subscribeLabelTitle": "Label",
       "email": "Email",
       "insertDate": "Insert Date"
