@@ -9,7 +9,7 @@ export default class SubscribeService {
   getSubscribeList = async (searchParams) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/cms/GetSubscribeList', searchParams)
+        .post(CONFIG.API_BASEPATH + '/crm/GetSubscribeList', searchParams)
         .then((response) => {
           resolve(response.data);
         })
@@ -21,7 +21,7 @@ export default class SubscribeService {
   getAllSubscribes = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetAllSubscribes')
+        .get(CONFIG.API_BASEPATH + '/crm/GetAllSubscribes')
         .then((response) => {
           resolve(response.data);
         })
@@ -33,7 +33,7 @@ export default class SubscribeService {
   getSubscribeById = async (subscribeId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/getSubscribeById', { params: { subscribeId: subscribeId } })
+        .get(CONFIG.API_BASEPATH + '/crm/getSubscribeById', { params: { subscribeId: subscribeId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -45,7 +45,7 @@ export default class SubscribeService {
   addSubscribe = async (subscribe) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/cms/addSubscribe', subscribe)
+        .post(CONFIG.API_BASEPATH + '/crm/addSubscribe', subscribe)
         .then((response) => {
           resolve(response.data);
         })
@@ -57,9 +57,9 @@ export default class SubscribeService {
   updateSubscribe = async (subscribe) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/cms/updateSubscribe', subscribe)
+        .post(CONFIG.API_BASEPATH + '/crm/updateSubscribe', subscribe)
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -69,7 +69,7 @@ export default class SubscribeService {
   deleteSubscribe = async (subscribeId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/deleteSubscribe', { params: { subscribeId: subscribeId } })
+        .get(CONFIG.API_BASEPATH + '/crm/deleteSubscribe', { params: { subscribeId: subscribeId } })
         .then((response) => {
           resolve(response.data);
         })
@@ -82,10 +82,9 @@ export default class SubscribeService {
   getSubscribeLabelForSelect = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetSubscribeLabelListForSelect') 
+        .get(CONFIG.API_BASEPATH + '/crm/GetSubscribeLabelListForSelect')
         .then((response) => {
-          debugger
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);

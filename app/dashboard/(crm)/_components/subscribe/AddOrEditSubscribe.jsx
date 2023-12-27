@@ -12,6 +12,7 @@ import {
   InputLabel,
   OutlinedInput,
   Box,
+  Chip,
   MenuItem,
   Stack
 } from '@mui/material';
@@ -30,13 +31,13 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import setServerErrors from 'utils/setServerErrors';
 import AddIcon from '@mui/icons-material/Add';
 import SubscribeService from '@dashboard/(crm)/_service/SubscribeService';
+import HydraSelect from '../../../_components/Select/HydraSelect';
 
 const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
   let subscribeService = new SubscribeService();
   const [fieldsName, validation, buttonName] = ['fields.subscribe.', 'validation.subscribe.', 'buttons.subscribe.'];
   const [subscribe, setSubscribe] = useState();
-  const [subscribeLabels, setSubscribeLabels] = useState([]);
   const [notify, setNotify] = useState({ open: false });
 
   const loadSubscribe = () => {
@@ -44,15 +45,8 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
       setSubscribe(result);
     });
   };
-  const loadSubscribeLabels = () => {
-    subscribeService.getSubscribeLabelForSelect().then((result) => {
-      setSubscribeLabels(result);
-    });
-  };
 
   useEffect(() => {
-    loadSubscribeLabels();
-
     if (isNew == false && subscribeId > 0) {
       loadSubscribe();
     } else {
@@ -146,26 +140,14 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
                   <Grid item>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="subscribeLabelId">{t(fieldsName + 'subscribeLabelId')}</InputLabel>
-                      <Select
-                        labelId="subscribeLabelId"
-                        label={t(fieldsName + 'subscribeLabelId')}
-                        id="subscribeLabelId"
-                        name='subscribeLabelId'
-                        value={subscribe?.subscribeLabelId}
-                        subscribeLabelId="subscribeLabelId"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder={t(fieldsName + 'subscribeLabelId')}
-                        defaultValue={subscribeLabels?.filter((x) => subscribe?.subscribeLabelId == x.id).id ?? []}
-                        fullWidth
+                      <HydraSelect
+                        url="/crm/GetSubscribeLabelListForSelect"
+                        defaultValue={subscribe?.subscribeLabelId}
+                        id={subscribe?.subscribeLabelId}
+                        name="subscribeLabelId"
+                        setFieldValue="subscribeLabelId"
                         error={Boolean(touched.subscribeLabelId && errors.subscribeLabelId)}
-                      >
-                        {subscribeLabels?.map((label) => (
-                          <MenuItem key={'page' + label.id} value={label.id}>
-                            {label.title}
-                          </MenuItem>
-                        ))}
-                      </Select>
+                      />
                       {touched.subscribeLabelId && errors.subscribeLabelId && (
                         <FormHelperText error id="helper-text-email">
                           {errors.subscribeLabelId}

@@ -1,31 +1,32 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Chip, FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { Box, useTheme } from '@mui/system';
-import SubscribeService from '@dashboard/(crm)/_service/SubscribeService';
+import GlobalService from '@dashboard/_components/_service/GlobalService';
 
-export default function SelectSubscribeLabel({ defaultValues, id, name, setFieldValue, error, disabled }) {
+export default function HydraSelect({ defaultValue, id, name, setFieldValue, error, disabled, url }) {
   const [t] = useTranslation();
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
   const [values, setValues] = useState();
-  const subscribeService = new SubscribeService();
+  const globalService = new GlobalService();
 
-  const loadSubscribeLabels = () => {
-    subscribeService.getSubscribeLabelForSelect().then((result) => {
+  const loadAllDataForSelect = () => {
+    globalService.getAllForSelect(url).then((result) => {
       setOptions(result?.data);
       setLoading(false);
     });
   };
+
   useEffect(() => {
-    loadSubscribeLabels();
+    loadAllDataForSelect();
   }, []);
 
   useEffect(() => {
-    setValues(defaultValues);
-  }, [JSON.stringify(defaultValues)]);
+    setValues(defaultValue);
+  }, [JSON.stringify(defaultValue)]);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -39,11 +40,12 @@ export default function SelectSubscribeLabel({ defaultValues, id, name, setField
   };
   function getStyles(value, values, theme) {
     return {
-      fontWeight: values.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium
+      fontWeight: theme.typography.fontWeightRegular
     };
   }
 
   const handleChange = (event) => {
+    debugger;
     setFieldValue(id, event.target.value);
     setValues(event.target.value);
   };
@@ -54,22 +56,15 @@ export default function SelectSubscribeLabel({ defaultValues, id, name, setField
         id={id}
         name={name}
         className="select-topic"
-        // key={id + loading + defaultValues}
-        multiple
         value={values || ''}
         label={''}
         size="small"
         onChange={handleChange}
         MenuProps={MenuProps}
-        input={<OutlinedInput label={t('pages.subscribes')} />}
-        defaultValue={options?.filter((x) => defaultValues?.find((c) => c === x.id)) ?? []}
+        input={<OutlinedInput label={t('pages.topics')} />}
+        defaultValue={options?.filter((x) => defaultValue === x.id) ?? []}
         renderValue={(selected) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-            {selected.map((value, index) => {
-              let title = options?.find((x) => x.id == value)?.title;
-              return <Chip key={'chip-' + name + index} label={title} />;
-            })}
-          </Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>{options?.find((x) => x.id == selected)?.title}</Box>
         )}
       >
         {options?.map((item) => {
