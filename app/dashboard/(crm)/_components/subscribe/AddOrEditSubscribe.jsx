@@ -11,12 +11,8 @@ import {
   Grid,
   InputLabel,
   OutlinedInput,
-  Box,
-  Chip,
-  MenuItem,
   Stack
 } from '@mui/material';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 // third party
@@ -31,7 +27,7 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import setServerErrors from 'utils/setServerErrors';
 import AddIcon from '@mui/icons-material/Add';
 import SubscribeService from '@dashboard/(crm)/_service/SubscribeService';
-import HydraSelect from '../../../_components/Select/HydraSelect';
+import SelectSubscribeLabel from './SelectSubscribeLabel';
 
 const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
@@ -44,6 +40,10 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
     subscribeService.getSubscribeById(subscribeId).then((result) => {
       setSubscribe(result);
     });
+  };
+  
+  const getSubscribeLabelForSelect = () => {
+    return subscribeService.getSubscribeLabelForSelect();
   };
 
   useEffect(() => {
@@ -140,8 +140,8 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
                   <Grid item>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="subscribeLabelId">{t(fieldsName + 'subscribeLabelId')}</InputLabel>
-                      <HydraSelect
-                        url="/crm/GetSubscribeLabelListForSelect"
+                      <SelectSubscribeLabel
+                        loadDataForSelect={getSubscribeLabelForSelect}
                         defaultValue={subscribe?.subscribeLabelId}
                         id="subscribeLabelId"
                         name="subscribeLabelId"
