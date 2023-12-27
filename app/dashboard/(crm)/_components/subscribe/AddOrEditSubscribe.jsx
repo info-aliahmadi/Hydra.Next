@@ -129,7 +129,7 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
             }
           }}
         >
-          {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
+          {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (
             <form noValidate onSubmit={handleSubmit}>
               <DialogTitle>
                 {t('dialog.' + (isNew == true ? 'add' : 'edit') + '.title', { item: 'Subscribe' })}
@@ -143,9 +143,9 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
                       <HydraSelect
                         url="/crm/GetSubscribeLabelListForSelect"
                         defaultValue={subscribe?.subscribeLabelId}
-                        id={subscribe?.subscribeLabelId}
+                        id="subscribeLabelId"
                         name="subscribeLabelId"
-                        setFieldValue="subscribeLabelId"
+                        setFieldValue={setFieldValue}
                         error={Boolean(touched.subscribeLabelId && errors.subscribeLabelId)}
                       />
                       {touched.subscribeLabelId && errors.subscribeLabelId && (
