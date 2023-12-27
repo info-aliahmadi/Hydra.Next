@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { Box, useTheme } from '@mui/system';
-import GlobalService from '@dashboard/_components/_service/GlobalService';
+import GlobalService from '@dashboard/_service/GlobalService';
 
 export default function HydraSelect({ defaultValue, id, name, setFieldValue, error, disabled, url }) {
   const [t] = useTranslation();
