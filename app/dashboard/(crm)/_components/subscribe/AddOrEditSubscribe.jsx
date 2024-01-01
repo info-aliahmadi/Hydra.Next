@@ -18,6 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { useSession } from 'next-auth/react';
 
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
@@ -31,10 +32,12 @@ import SelectSubscribeLabel from './SelectSubscribeLabel';
 
 const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let subscribeService = new SubscribeService();
   const [fieldsName, validation, buttonName] = ['fields.subscribe.', 'validation.subscribe.', 'buttons.subscribe.'];
   const [subscribe, setSubscribe] = useState();
   const [notify, setNotify] = useState({ open: false });
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let subscribeService = new SubscribeService(jwt);
 
   const loadSubscribe = () => {
     subscribeService.getSubscribeById(subscribeId).then((result) => {

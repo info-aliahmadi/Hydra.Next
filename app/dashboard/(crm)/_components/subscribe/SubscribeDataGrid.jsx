@@ -13,11 +13,15 @@ import AddIcon from '@mui/icons-material/Add';
 import SubscribeService from '@dashboard/(crm)/_service/SubscribeService';
 import DeleteSubscribe from './DeleteSubscribe';
 import AddOrEditSubscribe from './AddOrEditSubscribe';
+import { useSession } from 'next-auth/react';
+
 // ===============================|| COLOR BOX ||=============================== //
 
 function SubscribeDataGrid() {
   const [t] = useTranslation();
-  const service = new SubscribeService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  const service = new SubscribeService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [rowId, setRowId] = useState(0);
   const [open, setOpen] = useState(false);
