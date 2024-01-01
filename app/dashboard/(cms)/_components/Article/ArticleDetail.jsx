@@ -1,6 +1,6 @@
 import { Avatar, Box, CardMedia, Chip, Grid, InputLabel, OutlinedInput } from '@mui/material';
 import { EventNote } from '@mui/icons-material';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
 import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 // ===============================|| COLOR BOX ||=============================== //
 export default function ArticleDetail({ row }) {
   const [t, i18n] = useTranslation();
+  const fieldsName = 'fields.article.';
   return (
     <Grid container spacing={3} direction="row" justifyContent="flex-start" alignItems="flex-start">
       <Grid container item spacing={3} xs={12} sm={6} md={3} lg={3} xd={3} direction="row" justifyContent="center" alignItems="center">

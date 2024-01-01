@@ -1,5 +1,5 @@
 import axios from 'axios';
-import CONFIG from 'config.js';
+import CONFIG from '/config.js';
 
 export default class HomeService {
   constructor() {}

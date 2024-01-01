@@ -3,7 +3,7 @@ export default class CookieService {
   constructor(cookieName) {
     this.cookieName = cookieName;
   }
-  AddItem(value, expireDate) {
+  addItem(value, expireDate) {
     let expire;
     if (!expireDate) {
       const d = new Date();

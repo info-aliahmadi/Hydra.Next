@@ -11,8 +11,10 @@ import LinkIcon from '@mui/icons-material/Link';
 import DeleteLink from './DeleteLink';
 import Notify from '@dashboard/_components/@extended/Notify';
 import AddOrEditLink from './AddOrEditLink';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import LinkService from '@dashboard/(cms)/_service/LinkService';
+import { useSession } from 'next-auth/react';
+
 let mediaExtensions = CONFIG.IMAGES_EXTENSIONS.concat(CONFIG.VIDEOS_EXTENSIONS);
 // ===============================|| COLOR BOX ||=============================== //
 const ImagePreviewRow = ({ renderedCellValue, row }) => {
@@ -43,7 +45,10 @@ const ImagePreviewRow = ({ renderedCellValue, row }) => {
 };
 function LinkDataGrid({ linkSection }) {
   const [t] = useTranslation();
-  let linkService = new LinkService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let linkService = new LinkService(jwt);
   
   const [data, setData] = useState(() => linkSection.original.links);
   const [openDelete, setOpenDelete] = useState(false);

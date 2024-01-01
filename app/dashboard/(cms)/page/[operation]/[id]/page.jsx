@@ -25,9 +25,9 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import MainCard from '@dashboard/_components/MainCard';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 
 import moment from 'moment';
 import PagesService from '@dashboard/(cms)/_service/PagesService';

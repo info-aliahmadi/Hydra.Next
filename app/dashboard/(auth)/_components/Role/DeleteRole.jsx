@@ -9,10 +9,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import RoleService from '@dashboard/(auth)/_service/RoleService';
+import { useSession } from 'next-auth/react';
 
 const DeleteRole = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let roleService = new RoleService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let roleService = new RoleService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

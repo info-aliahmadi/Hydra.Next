@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react';
 
 // material-ui
@@ -26,28 +27,25 @@ import Save from '@mui/icons-material/Save';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import CONFIG from 'config';
-import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
+import CONFIG from '/config';
 import Notify from '@dashboard/_components/@extended/Notify';
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import AccountService from '@dashboard/(auth)/_service/AccountService';
+import { useSession } from 'next-auth/react';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const ProfileForm = () => {
   const [t] = useTranslation();
   const [avatarPreview, setAvatarPreview] = useState();
-  let accountService = new AccountService();
+  const { data: session, update } = useSession();
+
+  const jwt = session?.user?.accessToken;
+
+  let accountService = new AccountService(jwt);
 
   const [fieldsName, validation, buttonName] = ['fields.', 'validation.', 'buttons.'];
   const [user, setUser] = useState();
   const [notify, setNotify] = useState({ open: false });
-
-  // const handleClose = (event, reason) => {
-  //   // if (reason === 'clickaway') {
-  //   //   return;
-  //   // }
-  //   setOpen(false);
-  // };
 
   const loadUser = () => {
     accountService.getCurrentUser().then((userData) => {
@@ -62,10 +60,9 @@ const ProfileForm = () => {
   const handleUpdate = (user) => {
     accountService
       .updateCurrentUser(user)
-      .then(() => {
-        let authenticationService = new AuthenticationService();
-        authenticationService.refreshToken();
-        setNotify({ open: true });
+      .then((result) => {
+          update({...session.user, name: user.name, email: user.email, userName: user.userName, avatar: result.avatar, accessToken: result.accessToken });
+          setNotify({ open: true });
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error.message });
@@ -134,7 +131,13 @@ const ProfileForm = () => {
                         <input type="file" hidden accept="image/*" name="avatarFile" onChange={(e) => changeAvatar(e, setFieldValue)} />
                         <Avatar
                           alt=""
-                          src={avatarPreview ? avatarPreview : values?.avatar ? CONFIG.AVATAR_BASEPATH + values?.avatar : '/images/users/anonymous.png'}
+                          src={
+                            avatarPreview
+                              ? avatarPreview
+                              : values?.avatar
+                              ? CONFIG.AVATAR_BASEPATH + values?.avatar
+                              : '/images/users/anonymous.png'
+                          }
                           sx={{ width: 85, height: 85 }}
                         ></Avatar>
                       </ButtonBase>

@@ -9,10 +9,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import TagsService from '@dashboard/(cms)/_service/TagsService';
+import { useSession } from 'next-auth/react';
+
 
 const DeleteTag = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let tagService = new TagsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let tagService = new TagsService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

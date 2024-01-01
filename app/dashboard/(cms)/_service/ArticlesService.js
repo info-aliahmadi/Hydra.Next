@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { setDefaultHeader } from 'utils/axiosHeaders';
-import CONFIG from 'config.js';
+import { setDefaultHeader } from '/utils/axiosHeaders';
+import CONFIG from '/config.js';
 
 export default class ArticlesService {
-  constructor() {
-    setDefaultHeader();
+  constructor(jwt) {
+    setDefaultHeader(jwt);
   }
   getArticleList = async (searchParams) => {
     return new Promise((resolve, reject) => {

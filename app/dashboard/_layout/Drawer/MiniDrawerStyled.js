@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 
 // project import
-import { drawerWidth, drawerMinimizeWidth } from 'config';
+import { drawerWidth, drawerMinimizeWidth } from '/config';
 
 const openedMixin = (theme) => ({
   width: drawerWidth,

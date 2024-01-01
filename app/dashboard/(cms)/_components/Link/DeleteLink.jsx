@@ -9,10 +9,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import LinkService from '@dashboard/(cms)/_service/LinkService';
+import { useSession } from 'next-auth/react';
 
 const DeleteLink = ({ row, linkSection, data, setData, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let linkService = new LinkService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let linkService = new LinkService(jwt);
   const [notify, setNotify] = useState({ open: false });
   const [disableBtn, setDisableBtn] = useState(false);
 

@@ -17,18 +17,24 @@ import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import { AccountCircle, Send, PersonAdd } from '@mui/icons-material';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import SelectRole from '../Role/SelectRole';
 import TableCard from '@dashboard/_components/TableCard';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function UsersDataGrid() {
   const [t, i18n] = useTranslation();
-  const service = new UsersService();
+  
+  const { data: session } = useSession();
+
+  const jwt = session?.user?.accessToken;
+
+  const service = new UsersService(jwt);
   const router = useRouter();
 
   const [fieldsName, buttonName] = ['fields.user.', 'buttons.user.'];

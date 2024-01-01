@@ -9,10 +9,14 @@ import { Edit, Topic, Add, Delete } from '@mui/icons-material';
 import AddOrEditTopic from './AddOrEditTopic';
 import DeleteTopic from './DeleteTopic';
 import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import { useSession } from 'next-auth/react';
 
 function TopicDataGrid() {
   const [t] = useTranslation();
-  const service = new TopicsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const service = new TopicsService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);

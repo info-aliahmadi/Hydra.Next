@@ -15,11 +15,15 @@ import DeleteLinkSection from './DeleteLinkSection';
 import AddIcon from '@mui/icons-material/Add';
 import LinkDataGrid from './LinkDataGrid';
 import LinkSectionService from '@dashboard/(cms)/_service/LinkSectionService';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function LinkSectionDataGrid() {
   const [t] = useTranslation();
-  const linkSectionService = new LinkSectionService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const linkSectionService = new LinkSectionService(jwt);
   
   const [isNew, setIsNew] = useState(true);
   const [data, setData] = useState([]);

@@ -10,7 +10,7 @@ import ShareButtons from './ShareButtons';
 import PostTags from './PostTags';
 import { DateTimeViewer } from '/utils/DateViewer';
 import readingTime from '/utils/readingTime';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import Author from '@(home)/_components/Author';
 
 export default async function Content({ post }) {

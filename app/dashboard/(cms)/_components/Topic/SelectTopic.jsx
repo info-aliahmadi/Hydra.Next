@@ -4,14 +4,18 @@ import { useTranslation } from 'react-i18next';
 import { Chip, FormControl, MenuItem, OutlinedInput, Select } from '@mui/material';
 import { Box, useTheme } from '@mui/system';
 import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import { useSession } from 'next-auth/react';
 
 export default function SelectTopic({ defaultValues, id, name, setFieldValue, error, disabled }) {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
   const [values, setValues] = useState();
-  const topicService = new TopicsService();
+  const topicService = new TopicsService(jwt);
 
   const loadTopics = () => {
     topicService.getTopicListForSelect().then((result) => {

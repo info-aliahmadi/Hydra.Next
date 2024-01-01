@@ -1,3 +1,4 @@
+'use client'
 // material-ui
 import { Badge, Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 
@@ -9,17 +10,23 @@ import MobileSection from './MobileSection';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useTranslation } from 'react-i18next';
+import axios from 'axios';
+import CONFIG from '/config';
+import { useSession } from 'next-auth/react';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
 const HeaderContent = () => {
   const matchesXs = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
+  const { data: session, update } = useSession();
   const theme = useTheme();
 
   const [t] = useTranslation();
   const handleThemeMode = (mode) => {
-    theme.setMode(mode);
+    update({ ...session.user, defaultTheme: mode });
+    axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultTheme', { params: { defaultTheme: mode } }).catch((error) => {
+    });
   };
   return (
     <>

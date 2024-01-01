@@ -11,17 +11,20 @@ import MessageService from '@dashboard/(crm)/_service/MessageService';
 import MessageTypeChip from './MessageTypeChip';
 import DeleteMessage from './DeleteMessage';
 import { MessageTypes } from './MessageType';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function MessagesPrivateInboxDataGrid() {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [openDelete, setOpenDelete] = useState(false);
   const [row, setRow] = useState({});
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const messagesService = new MessageService();
+  const messagesService = new MessageService(jwt);
 
   const fieldsName = 'fields.message.messageInbox.';
 

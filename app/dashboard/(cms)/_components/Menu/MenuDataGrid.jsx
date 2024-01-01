@@ -11,10 +11,14 @@ import { Stack } from '@mui/system';
 import MenuService from '@dashboard/(cms)/_service/MenuService';
 import AddOrEditMenu from './AddOrEditMenu';
 import DeleteMenu from './DeleteMenu';
+import { useSession } from 'next-auth/react';
 
 function MenuDataGrid() {
   const [t] = useTranslation();
-  const menuService = new MenuService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const menuService = new MenuService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);

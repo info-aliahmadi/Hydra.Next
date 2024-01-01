@@ -24,13 +24,17 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import AddIcon from '@mui/icons-material/Add';
 import RoleService from '@dashboard/(auth)/_service/RoleService';
+import { useSession } from 'next-auth/react';
 
 const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let roleService = new RoleService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let roleService = new RoleService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.role.', 'validation.role.', 'buttons.role.'];
   const [role, setRole] = useState();
   const [notify, setNotify] = useState({ open: false });

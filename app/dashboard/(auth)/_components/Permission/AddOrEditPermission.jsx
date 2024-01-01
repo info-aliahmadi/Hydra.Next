@@ -24,12 +24,16 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
+import { useSession } from 'next-auth/react';
 
 const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let permissionService = new PermissionService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let permissionService = new PermissionService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.permission.', 'validation.permission.', 'buttons.permission.'];
   const [permission, setPermission] = useState();
   const [notify, setNotify] = useState({ open: false });

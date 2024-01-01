@@ -9,10 +9,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MessageService from '@dashboard/(crm)/_service/MessageService';
+import { useSession } from 'next-auth/react';
 
 const RemoveDraftMessage = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let messageService = new MessageService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let messageService = new MessageService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

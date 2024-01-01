@@ -10,14 +10,17 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import MessageService from '@dashboard/(crm)/_service/MessageService';
 import Link from 'next/link';
 import { MessageTypes } from './MessageType';
+import { useSession } from 'next-auth/react';
 
 function MessagesPublicInboxDataGrid() {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const messagesService = new MessageService();
+  const messagesService = new MessageService(jwt);
 
   const fieldsName = 'fields.message.messageInbox.';
 

@@ -9,10 +9,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import { useSession } from 'next-auth/react';
 
 const DeleteTopic = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let topicService = new TopicsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let topicService = new TopicsService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

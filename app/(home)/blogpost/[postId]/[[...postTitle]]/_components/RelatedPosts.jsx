@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import 'react';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import { DateTimeViewer } from '/utils/DateViewer';
 import readingTime from '/utils/readingTime';
 import Author from '@(home)/_components/Author';

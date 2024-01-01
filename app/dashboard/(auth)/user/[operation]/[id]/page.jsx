@@ -30,7 +30,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Save from '@mui/icons-material/Save';
 import ArrowBack from '@mui/icons-material/ArrowBack';
-import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import { strengthColor, strengthIndicator } from '/utils/password-strength';
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -39,11 +39,11 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import MainCard from '@dashboard/_components/MainCard';
-import languageList from 'Localization/languageList';
+import languageList from '/Localization/languageList';
 import DeleteUser from '../../../_components/User/DeleteUser';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import Notify from '@dashboard/_components/@extended/Notify';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import SelectRole from '@dashboard/(auth)/_components/Role/SelectRole';

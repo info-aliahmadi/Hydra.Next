@@ -16,11 +16,14 @@ import Save from '@mui/icons-material/Save';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import SiteSettingsService from '../_service/SiteSettingsService';
+import { useSession } from 'next-auth/react';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const SiteSetting = () => {
   const [t] = useTranslation();
-  let siteSettingsService = new SiteSettingsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let siteSettingsService = new SiteSettingsService(jwt);
 
   const [fieldsName, validation, buttonName] = ['fields.siteSetting.', 'validation.siteSetting', 'buttons.'];
   const [settings, setSettings] = useState();

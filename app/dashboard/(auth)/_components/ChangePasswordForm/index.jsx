@@ -20,27 +20,31 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import { strengthColor, strengthIndicator } from 'utils/password-strength';
+import { strengthColor, strengthIndicator } from '/utils/password-strength';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import { Save } from '@mui/icons-material';
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import AccountService from '@dashboard/(auth)/_service/AccountService';
+import { useSession } from 'next-auth/react';
 
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const ChangePasswordForm = () => {
   const [t] = useTranslation();
   const [level, setLevel] = useState();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
 
   const [showPassword, setShowPassword] = useState(false);
   const [notify, setNotify] = useState({ open: false });
 
-  let accountService = new AccountService();
+  let accountService = new AccountService(jwt);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);

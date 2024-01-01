@@ -21,17 +21,19 @@ import '/public/css/filepond-plugin-get-file.min.css';
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { setTokenBearer } from 'utils/axiosHeaders';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import { useSession } from 'next-auth/react';
 
 const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize, disabled, filePosterMaxHeight, allowMultiple }) => {
   const [files, setFiles] = useState([]);
   const [t, i18n] = useTranslation();
-
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let tokenBearer = jwt ? 'Bearer ' + jwt : '';
   const uploadUrl = CONFIG.API_BASEPATH + '/FileStorage/UploadFile';
 
-  var fileUploadService = new FileStorageService();
+  var fileUploadService = new FileStorageService(jwt);
 
   function downloadFunction(item) {
     // create a temporary hyperlink to force the browser to download the file
@@ -88,7 +90,7 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
     });
   };
   const onupdatefiles = async (file) => {
-    if (setFieldValue) setFieldValue(id, file[0]?.serverId || undefined);
+    if (setFieldValue != undefined) setFieldValue(id, file[0]?.serverId || undefined);
     setFiles(file);
   };
   useEffect(() => {
@@ -152,12 +154,12 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       onupdatefiles={onupdatefiles}
       server={{
         url: uploadUrl,
-        headers: { Authorization: setTokenBearer(), UploadAction: 'Rename' }
+        headers: { Authorization: tokenBearer, UploadAction: 'Rename' }
       }}
       onprocessfile={(error, file) => {
         let response = JSON.parse(file.serverId);
         let fileInfo = response.data;
-        if (setFieldValue) setFieldValue(id, fileInfo.id);
+        if (setFieldValue != undefined) setFieldValue(id, fileInfo.id);
       }}
       labelFileProcessingError={(error) => {
         return getError(error.code);

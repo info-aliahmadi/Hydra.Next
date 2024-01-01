@@ -5,21 +5,24 @@ import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Folder } from '@mui/icons-material';
-import { fileSizeViewer } from 'utils/fileSizeViewer';
+import { fileSizeViewer } from '/utils/fileSizeViewer';
 import _ from 'lodash';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import FileStorageService from '../_service/FileStorageService';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function FilesCategoryList() {
   const [t, i18n] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [directories, setDirectories] = useState([]);
 
   const [notify, setNotify] = useState({ open: false });
 
-  let fileStorageService = new FileStorageService();
+  let fileStorageService = new FileStorageService(jwt);
 
   const loadDirectories = () => {
     fileStorageService

@@ -5,12 +5,16 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import RoleService from '../../_service/RoleService';
+import { useSession } from 'next-auth/react';
 
 export default function SelectRole({ defaultValues, id, setFieldValue, error, disabled }) {
   const [t] = useTranslation();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
-  const roleService = new RoleService();
+  const { data: session } = useSession();
+
+  const jwt = session?.user?.accessToken;
+  const roleService = new RoleService(jwt);
 
   const loadRoles = () => {
     roleService.getAllRoles().then((result) => {

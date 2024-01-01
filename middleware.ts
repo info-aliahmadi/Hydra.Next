@@ -1,0 +1,54 @@
+// export { default } from "next-auth/middleware"
+import AllRoutes from './app/dashboard/_lib/routes';
+import { NextRequestWithAuth, withAuth } from 'next-auth/middleware';
+import _ from 'lodash';
+import CONFIG from './config';
+import { NextRequest } from 'next/server';
+
+export const config = { matcher: ['/dashboard/:path*'] };
+
+export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
+  callbacks: {
+    authorized: async ({ token, req }: { token: any; req: NextRequest }) => {
+      if (req.nextUrl.pathname.startsWith('/dashboard')) {
+        if (token) {
+          const path = req.nextUrl.pathname;
+          const jwt = token.accessToken.toString();
+
+          const route = _.find(AllRoutes.routes, (element: any) => element.path == path);
+          console.log('route : ' + route);
+          if (route) {
+            const Authorized = await isAuthorized(route.permission, jwt);
+            if (!Authorized) {
+              console.log('route : false');
+              return false;
+            }
+          }
+          return true;
+        } else {
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+});
+async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
+  const apiResult = await fetch(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser', {
+    headers: {
+      Authorization: `Bearer ${jwt}`
+    },
+    next: { revalidate: 4000 }
+  });
+  if (apiResult.ok) {
+    const permissions = await apiResult.json();
+    let result = _.findIndex(permissions, function (element) {
+      return element === permission;
+    });
+    console.log('result : ' + (result >= 0 ? true : false));
+    return result >= 0 ? true : false;
+  } else {
+    return false;
+  }
+}
+

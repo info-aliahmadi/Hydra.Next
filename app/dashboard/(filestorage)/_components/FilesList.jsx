@@ -24,20 +24,23 @@ import { InfoOutlined, Download, Delete, UploadFile, InsertDriveFile } from '@mu
 
 import LinkIcon from '@mui/icons-material/Link';
 
-import { fileSizeViewer } from 'utils/fileSizeViewer';
+import { fileSizeViewer } from '/utils/fileSizeViewer';
 import _ from 'lodash';
 import { useRouter } from 'next/navigation';
 import CONFIG from '/config';
 import DeleteFile from './DeleteFile';
-import { DateViewer } from 'utils/DateViewer';
+import { DateViewer } from '/utils/DateViewer';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 import FileStorageService from '../_service/FileStorageService';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function FilesList({directory}) {
   const [t, i18n] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
   const theme = useTheme();
   const params = useRouter();
 
@@ -54,7 +57,7 @@ function FilesList({directory}) {
 
   const [notify, setNotify] = useState({ open: false });
 
-  let fileStorageService = new FileStorageService();
+  let fileStorageService = new FileStorageService(jwt);
 
   const loadFiles = () => {
     fileStorageService

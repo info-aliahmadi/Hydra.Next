@@ -25,6 +25,7 @@ import { useRouter } from 'next/navigation';
 
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
+import { signOut, useSession } from "next-auth/react"
 
 // assets
 // import Anonymous from 'assets/images/users/anonymous.png';
@@ -32,7 +33,6 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 import CONFIG from '/config';
 import Transitions from '@dashboard/_components/@extended/Transitions';
 import MainCard from '@dashboard/_components/MainCard';
-import { AuthenticationContext } from '@dashboard/(auth)/_service/Authentication/AuthenticationProvider';
 
 // tab panel wrapper
 function TabPanel({ children, value, index, ...other }) {
@@ -59,16 +59,12 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
-  const theme = useTheme();  
-  const router = useRouter();
+  const theme = useTheme();
 
-  let authenticationService = useContext(AuthenticationContext);
-  const [user] = useState(authenticationService.getUser());
-  const avatar = user.avatar ? CONFIG.AVATAR_BASEPATH + user.avatar : "/images/users/anonymous.png";
+  const { data: session } = useSession();
 
-  const handleLogout = async () => {
-    authenticationService.logout(router);
-  };
+  const user = session?.user;
+  const avatar = user?.avatar ? CONFIG.AVATAR_BASEPATH + user?.avatar : '/images/users/anonymous.png';
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -108,7 +104,7 @@ const Profile = () => {
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="" src={avatar} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">{user.family_name}</Typography>
+          <Typography variant="subtitle1">{user?.name}</Typography>
         </Stack>
       </ButtonBase>
       <Popper
@@ -151,15 +147,15 @@ const Profile = () => {
                           <Stack direction="row" spacing={1.25} alignItems="center">
                             <Avatar alt="" src={avatar} sx={{ width: 32, height: 32 }} />
                             <Stack>
-                              <Typography variant="h6">{user.family_name}</Typography>
+                              <Typography variant="h6">{user?.userName}</Typography>
                               <Typography variant="body2" color="textSecondary">
-                                {user.email}
+                                {user?.email}
                               </Typography>
                             </Stack>
                           </Stack>
                         </Grid>
                         <Grid item>
-                          <IconButton size="large" color="secondary" onClick={handleLogout}>
+                          <IconButton size="large" color="secondary" onClick={() => signOut()}>
                             <LogoutOutlined />
                           </IconButton>
                         </Grid>
@@ -196,7 +192,7 @@ const Profile = () => {
                           </Tabs>
                         </Box>
                         <TabPanel value={value} index={0} dir={theme.direction}>
-                          <ProfileTab handleLogout={handleLogout} />
+                          <ProfileTab handleLogout={() => signOut()} />
                         </TabPanel>
                         <TabPanel value={value} index={1} dir={theme.direction}>
                           <SettingTab />

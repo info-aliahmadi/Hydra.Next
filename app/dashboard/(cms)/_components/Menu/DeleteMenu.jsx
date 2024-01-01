@@ -9,10 +9,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MenuService from '@dashboard/(cms)/_service/MenuService';
+import { useSession } from 'next-auth/react';
 
 const DeleteMenu = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let menuService = new MenuService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let menuService = new MenuService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

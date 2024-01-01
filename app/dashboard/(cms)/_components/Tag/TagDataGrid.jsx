@@ -9,11 +9,16 @@ import { Edit, Tag, Add, Delete } from '@mui/icons-material';
 import TagsService from '@dashboard/(cms)/_service/TagsService';
 import AddOrEditTag from './AddOrEditTag';
 import DeleteTag from './DeleteTag';
+import { useSession } from 'next-auth/react';
+
 
 
 function TagDataGrid() {
   const [t] = useTranslation();
-  const service = new TagsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const service = new TagsService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);

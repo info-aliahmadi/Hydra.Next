@@ -18,7 +18,7 @@ import CircleIcon from '@mui/icons-material/Circle';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import HomeService from '@(home)/_service/HomeService';
 import Notify from '@(home)/_components/Notify';
 

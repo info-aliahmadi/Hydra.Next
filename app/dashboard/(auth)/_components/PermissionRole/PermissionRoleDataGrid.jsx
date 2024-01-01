@@ -10,10 +10,15 @@ import DeletePermissionRole from './DeletePermissionRole';
 import Notify from '@dashboard/_components/@extended/Notify';
 import PermissionRoleService from '../../_service/PermissionRoleService';
 import PermissionAutoComplete from '../Permission/PermissionAutoComplete';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function PermissionRoleDataGrid({ row }) {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let permissionRoleService = new PermissionRoleService(jwt);
+
   const [data, setData] = useState(() => row.original.permissions);
   const [permissionId, setPermissionId] = useState();
   const [openDelete, setOpenDelete] = useState(false);
@@ -46,7 +51,6 @@ function PermissionRoleDataGrid({ row }) {
       setPermissionId(0);
       return;
     }
-    let permissionRoleService = new PermissionRoleService();
     permissionRoleService
       .addPermissionRole(permissionId, roleId)
       .then((permission) => {

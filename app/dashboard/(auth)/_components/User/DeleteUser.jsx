@@ -9,10 +9,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
+import { useSession } from 'next-auth/react';
 
 const DeleteUser = ({ userId, open, setOpen }) => {
   const [t] = useTranslation();
-  let userService = new UsersService();
+  
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let userService = new UsersService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

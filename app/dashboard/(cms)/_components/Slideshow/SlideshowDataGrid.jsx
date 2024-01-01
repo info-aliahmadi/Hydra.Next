@@ -16,14 +16,18 @@ import {
 } from '@mui/icons-material';
 import Notify from '@dashboard/_components/@extended/Notify';
 import { Stack } from '@mui/system';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import SlideshowService from '@dashboard/(cms)/_service/SlideshowService';
 import AddOrEditSlideshow from './AddOrEditSlideshow';
 import DeleteSlideshow from './DeleteSlideshow';
+import { useSession } from 'next-auth/react';
 
 function SlideshowDataGrid() {
   const [t] = useTranslation();
-  const slideshowService = new SlideshowService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const slideshowService = new SlideshowService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [open, setOpen] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);

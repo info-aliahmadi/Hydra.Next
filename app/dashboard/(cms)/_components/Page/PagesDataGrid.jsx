@@ -8,7 +8,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import { Delete, Edit, Description, EventNote } from '@mui/icons-material';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
 import Notify from '@dashboard/_components/@extended/Notify';
@@ -16,17 +16,21 @@ import PagesService from '@dashboard/(cms)/_service/PagesService';
 import SelectTag from '../Tag/SelectTag';
 import { useRouter } from 'next/navigation';
 import DeletePage from './DeletePage';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function PagesDataGrid() {
   const [t, i18n] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
 
   const [openDelete, setOpenDelete] = useState(false);
   const [row, setRow] = useState({});
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const pagesService = new PagesService();
+  const pagesService = new PagesService(jwt);
 
   const router = useRouter();
 

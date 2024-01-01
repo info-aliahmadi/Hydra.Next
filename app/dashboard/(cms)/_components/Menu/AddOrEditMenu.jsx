@@ -24,13 +24,17 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import MenuService from '@dashboard/(cms)/_service/MenuService';
 import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
+import { useSession } from 'next-auth/react';
 
 const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let menuService = new MenuService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let menuService = new MenuService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.menu.', 'validation.menu.', 'buttons.menu.'];
   const [menu, setMenu] = useState();
   const [notify, setNotify] = useState({ open: false });

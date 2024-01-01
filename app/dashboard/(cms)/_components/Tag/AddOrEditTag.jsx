@@ -24,12 +24,17 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import TagsService from '@dashboard/(cms)/_service/TagsService';
+import { useSession } from 'next-auth/react';
+
 
 const AddOrEditTag = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let tagService = new TagsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let tagService = new TagsService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.tag.', 'validation.tag.', 'buttons.tag.'];
   const [tag, setTag] = useState();
   const [notify, setNotify] = useState({ open: false });

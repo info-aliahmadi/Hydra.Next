@@ -11,16 +11,19 @@ import { DeleteSweep, RestorePage } from '@mui/icons-material';
 import RemoveArticle from './RemoveArticle';
 import ArticlesService from '@dashboard/(cms)/_service/ArticlesService';
 import ArticleDetail from './ArticleDetail';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default  function ArticlesTrashDataGrid() {
   const [t, i18n] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [openDelete, setOpenDelete] = useState(false);
   const [row, setRow] = useState({});
   const [refetch, setRefetch] = useState();
 
-  const articleService = new ArticlesService();
+  const articleService = new ArticlesService(jwt);
 
   const [fieldsName] = ['fields.article.'];
 

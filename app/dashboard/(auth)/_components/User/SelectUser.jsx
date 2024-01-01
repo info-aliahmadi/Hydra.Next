@@ -7,13 +7,18 @@ import { useTranslation } from 'react-i18next';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import { Chip, FormControl } from '@mui/material';
 import _ from 'lodash';
+import { useSession } from 'next-auth/react';
 
 export default function SelectUser({ defaultValues, id, name, setFieldValue, error, disabled, multiple }) {
-  const [t] = useTranslation();
+  const [t] = useTranslation(); 
+  const { data: session } = useSession();
+
+  const jwt = session?.user?.accessToken;
+
   const [loading, setLoading] = useState(false);
   const [options, setOptions] = useState([]);
   const [values, setValues] = useState([]);
-  const usersService = new UsersService();
+  const usersService = new UsersService(jwt);
 
   const getUsersByInput = (input) => {
     setLoading(true);

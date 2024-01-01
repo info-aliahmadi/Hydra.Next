@@ -9,10 +9,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import FileStorageService from '../_service/FileStorageService';
+import { useSession } from 'next-auth/react';
 
 const DeleteFile = ({ fileId, open, setOpen, files, setFiles }) => {
   const [t] = useTranslation();
-  let fileStorageService = new FileStorageService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let fileStorageService = new FileStorageService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

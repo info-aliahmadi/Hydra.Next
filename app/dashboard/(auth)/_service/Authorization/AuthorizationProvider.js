@@ -1,20 +1,31 @@
-import React, { Component } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import AuthorizationService from './AuthorizationService';
 
-export const AuthorizationContext = React.createContext({
-  isAuthorized: async () => ({}),
-  getUserPermissions: () => ({}),
-  refreshUserPermissions: (router) => ({})
-});
+export const AuthorizationContext = createContext(null);
 
-export const AuthorizationConsumer = AuthorizationContext.Consumer;
-export class AuthorizationProvider extends Component {
-  authorizationService;
-  constructor(props) {
-    super(props);
-    this.authorizationService = new AuthorizationService();
-  }
-  render() {
-    return <AuthorizationContext.Provider value={this.authorizationService}>{this.props.children}</AuthorizationContext.Provider>;
-  }
+export default function AuthorizationProvider({ children }) {
+
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  const service = new AuthorizationService(jwt);
+  var [permissions, sePermissions] = useState(null);
+  var [loading, seLoading] = useState(true);
+
+  useEffect(() => {
+    if (jwt) {
+      service.getUserPermissions().then(async (result) => {
+        sePermissions(result);
+        seLoading(false);
+      })
+        .catch((error) => {
+          console.error(error);
+          sePermissions([]);
+          seLoading(false);
+        });
+    }
+
+  }, [jwt]);
+
+  return <AuthorizationContext.Provider value={{ permissions, loading }}>{children}</AuthorizationContext.Provider>
 }

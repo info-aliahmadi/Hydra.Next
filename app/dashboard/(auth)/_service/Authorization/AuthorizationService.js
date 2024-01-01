@@ -1,13 +1,12 @@
 import axios from 'axios';
-import LocalStorageService from 'utils/LocalStorageService';
-import CONFIG from 'config.js';
-import { setAuthenticationHeader } from 'utils/axiosHeaders';
-import AuthenticationService from '../Authentication/AuthenticationService';
-
+import CONFIG from '/config.js';
+import { setDefaultHeader } from '/utils/axiosHeaders';
+// import { verifyJwtToken, createJwtToken } from '/utils/JwtService';
 export default class AuthorizationService {
-  storageService;
-  constructor() {
-    this.storageService = new LocalStorageService(CONFIG.AUTHORIZATION_STORAGE_NAME);
+
+  constructor(jwt) {
+    setDefaultHeader(jwt);
+    this.jwt = jwt;
   }
 
   isAuthorized = async (permission) => {
@@ -15,7 +14,8 @@ export default class AuthorizationService {
       this.getUserPermissions()
         .then((permissions) => {
           let result = permissions?.findIndex(function (element) {
-            return element.name === permission;
+
+            return element === permission;
           });
           resolve(result >= 0 ? true : false);
         })
@@ -25,55 +25,70 @@ export default class AuthorizationService {
         });
     });
   };
-
-  getUserPermissions = async () => {
+  getUserPermissions() {
     return new Promise((resolve, reject) => {
-      var permissions = this.storageService.getItem();
-      if (permissions == null) {
-        let authenticationService = new AuthenticationService();
-        var jwt = authenticationService.getJwt();
-        if (jwt && jwt.length > 0) {
-          if (window.sessionStorage.getItem('auth') == 'OnLoad') {
-            reject(null);
-          } else {
-            window.sessionStorage.setItem('auth', 'OnLoad');
-            setAuthenticationHeader(jwt);
-            axios
-              .get(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser')
-              .then((response) => {
-                window.sessionStorage.setItem('auth', 'Loaded');
-                this.storageService.AddItem(response.data);
-                resolve(JSON.parse(response.data));
-              })
-              .catch((error) => {
-                console.error(error);
-                resolve(null);
-              });
-          }
-        } else {
-          resolve(null);
-        }
-      } else {
-        resolve(permissions);
-      }
-    });
-  };
 
-  refreshUserPermissions = async (router) => {
+      fetch(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser', {
+        headers: {
+          Authorization: `Bearer ${this.jwt}`,
+        },
+        cache: 'force-cache',
+        next: { revalidate: 20000 }
+      }).then(response => resolve(response.json()))
+        .catch(error => reject(error));
+
+    });
+  }
+  getJwtSecretKey() {
+    const secret = process.env.NEXT_PUBLIC_JWT_SECRET_KEY;
+    if (!secret) {
+      throw new Error("JWT Secret key is not matched");
+    }
+    return new TextEncoder().encode(secret);
+  }
+  refreshUserPermissions = async () => {
     axios
       .get(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser')
       .then((response) => {
-        this.storageService.AddItem(response.data);
-        this.redirectToDashboard(router);
+        this.storageService.addItem(response.data);
+        return true;
       })
       .catch((error) => {
         return error.message;
       });
   };
-  redirectToLogin = (router) => {
-    router.push(CONFIG.LOGIN_PATH);
-  };
-  redirectToDashboard = (router) => {
-    router.push(CONFIG.DASHBOARD_PATH);
-  };
+  // getUserPermissions() {
+  //   return new Promise(async (resolve, reject) => {
+  //     const sessionName = "_pls";
+  //       if (typeof window !== 'undefined') {
+  //       const permissionsToken = sessionStorage.getItem(sessionName);
+  //       const secret = this.getJwtSecretKey();
+  //       if (permissionsToken) {
+  //         const payload = await verifyJwtToken(permissionsToken, secret)
+  //         if (payload) {
+  //           resolve(payload.permissions);
+  //           return;
+  //         }
+  //       }
+
+  //       axios
+  //         .get(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser')
+  //         .then(async (response) => {
+  //           const ps = response.data;
+  //           let date = new Date();
+  //           date.setDate(date.getDate() + 20);
+  //           const token = await createJwtToken(ps, secret, date);
+  //           window.sessionStorage.setItem(sessionName, token)
+  //           resolve(ps);
+  //         })
+  //         .catch((error) => {
+  //           console.error(error);
+  //           reject([]);
+  //         });
+  //     } else {
+  //       resolve([])
+  //     }
+
+  //   });
+  // }
 }

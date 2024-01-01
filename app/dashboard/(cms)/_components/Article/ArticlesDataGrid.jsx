@@ -10,17 +10,20 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import ArticlesService from '@dashboard/(cms)/_service/ArticlesService';
 import { useRouter } from 'next/navigation';
 import ArticleDetail from './ArticleDetail';
+import { useSession } from 'next-auth/react';
 
 // ===============================|| COLOR BOX ||=============================== //
 export function ArticlesDataGrid() {
   const [t, i18n] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [openDelete, setOpenDelete] = useState(false);
   const [row, setRow] = useState({});
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const articlesService = new ArticlesService();
+  const articlesService = new ArticlesService(jwt);
 
   const router = useRouter();
 

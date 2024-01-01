@@ -4,22 +4,23 @@ import AccessDenied from '@dashboard/(auth)/_components/AccessDenied';
 import Loader from '@dashboard/_components/Loader';
 
 function Authorize(props) {
-  var [isAuthorizedResult, setIsAuthorizedResult] = useState();
+  const { permissions, loading } = useContext(AuthorizationContext);
 
-  const { isAuthorized } = useContext(AuthorizationContext);
+  var [isAuthorized, setIsAuthorized] = useState(null);
 
   useEffect(() => {
-    const authorizitionCheck = async () => {
-      if (props.permission) {
-        let result = await isAuthorized(props.permission);
-        setIsAuthorizedResult(result);
+    if (loading == false)
+      if (permissions) {
+        let result = permissions?.findIndex(function (element) {
+          return element === props.permission;
+        });
+        setIsAuthorized(result >= 0 ? true : false);
       }
-    };
-    authorizitionCheck();
-  }, [isAuthorized, props.permission]);
-  if (isAuthorizedResult === true) {
+  }, [loading, permissions, props.permission]);
+
+  if (isAuthorized === true) {
     return <>{props.children}</>;
-  } else if (isAuthorizedResult === false) {
+  } else if (isAuthorized === false) {
     return props.accessDeniedElement ? props.AccessDeniedElement : <AccessDenied />;
   } else {
     return (

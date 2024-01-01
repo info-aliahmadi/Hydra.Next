@@ -24,13 +24,17 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import LinkService from '@dashboard/(cms)/_service/LinkService';
 import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
+import { useSession } from 'next-auth/react';
 
 const AddOrEditLink = ({ row, linkSection, data, setData, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let linkService = new LinkService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let linkService = new LinkService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.link.', 'validation.link.', 'buttons.link.'];
   const [link, setLink] = useState();
   const [notify, setNotify] = useState({ open: false });

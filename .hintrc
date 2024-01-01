@@ -7,7 +7,8 @@
       "default",
       {
         "ignore": [
-          "-moz-user-select"
+          "-moz-user-select",
+          "user-select"
         ]
       }
     ]

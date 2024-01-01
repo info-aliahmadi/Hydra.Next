@@ -11,7 +11,7 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import { useRouter } from 'next/navigation';
 import MessagesService from '@dashboard/(crm)/_service/MessageService';
 import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';

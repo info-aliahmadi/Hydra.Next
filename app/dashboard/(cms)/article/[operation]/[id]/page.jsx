@@ -13,14 +13,14 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import MainCard from '@dashboard/_components/MainCard';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import ArticlesService from '@dashboard/(cms)/_service/ArticlesService';
-import Editor from '@dashboard/_components/Editor/Editor';
+// import Editor from '@dashboard/_components/Editor/Editor';
 import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
 import SelectTopic from '@dashboard/(cms)/_components/Topic/SelectTopic';
 import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
@@ -156,13 +156,13 @@ export default function AddOrEditArticle({params}) {
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="body">{t(fieldsName + 'body')}</InputLabel>
-                            <Editor
+                            {/* <Editor2
                               id={'body'}
                               name={'body'}
                               defaultValue={values?.body || ''}
                               setFieldValue={setFieldValue}
                               error={Boolean(touched.body && errors.body)}
-                            />
+                            /> */}
                             {operation == 'edit' && (
                               <Grid>
                                 {t(fieldsName + 'writedBy') + ' : '}

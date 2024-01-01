@@ -9,10 +9,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import PagesService from '@dashboard/(cms)/_service/PagesService';
+import { useSession } from 'next-auth/react';
 
 export default function DeletePage({ row, open, setOpen, refetch }) {
   const [t] = useTranslation();
-  let pageService = new PagesService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let pageService = new PagesService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

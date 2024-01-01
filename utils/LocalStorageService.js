@@ -1,17 +1,16 @@
-'use client';
 export default class LocalStorageService {
   localStorageName;
   constructor(localStorageName) {
     this.localStorageName = localStorageName;
   }
-  // eslint-disable-next-line no-unused-vars
-  AddItem(value, _expireDate) {
-    if (typeof window !== 'undefined') {
+
+  addItem(value, _expireDate) {
+    if (typeof localStorage !== 'undefined') {
       localStorage.setItem(this.localStorageName, JSON.stringify(value));
     }
   }
   getItem() {
-    if (typeof window !== 'undefined') {
+    if (typeof localStorage !== 'undefined') {
       let value = localStorage.getItem(this.localStorageName);
       if (value) {
         try {

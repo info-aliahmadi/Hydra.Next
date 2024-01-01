@@ -14,11 +14,15 @@ import DeletePermission from './DeletePermission';
 
 import AddIcon from '@mui/icons-material/Add';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function PermissionDataGrid() {
   const [t] = useTranslation();
-  const service = new PermissionService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const service = new PermissionService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [rowId, setRowId] = useState(0);
   const [open, setOpen] = useState(false);

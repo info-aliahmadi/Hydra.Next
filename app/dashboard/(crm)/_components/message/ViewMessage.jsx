@@ -6,7 +6,7 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import MainCard from '@dashboard/_components/MainCard';
 
 import MessageTypeChip from './MessageTypeChip';
-import CONFIG from 'config';
+import CONFIG from '/config';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'next/navigation';

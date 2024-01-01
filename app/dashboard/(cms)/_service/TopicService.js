@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { setDefaultHeader } from 'utils/axiosHeaders';
-import CONFIG from 'config.js';
+import CONFIG from '/config.js';
+import { setDefaultHeader } from '/utils/axiosHeaders';
 
 export default class TopicsService {
-  constructor() {
-    setDefaultHeader();
+  constructor(jwt) {
+    setDefaultHeader(jwt);
   }
   getTopicList = async () => {
     return new Promise((resolve, reject) => {

@@ -12,15 +12,18 @@ import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import { MessageTypes } from './MessageType';
 import MessageService from '@dashboard/(crm)/_service/MessageService';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function MessagesTrashDataGrid() {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [refetch, setRefetch] = useState();
   const [notify, setNotify] = useState({ open: false });
 
-  const messagesService = new MessageService();
+  const messagesService = new MessageService(jwt);
 
   const fieldsName = 'fields.message.messageInbox.';
 

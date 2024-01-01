@@ -16,11 +16,14 @@ import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';
 import MessageService from '../_service/MessageService';
+import { useSession } from 'next-auth/react';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const MessageSetting = () => {
   const [t] = useTranslation();
-  let settingsService = new MessageService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let settingsService = new MessageService(jwt);
 
   const [fieldsName, validation, buttonName] = ['fields.message.messageSettings.', 'validation.message.messageSettings', 'buttons.'];
   const [settings, setSettings] = useState();

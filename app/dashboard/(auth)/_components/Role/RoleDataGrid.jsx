@@ -15,11 +15,15 @@ import DeleteRole from './DeleteRole';
 import AddIcon from '@mui/icons-material/Add';
 import RoleService from '@dashboard/(auth)/_service/RoleService';
 import PermissionRoleDataGrid from '../PermissionRole/PermissionRoleDataGrid';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 function RoleDataGrid() {
   const [t] = useTranslation();
-  const service = new RoleService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  const service = new RoleService(jwt);
   const [isNew, setIsNew] = useState(true);
   const [rowId, setRowId] = useState(0);
   const [open, setOpen] = useState(false);

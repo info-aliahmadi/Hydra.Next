@@ -1,5 +1,5 @@
 import 'react';
-import HomePageThemeCustomization from 'themes/HomePageTheme';
+import HomePageThemeCustomization from '/themes/HomePageTheme';
 import Navigation from './_layout/Navigation';
 import Footer from './_layout/Footer';
 // Keep the titles up to 50-60 characters long

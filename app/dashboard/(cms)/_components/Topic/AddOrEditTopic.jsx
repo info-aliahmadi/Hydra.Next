@@ -25,12 +25,16 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import TopicsService from '@dashboard/(cms)/_service/TopicService';
+import { useSession } from 'next-auth/react';
 
 const AddOrEditTopic = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let topicService = new TopicsService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let topicService = new TopicsService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.topic.', 'validation.topic.', 'buttons.topic.'];
   const [topic, setTopic] = useState();
   const [notify, setNotify] = useState({ open: false });

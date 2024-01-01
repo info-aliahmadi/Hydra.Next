@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { setDefaultHeader } from 'utils/axiosHeaders';
-import CONFIG from 'config.js';
+import CONFIG from '/config.js';
+import { setDefaultHeader } from '/utils/axiosHeaders';
 
 export default class PermissionService {
-  constructor() {
-    setDefaultHeader();
+  constructor(jwt) {
+    if(jwt)
+    setDefaultHeader(jwt);
   }
   getPermissionList = async (searchParams) => {
     return new Promise((resolve, reject) => {

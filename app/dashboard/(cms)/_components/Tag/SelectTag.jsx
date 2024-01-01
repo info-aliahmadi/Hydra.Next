@@ -6,13 +6,18 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Chip, FormControl } from '@mui/material';
 import TagsService from '@dashboard/(cms)/_service/TagsService';
+import { useSession } from 'next-auth/react';
+
 
 export default function SelectTag({ defaultValues, id, name, setFieldValue, error, disabled }) {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
   const [values, setValues] = useState(defaultValues);
-  const tagService = new TagsService();
+  const tagService = new TagsService(jwt);
 
   const loadTags = () => {
     tagService.getTagListForSelect().then((result) => {

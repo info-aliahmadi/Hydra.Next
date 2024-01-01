@@ -10,8 +10,8 @@ import Typography from '@mui/material/Typography';
 import 'react';
 import Author from './Author';
 import _ from 'lodash';
-import readingTime from 'utils/readingTime';
-import { DateTimeViewer } from 'utils/DateViewer';
+import readingTime from '/utils/readingTime';
+import { DateTimeViewer } from '/utils/DateViewer';
 import Link from 'next/link';
 import CONFIG from '/config';
 

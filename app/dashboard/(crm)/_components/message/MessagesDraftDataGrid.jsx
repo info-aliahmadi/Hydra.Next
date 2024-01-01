@@ -14,10 +14,13 @@ import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import { useRouter } from 'next/navigation';
 import MessageService from '@dashboard/(crm)/_service/MessageService';
+import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function MessagesDraftDataGrid() {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
 
   const [openDelete, setOpenDelete] = useState(false);
   const [row, setRow] = useState({});
@@ -25,7 +28,7 @@ export default function MessagesDraftDataGrid() {
   const [notify, setNotify] = useState({ open: false });
   const router = useRouter();
 
-  const messagesService = new MessageService();
+  const messagesService = new MessageService(jwt);
 
   const fieldsName = 'fields.message.messageInbox.';
 

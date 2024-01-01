@@ -9,10 +9,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import ArticlesService from '@dashboard/(cms)/_service/ArticlesService';
+import { useSession } from 'next-auth/react';
 
 const DeleteArticle = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let articleService = new ArticlesService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let articleService = new ArticlesService(jwt);
   const [notify, setNotify] = useState({ open: false });
 
   const onClose = () => {

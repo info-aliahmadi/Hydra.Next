@@ -22,9 +22,9 @@ import '/public/css/filepond-plugin-get-file.min.css';
 
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { setTokenBearer } from 'utils/axiosHeaders';
 import CONFIG from '/config';
 import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import { useSession } from 'next-auth/react';
 
 export default function FileUpload({
   id,
@@ -40,10 +40,13 @@ export default function FileUpload({
   const [files, setFiles] = useState([]);
   const [values, setValues] = useState([]);
   const [t, i18n] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  let tokenBearer = jwt ? 'Bearer ' + jwt : '';
 
   const uploadUrl = CONFIG.API_BASEPATH + '/FileStorage/UploadFile';
 
-  var fileUploadService = new FileStorageService();
+  var fileUploadService = new FileStorageService(jwt);
 
   const loadFiles = async (fileIds) => {
     fileUploadService.getFilesInfoById(fileIds).then((fileInfos) => {
@@ -178,9 +181,12 @@ export default function FileUpload({
       if (allowMultiple) {
         let newValues = values;
         newValues.push(fileInfo?.id);
+        
+    if (setFieldValue != undefined) 
         setFieldValue(id, newValues);
         setValues((old) => [...old, fileInfo?.id]);
       } else {
+        if (setFieldValue != undefined) 
         setFieldValue(fileInfo?.id);
       }
     }
@@ -240,7 +246,7 @@ export default function FileUpload({
       onupdatefiles={onupdatefiles}
       server={{
         url: uploadUrl,
-        headers: { Authorization: setTokenBearer(), UploadAction: 'Rename' }
+        headers: { Authorization: tokenBearer, UploadAction: 'Rename' }
       }}
       onprocessfile={onprocessfile}
       labelFileProcessingError={(error) => {

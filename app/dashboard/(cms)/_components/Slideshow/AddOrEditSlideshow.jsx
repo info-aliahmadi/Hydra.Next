@@ -24,13 +24,17 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import SlideshowService from '@dashboard/(cms)/_service/SlideshowService';
 import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
+import { useSession } from 'next-auth/react';
 
 const AddOrEditSlideshow = ({ row, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
-  let slideshowService = new SlideshowService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let slideshowService = new SlideshowService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.slideshow.', 'validation.slideshow.', 'buttons.slideshow.'];
   const [slideshow, setSlideshow] = useState();
   const [notify, setNotify] = useState({ open: false });

@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 
 // material-ui
@@ -7,27 +8,30 @@ import { Grid, InputLabel, MenuItem, Select, Stack, useTheme } from '@mui/materi
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
-// project import
-
 // assets
 import { useTranslation } from 'react-i18next';
-import languageList from 'Localization/languageList';
-import LocalizationService from 'Localization/LocalizationService';
+import languageList from '/Localization/languageList';
+import LocalizationService from '/Localization/LocalizationService';
 import Notify from '@dashboard/_components/@extended/Notify';
+import { useSession } from 'next-auth/react';
 
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const ChangeLanguageForm = () => {
   const theme = useTheme();
   const [t, i18n] = useTranslation();
+  const { data: session, update } = useSession();
+
+  const accessToken = session?.user?.accessToken;
 
   let currentLanguage = languageList.find((l) => l.key === i18n.language);
 
   const [notify, setNotify] = useState({ open: false });
 
   const changeLanguage = (lng) => {
-    let locService = new LocalizationService();
+    let locService = new LocalizationService(accessToken);
     locService.setCurrentLanguage(i18n, theme, lng);
+    update({...session.user, defaultLanguage: lng.key });
   };
 
   return (

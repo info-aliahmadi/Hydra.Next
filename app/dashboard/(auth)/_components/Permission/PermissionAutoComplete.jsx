@@ -5,8 +5,14 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
+import { useSession } from 'next-auth/react';
 
 export default function PermissionAutoComplete({ value, setValue }) {
+  
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+      let permissionService = new PermissionService(jwt);
+
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
   const [newValue, setNewValue] = useState(value ?? '');
@@ -34,7 +40,6 @@ export default function PermissionAutoComplete({ value, setValue }) {
   const onInputChange = (event, newInputValue) => {
     if (newInputValue != 'undefined' && newInputValue != null && newInputValue != '') {
       setLoading(true);
-      let permissionService = new PermissionService();
       permissionService.getPermissionsByName(newInputValue).then((permissions) => {
         setOptions([...permissions.data]);
         setLoading(false);

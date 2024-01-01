@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { setDefaultHeader } from 'utils/axiosHeaders';
-import CONFIG from 'config.js';
+import { setDefaultHeader } from '/utils/axiosHeaders';
+import CONFIG from '/config.js';
 
 export default class RoleService {
-  constructor() {
-    setDefaultHeader();
+  constructor(jwt) {
+    if(jwt)
+    setDefaultHeader(jwt);
   }
   getRoleList = async (searchParams) => {
     return new Promise((resolve, reject) => {
