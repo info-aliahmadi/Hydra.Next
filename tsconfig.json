@@ -23,6 +23,6 @@
       "/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/dashboard/(auth)/_service/Authentication/AuthenticationProvider.jsx", "app/api/auth/[...nextauth]/options.ts", "app/api/auth/[...nextauth]/route.ts", "app/dashboard/(auth)/_service/Authorization/AuthorizationService.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

@@ -12,6 +12,26 @@ import Grid from '@mui/material/Grid';
 import HomeService from '@(home)/_service/HomeService';
 import PostPagination from '../../_components/PostPagination';
 
+
+
+export async function generateMetadata({ params }, parent) {
+  // read route params
+
+  let page = params.page;
+  page = page > 0 ? parseInt(page) : 1;
+  
+  var homeService = new HomeService();
+  const blogPost = await homeService.getArticles('', '', '', page, 0);
+  // fetch data
+  // const product = await fetch(`https://.../${id}`).then((res) => res.json())
+ 
+  return {
+    title: parent.title,
+    keywords : parent.keywords
+  }
+}
+
+
 export default async function Blog({ params }) {
   var homeService = new HomeService();
 

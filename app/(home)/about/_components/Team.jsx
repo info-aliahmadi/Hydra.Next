@@ -93,7 +93,7 @@ export default function Team() {
                 name="Andrew Hiom"
                 jobTitle="UI/UX Designer"
                 description="with 10 years experience"
-                picture="/images/ja.png"
+                picture="/images/rez.jpg"
                 linkedInAddress="https://www.linkedin.com/in/info-aliahmadi/"
                 xAddress="https://www.linkedin.com/in/info-aliahmadi/"
               />

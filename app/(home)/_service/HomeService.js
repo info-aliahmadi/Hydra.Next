@@ -2,14 +2,25 @@ import axios from 'axios';
 import CONFIG from '/config.js';
 
 export default class HomeService {
-  constructor() {}
 
+  getSettings = async () => {
+    return new Promise(async (resolve, reject) => {
+      await fetch(CONFIG.API_BASEPATH + '/cms/GetSettings')
+        .then((response) => response.json())
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
   getMenu = async () => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/getMenu')
+      fetch(CONFIG.API_BASEPATH + '/cms/getMenu')
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -18,12 +29,17 @@ export default class HomeService {
   };
   getArticles = async (searchInput, categoryName, tagName, pageIndex, pageSize) => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetArticlesList', {
-          params: { searchInput: searchInput, categoryName: categoryName, tagName: tagName, pageIndex: pageIndex, pageSize: pageSize }
-        })
+      fetch(CONFIG.API_BASEPATH + '/cms/GetArticlesList?' + new URLSearchParams({
+        searchInput: searchInput,
+        categoryName: categoryName,
+        tagName: tagName,
+        pageIndex: pageIndex,
+        pageSize: pageSize,
+
+      }))
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -32,12 +48,12 @@ export default class HomeService {
   };
   getRelatedArticles = async (articleId) => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetRelatedArticlesList', {
-          params: { articleId: articleId }
-        })
+      fetch(CONFIG.API_BASEPATH + '/cms/GetRelatedArticlesList?' + new URLSearchParams({
+        articleId: articleId
+      }))
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -46,10 +62,10 @@ export default class HomeService {
   };
   getTopArticle = async () => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetTopArticle')
+      fetch(CONFIG.API_BASEPATH + '/cms/GetTopArticle')
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -58,12 +74,12 @@ export default class HomeService {
   };
   getArticle = async (articleId) => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetArticle', {
-          params: { articleId: articleId }
-        })
+      fetch(CONFIG.API_BASEPATH + '/cms/GetArticle?' + new URLSearchParams({
+        articleId: articleId
+      }))
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -72,10 +88,10 @@ export default class HomeService {
   };
   getCategories = async () => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetTopicsList')
+      fetch(CONFIG.API_BASEPATH + '/cms/GetTopicsList')
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -84,10 +100,10 @@ export default class HomeService {
   };
   getTags = async () => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetTagsList')
+      fetch(CONFIG.API_BASEPATH + '/cms/GetTagsList')
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -96,12 +112,11 @@ export default class HomeService {
   };
   getLinksByKeyList = async (sectionKey) => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/cms/GetLinksByKeyList', {
-          params: { sectionKey: sectionKey }
-        })
+      const options =new URLSearchParams({ sectionKey: sectionKey }).toString();
+      fetch(CONFIG.API_BASEPATH + '/cms/GetLinksByKeyList?'+ options )
+        .then((response) => response.json())
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);

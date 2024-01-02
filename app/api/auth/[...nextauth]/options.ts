@@ -7,7 +7,6 @@ export const options: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       // the processing of JWT occurs before handling sessions.
-      //  console.log('jwt1 callback ', { token, trigger,session , user });
 
       if (user) {
         token.refreshToken = token.refreshToken;
@@ -22,10 +21,8 @@ export const options: NextAuthOptions = {
         token.id = user.id;
         token.accessToken = user.accessToken;
       }
-      // console.log('jwt2 callback ', { token, user, account,profile });
 
       if (trigger === 'update' && session) {
-        console.log('jwt13333 callback ', { session });
         // Note, that `session` can be any arbitrary object, remember to validate it!
         token.name = session.name;
         token.userName = session.userName;
@@ -41,7 +38,6 @@ export const options: NextAuthOptions = {
 
     //  The session receives the token from JWT
     async session({ session, token, user }) {
-      // console.log('session1 callback ', { token, user, session });
       session.user = {
         ...session.user,
         userName: token.userName as string,
@@ -56,7 +52,6 @@ export const options: NextAuthOptions = {
       };
       session.error = token.error as string;
 
-      // console.log('session2 callback ', { token, user, session });
       return session;
     }
   },

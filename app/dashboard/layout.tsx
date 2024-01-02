@@ -19,11 +19,14 @@ export default function DashboardThemeLayout({ children }: {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        {/* <link rel="apple-touch-icon" href="/apple-touch-icon.png" /> */}
+        <meta name="theme-color" content="#1f1f1f" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <link rel="icon" href="/favicon.svg" />
 
 
         <title>Dashboard</title>
+        {/* <link rel="apple-touch-icon" href="/apple-touch-icon.png"></link> */}
         <meta name="title" content="Hydra React Dashboard" />
       </head>
       <body>

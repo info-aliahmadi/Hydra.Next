@@ -12,13 +12,13 @@ import Typography from './typography';
 import CustomShadows from './shadows';
 import componentsOverride from './overrides';
 
-import { LocalizationProvider } from '@mui/x-date-pickers';
+// import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import '/public/css/customStyle/homePage.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
-export default function HomePageThemeCustomization({ children }) {
+export default async function HomePageThemeCustomization({ children }) {
   const fonts = {
     header: 'Gloock',
     body: 'Poppins'
@@ -61,14 +61,14 @@ export default function HomePageThemeCustomization({ children }) {
 
   return (
     <StyledEngineProvider injectFirst>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
-          <ThemeProvider theme={themes}>
-            <CssBaseline />
-            {children}
-          </ThemeProvider>
-        </NextAppDirEmotionCacheProvider>
-      </LocalizationProvider>
+      {/* <LocalizationProvider dateAdapter={AdapterMoment}> */}
+      <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+        <ThemeProvider theme={themes}>
+          <CssBaseline />
+          {children}
+        </ThemeProvider>
+      </NextAppDirEmotionCacheProvider>
+      {/* </LocalizationProvider> */}
     </StyledEngineProvider>
   );
 }

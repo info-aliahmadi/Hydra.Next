@@ -14,6 +14,22 @@ import Link from 'next/link';
 import HomeService from '@(home)/_service/HomeService';
 import Header from './_components/Header';
 
+export async function generateMetadata({ params }, parent) {
+  // read route params
+
+  
+  var homeService = new HomeService();
+  let postId = params.postId;
+  const post = await homeService.getArticle(postId);
+  console.log("posttttttttttttttttttttttttt : "+JSON.stringify(post));
+  // fetch data
+  // const product = await fetch(`https://.../${id}`).then((res) => res.json())
+  return {
+    title: post.subject,
+    keywords :post.tags
+  }
+}
+
 export default async function BlogPost({ params }) {
   var homeService = new HomeService();
   let postId = params.postId;

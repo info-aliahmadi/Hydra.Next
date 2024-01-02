@@ -103,7 +103,7 @@ export default function Story() {
                 developers. We have over <strong className="gradient-text"> 15 years of combined experience</strong> in creating beautiful,
                 responsive, and user-friendly websites for various clients and purposes. We specialize in{' '}
                 <strong className="gradient-text"> front-end development </strong> , using the latest technologies and frameworks such as
-                <strong className="gradient-text"> HTML5, CSS3, JavaScript, React, Bootstrap and Material Design(MUI) </strong> . We also
+                <strong className="gradient-text"> HTML5, CSS3, JavaScript, React, NextJs, Bootstrap and Material Design(MUI) </strong> . We also
                 have skills in <strong className="gradient-text"> back-end development </strong> , working with
                 <strong className="gradient-text"> .NET, ASP.Net, SQL Server and MongoDB </strong> . We can create websites from scratch, or
                 redesign and improve existing ones. We can also integrate various features and functionalities such as e-commerce, blogs,

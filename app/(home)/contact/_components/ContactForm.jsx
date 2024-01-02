@@ -1,3 +1,4 @@
+'use client'
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -28,6 +29,7 @@ export default function ContactForm() {
   const [notify, setNotify] = useState({ open: false });
 
   const handleSubmit = async (message, resetForm, setErrors, setSubmitting) => {
+    message.messageType =Number(message.messageType)
     if (message.messageType == 2) {
       messageService
         .sendContactMessage(message)
@@ -164,10 +166,9 @@ export default function ContactForm() {
                   <InputLabel htmlFor="email">Subject</InputLabel>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
                     id="messageType"
                     name="messageType"
-                    value={values?.messageType || ''}
+                    value={values?.messageType || 0}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     error={Boolean(touched.messageType && errors.messageType)}

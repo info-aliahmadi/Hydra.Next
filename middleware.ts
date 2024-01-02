@@ -16,11 +16,9 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
           const jwt = token.accessToken.toString();
 
           const route = _.find(AllRoutes.routes, (element: any) => element.path == path);
-          console.log('route : ' + route);
           if (route) {
             const Authorized = await isAuthorized(route.permission, jwt);
             if (!Authorized) {
-              console.log('route : false');
               return false;
             }
           }
@@ -45,7 +43,6 @@ async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
     let result = _.findIndex(permissions, function (element) {
       return element === permission;
     });
-    console.log('result : ' + (result >= 0 ? true : false));
     return result >= 0 ? true : false;
   } else {
     return false;

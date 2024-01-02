@@ -8,6 +8,7 @@ import Statistics from './_components/Statistics';
 import Request from './_components/Request';
 import Contact from './_components/Contact';
 
+
 export default async function Home() {
   // var homeService = new HomeService();
 
