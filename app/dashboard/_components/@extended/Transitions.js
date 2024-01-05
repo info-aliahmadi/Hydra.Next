@@ -6,6 +6,7 @@ import { Fade, Box, Grow } from '@mui/material';
 
 // ==============================|| TRANSITIONS ||============================== //
 
+// eslint-disable-next-line react/display-name
 const Transitions = forwardRef(({ children, position, type, ...others }, ref) => {
   let positionSX = {
     transformOrigin: '0 0 0'

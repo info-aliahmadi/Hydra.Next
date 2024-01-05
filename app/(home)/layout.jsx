@@ -3,13 +3,15 @@ import HomePageThemeCustomization from '/themes/HomePageTheme';
 import Navigation from './_layout/Navigation';
 import Footer from './_layout/Footer';
 import HomeService from './_service/HomeService';
+import CONFIG from '/config';
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata() {
   var service = new HomeService();
   const siteSettings = await service.getSettings();
+  console.log(siteSettings.siteTitle);
   const titleTemplate = '%s | ' + siteSettings.siteTitle;
   return {
-    metadataBase: new URL('https://onwavedesign.com'),
+    // metadataBase: new URL(CONFIG.DOMAIN),
     icons: {
       icon: '/favicon.svg',
       shortcut: '/favicon.svg',
@@ -52,7 +54,7 @@ export async function generateMetadata({ params }, parent) {
         bing: 'bing',
         yahoo: 'y_key',
         other: {
-          me: ['my-email', 'my-link']
+          me: ['info@onwavedesign.com', CONFIG.DOMAIN]
         }
       }
   };

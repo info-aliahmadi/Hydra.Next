@@ -99,6 +99,7 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
     } else {
       setFiles([]);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   const getError = async (errorCode) => {
     switch (errorCode) {

@@ -12,7 +12,7 @@ import { DateTimeViewer } from '/utils/DateViewer';
 import readingTime from '/utils/readingTime';
 import Author from '@(home)/_components/Author';
 import HomeService from '@(home)/_service/HomeService';
-import _ from 'lodash';
+import {truncate} from 'lodash';
 
 export default async function RelatedPosts({ postId }) {
   var homeService = new HomeService();
@@ -33,7 +33,7 @@ export default async function RelatedPosts({ postId }) {
                       ? post?.previewImageUrl
                       : post?.previewImageId
                       ? CONFIG.UPLOAD_BASEPATH + post?.previewImage.directory + post?.previewImage.thumbnail
-                      : '/images/Image.png'
+                      : '/images/unavailable.png'
                   }
                 />
               </Card>
@@ -58,7 +58,7 @@ export default async function RelatedPosts({ postId }) {
                   pt={2}
                   pb={2}
                   dangerouslySetInnerHTML={{
-                    __html: _.truncate(post?.body, {
+                    __html: truncate(post?.body, {
                       length: 150,
                       seperator: '.'
                     })

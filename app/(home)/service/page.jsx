@@ -11,10 +11,8 @@ import Contact from '../_components/Contact';
 import PageHeader from '@(home)/_components/PageHeader';
 
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata() {
 
-  const siteName = 'https://onwavedesign.com';
-  const title = "About OnWave Design Team"
   const desc = "We have over 15 years of combined experience in creating beautiful, responsive, and user-friendly websites for various clients and purposes. We specialize in front-end development , using the latest technologies and frameworks such as HTML5, CSS3, JavaScript, React, NextJs, Bootstrap and Material Design(MUI) . We also have skills in back-end development , working with .NET, ASP.Net, SQL Server and MongoDB .";
 
   return {
@@ -24,16 +22,11 @@ export async function generateMetadata({ params }, parent) {
     category: 'World-Class Web Development',
 
     openGraph: {
-      title: title,
+      title: "Service",
       description: desc,
-      url: siteName,
-      siteName: 'OnWave Design',
-      images: '/images/onwave-presentation.png',
-      locale: 'en_US',
-      type: 'website'
     },
     twitter: {
-      title: title,
+      title: "Service",
       description: desc
       }
     }

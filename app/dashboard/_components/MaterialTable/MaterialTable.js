@@ -6,7 +6,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment-jalaali';
 import { DateTimeViewer, DateViewer } from '/utils/DateViewer';
-import _ from 'lodash';
+import {find} from 'lodash';
 
 const dateFilter = ({ header, rangeFilterIndex }) => {
   let filterFn = header.column.getFilterFn().name;
@@ -146,6 +146,7 @@ function MaterialTable({
   function setCells() {
     booleanFields.forEach((element) => {
       if (!element.Cell) {
+        // eslint-disable-next-line react/display-name
         element.Cell = ({ renderedCellValue }) =>
           renderedCellValue != null && (
             <Checkbox checked={renderedCellValue ? true : false} title={renderedCellValue ? 'Yes' : 'No'} color="default" disabled />
@@ -154,12 +155,14 @@ function MaterialTable({
     });
     dateFields.forEach((element) => {
       if (!element.Cell) {
+        // eslint-disable-next-line react/display-name
         element.Cell = ({ renderedCellValue }) =>
           renderedCellValue != null && <span>{DateViewer(currentLanguage, renderedCellValue)}</span>;
       }
     });
     dateTimeFields.forEach((element) => {
       if (!element.Cell) {
+        // eslint-disable-next-line react/display-name
         element.Cell = ({ renderedCellValue }) =>
           renderedCellValue != null && <span>{DateTimeViewer(currentLanguage, renderedCellValue)}</span>;
       }
@@ -205,10 +208,10 @@ function MaterialTable({
     for (let i = 0; i < keys.length; i++) {
       let fieldName = keys[i];
       let fieldValue = columnFilterF[fieldName];
-      let element = _.find(columnFilters, ['id', fieldName]);
+      let element = find(columnFilters, ['id', fieldName]);
       if (element) {
         element.operation = fieldValue;
-        element.type = _.find(columns, ['accessorKey', fieldName]).type;
+        element.type = find(columns, ['accessorKey', fieldName]).type;
       }
     }
   }

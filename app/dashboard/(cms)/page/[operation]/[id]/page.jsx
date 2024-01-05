@@ -34,6 +34,7 @@ import PagesService from '@dashboard/(cms)/_service/PagesService';
 import { useRouter } from 'next/navigation';
 import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import Editor from '@dashboard/_components/Editor/Editor';
+import '/public/css/editor-style.css'
 
 export default function AddOrEditPage({params}) {
   const [t, i18n] = useTranslation();

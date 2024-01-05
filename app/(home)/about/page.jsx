@@ -1,16 +1,14 @@
 'use server';
-import React, { lazy } from 'react';
+import Header from '@(home)/_components/Header';
+import React from 'react';
+import Story from './_components/Story';
+import Factory from './_components/Factory';
+import Statistics from './_components/Statistics';
+import Team from './_components/Team';
 
-const Header = lazy(() => import('../_components/PageHeader'));
-const Story = lazy(() => import('./_components/Story'));
-const Factory = lazy(() => import('./_components/Factory'));
-const Statistics = lazy(() => import('./_components/Statistics'));
-const Team = lazy(() => import('./_components/Team'));
+export async function generateMetadata() {
 
-export async function generateMetadata({ params }, parent) {
-
-  const siteName = 'https://onwavedesign.com';
-  const title = "About OnWave Design Team"
+  const title = "About OnWave Design Team";
   const desc = "We have over 15 years of combined experience in creating beautiful, responsive, and user-friendly websites for various clients and purposes. We specialize in front-end development , using the latest technologies and frameworks such as HTML5, CSS3, JavaScript, React, NextJs, Bootstrap and Material Design(MUI) . We also have skills in back-end development , working with .NET, ASP.Net, SQL Server and MongoDB .";
 
   return {
@@ -22,11 +20,6 @@ export async function generateMetadata({ params }, parent) {
     openGraph: {
       title: title,
       description: desc,
-      url: siteName,
-      siteName: 'OnWave Design',
-      images: '/images/onwave-presentation.png',
-      locale: 'en_US',
-      type: 'website'
     },
     twitter: {
       title: title,

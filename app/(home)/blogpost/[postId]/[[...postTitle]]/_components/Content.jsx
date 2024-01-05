@@ -37,7 +37,7 @@ export default async function Content({ post }) {
                     ? post?.previewImageUrl
                     : post?.previewImageId
                     ? CONFIG.UPLOAD_BASEPATH + post?.previewImage.directory + post?.previewImage.fileName
-                    : "/images/Image.png"
+                    : "/images/unavailable.png"
                 }
                 width={'100%'}
               />

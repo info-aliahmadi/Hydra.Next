@@ -25,7 +25,7 @@ import { InfoOutlined, Download, Delete, UploadFile, InsertDriveFile } from '@mu
 import LinkIcon from '@mui/icons-material/Link';
 
 import { fileSizeViewer } from '/utils/fileSizeViewer';
-import _ from 'lodash';
+import { upperCase, capitalize , lowerCase,toLower,truncate } from 'lodash';
 import { useRouter } from 'next/navigation';
 import CONFIG from '/config';
 import DeleteFile from './DeleteFile';
@@ -33,11 +33,11 @@ import { DateViewer } from '/utils/DateViewer';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
-import FileStorageService from '../_service/FileStorageService';
+import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
 import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
-function FilesList({directory}) {
+function FilesList({ directory }) {
   const [t, i18n] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
@@ -86,7 +86,7 @@ function FilesList({directory}) {
               {t('pages.cards.fileStorage')}
             </Link>
             <Link underline="hover" color="inherit" href="#">
-              {_.capitalize(directory)}
+              {capitalize(directory)}
             </Link>
           </Breadcrumbs>
         </Grid>
@@ -111,7 +111,7 @@ function FilesList({directory}) {
   };
 
   const FileViewer = ({ extention }) => {
-    extention = _.lowerCase(extention);
+    extention = lowerCase(extention);
     let themeMode = theme.palette.mode;
     let bgColor = themeMode == 'light' ? 'secondary.main' : 'secondary.light';
     switch (extention) {
@@ -148,7 +148,7 @@ function FilesList({directory}) {
       >
         <InsertDriveFile sx={{ fontSize: '100px' }} />
         <Typography variant="h2" display="block" gutterBottom>
-          {_.upperCase(extention)}
+          {upperCase(extention)}
         </Typography>
       </Box>
     );
@@ -168,7 +168,7 @@ function FilesList({directory}) {
             <Grow in={true} key={'card-' + file.fileName}>
               <Grid item xs={12} sm={6} md={3} lg={2} xd={2}>
                 <Card>
-                  {mediaExtensions.some((extension) => extension == _.toLower(file?.extension)) ? (
+                  {mediaExtensions.some((extension) => extension == toLower(file?.extension)) ? (
                     <CardMedia
                       component={'img'}
                       height="194"
@@ -178,7 +178,7 @@ function FilesList({directory}) {
                   ) : (
                     <CardMedia component={() => <FileViewer extention={file.extension} />} height="194" alt={file.alt} />
                   )}
-                  <CardHeader sx={{ padding: '10px' }} title={_.truncate(file.fileName)} subheader={fileSizeViewer(file.size, true)} />
+                  <CardHeader sx={{ padding: '10px' }} title={truncate(file.fileName)} subheader={fileSizeViewer(file.size, true)} />
 
                   <CardActions disableSpacing>
                     <Grid container justifyContent="space-between">

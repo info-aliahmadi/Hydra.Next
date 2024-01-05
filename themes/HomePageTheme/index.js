@@ -12,13 +12,11 @@ import Typography from './typography';
 import CustomShadows from './shadows';
 import componentsOverride from './overrides';
 
-// import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import '/public/css/customStyle/homePage.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
-export default async function HomePageThemeCustomization({ children }) {
+export default function HomePageThemeCustomization({ children }) {
   const fonts = {
     header: 'Gloock',
     body: 'Poppins'

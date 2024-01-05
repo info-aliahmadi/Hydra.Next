@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import { Chip, FormControl } from '@mui/material';
-import _ from 'lodash';
+import {uniqBy} from 'lodash';
 import { useSession } from 'next-auth/react';
 
 export default function SelectUser({ defaultValues, id, name, setFieldValue, error, disabled, multiple }) {
@@ -24,7 +24,7 @@ export default function SelectUser({ defaultValues, id, name, setFieldValue, err
     setLoading(true);
     usersService.getUserListForSelect(input.target.value).then((result) => {
       let merge = result.data.concat(values);
-      merge = _.uniqBy(merge, 'id');
+      merge = uniqBy(merge, 'id');
       setOptions(merge);
       setLoading(false);
     });
@@ -69,7 +69,7 @@ export default function SelectUser({ defaultValues, id, name, setFieldValue, err
         defaultValue={values ?? []}
         onChange={(e, newValue) => {
           let ids = newValue.map((x) => x.id);
-          ids = _.uniq(ids);
+          ids = uniq(ids);
           setFieldValue(id, ids);
           setValues(newValue);
         }}

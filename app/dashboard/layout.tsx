@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 import Loader from './_components/Loader';
 import { SessionProvider } from 'next-auth/react'
 import AuthorizationProvider from './(auth)/_service/Authorization/AuthorizationProvider';
+import '/public/css/customStyle/dashboard.css'
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
@@ -50,8 +51,6 @@ export default function DashboardThemeLayout({ children }: {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&family=Gloock:wght@400;500;600;700"
           rel="stylesheet"
         />
-        <link href="/css/customStyle/dashboard.css" rel="stylesheet" />
-        <link href="/css/editor-style.css" rel="stylesheet" />
       </body>
     </html>
   );

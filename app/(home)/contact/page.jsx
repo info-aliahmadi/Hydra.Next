@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import ContactForm from './_components/ContactForm';
 // import WaveContactImage from 'assets/images/wave-contact-page.svg';
 
-export async function generateMetadata({ params }, parent) {
+export async function generateMetadata() {
 
   return {
     title: "Contact Us",

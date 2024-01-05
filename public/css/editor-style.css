@@ -896,7 +896,7 @@ i.copy {
 }
 
 i.success {
-  background-image: url(ima./..es/icons/success.svg);
+  background-image: url(./../icons/success.svg);
 }
 
 i.prettier {

@@ -25,7 +25,7 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from 'utils/setServerErrors';
+import setServerErrors from '/utils/setServerErrors';
 import AddIcon from '@mui/icons-material/Add';
 import SubscribeService from '@dashboard/(crm)/_service/SubscribeService';
 import SelectSubscribeLabel from './SelectSubscribeLabel';

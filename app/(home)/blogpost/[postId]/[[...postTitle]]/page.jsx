@@ -13,21 +13,47 @@ import CONFIG from '/config';
 import Link from 'next/link';
 import HomeService from '@(home)/_service/HomeService';
 import Header from './_components/Header';
+import {truncate} from 'lodash';
 
 export async function generateMetadata({ params }, parent) {
-  // read route params
-
-  
   var homeService = new HomeService();
   let postId = params.postId;
   const post = await homeService.getArticle(postId);
-  console.log("posttttttttttttttttttttttttt : "+JSON.stringify(post));
-  // fetch data
-  // const product = await fetch(`https://.../${id}`).then((res) => res.json())
+
+  const desc = truncate(post?.body, {
+    length: 250,
+    seperator: '.'
+  });
+
+  const image = post?.previewImageUrl
+    ? post?.previewImageUrl
+    : post?.previewImageId
+    ? CONFIG.UPLOAD_BASEPATH + post?.previewImage.directory + post?.previewImage.thumbnail
+    : CONFIG.DOMAIN + '/images/onwave-presentation.png';
+
+  const postUrl = CONFIG.DOMAIN + '/blogpost/' + post.id + '/' + post.subject;
+
   return {
     title: post.subject,
-    keywords :post.tags
-  }
+    keywords: post.tags,
+    openGraph: {
+      title: post.subject,
+      description: desc,
+      url: postUrl,
+      siteName: 'OnWave Design',
+      images: image,
+      type: 'article'
+    },
+    twitter: {
+      card: image,
+      title: post.subject,
+      description: desc,
+      images: {
+        url: image,
+        alt: 'OnWave Design , where we create stunning websites'
+      }
+    }
+  };
 }
 
 export default async function BlogPost({ params }) {
@@ -40,8 +66,8 @@ export default async function BlogPost({ params }) {
       <Header>
         <Typography variant="body2" pt={2} display="flex" alignItems="center">
           <Link href="/blog" className="link-body">
-            Blog <ArrowForwardIosIcon fontSize="small" sx={{ padding: '0 2px', margin: '0 5px' }} />{' '}
-          </Link>{' '}
+            Blog <ArrowForwardIosIcon fontSize="small" sx={{ padding: '0 2px', margin: '0 5px', verticalAlign : 'sub' }} />
+          </Link>
           {post?.topics.map((category, index) => (
             <Link key={category.id} href={`/blogcategory/${category}`} className="link-body">
               {category}

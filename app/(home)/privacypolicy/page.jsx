@@ -1,3 +1,4 @@
+'use server';
 import React from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -7,7 +8,13 @@ import Typography from '@mui/material/Typography';
 import PageHeader from '@(home)/_components/PageHeader';
 import Contact from '@(home)/_components/Contact';
 
-export default function PrivacyPolicy() {
+export async function generateMetadata() {
+  return {
+    title: 'Privacy Policy',
+  };
+}
+
+export default async function PrivacyPolicy() {
   return (
     <>
       <Box className="bg-white">

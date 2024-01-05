@@ -3,13 +3,13 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Card from '@mui/material/Card';
+// import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import 'react';
 import Author from './Author';
-import _ from 'lodash';
+import {truncate} from 'lodash';
 import readingTime from '/utils/readingTime';
 import { DateTimeViewer } from '/utils/DateViewer';
 import Link from 'next/link';
@@ -18,10 +18,10 @@ import CONFIG from '/config';
 function Post({ post }) {
   return (
     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-      <Card className="post-card">
+      <div className="post-card">
         <Grid container xs={12} sm={12} md={12} lg={12} xl={12}>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-            <Card className="box">
+            <div className="box">
               <img
                 alt=""
                 src={
@@ -29,10 +29,10 @@ function Post({ post }) {
                     ? post?.previewImageUrl
                     : post?.previewImageId
                     ? CONFIG.UPLOAD_BASEPATH + post?.previewImage.directory + post?.previewImage.thumbnail
-                    : '/images/Image.png'
+                    : '/images/unavailable.png'
                 }
               />
-            </Card>
+            </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Stack>
@@ -53,7 +53,7 @@ function Post({ post }) {
                 pt={2}
                 pb={2}
                 dangerouslySetInnerHTML={{
-                  __html: _.truncate(post?.body, {
+                  __html: truncate(post?.body, {
                     length: 250,
                     seperator: '.'
                   })
@@ -67,7 +67,7 @@ function Post({ post }) {
           date={DateTimeViewer(CONFIG.DEFAULT_LANGUAGE, post?.publishDate)}
           readingTime={readingTime(post?.body)}
         />
-      </Card>
+      </div>
     </Grid>
   );
 }

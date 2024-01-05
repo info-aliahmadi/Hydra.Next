@@ -1,4 +1,4 @@
-import _, { camelCase } from 'lodash';
+import { camelCase,keys } from 'lodash';
 
 export default function setServerErrors(response, setErrors) {
   let errorsObject = {};
@@ -13,7 +13,7 @@ export default function setServerErrors(response, setErrors) {
         errorsObject[camelCase(key)] = description;
       }
     } else {
-      var keys = _.keys(errorData);
+      var keys = keys(errorData);
 
       for (let i = 0; i < keys.length; i++) {
         let errors = errorData[keys[i]];

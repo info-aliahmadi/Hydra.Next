@@ -25,7 +25,7 @@ import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
 import SelectTopic from '@dashboard/(cms)/_components/Topic/SelectTopic';
 import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
-
+import '/public/css/editor-style.css'
 export default function AddOrEditArticle({params}) {
   const [t, i18n] = useTranslation();
   const operation = params.operation;

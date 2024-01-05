@@ -3,14 +3,14 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 // project import
-import AuthLogin from './auth-forms/AuthLogin';
-import { AuthenticationProvider } from '@dashboard/(auth)/_service/Authentication/AuthenticationProvider';
+// import AuthLogin from './auth-forms/AuthLogin';
+// import { AuthenticationProvider } from '@dashboard/(auth)/_service/Authentication/AuthenticationProvider';
 import Box from '@mui/material/Box';
 
 // ================================|| LOGIN ||================================ //
 
 const Login = () => (
-  <AuthenticationProvider>
+  // <AuthenticationProvider>
     <Box className="bg-blue">
       <Box
         className="bg-wave"
@@ -49,7 +49,7 @@ const Login = () => (
             <Box p={1} sx={{ borderRadius: '30px', background: '#ffffff4f' }}>
               <Box p={1} sx={{ background: '#ffffff4f', borderRadius: '22px' }}>
                 <Box p={{ xs: 5, sm: 5, md: 5, lg: 8, xl: 10 }} sx={{ background: '#ffffff82', borderRadius: '22px' }}>
-                  <AuthLogin />
+                  {/* <AuthLogin /> */}
                 </Box>
               </Box>
             </Box>
@@ -57,7 +57,7 @@ const Login = () => (
         </Grid>
       </Container>
     </Box>
-  </AuthenticationProvider>
+  // </AuthenticationProvider>
 );
 
 export default Login;

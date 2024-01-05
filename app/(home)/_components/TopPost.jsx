@@ -13,7 +13,7 @@ import CONFIG from '/config';
 
 import Link from 'next/link';
 import HomeService from '@(home)/_service/HomeService';
-import _ from 'lodash';
+import {truncate} from 'lodash';
 
 export default async function TopPost() {
   var homeService = new HomeService();
@@ -31,10 +31,10 @@ export default async function TopPost() {
           pl={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
           pr={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
         >
-          <Card className="post-card">
+          <div className="post-card">
             <Grid container columnSpacing={7}>
               <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                <Card className="box">
+                <div className="box">
                   <img
                     alt=""
                     src={
@@ -42,10 +42,10 @@ export default async function TopPost() {
                         ? post?.previewImageUrl
                         : post?.previewImageId
                         ? CONFIG.UPLOAD_BASEPATH + post?.previewImage.directory + post?.previewImage.thumbnail
-                        : '/images/Image.png'
+                        : '/images/unavailable.png'
                     }
                   />
-                </Card>
+                </div>
               </Grid>
               <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
                 <Stack>
@@ -66,7 +66,7 @@ export default async function TopPost() {
                     pt={2}
                     pb={2}
                     dangerouslySetInnerHTML={{
-                      __html: _.truncate(post?.body, {
+                      __html: truncate(post?.body, {
                         length: 250,
                         seperator: '.'
                       })
@@ -80,7 +80,7 @@ export default async function TopPost() {
                 </Stack>
               </Grid>
             </Grid>
-          </Card>
+          </div>
         </Grid>
       </Container>
     </Box>

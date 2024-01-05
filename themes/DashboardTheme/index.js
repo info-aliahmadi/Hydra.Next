@@ -20,7 +20,7 @@ import i18n from '/Localization/i18n';
 import IranSans from './fonts/IranSans';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import AdapterDateFnsJalali from '@mui/x-date-pickers/AdapterDateFnsJalali/AdapterDateFnsJalali';
+import {AdapterDateFnsJalali} from '@mui/x-date-pickers/AdapterDateFnsJalali/AdapterDateFnsJalali';
 import '/public/css/customStyle/dashboard.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
