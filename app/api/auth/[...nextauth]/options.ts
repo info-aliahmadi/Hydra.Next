@@ -1,7 +1,7 @@
 import type { NextAuthOptions } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
+import AuthenticationService from '@/dashboard/(auth)/_service/Authentication/AuthenticationService';
 
 export const options: NextAuthOptions = {
   callbacks: {
