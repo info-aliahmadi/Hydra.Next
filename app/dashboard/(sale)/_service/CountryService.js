@@ -78,17 +78,4 @@ export default class CountryService {
         });
     });
   };
-
-  getCountryLabelForSelect = async () => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/sale/GetCountryLabelListForSelect')
-        .then((response) => {
-          resolve(response.data);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  };
 }
