@@ -9,7 +9,7 @@ import { fileSizeViewer } from '/utils/fileSizeViewer';
 import {capitalize} from 'lodash';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
-import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
 import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 

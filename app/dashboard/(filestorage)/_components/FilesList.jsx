@@ -33,7 +33,7 @@ import { DateViewer } from '/utils/DateViewer';
 import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
-import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
 import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 

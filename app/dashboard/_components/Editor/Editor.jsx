@@ -9,7 +9,7 @@ import '@nitrolab/lexical-playground/editor.css';
 import { excalidrawExt } from '@nitrolab/lexical-playground/ext/excalidraw';
 import '@nitrolab/lexical-playground/ext/excalidraw.css';
 
-import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
 import { useTranslation } from 'react-i18next';
 // import EditorTheme from './themes/PlaygroundEditorTheme';
 // import './themes/PlaygroundEditorTheme.css';

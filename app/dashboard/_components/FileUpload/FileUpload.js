@@ -23,7 +23,7 @@ import '/public/css/filepond-plugin-get-file.min.css';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CONFIG from '/config';
-import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
 import { useSession } from 'next-auth/react';
 
 export default function FileUpload({

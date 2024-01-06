@@ -6,7 +6,7 @@ import CONFIG from '/config';
 import dynamic from 'next/dynamic';
 import SunEditor from 'suneditor-react';
 import '/public/css/suneditor.min.css';
-import FileStorageService from '@dashboard/(fileStorage)/_service/FileStorageService';
+import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
 
 const Editor = ({ id, name, setFieldValue, error, defaultValue, height, minHeight, placeholder }) => {
   const [t, i18n] = useTranslation();
