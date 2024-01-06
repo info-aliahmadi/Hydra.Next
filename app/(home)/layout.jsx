@@ -8,10 +8,9 @@ import CONFIG from '/config';
 export async function generateMetadata() {
   var service = new HomeService();
   const siteSettings = await service.getSettings();
-  console.log(siteSettings.siteTitle);
   const titleTemplate = '%s | ' + siteSettings.siteTitle;
   return {
-    // metadataBase: new URL(CONFIG.DOMAIN),
+    metadataBase: new URL(CONFIG.DOMAIN),
     icons: {
       icon: '/favicon.svg',
       shortcut: '/favicon.svg',

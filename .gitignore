@@ -107,3 +107,7 @@ dist
 
 #output
 build
+
+/.cloud/
+.cloud/
+/.cloud
