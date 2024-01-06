@@ -2,14 +2,14 @@ import axios from 'axios';
 import { setDefaultHeader } from '/utils/axiosHeaders';
 import CONFIG from '/config.js';
 
-export default class SubscribeService {
+export default class CountryService {
   constructor(jwt) {
     setDefaultHeader(jwt);
   }
-  getSubscribeList = async (searchParams) => {
+  getCountryList = async (searchParams) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/crm/GetSubscribeList', searchParams)
+        .post(CONFIG.API_BASEPATH + '/sale/GetCountryList', searchParams)
         .then((response) => {
           resolve(response.data);
         })
@@ -18,10 +18,10 @@ export default class SubscribeService {
         });
     });
   };
-  getAllSubscribes = async () => {
+  getAllCountries = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/crm/GetAllSubscribes')
+        .get(CONFIG.API_BASEPATH + '/sale/getAllCountries')
         .then((response) => {
           resolve(response.data);
         })
@@ -30,10 +30,10 @@ export default class SubscribeService {
         });
     });
   };
-  getSubscribeById = async (subscribeId) => {
+  getCountryById = async (CountryId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/crm/getSubscribeById', { params: { subscribeId: subscribeId } })
+        .get(CONFIG.API_BASEPATH + '/sale/getCountryById', { params: { CountryId: CountryId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -42,10 +42,10 @@ export default class SubscribeService {
         });
     });
   };
-  addSubscribe = async (subscribe) => {
+  addCountry = async (Country) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/crm/addSubscribe', subscribe)
+        .post(CONFIG.API_BASEPATH + '/sale/addCountry', Country)
         .then((response) => {
           resolve(response.data);
         })
@@ -54,10 +54,10 @@ export default class SubscribeService {
         });
     });
   };
-  updateSubscribe = async (subscribe) => {
+  updateCountry = async (Country) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/crm/updateSubscribe', subscribe)
+        .post(CONFIG.API_BASEPATH + '/sale/updateCountry', Country)
         .then((response) => {
           resolve(response.data);
         })
@@ -66,10 +66,10 @@ export default class SubscribeService {
         });
     });
   };
-  deleteSubscribe = async (subscribeId) => {
+  deleteCountry = async (CountryId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/crm/deleteSubscribe', { params: { subscribeId: subscribeId } })
+        .get(CONFIG.API_BASEPATH + '/sale/deleteCountry', { params: { CountryId: CountryId } })
         .then((response) => {
           resolve(response.data);
         })
@@ -79,10 +79,10 @@ export default class SubscribeService {
     });
   };
 
-  getSubscribeLabelForSelect = async () => {
+  getCountryLabelForSelect = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/crm/GetSubscribeLabelListForSelect')
+        .get(CONFIG.API_BASEPATH + '/sale/GetCountryLabelListForSelect')
         .then((response) => {
           resolve(response.data);
         })

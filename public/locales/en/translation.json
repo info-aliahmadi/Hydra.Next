@@ -62,6 +62,7 @@
     "messagesDraft": "Message Draft",
     "messagesTrash": "Message Trash",
     "subscribes": "Subscribes",
+    "countries": "Countries",
     "cards": {
       "users-list": "Users List",
       "user-add": "Add New User",
@@ -100,7 +101,10 @@
       "messageSettings": "Message Settings",
       "subscribes-list": "Subscribes List",
       "subscribe-add": "Add New Subscribe",
-      "subscribe-edit": "Edit Subscribe"
+      "subscribe-edit": "Edit Subscribe",
+      "countries-list": "Countries List",
+      "country-add": "Add New Country",
+      "country-edit": "Edit Country"
     }
   },
   "fields": {
@@ -216,6 +220,18 @@
       "email": "Email",
       "insertDate": "Insert Date"
     },
+    "country": {
+      "Name": "Name",
+      "TwoLetterIsoCode": "TwoLetterIsoCode",
+      "ThreeLetterIsoCode": "ThreeLetterIsoCode",
+      "AllowsBilling": "AllowsBilling",
+      "AllowsShipping": "AllowsShipping",
+      "NumericIsoCode": "NumericIsoCode",
+      "SubjectToVat": "SubjectToVat",
+      "Published": "Published",
+      "DisplayOrder": "DisplayOrder",
+      "LimitedToStores": "LimitedToStores"
+    },
     "message": {
       "messageInbox": {
         "messageType": {
@@ -310,6 +326,12 @@
       "add": "New Subscribe",
       "edit": "Edit Subscribe",
       "delete": "Delete Subscribe"
+    },
+    "country": {
+      "save": "Save",
+      "add": "New Country",
+      "edit": "Edit Country",
+      "delete": "Delete Country"
     },
     "menu": {
       "add": "New Menu",
@@ -475,6 +497,9 @@
     },
     "subscribe": {
       "add": "Add New Subscribe"
+    },
+    "country": {
+      "add": "Add New Country"
     }
   }
 }
