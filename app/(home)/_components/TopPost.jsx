@@ -13,7 +13,7 @@ import CONFIG from '/config';
 
 import Link from 'next/link';
 import HomeService from '@(home)/_service/HomeService';
-import {truncate} from 'lodash';
+import truncate from 'lodash/truncate';
 
 export default async function TopPost() {
   var homeService = new HomeService();

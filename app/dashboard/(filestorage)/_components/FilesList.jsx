@@ -25,7 +25,11 @@ import { InfoOutlined, Download, Delete, UploadFile, InsertDriveFile } from '@mu
 import LinkIcon from '@mui/icons-material/Link';
 
 import { fileSizeViewer } from '/utils/fileSizeViewer';
-import { upperCase, capitalize , lowerCase,toLower,truncate } from 'lodash';
+import upperCase from 'lodash/upperCase';
+import capitalize from 'lodash/capitalize';
+import lowerCase from 'lodash/lowerCase';
+import toLower from 'lodash/toLower';
+import truncate from 'lodash/truncate';
 import { useRouter } from 'next/navigation';
 import CONFIG from '/config';
 import DeleteFile from './DeleteFile';

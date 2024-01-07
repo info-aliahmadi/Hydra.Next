@@ -29,7 +29,7 @@ export async function generateMetadata() {
     openGraph: {
       title: siteSettings.siteTitle,
       description: siteSettings.siteDescription,
-      url: "https://onwavedesign.com",
+      url: 'https://onwavedesign.com',
       siteName: 'OnWave Design',
       images: '/images/onwave-presentation.png',
       locale: 'en_US',
@@ -47,15 +47,15 @@ export async function generateMetadata() {
         alt: 'OnWave Design , where we create stunning websites'
       }
     },
-      verification: {
-        google: 'google-site-verification',
-        yandex: 'yandex',
-        bing: 'bing',
-        yahoo: 'y_key',
-        other: {
-          me: ['info@onwavedesign.com', CONFIG.DOMAIN]
-        }
+    verification: {
+      google: 'google-site-verification',
+      yandex: 'yandex',
+      bing: 'bing',
+      yahoo: 'y_key',
+      other: {
+        me: ['info@onwavedesign.com', CONFIG.DOMAIN]
       }
+    }
   };
 }
 export const viewport = {
@@ -66,27 +66,25 @@ export const viewport = {
 };
 export default async function HomeLayout({ children }) {
   return (
-    <>
-      <html lang="en">
-        <head>
-          <meta charset="utf-8" />
-          <script async src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-          <script async type="module" src="https://unpkg.com/@splinetool/viewer@0.9.518/build/spline-viewer.js"></script>
-        </head>
-        <body>
-          <HomePageThemeCustomization>
-            <Navigation sx={{ xIndex: 999999999, position: 'relative' }} />
-            {children}
-            <Footer />
-          </HomePageThemeCustomization>
+    <html lang="en">
+      <head>
+        <meta charSet="utf-8" />
+        <script async src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <script async type="module" src="https://unpkg.com/@splinetool/viewer@0.9.518/build/spline-viewer.js"></script>
+      </head>
+      <body>
+        <HomePageThemeCustomization>
+          <Navigation sx={{ xIndex: 999999999, position: 'relative' }} />
+          {children}
+          <Footer />
+        </HomePageThemeCustomization>
 
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&family=Gloock:wght@400;500;600;700"
-            rel="stylesheet"
-          />
-        </body>
-      </html>
-    </>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&family=Gloock:wght@400;500;600;700"
+          rel="stylesheet"
+        />
+      </body>
+    </html>
   );
 }

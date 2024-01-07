@@ -13,18 +13,16 @@ import HomeService from '@(home)/_service/HomeService';
 import PostPagination from '../../_components/PostPagination';
 
 export async function generateMetadata() {
-
   var homeService = new HomeService();
 
   const categories = await homeService.getCategories();
-  const cates = categories.map((cat)=>cat.title);
+  const cates = categories.map((cat) => cat.title);
 
   return {
     title: 'Blog',
-    keywords : cates
-  }
+    keywords: cates
+  };
 }
-
 
 export default async function Blog({ params }) {
   var homeService = new HomeService();

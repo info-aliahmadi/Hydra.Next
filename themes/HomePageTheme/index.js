@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { useMemo } from 'react';
 
 // material-ui
-import { CssBaseline, StyledEngineProvider } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import StyledEngineProvider from '@mui/material/StyledEngineProvider';
+import createTheme from '@mui/material/styles/createTheme';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
 
 // project import
 import Palette from './palette';
@@ -14,6 +16,8 @@ import componentsOverride from './overrides';
 
 import '/public/css/customStyle/homePage.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
+// import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
 
 export default function HomePageThemeCustomization({ children }) {
@@ -58,16 +62,14 @@ export default function HomePageThemeCustomization({ children }) {
   themes.components = componentsOverride(themes);
 
   return (
-    <StyledEngineProvider injectFirst>
-      {/* <LocalizationProvider dateAdapter={AdapterMoment}> */}
-      <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+    <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
+      <StyledEngineProvider injectFirst>
         <ThemeProvider theme={themes}>
-          <CssBaseline />
           {children}
+          <CssBaseline />
         </ThemeProvider>
-      </NextAppDirEmotionCacheProvider>
-      {/* </LocalizationProvider> */}
-    </StyledEngineProvider>
+      </StyledEngineProvider>
+    </NextAppDirEmotionCacheProvider>
   );
 }
 

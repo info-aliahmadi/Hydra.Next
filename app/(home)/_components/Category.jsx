@@ -1,5 +1,5 @@
 'use server';
-import HomeService from '@/(home)/_service/HomeService';
+import HomeService from '@(home)/_service/HomeService';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';

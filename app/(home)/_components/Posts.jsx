@@ -9,7 +9,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import 'react';
 import Author from './Author';
-import {truncate} from 'lodash';
+import truncate from 'lodash/truncate';
 import readingTime from '/utils/readingTime';
 import { DateTimeViewer } from '/utils/DateViewer';
 import Link from 'next/link';

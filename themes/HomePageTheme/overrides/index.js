@@ -1,5 +1,5 @@
 // third-party
-import { merge } from 'lodash';
+import merge from 'lodash/merge';
 
 // project import
 import Badge from './Badge';
@@ -14,7 +14,7 @@ import LinearProgress from './LinearProgress';
 import Link from './Link';
 import ListItemIcon from './ListItemIcon';
 import OutlinedInput from './OutlinedInput';
-import TextareaAutosize from './TextareaAutosize';
+// import TextareaAutosize from './TextareaAutosize';
 import Tab from './Tab';
 import TableCell from './TableCell';
 import Tabs from './Tabs';

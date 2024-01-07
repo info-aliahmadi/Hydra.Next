@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import { Chip, FormControl } from '@mui/material';
-import {uniqBy} from 'lodash';
+import uniqBy from 'lodash/uniqBy';
 import { useSession } from 'next-auth/react';
 
 export default function SelectUser({ defaultValues, id, name, setFieldValue, error, disabled, multiple }) {

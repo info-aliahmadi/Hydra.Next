@@ -6,27 +6,26 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import ContactForm from './_components/ContactForm';
+import ContactForm from '../../_components/conract/ContactForm';
 // import WaveContactImage from 'assets/images/wave-contact-page.svg';
 
-export async function generateMetadata() {
-
+export async function generateMetadata({ params }) {
   return {
-    title: "Contact Us",
-    description:  "We deliver the best web solutions",
+    title: 'Contact Us',
+    description: 'We deliver the best web solutions',
     category: 'World-Class Web Development',
 
     openGraph: {
-      title: "Contact Us",
-      description: 'World-Class Web Development',
+      title: 'Contact Us',
+      description: 'World-Class Web Development'
     },
     twitter: {
-      title: "Contact Us",
+      title: 'Contact Us',
       description: 'World-Class Web Development'
-      }
     }
-  }
-export default async function Contact() {
+  };
+}
+export default async function Page({params}) {
   return (
     <>
       <Box className="bg-blue">

@@ -6,7 +6,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { DatePicker } from '@mui/x-date-pickers';
 import moment from 'moment-jalaali';
 import { DateTimeViewer, DateViewer } from '/utils/DateViewer';
-import {find} from 'lodash';
+import find from 'lodash/find';
 
 const dateFilter = ({ header, rangeFilterIndex }) => {
   let filterFn = header.column.getFilterFn().name;

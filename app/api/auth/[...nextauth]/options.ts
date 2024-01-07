@@ -78,7 +78,6 @@ export const options: NextAuthOptions = {
         console.log('credentials : ', credentials);
         const authenticationService = new AuthenticationService();
         var result = await authenticationService.login(credentials?.username as string, credentials?.password as string, true);
-        
         if (result) {
           return result;
         } else {

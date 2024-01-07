@@ -1,4 +1,5 @@
-import { camelCase,keys } from 'lodash';
+import camelCase from 'lodash/camelCase';
+import keys from 'lodash/keys';
 
 export default function setServerErrors(response, setErrors) {
   let errorsObject = {};

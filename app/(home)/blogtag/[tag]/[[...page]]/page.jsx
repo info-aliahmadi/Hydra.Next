@@ -4,7 +4,7 @@ import HomeService from '@(home)/_service/HomeService';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Tags from './_components/Tags';
+import Tags from '../../../_components/blogtag/Tags';
 import Posts from '@(home)/_components/Posts';
 import BottomPost from '@(home)/_components/BottomPost';
 import PostPagination from '@(home)/_components/PostPagination';

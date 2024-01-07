@@ -45,7 +45,7 @@ export default async function Introduce() {
                 fullWidth
                 className={commingSoon ? 'btn-comming-soon' : ''}
               >
-                {commingSoon ? 'Comming Soon' : 'Request'} {!commingSoon && <ChevronRightIcon />}
+                {commingSoon ? 'Coming Soon' : 'Request'} {!commingSoon && <ChevronRightIcon />}
               </Button>
             </Box>
           </Box>
