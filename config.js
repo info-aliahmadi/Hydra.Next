@@ -13,7 +13,7 @@ const CONFIG = {
   UPLOAD_BASEPATH: process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com/' : 'https://localhost:7134/',
   IMAGES_EXTENSIONS: ['.jpg', '.jpeg', '.tiff', '.tif', '.gif', '.bmp', '.png'],
   VIDEOS_EXTENSIONS: ['.mp4', '.h264', '.wmv', '.wav', '.avi', '.flv', '.mov', '.mkv', '.webm', '.ogg'],
-  LOGIN_API_PATH: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com//Auth/Login' : 'https://localhost:7134/Auth/Login',
+  LOGIN_API_PATH: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com/Auth/Login' : 'https://localhost:7134/Auth/Login',
   REFRESH_TOKEN_API_PATH:
     process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com/RefreshToken' : 'https://localhost:7134/Auth/RefreshToken',
   LOGOUT_API_PATH: process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com/Auth/SignOut' : 'https://localhost:7134/Auth/SignOut',

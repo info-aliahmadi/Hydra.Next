@@ -14,9 +14,8 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
           const path = req.nextUrl.pathname;
           const jwt = token.accessToken.toString();
 
+          const route = AllRoutes.routes.find((item) => item.path == path);
 
-          const route = AllRoutes.routes.find((item)=>item.path == path);
-          
           // find(AllRoutes.routes, (element: any) => element.path == path);
           if (route) {
             const Authorized = await isAuthorized(route.permission, jwt);
@@ -42,10 +41,9 @@ async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
   });
   if (apiResult.ok) {
     const permissions = await apiResult.json();
-    let result = permissions.findIndex((element : string)=>element === permission);
+    let result = permissions.findIndex((element: string) => element === permission);
     return result >= 0 ? true : false;
   } else {
     return false;
   }
 }
-
