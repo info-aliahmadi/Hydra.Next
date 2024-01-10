@@ -19,7 +19,7 @@ const CONFIG = {
   LOGOUT_API_PATH: process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com/Auth/SignOut' : 'https://localhost:7134/Auth/SignOut',
   FRONT_PATH: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com/' :'http://localhost:3000',
   DASHBOARD_PATH: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com/dashboard' : 'http://localhost:3000/dashboard',
-  LOGIN_PATH: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com/login' : 'http://localhost:3000/login',
+  LOGIN_PATH: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com/api/auth/signin' : 'http://localhost:3000/api/auth/signin',
 
   AUTHENTICATION_DEFAULT_STORAGE: 'localStorage', //'cookie',
   AUTHENTICATION_STORAGE_NAME: 'HydraAuthenticationStorage',

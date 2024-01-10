@@ -12,13 +12,16 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
       if (req.nextUrl.pathname.startsWith('/dashboard')) {
         if (token) {
           const path = req.nextUrl.pathname;
-          const jwt = token.accessToken.toString();
+          const jwt = token.accessToken;
+          console.log(jwt);
 
           const route = AllRoutes.routes.find((item) => item.path == path);
 
+          console.log(route);
           // find(AllRoutes.routes, (element: any) => element.path == path);
           if (route) {
             const Authorized = await isAuthorized(route.permission, jwt);
+          console.log(Authorized);
             if (!Authorized) {
               return false;
             }
@@ -41,9 +44,11 @@ async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
   });
   if (apiResult.ok) {
     const permissions = await apiResult.json();
+    console.log("permissions : " + permissions);
     let result = permissions.findIndex((element: string) => element === permission);
     return result >= 0 ? true : false;
   } else {
+    console.log('/Auth/GetPermissionsOfCurrentUser');
     return false;
   }
 }
