@@ -13,15 +13,15 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
         if (token) {
           const path = req.nextUrl.pathname;
           const jwt = token.accessToken;
-          console.log(jwt);
+          console.log("jwt : " + jwt);
 
           const route = AllRoutes.routes.find((item) => item.path == path);
 
-          console.log(route);
+          console.log("route : " + route);
           // find(AllRoutes.routes, (element: any) => element.path == path);
           if (route) {
             const Authorized = await isAuthorized(route.permission, jwt);
-          console.log(Authorized);
+          console.log("Authorized : " + Authorized);
             if (!Authorized) {
               return false;
             }
@@ -44,7 +44,7 @@ async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
   });
   if (apiResult.ok) {
     const permissions = await apiResult.json();
-    console.log("permissions : " + permissions);
+    console.log("permissions in middleware : " + permissions);
     let result = permissions.findIndex((element: string) => element === permission);
     return result >= 0 ? true : false;
   } else {

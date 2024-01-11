@@ -7,7 +7,9 @@ export const options: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, trigger, session }) {
       // the processing of JWT occurs before handling sessions.
-
+      console.log('token : ' + token);
+      console.log('user : ' + user);
+      console.log('session: ' + session);
       if (user) {
         token.refreshToken = token.refreshToken;
         token.accessTokenExpires = token.accessTokenExpires;
@@ -38,6 +40,7 @@ export const options: NextAuthOptions = {
 
     //  The session receives the token from JWT
     async session({ session, token, user }) {
+      console.log('session in session : ' + session);
       session.user = {
         ...session.user,
         userName: token.userName as string,
@@ -78,8 +81,9 @@ export const options: NextAuthOptions = {
         console.log('credentials : ', credentials);
         const authenticationService = new AuthenticationService();
         var result = await authenticationService.login(credentials?.username as string, credentials?.password as string, true);
-        if (result) {
-          return result;
+        console.log('result of Login : ' + JSON.stringify(result));
+        if (result.succeeded) {
+          return result.data;
         } else {
           return null;
         }
