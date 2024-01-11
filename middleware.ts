@@ -38,7 +38,8 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
 async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
   const apiResult = await fetch(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser', {
     headers: {
-      Authorization: `Bearer ${jwt}`
+      Authorization: `Bearer ${jwt}`,
+      credentials: 'include'
     },
     next: { revalidate: 4000 }
   });
