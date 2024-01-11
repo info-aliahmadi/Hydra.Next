@@ -3,7 +3,7 @@
 
 const saleRoutes = [
     {
-      path: '/dashboard/country/list',
+      path: '/dashboard/order/list',
       permission: 'AUTH.GET_PERMISSION_LIST'
     }
   ];

@@ -1,5 +1,5 @@
 // assets
-import { Article, Menu, Slideshow, Description, Topic, Link ,Flag} from '@mui/icons-material';
+import { Article, Menu, Slideshow, Description, Topic, Link, Flag, ShoppingCart } from '@mui/icons-material';
 // icons
 const icons = {
   Article,
@@ -8,23 +8,24 @@ const icons = {
   Slideshow,
   Topic,
   Link,
-  Flag 
+  Flag,
+  ShoppingCart
 };
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
 
 const pages = {
   id: 'sale',
-  title: 'Sale',
+  title: 'Sales',
   type: 'group',
   permission: 'AUTH.GET_PERMISSION_LIST',
   children: [
     {
-      id: 'country',
-      title: 'Countries',
+      id: 'order',
+      title: 'Orders',
       type: 'item',
-      url: '/dashboard/country/list',
-      icon: icons.Flag,
+      url: '/dashboard/order/list',
+      icon: icons.ShoppingCart,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
     }

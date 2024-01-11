@@ -36,7 +36,9 @@
     "emailInbox": "Email Inbox",
     "emailOutbox": "Email Outbox",
     "subscribe": "Subscribes",
-    "fileStorage": "Storage"
+    "fileStorage": "Storage",
+    "sale": "Sale",
+    "order": "Orders"
   },
   "pages": {
     "edit-profile": "Edit Profile",
@@ -63,6 +65,7 @@
     "messagesTrash": "Message Trash",
     "subscribes": "Subscribes",
     "countries": "Countries",
+    "orders": "Orders",
     "cards": {
       "users-list": "Users List",
       "user-add": "Add New User",
@@ -260,6 +263,21 @@
     "fileStorage": {
       "files": "Files",
       "file": "File"
+    },
+    "order": {
+      "id": "Id",
+      "shippingStatusTitle": "Shipping Status",
+      "orderStatusId": "Status",
+      "shippingMethodTitle": "Shipping Method",
+      "userName": "User Name",
+      "paymentStatusTitle": "Payment Status",
+      "createdOnUtcString": "Created On"
+    },
+    "orderItem": {
+      "id": "Id",
+      "unitPrice": "Unit Price",
+      "quantity": "Quantity",
+      "productName": "Product Name"
     }
   },
   "buttons": {
