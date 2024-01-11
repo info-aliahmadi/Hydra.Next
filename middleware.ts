@@ -48,7 +48,7 @@ async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
     let result = permissions.findIndex((element: string) => element === permission);
     return result >= 0 ? true : false;
   } else {
-    console.log('/Auth/GetPermissionsOfCurrentUser');
+    console.log('GetPermissionsOfCurrentUser has error ');
     return false;
   }
 }
