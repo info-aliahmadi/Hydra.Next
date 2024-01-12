@@ -7,7 +7,7 @@ const CONFIG = {
   DASHBOARD_DEFAULT_THEME_MODE: 'light',
   DASHBOARD_THEME_MODE_STORAGE_NAME: 'HydraThemeMode',
   PRESET_COLOR: 'default',
-  DOMAIN: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com' : 'http://localhost:3000/',
+  DOMAIN: process.env.NODE_ENV === 'production' ? 'https://onwavedesign.com' : 'http://localhost:3000',
   API_BASEPATH:process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com' : 'https://localhost:7134' , // application api basepath
   AVATAR_BASEPATH: process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com/avatar/' : 'https://localhost:7134/avatar/',
   UPLOAD_BASEPATH: process.env.NODE_ENV === 'production' ? 'https://api.onwavedesign.com/' : 'https://localhost:7134/',

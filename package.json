@@ -38,6 +38,7 @@
     "filepond-plugin-image-preview": "^4.6.11",
     "formik": "^2.2.9",
     "framer-motion": "^7.3.6",
+    "hls.js": "^1.5.1",
     "i18next": "^22.5.1",
     "i18next-browser-languagedetector": "^7.0.2",
     "i18next-http-backend": "^2.2.1",
@@ -63,6 +64,7 @@
     "react-redux": "^8.0.4",
     "react-syntax-highlighter": "^15.5.0",
     "redux": "^4.2.0",
+    "save": "^2.9.0",
     "simplebar": "^5.3.8",
     "simplebar-react": "^2.4.1",
     "styled-components": "^6.0.0-rc.3",
@@ -76,9 +78,9 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^7.32",
     "eslint-config-next": "14.0.4",
     "prettier": "^2.8.7",
-    "typescript": "^5",
-    "eslint": "^7.32"
+    "typescript": "^5"
   }
 }

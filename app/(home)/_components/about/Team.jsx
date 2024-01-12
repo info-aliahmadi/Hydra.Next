@@ -90,11 +90,11 @@ export default function Team() {
             </Grid>
             <Grid item xs={12} sm={12} md={4} lg={4} xl={4} textAlign={'center'}>
               <Person
-                name="Andrew Hiom"
-                jobTitle="UI/UX Designer"
+                name="Reza Jadid"
+                jobTitle="Full-Stack Developer"
                 description="with 10 years experience"
                 picture="/images/rez.jpg"
-                linkedInAddress="https://www.linkedin.com/in/info-aliahmadi/"
+                linkedInAddress="https://www.linkedin.com/in/alireza-jadidzadeh/"
                 xAddress="https://www.linkedin.com/in/info-aliahmadi/"
               />
             </Grid>

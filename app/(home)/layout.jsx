@@ -69,7 +69,6 @@ export default async function HomeLayout({ children }) {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <script async src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
         <script async type="module" src="https://unpkg.com/@splinetool/viewer@0.9.518/build/spline-viewer.js"></script>
       </head>
       <body>

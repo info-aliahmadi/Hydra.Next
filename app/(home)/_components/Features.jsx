@@ -62,13 +62,19 @@ export default async function Features() {
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
               {/* <img alt="" src={Feature1Image} height="200px" /> */}
-              <Box sx={{ maxWidth: '480px' }}>
+              <Box sx={{ maxWidth: '480px' }} display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
                 <spline-viewer
                   loading-anim-type="spinner-small-dark"
                   url="https://prod.spline.design/0ugZuGgBeBzgkZjr/scene.splinecode"
                 ></spline-viewer>
               </Box>
-              <Box sx={{ width: '100%', background: '#a1d4f8', marginTop: '-70px', position: 'relative', zIndex: 999 }}>
+              <Box sx={{ maxWidth: '480px' }} display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' }}>
+                <img alt="" src="/images/profile.png" width="70%" />
+              </Box>
+              <Box
+                sx={{ width: '100%', background: '#a1d4f8', position: 'relative', zIndex: 999 }}
+                marginTop={{ xs: '0', sm: '-70px', md: '-70px', lg: '-70px', xl: '-70px' }}
+              >
                 <Typography variant="h3">Portfolio</Typography>
                 <Typography variant="body1" pt={2}>
                   We Create Unique and visually appealing custom portfolio.
@@ -85,14 +91,20 @@ export default async function Features() {
               textAlign={'center'}
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
-              <Box sx={{ maxWidth: '480px' }}>
+              <Box sx={{ maxWidth: '480px' }} display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
                 <spline-viewer
                   loading-anim-type="spinner-small-dark"
                   url="https://prod.spline.design/YVcMpYg7QYp3CdP8/scene.splinecode"
                 ></spline-viewer>
               </Box>
+              <Box sx={{ maxWidth: '480px' }} display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' }}>
+                <img alt="" src="/images/shop.png" width="70%" />
+              </Box>
               {/* <img alt="" src={Feature2Image} height="200px" /> */}
-              <Box sx={{ width: '100%', background: '#a1d4f8', marginTop: '-70px', position: 'relative', zIndex: 999 }}>
+              <Box
+                sx={{ width: '100%', background: '#a1d4f8', position: 'relative', zIndex: 999 }}
+                marginTop={{ xs: '0', sm: '-70px', md: '-70px', lg: '-70px', xl: '-70px' }}
+              >
                 <Typography variant="h3">E-Commerce</Typography>
                 <Typography variant="body1" pt={2}>
                   We build online stores that drive sales and conversions.
@@ -109,14 +121,20 @@ export default async function Features() {
               textAlign={'center'}
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
-              <Box sx={{ maxWidth: '480px' }}>
+              <Box sx={{ maxWidth: '480px' }} display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
                 <spline-viewer
                   loading-anim-type="spinner-small-dark"
                   url="https://prod.spline.design/BR18NVUSCCzfjn5m/scene.splinecode"
                 ></spline-viewer>
               </Box>
+              <Box sx={{ maxWidth: '480px' }} display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' }}>
+                <img alt="" src="/images/webapp.png" width="70%" />
+              </Box>
               {/* <img alt="" src={Feature3Image} height="200px" /> */}
-              <Box sx={{ width: '100%', background: '#a1d4f8', marginTop: '-70px', position: 'relative', zIndex: 999 }}>
+              <Box
+                sx={{ width: '100%', background: '#a1d4f8', position: 'relative', zIndex: 999 }}
+                marginTop={{ xs: '0', sm: '-70px', md: '-70px', lg: '-70px', xl: '-70px' }}
+              >
                 <Typography variant="h3">Web Application</Typography>
                 <Typography variant="body1" pt={2}>
                   We develop powerful web applications for your business needs.
