@@ -271,7 +271,13 @@
       "shippingMethodTitle": "Shipping Method",
       "userName": "User Name",
       "paymentStatusTitle": "Payment Status",
-      "createdOnUtcString": "Created On"
+      "createdOnUtcString": "Created On",
+      "userCurrencyTitle": "Currency",
+      "orderShippingTax": "OrderShipping Tax",
+      "orderTax": "Order Tax",
+      "orderDiscount": "Order Discount",
+      "orderTotal": "Order Total",
+      "refundedAmount": "Refunded Amount"
     },
     "orderItem": {
       "id": "Id",

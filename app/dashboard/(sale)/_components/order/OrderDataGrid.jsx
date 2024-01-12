@@ -12,7 +12,7 @@ import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import { useSession } from 'next-auth/react';
 import OrderService from '../../_service/OrderService';
 import OrderStatus from './OrderStatus';
-import OrderItemDataGrid from '../orderItem/OrderItemDataGrid';
+import OrderDetail from './OrderDetail';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -99,7 +99,7 @@ function OrderDataGrid() {
             dataApi={handleOrderList}
             enableRowActions
             renderRowActionMenuItems={RowActionMenuItems}
-            renderDetailPanel={({ row }) => <OrderItemDataGrid id={row.original.id} />}
+            renderDetailPanel={({ row }) => <OrderDetail row={row} />}
           />
         </TableCard>
       </MainCard>
