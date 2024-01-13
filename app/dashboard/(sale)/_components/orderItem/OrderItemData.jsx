@@ -67,8 +67,8 @@ export default function OrderItemData({ id }) {
 
   return (
     <>
-      {values.map((res) => (
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+      {values.map((res,index) => (
+        <List key={index} sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <ListItem>
             <ListItemAvatar>
               <Avatar sx={{ borderRadius: 0 }}>
