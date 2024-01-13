@@ -64,11 +64,13 @@ export default function OrderItemData({ id }) {
 
   return (
     <>
-      {values.map((res) => (
-        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <ListItem spacing={3} xs={2} md={4}>
-            {/* <ListItemAvatar>
-              <Avatar alt="" src={'/images/rez.jpg'} sx={{ width: 80, height: 80, borderRadius: 1 }}></Avatar>
+      {values.map((res,index) => (
+        <List key={index} sx={{ width: '100%', bgcolor: 'background.paper' }}>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar sx={{ borderRadius: 0 }}>
+                <ImageIcon />
+              </Avatar>
             </ListItemAvatar>
             <ListItemText xs={2} md={4} primary={res.productName} secondary={res.quantity} /> */}
 
