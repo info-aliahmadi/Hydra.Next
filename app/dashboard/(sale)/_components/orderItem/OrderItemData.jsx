@@ -64,7 +64,7 @@ export default function OrderItemData({ id }) {
 
   return (
     <>
-      {values.map((res,index) => (
+      {values.map((res, index) => (
         <List key={index} sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <ListItem>
             <ListItemAvatar>
@@ -72,8 +72,7 @@ export default function OrderItemData({ id }) {
                 <ImageIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText xs={2} md={4} primary={res.productName} secondary={res.quantity} /> */}
-
+            <ListItemText xs={2} md={4} primary={res.productName} secondary={res.quantity} />
             <Grid container spacing={3} direction="row">
               <Grid container item spacing={3} xd={12} sm={6} md={6} lg={12}>
                 <Grid item xs={12} md={1}>
@@ -102,7 +101,7 @@ export default function OrderItemData({ id }) {
                     <Stack spacing={1}>{res.unitPrice}</Stack>
                   </Stack>
                 </Grid>
-                
+
                 <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="unitPriceTax">{t(fieldsName + 'unitPriceTax')}</InputLabel>
