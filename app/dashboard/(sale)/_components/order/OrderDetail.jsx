@@ -10,6 +10,7 @@ export default function OrderDetail(props) {
   const [t] = useTranslation();
   const [fieldsName, buttonName] = ['fields.order.', 'buttons.order.'];
   const row = props.row;
+  debugger
   return (
     <>
       <Grid container spacing={3} direction="row">

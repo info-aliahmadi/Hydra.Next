@@ -281,9 +281,13 @@
     },
     "orderItem": {
       "id": "Id",
-      "unitPrice": "Unit Price",
+      "unitPrice": "UnitPrice",
       "quantity": "Quantity",
-      "productName": "Product Name"
+      "productName": "Product Name",
+      "unitPriceTax": "UnitPrice Tax",
+      "discountAmountTax": "Discount Tax",
+      "priceTax": "Price Tax",
+      "totalPrice": "Total Price"
     }
   },
   "buttons": {

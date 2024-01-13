@@ -2,6 +2,7 @@
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
@@ -13,6 +14,7 @@ import { useSession } from 'next-auth/react';
 import OrderService from '../../_service/OrderService';
 import OrderStatus from './OrderStatus';
 import OrderDetail from './OrderDetail';
+import OrderUserAvatar from './OrderUserAvatar';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -30,7 +32,8 @@ function OrderDataGrid() {
         accessorKey: 'userName',
         header: t(fieldsName + 'userName'),
         enableClickToCopy: true,
-        type: 'string'
+        type: 'string',
+        Cell: (renderedCellValue, row) => <OrderUserAvatar />
       },
       {
         accessorKey: 'orderStatusId',
