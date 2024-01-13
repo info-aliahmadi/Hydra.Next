@@ -10,10 +10,11 @@ import CONFIG from '/config';
 const HLSPlayer = dynamic(() => import('./HLSPlayer'), {
   suspense: true
 });
+const mobile = require('is-mobile');
 const Header = () => {
   const THUMBNAIL_MOBILE = CONFIG.DOMAIN + '/images/wavesphere-mobile.png';
   const THUMBNAIL_DESKTOP = CONFIG.DOMAIN + '/images/wavesphere.png';
-  const MANIFEST = CONFIG.DOMAIN + '/videos/output2.m3u8';
+  const MANIFEST = mobile() ? CONFIG.DOMAIN + '/videos/media/wavesphere-mobile.m3u8' : CONFIG.DOMAIN + '/videos/media/wavesphere.m3u8';
 
   // function playVideo() {
   //   var video = document.getElementById('myvideo');
@@ -50,7 +51,7 @@ const Header = () => {
     if (mediaQueryList.matches) {
       setPoster(THUMBNAIL_MOBILE);
     } else {
-      setPoster(THUMBNAIL_DESKTOP)
+      setPoster(THUMBNAIL_DESKTOP);
     }
   }, [video]);
 

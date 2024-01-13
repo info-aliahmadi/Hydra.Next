@@ -42,6 +42,7 @@
     "i18next": "^22.5.1",
     "i18next-browser-languagedetector": "^7.0.2",
     "i18next-http-backend": "^2.2.1",
+    "is-mobile": "^4.0.0",
     "jose": "^5.2.0",
     "jss-rtl": "^0.3.0",
     "lodash": "^4.17.21",
