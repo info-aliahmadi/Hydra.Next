@@ -1,7 +1,5 @@
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
@@ -67,12 +65,6 @@ export default function OrderItemData({ id }) {
       {values.map((res, index) => (
         <List key={index} sx={{ width: '100%', bgcolor: 'background.paper' }}>
           <ListItem>
-            <ListItemAvatar>
-              <Avatar sx={{ borderRadius: 0 }}>
-                <ImageIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText xs={2} md={4} primary={res.productName} secondary={res.quantity} />
             <Grid container spacing={3} direction="row">
               <Grid container item spacing={3} xd={12} sm={6} md={6} lg={12}>
                 <Grid item xs={12} md={1}>
