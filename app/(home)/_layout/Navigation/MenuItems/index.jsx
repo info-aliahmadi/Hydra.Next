@@ -31,7 +31,7 @@ export default function MenuItems({ menuItemsData }) {
   };
   return (
     <>
-      <Box sx={{ order: 1, flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
+      <Box sx={{ order: 1, flexGrow: 0, m: '5px 5px 15px 5px', display: { xs: 'flex', md: 'none' } }}>
         <Button
           variant="contained"
           color="info"
@@ -40,6 +40,7 @@ export default function MenuItems({ menuItemsData }) {
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={handleOpenNavMenu}
+          // sx={{ }}
         >
           <MenuIcon />
         </Button>

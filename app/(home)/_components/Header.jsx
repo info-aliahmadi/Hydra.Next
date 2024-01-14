@@ -3,45 +3,110 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import 'react';
-import { useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import CONFIG from '/config';
 
+const HLSPlayer = dynamic(() => import('./HLSPlayer'), {
+  suspense: true
+});
+const mobile = require('is-mobile');
 const Header = () => {
-  function playVideo() {
-    var video = document.getElementById('myvideo');
-    if (Hls.isSupported()) {
-      var hls = new Hls();
-      hls.loadSource('/videos/media/wavesphere.m3u8');
-      hls.attachMedia(video);
-      // hls.on(Hls.Events.MANIFEST_PARSED, function () {
-      //   video.play();
-      // });
-      // HLS.js is not supported on platforms that do not have Media Source
-      // Extensions (MSE) enabled.
-      //
-      // When the browser has built-in HLS support (check using `canPlayType`),
-      // we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video
-      // element through the `src` property. This is using the built-in support
-      // of the plain video element, without using HLS.js.
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = CONFIG.FRONT_PATH + '/videos/wavesphere.mp4';
-      // video.addEventListener('loadedmetadata', function () {
-      //   video.play();
-      // });
-    }
-    // playVideo();
-  }
+  const THUMBNAIL_MOBILE = CONFIG.DOMAIN + '/images/wavesphere-mobile.png';
+  const THUMBNAIL_DESKTOP = CONFIG.DOMAIN + '/images/wavesphere.png';
+  const MANIFEST = mobile() ? CONFIG.DOMAIN + '/videos/media/wavesphere-mobile.m3u8' : CONFIG.DOMAIN + '/videos/media/wavesphere.m3u8';
 
+  // function playVideo() {
+  //   var video = document.getElementById('myvideo');
+  //   if (Hls.isSupported()) {
+  //     var hls = new Hls();
+  //     hls.loadSource('/videos/media/wavesphere.m3u8');
+  //     hls.attachMedia(video);
+  //     // hls.on(Hls.Events.MANIFEST_PARSED, function () {
+  //     //   video.play();
+  //     // });
+  //     // HLS.js is not supported on platforms that do not have Media Source
+  //     // Extensions (MSE) enabled.
+  //     //
+  //     // When the browser has built-in HLS support (check using `canPlayType`),
+  //     // we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video
+  //     // element through the `src` property. This is using the built-in support
+  //     // of the plain video element, without using HLS.js.
+  //   } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  //     video.src = CONFIG.FRONT_PATH + '/videos/wavesphere.mp4';
+  //     // video.addEventListener('loadedmetadata', function () {
+  //     //   video.play();
+  //     // });
+  //   }
+  //   // playVideo();
+  // }
+
+  const [video, setVideo] = useState(null); // use callback state instead of ref due to hydration of SSR stream
+
+  const [poster, setPoster] = useState(null);
   useEffect(() => {
-    playVideo();
-  }, []);
+    // On render of video element -> set video poster to avoid flash (can also run transparent gif on video as poster & skip this step)
+    const mediaQueryList = window.matchMedia('(max-width: 600px)');
+
+    if (mediaQueryList.matches) {
+      setPoster(THUMBNAIL_MOBILE);
+    } else {
+      setPoster(THUMBNAIL_DESKTOP);
+    }
+  }, [video]);
+
+  // Auto switch video url using native CSS (server rendered also) to correct preloaded poster
+  const VideoFallback = () => {
+    return (
+      <>
+        <div className="video-fallback rounded-lg w-full aspect-video object-contain relative z-10" />
+        <style jsx>
+          {`
+            @media screen and (max-width: 600px) {
+              .video-fallback {
+                background-image: url(${THUMBNAIL_MOBILE});
+                background-size: cover;
+                background-position: center;
+              }
+            }
+            @media screen and (min-width: 601px) {
+              .video-fallback {
+                background-image: url(${THUMBNAIL_DESKTOP});
+                background-size: cover;
+                background-position: center;
+              }
+            }
+          `}
+        </style>
+      </>
+    );
+  };
+
   return (
     <>
       <div className="header">
         <div className="bg-video">
-          <video id="myvideo" autoPlay muted loop poster={'/videos/media/wavesphere.m3u8'}>
+          <link rel="preconnect" href={MANIFEST} />
+          {/* Preload thumbnails based on device width */}
+          <link rel="preload" href={THUMBNAIL_MOBILE} as="image" type="image/jpeg" media="(max-width: 600px)" />
+          <link rel="preload" href={THUMBNAIL_DESKTOP} as="image" type="image/jpeg" media="(min-width: 601px)" />
+          <Suspense fallback={<VideoFallback />}>
+            {/* Render video fallback with preloaded poster */}
+            <HLSPlayer
+              className="rounded-lg w-full aspect-video object-contain relative z-10 video"
+              playsInline
+              autoPlay
+              muted
+              loop
+              manifest={MANIFEST}
+              poster={poster}
+              ref={setVideo}
+            />
+          </Suspense>
+          {/* <video id="myvideo" autoPlay muted loop poster={'/videos/media/wavesphere.m3u8'}>
             <source src={'/images/wavesphere.png'} type="video/mp4" />
             Your browser does not support the video tag.
-          </video>
+          </video> */}
         </div>
 
         <Container maxWidth="xl">
@@ -78,25 +143,3 @@ const Header = () => {
   );
 };
 export default Header;
-// function scaleVideo() {
-//   var vid = document.getElementById('myvideo');
-//   var windowHeight = window.innerHeight;
-
-//   vid.setAttribute('height', windowHeight);
-
-//   var windowWidth = window.innerWidth;
-//   var videoWidth = vid.offsetWidth;
-//   var videoHeight = vid.offsetHeight;
-
-//   if (windowWidth > videoWidth) {
-//     let marginTopAdjust = (windowHeight - videoHeight) / 2;
-//     vid.style.marginTop = '-50px';
-//   }
-
-//   let marginLeftAdjust = (windowWidth - videoWidth) / 2;
-//   vid.setAttribute('height', windowHeight);
-//   vid.style.marginLeft = marginLeftAdjust + 'px';
-// }
-
-// // scaleVideo();
-// // window.addEventListener('resize', scaleVideo);

@@ -60,13 +60,33 @@ export default async function Introduce() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={7} xl={7} minHeight={'700px'}>
-            {/* <spline-viewer url="https://prod.spline.design/5Ck1f5C3y1xixa6I/scene.splinecode"></spline-viewer> */}
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={7}
+            xl={7}
+            display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}
+            minHeight={{ xs: '0', sm: '500px', md: '700px', lg: '700px', xl: '700px' }}
+          >
             <spline-viewer
               loading-anim-type="spinner-big-dark"
               url="https://prod.spline.design/k2Py7YlFaJbnxPp2/scene.splinecode"
             ></spline-viewer>
-            {/* <img alt="" src={IntroduceImage} width="100%" /> */}
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={7}
+            xl={7}
+            display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' }}
+            mt={10}
+            mb={10}
+          >
+            <img alt="" src="/images/experience.png" width="100%" />
           </Grid>
         </Grid>
       </Container>
