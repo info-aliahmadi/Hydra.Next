@@ -21,7 +21,6 @@ export default class LocalizationService {
           }
         })
         .catch((error) => {
-          console.log(error);
           reject(error);
         });
 
@@ -33,8 +32,6 @@ export default class LocalizationService {
     i18n.changeLanguage(lang.key);
     // theme.setDirection(i18n.dir(lang.key));
       axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultLanguage', { params: { defaultLanguage: lang.key } }).catch((error) => {
-        debugger
-        console.log(error);
       });
   };
 

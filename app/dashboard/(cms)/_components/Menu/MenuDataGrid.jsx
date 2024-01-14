@@ -153,7 +153,6 @@ function MenuDataGrid() {
     const parentOfItemBeside = findItemParent(idToReplaceBeside, data);
     if (parentOfItemToReplace && parentOfItemBeside) {
       if (!parentOfItemToReplace || !parentOfItemBeside) {
-        console.log('Parent of item to replace or parent of item beside not found');
         return data;
       }
 
@@ -162,7 +161,6 @@ function MenuDataGrid() {
       const indexBeside = parentOfItemBeside.childs.findIndex((child) => child.id === idToReplaceBeside);
 
       if (indexToReplace === -1 || indexBeside === -1) {
-        console.log('Could not find indices for items to replace or items beside');
         return data;
       }
 

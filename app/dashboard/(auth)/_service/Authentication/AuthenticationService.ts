@@ -18,7 +18,6 @@ export default class AuthenticationService {
           resolve(response.data);
         })
         .catch((error) => {
-          console.log(error);
           reject(error);
         });
     });

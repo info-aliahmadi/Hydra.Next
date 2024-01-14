@@ -1,11 +1,12 @@
 import axios from 'axios';
 import CONFIG from '/config.js';
 
-export default class HomeService {
+const REVALIDATE_TIME = 60;
 
+export default class HomeService {
   getSettings = async () => {
     return new Promise(async (resolve, reject) => {
-      await fetch(CONFIG.API_BASEPATH + '/cms/GetSettings')
+      await fetch(CONFIG.API_BASEPATH + '/cms/GetSettings', { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -17,7 +18,7 @@ export default class HomeService {
   };
   getMenu = async () => {
     return new Promise((resolve, reject) => {
-      fetch(CONFIG.API_BASEPATH + '/cms/getMenu')
+      fetch(CONFIG.API_BASEPATH + '/cms/getMenu', { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -36,7 +37,7 @@ export default class HomeService {
         pageIndex: pageIndex,
         pageSize: pageSize,
 
-      }))
+      }), { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -50,7 +51,7 @@ export default class HomeService {
     return new Promise((resolve, reject) => {
       fetch(CONFIG.API_BASEPATH + '/cms/GetRelatedArticlesList?' + new URLSearchParams({
         articleId: articleId
-      }))
+      }), { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -62,7 +63,7 @@ export default class HomeService {
   };
   getTopArticle = async () => {
     return new Promise((resolve, reject) => {
-      fetch(CONFIG.API_BASEPATH + '/cms/GetTopArticle')
+      fetch(CONFIG.API_BASEPATH + '/cms/GetTopArticle', { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -76,7 +77,7 @@ export default class HomeService {
     return new Promise((resolve, reject) => {
       fetch(CONFIG.API_BASEPATH + '/cms/GetArticle?' + new URLSearchParams({
         articleId: articleId
-      }))
+      }), { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -88,7 +89,7 @@ export default class HomeService {
   };
   getCategories = async () => {
     return new Promise((resolve, reject) => {
-      fetch(CONFIG.API_BASEPATH + '/cms/GetTopicsList')
+      fetch(CONFIG.API_BASEPATH + '/cms/GetTopicsList', { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -100,7 +101,7 @@ export default class HomeService {
   };
   getTags = async () => {
     return new Promise((resolve, reject) => {
-      fetch(CONFIG.API_BASEPATH + '/cms/GetTagsList')
+      fetch(CONFIG.API_BASEPATH + '/cms/GetTagsList', { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);
@@ -113,7 +114,7 @@ export default class HomeService {
   getLinksByKeyList = async (sectionKey) => {
     return new Promise((resolve, reject) => {
       const options =new URLSearchParams({ sectionKey: sectionKey }).toString();
-      fetch(CONFIG.API_BASEPATH + '/cms/GetLinksByKeyList?'+ options )
+      fetch(CONFIG.API_BASEPATH + '/cms/GetLinksByKeyList?'+ options , { next: { revalidate: REVALIDATE_TIME } })
         .then((response) => response.json())
         .then((response) => {
           resolve(response.data);

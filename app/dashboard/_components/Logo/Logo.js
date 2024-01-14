@@ -21,7 +21,7 @@ const Logo = () => {
      * <img src={logo} alt="Mantis" width="100" />
      *
      */
-    <>
+    <a href="/" target="_blank">
       <svg
         version="1.1"
         id="Layer_1"
@@ -113,7 +113,7 @@ const Logo = () => {
           <path fill="#3B7EBD" d="M87,27l4.46-12.11h1.45L97.38,27h-1.83l-3.36-9.77L88.84,27H87z M89.06,24.34v-1.62h6.37v1.62H89.06z" />
         </g>
       </svg>
-    </>
+    </a>
   );
 };
 

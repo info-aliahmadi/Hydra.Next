@@ -20,7 +20,6 @@ export default class AuthorizationService {
           resolve(result >= 0 ? true : false);
         })
         .catch((error) => {
-          console.log(error);
           reject(false);
         });
     });
