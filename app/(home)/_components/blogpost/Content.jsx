@@ -26,9 +26,9 @@ export default async function Content({ post }) {
               md={12}
               lg={12}
               xl={12}
-              pt={{ xs: 5, sm: 5, md: 5, lg: 5, xl: 10 }}
-              pl={{ xs: 3, sm: 5, md: 15, lg: 15, xl: 10 }}
-              pr={{ xs: 3, sm: 5, md: 15, lg: 15, xl: 10 }}
+              pt={{ xs: 0, sm: 5, md: 5, lg: 5, xl: 10 }}
+              pl={{ xs: 0, sm: 5, md: 15, lg: 15, xl: 10 }}
+              pr={{ xs: 0, sm: 5, md: 15, lg: 15, xl: 10 }}
             >
               <img
                 alt=""
@@ -46,8 +46,8 @@ export default async function Content({ post }) {
               <Stack
                 p={{ xs: 5, sm: 5, md: 5, lg: 10, xl: 10 }}
                 pb={15}
-                pl={{ xs: 5, sm: 15, md: 15, lg: 15, xl: 15 }}
-                pr={{ xs: 5, sm: 15, md: 15, lg: 15, xl: 15 }}
+                pl={{ xs: 0, sm: 15, md: 15, lg: 15, xl: 15 }}
+                pr={{ xs: 0, sm: 15, md: 15, lg: 15, xl: 15 }}
                 className="content"
               >
                 <Box

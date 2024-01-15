@@ -705,9 +705,6 @@ html {
   background-size: 100% 100%;
   background-position: top left 100%;
 }
-.centerTab .MuiTabs-flexContainer {
-  justify-content: center;
-}
 .btn-comming-soon {
   background: linear-gradient(180deg, #f68eff 0%, #7f68db 100%);
 }
@@ -740,6 +737,7 @@ html {
 }
 .criteria-chcklist {
   list-style: none;
+  padding: 0;
 }
 .criteria-chcklist li {
   margin: 3px 0;

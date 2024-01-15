@@ -12,10 +12,10 @@ export default async function Header({ children }) {
         sx={{
           backgroundImage: `url(/images/wave-blog.svg)`
         }}
-        height={{ xs: 300, sm: 300, md: 350, lg: 450, xl: 550 }}
+        minHeight={{ xs: 300, sm: 300, md: 350, lg: 450, xl: 550 }}
       >
         <Container maxWidth="xl" sx={{ position: 'relative' }}>
-          <Grid container mb={{ xs: 5, sm: 5, md: 30, lg: 40, xl: 30 }}>
+          <Grid container mb={{ xs: 0, sm: 5, md: 30, lg: 40, xl: 30 }}>
             <Grid
               item
               xs={12}

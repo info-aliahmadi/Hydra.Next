@@ -86,7 +86,7 @@ export default async function RelatedPosts({ postId }) {
         height={{ xs: 300, sm: 350, md: 380, lg: 400, xl: 400 }}
       ></Box>
       <Container maxWidth="xl">
-        <Grid container pt={5}>
+        <Grid container pt={{ xs: 0, sm: 5, md: 5, lg: 5, xl: 5 }}>
           <Grid
             container
             item
@@ -100,7 +100,7 @@ export default async function RelatedPosts({ postId }) {
           >
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12} alignItems="center">
               <Stack pb={5} alignItems="center">
-                <Typography variant="h1" pt={2}>
+                <Typography variant="h1" pb={5}>
                   Related Posts
                 </Typography>
                 {/* <Typography variant="body2" pt={2} pb={2}>

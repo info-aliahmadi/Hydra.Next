@@ -18,7 +18,7 @@ export default function Introduce() {
       <Container maxWidth="xl">
         <Grid container alignItems="center" alignContent="center" justifyContent="center">
           <Grid item xs={10} sm={10} md={8} lg={8} xl={8}>
-            <Stack alignItems="center" textAlign={'center'} pt={15} pb={15}>
+            <Stack alignItems="center" textAlign={'center'} pt={{ xs: 0, sm: 6, md: 10, lg: 15, xl: 15 }} pb={{ xs: 0, sm: 6, md: 10, lg: 15, xl: 15 }}>
               <Typography variant="h5" pt={2}>
                 Our Vision
               </Typography>

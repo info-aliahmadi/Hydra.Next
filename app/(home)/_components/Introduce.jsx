@@ -78,10 +78,6 @@ export default async function Introduce() {
           <Grid
             item
             xs={12}
-            sm={12}
-            md={12}
-            lg={7}
-            xl={7}
             display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' }}
             mt={10}
             mb={10}

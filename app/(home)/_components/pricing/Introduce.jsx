@@ -70,8 +70,8 @@ export default async function Introduce() {
           alignContent="center"
           justifyContent="center"
           spacing={5}
-          pl={{ xs: 5, sm: 5, md: 5, lg: 0, xl: 0 }}
-          pr={{ xs: 5, sm: 5, md: 5, lg: 0, xl: 0 }}
+          pl={{ xs: 1, sm: 5, md: 5, lg: 0, xl: 0 }}
+          pr={{ xs: 1, sm: 5, md: 5, lg: 0, xl: 0 }}
         >
           <Grid item xs={12} sm={8} md={4} lg={4} xl={4}>
             <PriceItem

@@ -84,8 +84,8 @@ export default async function Plans() {
             <Stack
               alignItems="center"
               textAlign={'center'}
-              pt={15}
-              pb={5}
+              pt={{ xs: 0, sm: 10, md: 15, lg: 15, xl: 15 }}
+              pb={{ xs: 0, sm: 5, md: 5, lg: 5, xl: 5 }}
               pl={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
               pr={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
             >

@@ -79,7 +79,7 @@ export default async function BlogPost({ params }) {
         <Typography variant="h1" pt={3}>
           {post?.subject}
         </Typography>
-        <Box pt={6} display="flex" justifyContent="space-between" alignItems="center">
+        <Box pt={6} display="flex" flexDirection={{ xs: 'column', sm: 'row', md: 'row', lg: 'row', xl: 'row' }} justifyContent='space-between' alignItems="center">
           <Author
             author={post?.writer}
             date={DateTimeViewer(CONFIG.DEFAULT_LANGUAGE, post?.publishDate)}

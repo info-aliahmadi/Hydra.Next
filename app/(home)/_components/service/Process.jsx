@@ -214,7 +214,7 @@ export default function Process() {
                 Acceptance Criteria <span className="gradient-text">Checklist</span>
               </Typography>
               <Box pt={4} textAlign="justify">
-                <Typography variant="body2" pt={4} pl={'30px'}>
+                <Typography variant="body2" pt={4}>
                   The following checklist outlines the acceptance criteria for the{' '}
                   <strong className="gradient-text">completed Website</strong> :
                 </Typography>

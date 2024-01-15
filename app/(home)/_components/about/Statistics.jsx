@@ -51,12 +51,19 @@ export default function Statistics() {
             </Grid>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6} display="flex" justifyContent="center">
-            <Box sx={{ height: '850px', maxWidth: '700px', width: '100%' }}>
+            <Box sx={{ height: '850px', maxWidth: '700px', width: '100%' }} 
+            display={{ xs: 'none', sm: 'block', md: 'block', lg: 'block', xl: 'block' }}>
               <spline-viewer
                 loading-anim-type="spinner-big-dark"
                 url="https://prod.spline.design/5Ck1f5C3y1xixa6I/scene.splinecode"
               ></spline-viewer>
             </Box>
+            
+          <Box
+            display={{ xs: 'block', sm: 'none', md: 'none', lg: 'none', xl: 'none' }}
+          >
+            <img alt="" src="/images/statistics.png" width="100%" />
+          </Box>
           </Grid>
         </Grid>
       </Container>

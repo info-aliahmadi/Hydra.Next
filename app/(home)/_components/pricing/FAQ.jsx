@@ -21,14 +21,14 @@ export default async function FAQ() {
         height={{ xs: 300, sm: 300, md: 320, lg: 350, xl: 380 }}
       ></Box>
       <Container maxWidth="xl">
-        <Grid container pt={{ xs: 3, sm: 5, md: 6, lg: 0, xl: 0 }}>
+        <Grid container pt={{ xs: 0, sm: 5, md: 6, lg: 0, xl: 0 }}>
           <Grid container alignItems="center" alignContent="center" justifyContent="center">
             <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
               <Stack
                 alignItems="center"
                 textAlign={'center'}
                 pt={{ xs: 0, sm: 0, md: 0, lg: 5, xl: 5 }}
-                pb={15}
+                pb={{ xs: 10, sm: 10, md: 15, lg: 15, xl: 15 }}
                 pl={{ xs: 0, sm: 0, md: 5, lg: 0, xl: 0 }}
                 pr={{ xs: 0, sm: 0, md: 5, lg: 0, xl: 0 }}
               >

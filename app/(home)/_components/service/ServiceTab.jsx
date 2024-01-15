@@ -75,7 +75,7 @@ export default function ServiceTab() {
             pl={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
             pr={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
           >
-            <Stack alignItems="center" textAlign={'center'} pt={15} pb={15}>
+            <Stack alignItems="center" textAlign={'center'} pt={{ xs: 0, sm: 6, md: 10, lg: 15, xl: 15 }} pb={{ xs: 0, sm: 6, md: 10, lg: 15, xl: 15 }}>
               <Typography variant="h5" pt={2}>
                 From Concept to Code
               </Typography>
@@ -90,12 +90,14 @@ export default function ServiceTab() {
           </Grid>
           <Grid item xs={12} xl={12} lg={12} md={12} sm={12}>
             <Box>
-              <Tabs value={value} onChange={handleChange} aria-label="Vertical tabs example" className="centerTab">
+              <Tabs value={value} onChange={handleChange} aria-label="Vertical tabs example" sx={{ ml:'25px'}}
+  variant="scrollable"
+  scrollButtons="auto">
                 <Tab label="Portfolio" icon={<BusinessCenter />} iconPosition="start" {...a11yProps(0)} />
                 <Tab label="E-Commerce" icon={<ShoppingBag />} iconPosition="start" {...a11yProps(1)} />
                 <Tab label="Web Application" icon={<DesktopMacOutlined />} iconPosition="start" {...a11yProps(1)} {...a11yProps(2)} />
               </Tabs>
-              <Box pt={5} pl={5} pb={4} className="text-card">
+              <Box pt={5} pl={{ xs: 0, sm: 2, md: 5, lg: 5, xl: 5 }} pb={4} className="text-card">
                 <TabPanel component="div" value={value} index={0}>
                   <Typography variant="h3">What Is Portfolio Website?</Typography>
                   <Box pt={4}>

@@ -6,6 +6,8 @@ import 'react';
 import { Suspense, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import CONFIG from '/config';
+import { useTheme } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const HLSPlayer = dynamic(() => import('./HLSPlayer'), {
   suspense: true
@@ -41,19 +43,23 @@ const Header = () => {
   //   // playVideo();
   // }
 
+  const theme = useTheme();
+  const matchDownXD = useMediaQuery(theme.breakpoints.only('xs'));
+
+  let pos = matchDownXD ? THUMBNAIL_MOBILE : THUMBNAIL_DESKTOP;
+
   const [video, setVideo] = useState(null); // use callback state instead of ref due to hydration of SSR stream
+  const [poster, setPoster] = useState(pos);
 
-  const [poster, setPoster] = useState(null);
-  useEffect(() => {
-    // On render of video element -> set video poster to avoid flash (can also run transparent gif on video as poster & skip this step)
-    const mediaQueryList = window.matchMedia('(max-width: 600px)');
-
-    if (mediaQueryList.matches) {
-      setPoster(THUMBNAIL_MOBILE);
-    } else {
-      setPoster(THUMBNAIL_DESKTOP);
-    }
-  }, [video]);
+  // useEffect(() => {
+  //   // On render of video element -> set video poster to avoid flash (can also run transparent gif on video as poster & skip this step)
+  //   // const mediaQueryList = window.matchMedia('(max-width: 600px)');
+  //   if (matchDownXD) {
+  //     setPoster(THUMBNAIL_MOBILE);
+  //   } else {
+  //     setPoster(THUMBNAIL_DESKTOP);
+  //   }
+  // }, [matchDownXD]);
 
   // Auto switch video url using native CSS (server rendered also) to correct preloaded poster
   const VideoFallback = () => {
@@ -116,7 +122,7 @@ const Header = () => {
             </Typography>
             <Typography variant="header" sx={{ display: 'block' }}>
               Into a{' '}
-              <Typography variant="header" className="gradient-text">
+              <Typography variant="header" className={matchDownXD ? "" : "gradient-text"}>
                 Unique Interaction
               </Typography>
             </Typography>
