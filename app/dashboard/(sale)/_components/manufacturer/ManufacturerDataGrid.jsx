@@ -10,8 +10,8 @@ import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import { Delete } from '@mui/icons-material';
 import { Edit } from '@mui/icons-material';
 import AddIcon from '@mui/icons-material/Add';
-// import DeleteManufacturer from './DeleteManufacturer';
-// import AddOrEditManufacturer from './AddOrEditManufacturer';
+import DeleteManufacturer from './DeleteManufacturer';
+import AddOrEditManufacturer from './AddOrEditManufacturer';
 import { useSession } from 'next-auth/react';
 import ManufacturerService from '../../_service/ManufacturerService';
 
@@ -51,30 +51,6 @@ function ManufacturerDataGrid() {
         type: 'string'
       },
       {
-        accessorKey: 'description',
-        header: t(fieldsName + 'description'),
-        enableClickToCopy: true,
-        type: 'string'
-      },
-      {
-        accessorKey: 'metaDescription',
-        header: t(fieldsName + 'metaDescription'),
-        enableClickToCopy: true,
-        type: 'string'
-      },
-      {
-        accessorKey: 'published',
-        header: t(fieldsName + 'published'),
-        enableClickToCopy: true,
-        type: 'string'
-      },
-      {
-        accessorKey: 'pictureId',
-        header: t(fieldsName + 'pictureId'),
-        enableClickToCopy: true,
-        type: 'string'
-      },
-      {
         accessorKey: 'displayOrder',
         header: t(fieldsName + 'displayOrder'),
         enableClickToCopy: true,
@@ -90,9 +66,9 @@ function ManufacturerDataGrid() {
     setOpen(true);
   };
   const handleEditRow = (row) => {
-    let ManufacturerId = row.original.id;
+    let manufacturerId = row.original.id;
     setIsNew(false);
-    setRowId(ManufacturerId);
+    setRowId(manufacturerId);
     setOpen(true);
   };
   const handleDeleteRow = (row) => {
@@ -145,8 +121,8 @@ function ManufacturerDataGrid() {
           />
         </TableCard>
       </MainCard>
-      {/* <AddOrEditManufacturer isNew={isNew} ManufacturerId={rowId} open={open} setOpen={setOpen} refetch={handleRefetch} /> */}
-      {/* <DeleteManufacturer row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} /> */}
+      <AddOrEditManufacturer isNew={isNew} manufacturerId={rowId} open={open} setOpen={setOpen} refetch={handleRefetch} />
+      <DeleteManufacturer row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} />
     </>
   );
 }

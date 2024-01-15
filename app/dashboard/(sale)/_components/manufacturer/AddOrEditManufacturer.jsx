@@ -117,8 +117,8 @@ const AddOrEditManufacturer = ({ manufacturerId, isNew, open, setOpen, refetch }
             metaTitle: manufacturer?.metaTitle,
             description: manufacturer?.description,
             metaDescription: manufacturer?.metaDescription,
-            published: manufacturer?.published,
-            pictureId: manufacturer?.pictureId,
+            //published: manufacturer?.published,
+            //pictureId: manufacturer?.pictureId,
             displayOrder: manufacturer?.displayOrder
           }}
           enableReinitialize={true}
@@ -128,7 +128,7 @@ const AddOrEditManufacturer = ({ manufacturerId, isNew, open, setOpen, refetch }
             metaTitle: Yup.string().max(250).required('MetaTitle is required'),
             description: Yup.string().max(300).required('Description is required'),
             metaDescription: Yup.string().max(300).required('MetaDescription is required'),
-            published: Yup.bool().required('Published is required'),
+            //published: Yup.bool().required('Published is required'),
             //pictureId: Yup.strin.max()g().required('PictureId is required'),
             displayOrder: Yup.number('Must be a valid number').required('DisplayOrder is required')
           })}
@@ -256,50 +256,6 @@ const AddOrEditManufacturer = ({ manufacturerId, isNew, open, setOpen, refetch }
                       {touched.metaDescription && errors.metaDescription && (
                         <FormHelperText error id="helper-text-metaDescription">
                           {errors.metaDescription}
-                        </FormHelperText>
-                      )}
-                    </Stack>
-                  </Grid>
-
-                  <Grid item>
-                    <Stack spacing={1}>
-                      <InputLabel htmlFor="published">{t(fieldsName + 'published')}</InputLabel>
-                      <OutlinedInput
-                        id="published"
-                        type="text"
-                        value={values?.published || ''}
-                        published="published"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder={t(fieldsName + 'published')}
-                        fullWidth
-                        error={Boolean(touched.published && errors.published)}
-                      />
-                      {touched.published && errors.published && (
-                        <FormHelperText error id="helper-text-published">
-                          {errors.published}
-                        </FormHelperText>
-                      )}
-                    </Stack>
-                  </Grid>
-
-                  <Grid item>
-                    <Stack spacing={1}>
-                      <InputLabel htmlFor="pictureId">{t(fieldsName + 'pictureId')}</InputLabel>
-                      <OutlinedInput
-                        id="pictureId"
-                        type="text"
-                        value={values?.pictureId || ''}
-                        pictureId="pictureId"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        placeholder={t(fieldsName + 'pictureId')}
-                        fullWidth
-                        error={Boolean(touched.pictureId && errors.pictureId)}
-                      />
-                      {touched.pictureId && errors.pictureId && (
-                        <FormHelperText error id="helper-text-pictureId">
-                          {errors.pictureId}
                         </FormHelperText>
                       )}
                     </Stack>

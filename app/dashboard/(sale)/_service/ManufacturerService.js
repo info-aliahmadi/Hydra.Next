@@ -44,6 +44,7 @@ export default class ManufacturerService {
     });
   };
   addManufacturer = async (manufacturer) => {
+    debugger
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/sale/AddManufacturer', manufacturer)
