@@ -38,7 +38,8 @@
     "subscribe": "Subscribes",
     "fileStorage": "Storage",
     "sale": "Sale",
-    "order": "Orders"
+    "order": "Orders",
+    "manufacturer": "Manufacturers"
   },
   "pages": {
     "edit-profile": "Edit Profile",
@@ -66,6 +67,7 @@
     "subscribes": "Subscribes",
     "countries": "Countries",
     "orders": "Orders",
+    "manufacturers": "Manufacturers",
     "cards": {
       "users-list": "Users List",
       "user-add": "Add New User",
@@ -277,7 +279,8 @@
       "orderTax": "Order Tax",
       "orderDiscount": "Order Discount",
       "orderTotal": "Order Total",
-      "refundedAmount": "Refunded Amount"
+      "refundedAmount": "Refunded Amount",
+      "orderNote": "Order Note"
     },
     "orderItem": {
       "id": "Id",
@@ -288,6 +291,17 @@
       "discountAmountTax": "Discount Tax",
       "priceTax": "Price Tax",
       "totalPrice": "Total Price"
+    },
+    "manufacturer": {
+      "id": "Id",
+      "name": "Name",
+      "metaKeywords": "Meta Keywords",
+      "metaTitle": "Meta Title",
+      "description": "Description",
+      "metaDescription": "Meta Description",
+      "pictureId": "PictureId",
+      "published": "Published",
+      "displayOrder": "Display Order"
     }
   },
   "buttons": {
@@ -310,6 +324,12 @@
       "add": "New User",
       "edit": "Edit User",
       "delete": "Delete User"
+    },
+    "manufacturer": {
+      "add": "New Manufacturer",
+      "edit": "Edit Manufacturer",
+      "delete": "Delete Manufacturer",
+      "saveManufacturer": "Save Manufacturer"
     },
     "role": {
       "add": "Add New Role",

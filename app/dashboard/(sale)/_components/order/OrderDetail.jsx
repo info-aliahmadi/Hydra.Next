@@ -2,6 +2,8 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
+import AlertTitle from '@mui/material/AlertTitle';
+import Alert from '@mui/material/Alert';
 import OrderItemData from '../orderItem/OrderItemData';
 
 import { useTranslation } from 'react-i18next';
@@ -10,7 +12,7 @@ export default function OrderDetail(props) {
   const [t] = useTranslation();
   const [fieldsName, buttonName] = ['fields.order.', 'buttons.order.'];
   const row = props.row;
-  debugger
+  debugger;
   return (
     <>
       <Grid container spacing={3} direction="row">
@@ -129,6 +131,18 @@ export default function OrderDetail(props) {
               />
             </Stack>
           </Grid>
+          {row.original.orderNotes.length > 0 && (
+            <Grid item xs={12} md={12}>
+              <Stack spacing={1}>
+                <Alert severity="info">
+                  <AlertTitle>{t(fieldsName + 'orderNote')}</AlertTitle>
+                  {row.original.orderNotes.map((res, key) => (
+                    <div key={key}>{res}</div>
+                  ))}
+                </Alert>
+              </Stack>
+            </Grid>
+          )}
           <Grid item xs={12} md={12}>
             <Stack spacing={1}>
               <Divider variant="fullWidth" />

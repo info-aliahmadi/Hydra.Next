@@ -28,6 +28,15 @@ const pages = {
       icon: icons.ShoppingCart,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
+    },
+    {
+      id: 'manufacturer',
+      title: 'Manufacturers',
+      type: 'item',
+      url: '/dashboard/manufacturer/list',
+      icon: icons.ShoppingCart,
+      breadcrumbs: false,
+      permission: 'AUTH.GET_PERMISSION_LIST'
     }
   ]
 };

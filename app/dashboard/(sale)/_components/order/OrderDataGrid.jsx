@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
