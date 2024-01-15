@@ -69,14 +69,14 @@ export default async function HomeLayout({ children }) {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <script async type="module" src="https://unpkg.com/@splinetool/viewer@0.9.518/build/spline-viewer.js"></script>
+        <script async type="module" src="https://unpkg.com/@splinetool/viewer@1.0.28/build/spline-viewer.js"></script>
       </head>
       <body>
         <HomePageThemeCustomization>
           <>
-          <Navigation sx={{ xIndex: 999999999, position: 'relative' }} />
-          {children}
-          <Footer />
+            <Navigation sx={{ xIndex: 999999999, position: 'relative' }} />
+            {children}
+            <Footer />
           </>
         </HomePageThemeCustomization>
 

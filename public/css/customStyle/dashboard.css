@@ -15,3 +15,40 @@
 .select-topic fieldset legend {
   display: none !important;
 }
+/* html::-webkit-scrollbar {
+  width: 14px;
+}
+
+html::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #e7e7e7;
+  border: 1px solid #cacaca;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+html::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #363636;
+  
+  background-clip: content-box;
+  border: 2px solid transparent;
+} */
+
+.scroll::-webkit-scrollbar {
+  width: 14px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background-color: #545454;
+  border: 1px solid #202020;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #363636;
+  
+  background-clip: content-box;
+  border: 2px solid transparent;
+}

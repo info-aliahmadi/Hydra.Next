@@ -65,8 +65,10 @@ export default function HomePageThemeCustomization({ children }) {
     <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={themes}>
-          {children}
-          <CssBaseline />
+          <>
+            {children}
+            <CssBaseline />
+          </>
         </ThemeProvider>
       </StyledEngineProvider>
     </NextAppDirEmotionCacheProvider>

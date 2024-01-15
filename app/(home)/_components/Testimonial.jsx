@@ -95,62 +95,60 @@ export default function Testimonial({ showWave }) {
                   }}
                 >
                   {steps.map((step, index) => (
-                    <>
-                      <Grid
-                        key={'x-' + index}
-                        item
-                        container
-                        justifyContent="center"
-                        alignItems="center"
-                        pt={{ xs: 20, sm: 20, md: 25, lg: 25, xl: 24 }}
-                        pb={{ xs: 10, sm: 10, md: 12, lg: 15, xl: 20 }}
-                        pl={{ xs: 0, sm: 1, md: 8, lg: 3, xl: 0 }}
-                        pr={{ xs: 0, sm: 1, md: 8, lg: 3, xl: 0 }}
-                        sx={{
-                          position: 'relative'
-                          //top: '30%'
-                        }}
-                      >
-                        <Grid item xs={9} sm={8} md={10} lg={9} xl={8}>
-                          <Box sx={{ textAlign: 'center' }} p={{ xs: 2, sm: 1, md: 2, lg: 2, xl: 5 }}>
-                            <StarRateRoundedIcon fontSize={'large'} color="warning" />
-                            <StarRateRoundedIcon fontSize={'large'} color="warning" />
-                            <StarRateRoundedIcon fontSize={'large'} color="warning" />
-                            <StarRateRoundedIcon fontSize={'large'} color="warning" />
-                            <StarRateRoundedIcon fontSize={'large'} color="warning" />
-                          </Box>
-                          <Typography variant="h4" textAlign={'center'}>
-                            {step.description}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs={11} sm={10} md={12} lg={7} xl={7} mb={{ xs: 10, sm: 10, md: 12, lg: 15, xl: 8 }}>
-                          <Grid container mt={{ xs: 0, sm: 0, md: 2, lg: 2, xl: 5 }} alignItems="center" justifyContent="center">
-                            <Grid item xs={3} sm={2} md={2} lg={2} xl={2} sx={{ maxWidth: '80px !important' }}>
-                              <Avatar sx={{ width: 70, height: 70 }} src={step.avatar}></Avatar>
-                            </Grid>
-                            <Grid item xs={4} sm={4} md={4} lg={5} xl={5}>
-                              <Typography variant="body1" fontWeight={600}>
-                                {step.name}
-                              </Typography>
-                              <Typography variant="body1">{step.company}</Typography>
-                            </Grid>
-                            <Grid
-                              item
-                              xs={3}
-                              sm={3}
-                              md={3}
-                              lg={3}
-                              xl={3}
-                              style={{ borderLeft: '1px solid #2c302e' }}
-                              p={{ xs: 2, sm: 2, md: 3, lg: 4.5, xl: 4.5 }}
-                            >
-                              <img src={matchDownSM ? '/images/OnWaveArm.png' : '/images/OnWaveLogo.png'} alt="" />
-                              {/* <img src={OnWaveArm} alt="Company Logo" /> */}
-                            </Grid>
+                    <Grid
+                      key={'x-' + index}
+                      item
+                      container
+                      justifyContent="center"
+                      alignItems="center"
+                      pt={{ xs: 20, sm: 20, md: 25, lg: 25, xl: 24 }}
+                      pb={{ xs: 10, sm: 10, md: 12, lg: 15, xl: 20 }}
+                      pl={{ xs: 0, sm: 1, md: 8, lg: 3, xl: 0 }}
+                      pr={{ xs: 0, sm: 1, md: 8, lg: 3, xl: 0 }}
+                      sx={{
+                        position: 'relative'
+                        //top: '30%'
+                      }}
+                    >
+                      <Grid item xs={9} sm={8} md={10} lg={9} xl={8}>
+                        <Box sx={{ textAlign: 'center' }} p={{ xs: 2, sm: 1, md: 2, lg: 2, xl: 5 }}>
+                          <StarRateRoundedIcon fontSize={'large'} color="warning" />
+                          <StarRateRoundedIcon fontSize={'large'} color="warning" />
+                          <StarRateRoundedIcon fontSize={'large'} color="warning" />
+                          <StarRateRoundedIcon fontSize={'large'} color="warning" />
+                          <StarRateRoundedIcon fontSize={'large'} color="warning" />
+                        </Box>
+                        <Typography variant="h4" textAlign={'center'}>
+                          {step.description}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={11} sm={10} md={12} lg={7} xl={7} mb={{ xs: 10, sm: 10, md: 12, lg: 15, xl: 8 }}>
+                        <Grid container mt={{ xs: 0, sm: 0, md: 2, lg: 2, xl: 5 }} alignItems="center" justifyContent="center">
+                          <Grid item xs={3} sm={2} md={2} lg={2} xl={2} sx={{ maxWidth: '80px !important' }}>
+                            <Avatar sx={{ width: 70, height: 70 }} src={step.avatar}></Avatar>
+                          </Grid>
+                          <Grid item xs={4} sm={4} md={4} lg={5} xl={5}>
+                            <Typography variant="body1" fontWeight={600}>
+                              {step.name}
+                            </Typography>
+                            <Typography variant="body1">{step.company}</Typography>
+                          </Grid>
+                          <Grid
+                            item
+                            xs={3}
+                            sm={3}
+                            md={3}
+                            lg={3}
+                            xl={3}
+                            style={{ borderLeft: '1px solid #2c302e' }}
+                            p={{ xs: 2, sm: 2, md: 3, lg: 4.5, xl: 4.5 }}
+                          >
+                            <img src={matchDownSM ? '/images/OnWaveArm.png' : '/images/OnWaveLogo.png'} alt="" />
+                            {/* <img src={OnWaveArm} alt="Company Logo" /> */}
                           </Grid>
                         </Grid>
                       </Grid>
-                    </>
+                    </Grid>
                   ))}
                 </Carousel>
               </Box>

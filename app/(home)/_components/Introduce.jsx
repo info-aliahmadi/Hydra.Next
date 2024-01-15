@@ -1,11 +1,11 @@
-'use server';
+'use client';
 import 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-export default async function Introduce() {
+export default function Introduce() {
   return (
     <Box className="bg-white" sx={{ position: 'unset' }}>
       <Box

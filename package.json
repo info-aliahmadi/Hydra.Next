@@ -24,7 +24,6 @@
     "@mui/x-date-pickers": "latest",
     "@nitrolab/lexical-playground": "^0.1.1",
     "@reduxjs/toolkit": "^1.8.5",
-    "@splinetool/runtime": "^0.9.518",
     "@tanstack/react-query": "^4.29.15",
     "apexcharts": "^3.35.5",
     "axios": "^1.4.0",
