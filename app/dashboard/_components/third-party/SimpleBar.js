@@ -8,12 +8,13 @@ import { Box } from '@mui/material';
 import SimpleBar from 'simplebar-react';
 import { BrowserView, MobileView } from 'react-device-detect';
 
+import { useTheme } from '@mui/material';
 // root style
 const RootStyle = styled(BrowserView)({
   flexGrow: 1,
   height: '100%',
   overflowY: 'scroll',
-  scrollbarColor:'#007 #bada55',
+  scrollbarColor: '#007 #bada55',
   scrollbarWidth: 'thin'
 });
 
@@ -45,9 +46,12 @@ const SimpleBarStyle = styled(SimpleBar)(({ theme }) => ({
 // ==============================|| SIMPLE SCROLL BAR  ||============================== //
 
 export default function SimpleBarScroll({ children, sx, ...other }) {
+
+  const theme = useTheme();
+  let themeMode = theme.palette.mode;
   return (
     <>
-      <RootStyle className='scroll'>
+      <RootStyle className={themeMode == 'light' ? 'scroll' : 'scroll-dark'}>
         <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
           {children}
         </SimpleBarStyle>

@@ -30,7 +30,6 @@ import capitalize from 'lodash/capitalize';
 import lowerCase from 'lodash/lowerCase';
 import toLower from 'lodash/toLower';
 import truncate from 'lodash/truncate';
-import { useRouter } from 'next/navigation';
 import CONFIG from '/config';
 import DeleteFile from './DeleteFile';
 import { DateViewer } from '/utils/DateViewer';
@@ -46,7 +45,6 @@ function FilesList({ directory }) {
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   const theme = useTheme();
-  const params = useRouter();
 
   const [files, setFiles] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
