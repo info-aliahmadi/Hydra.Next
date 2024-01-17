@@ -6,6 +6,7 @@ import ListItemIcon from '@mui/material/MenuItem';
 // project import
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
+import Currency from '@dashboard/_components/Currency/Currency';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
@@ -28,18 +29,35 @@ function OrderDataGrid() {
   const columns = useMemo(
     () => [
       {
+        accessorKey: 'id',
+        header: t(fieldsName + 'id'),
+        enableClickToCopy: true,
+        type: 'string',
+        Cell: ({ renderedCellValue, row }) => <span># {renderedCellValue}</span>
+      },
+      {
         accessorKey: 'userName',
         header: t(fieldsName + 'userName'),
         enableClickToCopy: true,
         type: 'string',
-        Cell: (renderedCellValue, row) => <OrderUserAvatar />
+        Cell: ({ renderedCellValue, row }) => (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem'
+            }}
+          >
+            <OrderUserAvatar value={renderedCellValue} />
+          </Box>
+        )
       },
       {
         accessorKey: 'orderStatusId',
         header: t(fieldsName + 'orderStatusId'),
         enableClickToCopy: true,
         type: 'string',
-        Cell: (renderedCellValue, row) => (
+        Cell: ({ renderedCellValue, row }) => (
           <Box
             sx={{
               display: 'flex',
@@ -50,6 +68,13 @@ function OrderDataGrid() {
             <OrderStatus status={renderedCellValue} />
           </Box>
         )
+      },
+      {
+        accessorKey: 'finalPrice',
+        header: t(fieldsName + 'finalPrice'),
+        enableClickToCopy: true,
+        type: 'string',
+        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.userCurrencyTitle} />
       },
       {
         accessorKey: 'paymentStatusTitle',

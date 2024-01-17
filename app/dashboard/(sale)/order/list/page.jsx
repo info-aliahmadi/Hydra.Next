@@ -5,7 +5,7 @@ import { Grid, Typography } from '@mui/material';
 
 // project import
 import { useTranslation } from 'react-i18next';
-import OrderDataGrid from '../../_components/order/OrderDataGrid';
+import OrderDataGrid from '../../_components/Order/OrderDataGrid';
 // ===============================|| COLOR BOX ||=============================== //
 
 function OrderList() {

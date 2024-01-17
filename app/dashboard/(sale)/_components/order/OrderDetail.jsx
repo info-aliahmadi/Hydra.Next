@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
-import OrderItemData from '../orderItem/OrderItemData';
+import OrderItemData from '../OrderItem/OrderItemData';
 
 import { useTranslation } from 'react-i18next';
 

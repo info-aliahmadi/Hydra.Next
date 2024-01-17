@@ -1,12 +1,11 @@
-// import  Dot  from '@mui/material/Dot';
 import Dot from '@dashboard/_components/@extended/Dot';
 import Typography from '@mui/material/Typography';
 
 export default function OrderStatus({ status }) {
   let color = 'primary';
-  let title = 'None'; // اجرا کن
+  let title = 'None';
 
-  switch (status.renderedCellValue) {
+  switch (status) {
     case 0:
       color = 'warning';
       title = 'Pending';
