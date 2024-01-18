@@ -2,14 +2,14 @@ import axios from 'axios';
 import { setDefaultHeader } from '/utils/axiosHeaders';
 import CONFIG from '/config.js';
 
-export default class ManufacturerService {
+export default class ProductService {
   constructor(jwt) {
     setDefaultHeader(jwt);
   }
-  getManufacturerList = async (searchParams) => {
+  getProductList = async (searchParams) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturerList', searchParams)
+        .post(CONFIG.API_BASEPATH + '/sale/GetProductList', searchParams)
         .then((response) => {
           resolve(response.data);
         })
@@ -19,10 +19,10 @@ export default class ManufacturerService {
     });
   };
 
-  getManufacturerListForSelect = async () => {
+  getProductItemList = async (productId) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturersForSelect')
+        .get(CONFIG.API_BASEPATH + `/sale/GetProductItemList?productId=${productId}`)
         .then((response) => {
           resolve(response.data);
         })
@@ -31,11 +31,10 @@ export default class ManufacturerService {
         });
     });
   };
-
-  getAllManufacturers = async () => {
+  getAllProducts = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getAllManufacturers')
+        .get(CONFIG.API_BASEPATH + '/sale/getAllProducts')
         .then((response) => {
           resolve(response.data);
         })
@@ -44,10 +43,10 @@ export default class ManufacturerService {
         });
     });
   };
-  getManufacturerById = async (manufacturerId) => {
+  getProductById = async (productId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getManufacturerById', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/getProductById', { params: { productId: productId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -56,11 +55,10 @@ export default class ManufacturerService {
         });
     });
   };
-  addManufacturer = async (manufacturer) => {
-    debugger
+  addProduct = async (product) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/addManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/addProduct', Product)
         .then((response) => {
           resolve(response.data);
         })
@@ -69,10 +67,10 @@ export default class ManufacturerService {
         });
     });
   };
-  updateManufacturer = async (manufacturer) => {
+  updateProduct = async (product) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/updateManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/updateProduct', Product)
         .then((response) => {
           resolve(response.data);
         })
@@ -81,10 +79,10 @@ export default class ManufacturerService {
         });
     });
   };
-  deleteManufacturer = async (manufacturerId) => {
+  deleteProduct = async (productId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/deleteManufacturer', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/deleteProduct', { params: { productId: productId } })
         .then((response) => {
           resolve(response.data);
         })

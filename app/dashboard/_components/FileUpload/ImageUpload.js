@@ -27,6 +27,7 @@ import { useSession } from 'next-auth/react';
 
 const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize, disabled, filePosterMaxHeight, allowMultiple }) => {
   const [files, setFiles] = useState([]);
+  const [values, setValues] = useState([]);
   const [t, i18n] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
@@ -53,6 +54,43 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
     a.click();
     window.URL.revokeObjectURL(url);
     a.remove();
+  }
+
+  const loadImages = async (fileIds) => {
+    fileUploadService.getFilesInfoById(fileIds).then((fileInfos) => {
+      let fileInfosData = [];
+      fileInfos.forEach((fileInfo) => {
+        let fileUrl = CONFIG.UPLOAD_BASEPATH + fileInfo.directory + fileInfo.fileName;
+        let imagePosterUrl = CONFIG.UPLOAD_BASEPATH + fileInfo.directory;
+        let isVideo = CONFIG.VIDEOS_EXTENSIONS.some((extension) => extension == fileInfo.extension);
+        if (isVideo) {
+          imagePosterUrl += fileInfo.thumbnail;
+        } else {
+          imagePosterUrl += fileInfo.fileName;
+        }
+
+        fileInfosData.push({
+          // the server file reference
+          source: fileInfo.id,
+          // set type to local to indicate an already uploaded file
+          options: {
+            type: 'local',
+            // optional stub file information
+            file: {
+              name: fileInfo.fileName,
+              type: isVideo ? 'video/*' : 'image/*',
+              size: fileInfo.size,
+              url: fileUrl
+            },
+            // pass poster property
+            metadata: {
+              poster: imagePosterUrl
+            }
+          }
+        });
+      });
+      setFiles(fileInfosData);
+    });
   }
 
   const loadImage = async (fileId) => {
@@ -89,18 +127,63 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       ]);
     });
   };
+
   const onupdatefiles = async (file) => {
     if (setFieldValue != undefined) setFieldValue(id, file[0]?.serverId || undefined);
     setFiles(file);
   };
-  useEffect(() => {
-    if (value > 0) {
-      loadImage(value);
-    } else {
-      setFiles([]);
+
+  function beforeRemoveFile(file) {
+    if (setFieldValue != undefined) {
+      fileUploadService.deleteFile(file?.serverId).then((result) => {
+        return result;
+      });
+      if (allowMultiple) {
+        let newValue = values;
+        const index = newValue.indexOf(file?.serverId);
+        newValue.splice(index, 1);
+        setFieldValue(id, newValue);
+        setValues(newValue);
+      } else {
+        setFieldValue(id, file?.serverId);
+      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
+  function onprocessfile(error, file) {
+    let response = JSON.parse(file?.serverId);
+    if (response?.succeeded) {
+      let fileInfo = response?.data;
+      if (allowMultiple) {
+        let newValues = values;
+        newValues.push(fileInfo?.id);
+
+        if (setFieldValue != undefined)
+          setFieldValue(id, newValues);
+        setValues((old) => [...old, fileInfo?.id]);
+      } else {
+        if (setFieldValue != undefined)
+          setFieldValue(fileInfo?.id);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (allowMultiple) {
+      if (value != undefined && value.length > 0) {
+        loadImages(value);
+      } else {
+        setFiles([]);
+      }
+    } else {
+      if (value > 0) {
+        loadImage(value);
+      } else {
+        setFiles([]);
+      }
+    }
   }, [value]);
+
   const getError = async (errorCode) => {
     switch (errorCode) {
       case 500:
@@ -133,6 +216,7 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       filePosterMaxHeight={filePosterMaxHeight ?? 'auto'}
       allowDownloadByUrl={true}
       downloadFunction={downloadFunction}
+      beforeRemoveFile={beforeRemoveFile}
       allowFilePoster={true}
       allowFileTypeValidation={true}
       acceptedFileTypes={['image/png', 'image/jpeg', 'video/*']}
@@ -157,11 +241,7 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
         url: uploadUrl,
         headers: { Authorization: tokenBearer, UploadAction: 'Rename' }
       }}
-      onprocessfile={(error, file) => {
-        let response = JSON.parse(file.serverId);
-        let fileInfo = response.data;
-        if (setFieldValue != undefined) setFieldValue(id, fileInfo.id);
-      }}
+      onprocessfile={onprocessfile}
       labelFileProcessingError={(error) => {
         return getError(error.code);
       }}

@@ -95,7 +95,7 @@ export default function ServiceTab() {
   scrollButtons="auto">
                 <Tab label="Portfolio" icon={<BusinessCenter />} iconPosition="start" {...a11yProps(0)} />
                 <Tab label="E-Commerce" icon={<ShoppingBag />} iconPosition="start" {...a11yProps(1)} />
-                <Tab label="Web Application" icon={<DesktopMacOutlined />} iconPosition="start" {...a11yProps(1)} {...a11yProps(2)} />
+                <Tab label="Web Application" icon={<DesktopMacOutlined />} iconPosition="start" {...a11yProps(2)} />
               </Tabs>
               <Box pt={5} pl={{ xs: 0, sm: 2, md: 5, lg: 5, xl: 5 }} pb={4} className="text-card">
                 <TabPanel component="div" value={value} index={0}>

@@ -38,6 +38,7 @@
     "subscribe": "Subscribes",
     "fileStorage": "Storage",
     "sale": "Sale",
+    "product": "Products",
     "order": "Orders",
     "manufacturer": "Manufacturers"
   },
@@ -66,7 +67,9 @@
     "messagesTrash": "Message Trash",
     "subscribes": "Subscribes",
     "countries": "Countries",
+    "product": "Products",
     "orders": "Orders",
+    "deliveryDates": "Delivery Dates",
     "manufacturers": "Manufacturers",
     "cards": {
       "users-list": "Users List",
@@ -109,7 +112,8 @@
       "subscribe-edit": "Edit Subscribe",
       "countries-list": "Countries List",
       "country-add": "Add New Country",
-      "country-edit": "Edit Country"
+      "country-edit": "Edit Country",
+      "product-add": "Add New Product"
     }
   },
   "fields": {
@@ -303,6 +307,59 @@
       "pictureId": "PictureId",
       "published": "Published",
       "displayOrder": "Display Order"
+    },
+    "product": {
+      "id": "Id",
+      "name": "Name",
+      "metaKeywords": "Meta Keywords",
+      "metaTitle": "Meta Title",
+      "metaDescription": "Meta Description",
+      "shortDescription": "Short Description",
+      "fullDescription": "Full Description",
+      "deliveryDateId": "Delivery Date",
+      "taxCategoryId": "Tax Category",
+      "stockQuantity": "Stock Quantity",
+      "minStockQuantity": "Min Stock Quantity",
+      "notifyAdminForQuantityBelow": "Notify Admin For Quantity Below",
+      "orderMinimumQuantity": "Order Minimum Quantity",
+      "orderMaximumQuantity": "Order Maximum Quantity",
+      "price": "Price",
+      "oldPrice": "Old Price",
+      "weight": "Weight",
+      "length": "Length",
+      "width": "Width",
+      "height": "Height",
+      "availableStartDateTimeUtc": "Available Start At",
+      "availableEndDateTimeUtc": "Available End At",
+      "displayOrder": "Display Order",
+      "approvedRatingSum": "Aapproved Rating Sum",
+      "notApprovedRatingSum": "Not Approved Rating Sum",
+      "approvedTotalReviews": "Approved Total Reviews",
+      "notApprovedTotalReviews": "Not Approved Total Reviews",
+      "hasDiscountsApplied": "Has Discounts Applied",
+      "markAsNew": "Mark As New",
+      "markAsNewStartDateTimeUtc": "'Mark As New' Start At",
+      "markAsNewEndDateTimeUtc": "'Mark As New' End At",
+      "notReturnable": "Not Returnable",
+      "allowedQuantities": "Allowed Quantities",
+      "isTaxExempt": "Is Tax Exempt",
+      "showOnHomepage": "Show On Homepage",
+      "isFreeShipping": "Is Free Shipping",
+      "allowCustomerReviews": "Allow Customer Reviews",
+      "displayStockQuantity": "Display Stock Quantity",
+      "disableBuyButton": "Disable Buy Button",
+      "disableWishlistButton": "Disable Wishlist Button",
+      "availableForPreOrder": "Available For PreOrder",
+      "callForPrice": "Call For Price",
+      "published": "Published",
+      "createdOnUtc": "Created On",
+      "updatedOnUtc": "Updated On",
+      "categoryIds": "Categories",
+      "manufacturerIds": "Manufacturers",
+      "pictureIds": "Product Images",
+      "discountIds": "Discounts",
+      "relatedProductIds": "Related Products",
+      "productTagIds": "Product Tags"
     }
   },
   "buttons": {
@@ -433,6 +490,12 @@
       "edit": "Edit File",
       "download": "Download",
       "delete": "Delete File"
+    },
+    "product": {
+      "add": "New Product",
+      "edit": "Edit Product",
+      "delete": "Delete Product",
+      "saveOrder": "Save Order"
     }
   },
   "validation": {

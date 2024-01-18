@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 
 import MessageService from '@dashboard/(crm)/_service/MessageService';
-import ViewMessage from '@dashboard/(crm)/_components/message/ViewMessage';
+import ViewMessage from '@dashboard/(crm)/_components/Message/ViewMessage';
 
 export default function ViewOutboxMessage({params}) {
   const id = params.id;

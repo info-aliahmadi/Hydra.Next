@@ -14,8 +14,8 @@ import { RestoreFromTrash, Send, Drafts } from '@mui/icons-material';
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import { useRouter } from 'next/navigation';
-import MessagesPrivateInboxDataGrid from '@dashboard/(crm)/_components/message/MessagesPrivateInboxDataGrid';
-import MessagesPublicInboxDataGrid from '@dashboard/(crm)/_components/message/MessagesPublicInboxDataGrid';
+import MessagesPrivateInboxDataGrid from '@dashboard/(crm)/_components/Message/MessagesPrivateInboxDataGrid';
+import MessagesPublicInboxDataGrid from '@dashboard/(crm)/_components/Message/MessagesPublicInboxDataGrid';
 import Link from 'next/link';
 
 // ===============================|| COLOR BOX ||=============================== //

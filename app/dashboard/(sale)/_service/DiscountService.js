@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { setDefaultHeader } from '/utils/axiosHeaders';
 import CONFIG from '/config.js';
+import { setDefaultHeader } from '/utils/axiosHeaders';
 
-export default class ManufacturerService {
+export default class DiscountService {
   constructor(jwt) {
     setDefaultHeader(jwt);
   }
-  getManufacturerList = async (searchParams) => {
+  getDiscountList = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturerList', searchParams)
+        .get(CONFIG.API_BASEPATH + '/sale/GetDiscountHierarchy')
         .then((response) => {
           resolve(response.data);
         })
@@ -18,11 +18,10 @@ export default class ManufacturerService {
         });
     });
   };
-
-  getManufacturerListForSelect = async () => {
+  getDiscountListForSelect = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturersForSelect')
+        .get(CONFIG.API_BASEPATH + '/sale/GetDiscountListForSelect')
         .then((response) => {
           resolve(response.data);
         })
@@ -31,23 +30,10 @@ export default class ManufacturerService {
         });
     });
   };
-
-  getAllManufacturers = async () => {
+  getDiscountById = async (discountId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getAllManufacturers')
-        .then((response) => {
-          resolve(response.data);
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  };
-  getManufacturerById = async (manufacturerId) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(CONFIG.API_BASEPATH + '/sale/getManufacturerById', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/getDiscountById', { params: { discountId: discountId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -56,11 +42,10 @@ export default class ManufacturerService {
         });
     });
   };
-  addManufacturer = async (manufacturer) => {
-    debugger
+  addDiscount = async (discount) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/addManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/addDiscount', discount)
         .then((response) => {
           resolve(response.data);
         })
@@ -69,22 +54,22 @@ export default class ManufacturerService {
         });
     });
   };
-  updateManufacturer = async (manufacturer) => {
+  updateDiscount = async (discount) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/updateManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/updateDiscount', discount)
         .then((response) => {
-          resolve(response.data);
+          resolve(response.data.data);
         })
         .catch((error) => {
           reject(error);
         });
     });
   };
-  deleteManufacturer = async (manufacturerId) => {
+  deleteDiscount = async (discountId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/deleteManufacturer', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/deleteDiscount', { params: { discountId: discountId } })
         .then((response) => {
           resolve(response.data);
         })

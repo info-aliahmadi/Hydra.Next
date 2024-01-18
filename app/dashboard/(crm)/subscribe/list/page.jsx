@@ -1,5 +1,5 @@
 'use client';
-import SubscribeDataGrid from '@dashboard/(crm)/_components/subscribe/SubscribeDataGrid';
+import SubscribeDataGrid from '@dashboard/(crm)/_components/Subscribe/SubscribeDataGrid';
 // material-ui
 import { Grid, Typography } from '@mui/material';
 

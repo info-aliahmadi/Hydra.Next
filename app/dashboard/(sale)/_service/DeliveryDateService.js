@@ -2,14 +2,14 @@ import axios from 'axios';
 import { setDefaultHeader } from '/utils/axiosHeaders';
 import CONFIG from '/config.js';
 
-export default class ManufacturerService {
+export default class DeliveryDateService {
   constructor(jwt) {
     setDefaultHeader(jwt);
   }
-  getManufacturerList = async (searchParams) => {
+  getDeliveryDateList = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturerList', searchParams)
+        .post(CONFIG.API_BASEPATH + '/sale/GetDeliveryDateList')
         .then((response) => {
           resolve(response.data);
         })
@@ -19,10 +19,10 @@ export default class ManufacturerService {
     });
   };
 
-  getManufacturerListForSelect = async () => {
+  getDeliveryDateItemList = async (deliveryDateId) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturersForSelect')
+        .get(CONFIG.API_BASEPATH + `/sale/GetDeliveryDateItemList?deliveryDateId=${deliveryDateId}`)
         .then((response) => {
           resolve(response.data);
         })
@@ -31,11 +31,10 @@ export default class ManufacturerService {
         });
     });
   };
-
-  getAllManufacturers = async () => {
+  getAllDeliveryDates = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getAllManufacturers')
+        .get(CONFIG.API_BASEPATH + '/sale/getAllDeliveryDates')
         .then((response) => {
           resolve(response.data);
         })
@@ -44,10 +43,10 @@ export default class ManufacturerService {
         });
     });
   };
-  getManufacturerById = async (manufacturerId) => {
+  getDeliveryDateById = async (deliveryDateId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getManufacturerById', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/getDeliveryDateById', { params: { deliveryDateId: deliveryDateId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -56,11 +55,10 @@ export default class ManufacturerService {
         });
     });
   };
-  addManufacturer = async (manufacturer) => {
-    debugger
+  addDeliveryDate = async (deliveryDate) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/addManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/addDeliveryDate', DeliveryDate)
         .then((response) => {
           resolve(response.data);
         })
@@ -69,10 +67,10 @@ export default class ManufacturerService {
         });
     });
   };
-  updateManufacturer = async (manufacturer) => {
+  updateDeliveryDate = async (deliveryDate) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/updateManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/updateDeliveryDate', DeliveryDate)
         .then((response) => {
           resolve(response.data);
         })
@@ -81,10 +79,10 @@ export default class ManufacturerService {
         });
     });
   };
-  deleteManufacturer = async (manufacturerId) => {
+  deleteDeliveryDate = async (deliveryDateId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/deleteManufacturer', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/deleteDeliveryDate', { params: { deliveryDateId: deliveryDateId } })
         .then((response) => {
           resolve(response.data);
         })

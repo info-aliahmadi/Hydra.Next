@@ -2,7 +2,7 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 
-const DateTimeInput = ({ id, name, setFieldValue, defaultValue, placeholder, error }) => {
+const DateTimeInput = ({ id, name, label, setFieldValue, defaultValue, placeholder, error }) => {
   const onChange = (value) => {
     let newValue = moment.utc(value).format();
     setFieldValue(id, newValue);
@@ -23,6 +23,7 @@ const DateTimeInput = ({ id, name, setFieldValue, defaultValue, placeholder, err
       className={error === true ? 'date-error' : ''}
       onChange={onChange}
       placeholder={placeholder}
+      label={label}
       value={value || null}
       clearable
       slotProps={{

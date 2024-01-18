@@ -2,14 +2,14 @@ import axios from 'axios';
 import { setDefaultHeader } from '/utils/axiosHeaders';
 import CONFIG from '/config.js';
 
-export default class ManufacturerService {
+export default class TaxCategoryService {
   constructor(jwt) {
     setDefaultHeader(jwt);
   }
-  getManufacturerList = async (searchParams) => {
+  getTaxCategoryList = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturerList', searchParams)
+        .post(CONFIG.API_BASEPATH + '/sale/GetTaxCategoryList')
         .then((response) => {
           resolve(response.data);
         })
@@ -19,10 +19,10 @@ export default class ManufacturerService {
     });
   };
 
-  getManufacturerListForSelect = async () => {
+  getTaxCategoryItemList = async (taxCategoryId) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/getManufacturersForSelect')
+        .get(CONFIG.API_BASEPATH + `/sale/GetTaxCategoryItemList?taxCategoryId=${taxCategoryId}`)
         .then((response) => {
           resolve(response.data);
         })
@@ -31,11 +31,10 @@ export default class ManufacturerService {
         });
     });
   };
-
-  getAllManufacturers = async () => {
+  getAllTaxCategorys = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getAllManufacturers')
+        .get(CONFIG.API_BASEPATH + '/sale/getAllTaxCategorys')
         .then((response) => {
           resolve(response.data);
         })
@@ -44,10 +43,10 @@ export default class ManufacturerService {
         });
     });
   };
-  getManufacturerById = async (manufacturerId) => {
+  getTaxCategoryById = async (taxCategoryId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/getManufacturerById', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/getTaxCategoryById', { params: { taxCategoryId: taxCategoryId } })
         .then((response) => {
           resolve(response.data.data);
         })
@@ -56,11 +55,10 @@ export default class ManufacturerService {
         });
     });
   };
-  addManufacturer = async (manufacturer) => {
-    debugger
+  addTaxCategory = async (taxCategory) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/addManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/addTaxCategory', TaxCategory)
         .then((response) => {
           resolve(response.data);
         })
@@ -69,10 +67,10 @@ export default class ManufacturerService {
         });
     });
   };
-  updateManufacturer = async (manufacturer) => {
+  updateTaxCategory = async (taxCategory) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/updateManufacturer', manufacturer)
+        .post(CONFIG.API_BASEPATH + '/sale/updateTaxCategory', TaxCategory)
         .then((response) => {
           resolve(response.data);
         })
@@ -81,10 +79,10 @@ export default class ManufacturerService {
         });
     });
   };
-  deleteManufacturer = async (manufacturerId) => {
+  deleteTaxCategory = async (taxCategoryId) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/deleteManufacturer', { params: { manufacturerId: manufacturerId } })
+        .get(CONFIG.API_BASEPATH + '/sale/deleteTaxCategory', { params: { taxCategoryId: taxCategoryId } })
         .then((response) => {
           resolve(response.data);
         })

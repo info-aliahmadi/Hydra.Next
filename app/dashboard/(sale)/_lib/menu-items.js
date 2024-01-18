@@ -21,6 +21,14 @@ const pages = {
   permission: 'AUTH.GET_PERMISSION_LIST',
   children: [
     {
+      id: 'product',
+      title: 'Products',
+      type: 'item',
+      url: '/dashboard/product/list',
+      icon: icons.ShoppingCart,
+      breadcrumbs: false,
+      permission: 'AUTH.GET_PERMISSION_LIST'
+    },{
       id: 'order',
       title: 'Orders',
       type: 'item',
@@ -28,16 +36,8 @@ const pages = {
       icon: icons.ShoppingCart,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
-    },
-    {
-      id: 'manufacturer',
-      title: 'Manufacturers',
-      type: 'item',
-      url: '/dashboard/manufacturer/list',
-      icon: icons.ShoppingCart,
-      breadcrumbs: false,
-      permission: 'AUTH.GET_PERMISSION_LIST'
     }
+    
   ]
 };
 

@@ -1,0 +1,287 @@
+'use client';
+import { useEffect, useState } from 'react';
+
+// material-ui
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Tab,
+  Tabs,
+  Typography
+} from '@mui/material';
+import { ArrowBack, Save, Send } from '@mui/icons-material';
+// third party
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
+
+// assets
+import { useTranslation } from 'react-i18next';
+import Notify from '@dashboard/_components/@extended/Notify';
+import MainCard from '@dashboard/_components/MainCard';
+import setServerErrors from '/utils/setServerErrors';
+
+import PropTypes from 'prop-types';
+import { useRouter } from 'next/navigation';
+import ProductsService from '@dashboard/(sale)/_service/ProductService';
+import StoreIcon from '@mui/icons-material/Store';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import '/public/css/editor-style.css';
+import ProductBaseInfo from '@dashboard/(sale)/_components/Product/ProductBaseInfo';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div role="tabpanel" hidden={value !== index} id={`vertical-tabpanel-${index}`} aria-labelledby={`vertical-tab-${index}`} {...other}>
+      {value === index && <Box sx={{ pt: 4,pb: 4 }}>{children}</Box>}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`
+  };
+}
+
+export default function AddOrEditProduct({ params }) {
+  const [t, i18n] = useTranslation();
+  const [tab, setTab] = useState(0);
+  const operation = params.operation;
+  const id = params.id;
+
+  let productService = new ProductsService();
+  const [fieldsName, validation, buttonName] = ['fields.product.', 'validation.product.', 'buttons.product.'];
+  const [product, setProduct] = useState();
+  const [notify, setNotify] = useState({ open: false });
+  const router = useRouter();
+
+  const loadProduct = () => {
+    productService.getProductById(id).then((result) => {
+      setProduct(result);
+    });
+  };
+  useEffect(() => {
+    if (operation == 'edit' && id > 0) loadProduct();
+  }, [operation, id]);
+
+  const handleChange = (event, newValue) => {
+    setTab(newValue);
+  };
+  const handleSubmit = async (product, resetForm, setErrors, setSubmitting) => {
+    if (operation == 'add') {
+      productService
+        .addProduct(product)
+        .then(() => {
+          resetForm();
+          setNotify({ open: true });
+        })
+        .catch((error) => {
+          setServerErrors(error, setErrors);
+          setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((x) => {
+          setSubmitting(false);
+        });
+    } else {
+      productService
+        .updateProduct(product)
+        .then((result) => {
+          setProduct(result);
+          setNotify({ open: true });
+        })
+        .catch((error) => {
+          setServerErrors(error, setErrors);
+          setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((x) => {
+          setSubmitting(false);
+        });
+    }
+  };
+
+  return (
+    <>
+      <Notify notify={notify} setNotify={setNotify}></Notify>
+
+      <Grid container justifyContent="center" direction="row" alignItems="flex-start">
+        <Grid container item spacing={3} xs={12} sm={12} md={12} lg={12} xl={12} direction="column">
+          <Grid item>
+            <Typography variant="h5">{t('pages.cards.product-' + operation)}</Typography>
+          </Grid>
+          <Grid item>
+            <MainCard>
+              <Formik
+                initialValues={{
+                  id: product?.id,
+                  name: product?.name,
+                  metaKeywords: product?.metaKeywords,
+                  metaTitle: product?.metaTitle,
+                  metaDescription: product?.metaDescription,
+                  shortDescription: product?.shortDescription,
+                  fullDescription: product?.fullDescription,
+                  adminComment: product?.adminComment,
+                  deliveryDateId: product?.deliveryDateId,
+                  taxCategoryId: product?.taxCategoryId,
+                  stockQuantity: product?.stockQuantity,
+                  minStockQuantity: product?.minStockQuantity,
+                  notifyAdminForQuantityBelow: product?.notifyAdminForQuantityBelow,
+                  orderMinimumQuantity: product?.orderMinimumQuantity,
+                  orderMaximumQuantity: product?.orderMaximumQuantity,
+                  price: product?.price,
+                  oldPrice: product?.oldPrice,
+                  weight: product?.weight,
+                  length: product?.length,
+                  width: product?.width,
+                  height: product?.height,
+                  availableStartDateTimeUtc: product?.availableStartDateTimeUtc,
+                  availableEndDateTimeUtc: product?.availableEndDateTimeUtc,
+                  displayOrder: product?.displayOrder,
+                  approvedRatingSum: product?.approvedRatingSum,
+                  notApprovedRatingSum: product?.notApprovedRatingSum,
+                  approvedTotalReviews: product?.approvedTotalReviews,
+                  notApprovedTotalReviews: product?.notApprovedTotalReviews,
+                  hasDiscountsApplied: product?.hasDiscountsApplied,
+                  markAsNew: product?.markAsNew,
+                  markAsNewStartDateTimeUtc: product?.markAsNewStartDateTimeUtc,
+                  markAsNewEndDateTimeUtc: product?.markAsNewEndDateTimeUtc,
+                  notReturnable: product?.notReturnable,
+                  allowedQuantities: product?.allowedQuantities,
+                  isTaxExempt: product?.isTaxExempt,
+                  showOnHomepage: product?.showOnHomepage,
+                  isFreeShipping: product?.isFreeShipping,
+                  allowCustomerReviews: product?.allowCustomerReviews,
+                  displayStockQuantity: product?.displayStockQuantity,
+                  disableBuyButton: product?.disableBuyButton,
+                  disableWishlistButton: product?.disableWishlistButton,
+                  availableForPreOrder: product?.availableForPreOrder,
+                  callForPrice: product?.callForPrice,
+                  published: product?.published,
+                  createdOnUtc: product?.createdOnUtc,
+                  updatedOnUtc: product?.updatedOnUtc,
+                  categoryIds: product?.categoryIds,
+                  manufacturerIds: product?.manufacturerIds,
+                  pictureIds: product?.pictureIds,
+                  discountIds: product?.discountIds,
+                  relatedProductIds: product?.relatedProductIds,
+                  productTagIds: product?.productTagIds
+                }}
+                enableReinitialize={true}
+                validationSchema={Yup.object().shape({
+                  subject: Yup.string()
+                    .max(250)
+                    .required(t(validation + 'requiredSubject')),
+                  body: Yup.string().required(t(validation + 'requiredBody')),
+                  publishDate: Yup.string().required(t(validation + 'requiredPublishDate')),
+                  topicsIds: Yup.array()
+                    .min(1, t(validation + 'requiredTopics'))
+                    .required(t(validation + 'requiredTopics'))
+                })}
+                onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
+                  try {
+                    setSubmitting(true);
+                    handleSubmit(values, resetForm, setErrors, setSubmitting);
+                  } catch (err) {
+                    console.error(err);
+                    setStatus({ success: false });
+                    setErrors({ submit: err.message });
+                    setSubmitting(false);
+                  }
+                }}
+              >
+                {({ errors, touched, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, values }) => (
+                  <form noValidate onSubmit={handleSubmit}>
+                    <Tabs
+                      value={tab}
+                      onChange={handleChange}
+                      aria-label="Vertical tabs example"
+                      // sx={{ ml: '25px' }}
+                      variant="scrollable"
+                      scrollButtons="auto"
+                    >
+                      <Tab label="Base Info" icon={<StoreIcon />} iconPosition="start" {...a11yProps(0)} />
+                      <Tab label="Settings" icon={<SettingsSuggestIcon />} iconPosition="start" {...a11yProps(1)} />
+                      <Tab label="Inventory" icon={<InventoryIcon />} iconPosition="start" {...a11yProps(2)} />
+                      <Tab label="SEO" icon={<BookmarksIcon />} iconPosition="start" {...a11yProps(3)} />
+                    </Tabs>
+                    <TabPanel component="div" value={tab} index={0}>
+                      <ProductBaseInfo
+                        values={values}
+                        handleChange={handleChange}
+                        setFieldValue={setFieldValue}
+                        handleBlur={handleBlur}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </TabPanel>
+                    <TabPanel component="div" value={tab} index={1}></TabPanel>
+                    <TabPanel component="div" value={tab} index={2}></TabPanel>
+                    <TabPanel component="div" value={tab} index={3}></TabPanel>
+                    <Grid container item spacing={3} direction="row" justifyContent="space-between" alignItems="center">
+                      <Grid item>
+                        <Stack direction="row" spacing={2}>
+                          <AnimateButton>
+                            <Button
+                              size="large"
+                              onClick={() => {
+                                router.back();
+                              }}
+                              variant="outlined"
+                              color="secondary"
+                              startIcon={<ArrowBack />}
+                            >
+                              {t('buttons.cancel')}
+                            </Button>
+                          </AnimateButton>
+                          <AnimateButton>
+                            <Button
+                              disabled={isSubmitting}
+                              size="large"
+                              type="submit"
+                              variant="contained"
+                              color="primary"
+                              onClick={() => setFieldValue('isDraft', false)}
+                              startIcon={<Send />}
+                            >
+                              {operation == 'edit' ? t(buttonName + 'save') : t(buttonName + 'publish')}
+                            </Button>
+                          </AnimateButton>
+                          <AnimateButton>
+                            <Button
+                              disabled={isSubmitting}
+                              size="large"
+                              type="submit"
+                              variant="contained"
+                              color="warning"
+                              onClick={() => setFieldValue('isDraft', true)}
+                              startIcon={<Save />}
+                            >
+                              {t(buttonName + 'draft')}
+                            </Button>
+                          </AnimateButton>
+                        </Stack>
+                      </Grid>
+                    </Grid>
+                  </form>
+                )}
+              </Formik>
+            </MainCard>
+          </Grid>
+        </Grid>
+      </Grid>
+    </>
+  );
+}

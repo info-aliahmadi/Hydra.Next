@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowBack, Send } from '@mui/icons-material';
 
 import { useRouter } from 'next/navigation';
-import MessagesDraftDataGrid from '@dashboard/(crm)/_components/message/MessagesDraftDataGrid';
+import MessagesDraftDataGrid from '@dashboard/(crm)/_components/Message/MessagesDraftDataGrid';
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import Link from 'next/link';

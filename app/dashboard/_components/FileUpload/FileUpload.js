@@ -181,13 +181,13 @@ export default function FileUpload({
       if (allowMultiple) {
         let newValues = values;
         newValues.push(fileInfo?.id);
-        
-    if (setFieldValue != undefined) 
-        setFieldValue(id, newValues);
+
+        if (setFieldValue != undefined)
+          setFieldValue(id, newValues);
         setValues((old) => [...old, fileInfo?.id]);
       } else {
-        if (setFieldValue != undefined) 
-        setFieldValue(fileInfo?.id);
+        if (setFieldValue != undefined)
+          setFieldValue(fileInfo?.id);
       }
     }
   }

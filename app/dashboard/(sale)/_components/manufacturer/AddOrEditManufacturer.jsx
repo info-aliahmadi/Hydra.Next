@@ -44,9 +44,6 @@ const AddOrEditManufacturer = ({ manufacturerId, isNew, open, setOpen, refetch }
     });
   };
 
-  const getManufacturerLabelForSelect = () => {
-    return manufacturerService.getManufacturerLabelForSelect();
-  };
 
   useEffect(() => {
     if (isNew == false && manufacturerId > 0) {

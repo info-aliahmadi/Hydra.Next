@@ -1,5 +1,5 @@
 'use client'
-import MessagesOutboxDataGrid from '@dashboard/(crm)/_components/message/MessagesOutboxDataGrid';
+import MessagesOutboxDataGrid from '@dashboard/(crm)/_components/Message/MessagesOutboxDataGrid';
 import { Grid, Typography } from '@mui/material';
 
 // project import

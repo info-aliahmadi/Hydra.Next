@@ -1,7 +1,7 @@
 'use client';
 // material-ui
 import { Grid, Typography } from '@mui/material';
-import ManufacturerDataGrid from '../../_components/manufacturer/ManufacturerDataGrid';
+import ManufacturerDataGrid from '../../_components/Manufacturer/ManufacturerDataGrid';
 
 // project import
 import { useTranslation } from 'react-i18next';
