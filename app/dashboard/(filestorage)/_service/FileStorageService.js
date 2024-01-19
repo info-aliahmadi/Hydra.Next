@@ -84,7 +84,8 @@ export default class FileStorageService {
       axios
         .post(CONFIG.API_BASEPATH + '/FileStorage/UploadFile', file, {
           headers: {
-            UploadAction: uploadAction
+            UploadAction: uploadAction,
+            'Content-Type': 'multipart/form-data'
           }
         })
         .then((response) => {
@@ -95,7 +96,7 @@ export default class FileStorageService {
         });
     });
   };
-  UploadBase64File = async (file, uploadAction) => {
+  uploadBase64File = async (file, uploadAction) => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/FileStorage/UploadBase64File', file, {

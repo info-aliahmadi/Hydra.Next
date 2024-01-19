@@ -5,12 +5,12 @@ import { Chip, FormControl, MenuItem, OutlinedInput, Select,InputLabel } from '@
 import { Box, useTheme } from '@mui/system';
 // import GlobalService from '@dashboard/_service/GlobalService';
 
-export default function MultiSelect({ defaultValues, id, name, label, titleName, setFieldValue, error, disabled, dataApi }) {
+export default function MonoSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi }) {
   const [t] = useTranslation();
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
-  const [values, setValues] = useState();
+  const [value, setValue] = useState();
 
   const loadAllData = () => {
     dataApi.then((result) => {
@@ -23,8 +23,8 @@ export default function MultiSelect({ defaultValues, id, name, label, titleName,
   }, []);
 
   useEffect(() => {
-    setValues(defaultValues);
-  }, [JSON.stringify(defaultValues)]);
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -36,15 +36,15 @@ export default function MultiSelect({ defaultValues, id, name, label, titleName,
       }
     }
   };
-  function getStyles(value, values, theme) {
+  function getStyles(value,defaultValue, theme) {
     return {
-      fontWeight: values.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium
+      fontWeight: defaultValue === value ?  theme.typography.fontWeightMedium:theme.typography.fontWeightRegular
     };
   }
 
   const handleChange = (event) => {
     setFieldValue(id, event.target.value);
-    setValues(event.target.value);
+    setValue(event.target.value);
   };
 
   return (
@@ -54,26 +54,21 @@ export default function MultiSelect({ defaultValues, id, name, label, titleName,
         id={id}
         name={name}
         className="select-margin"
-        multiple
-        value={values || ''}
+        value={value || ''}
         label={label}
         size="medium"
         onChange={handleChange}
         MenuProps={MenuProps}
         input={<OutlinedInput label={label} sx={{minHeight : '41px'}} />}
-        defaultValue={options?.filter((x) => defaultValues?.find((c) => c === x.id)) ?? []}
-        renderValue={(selected) => (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-            {selected.map((value, index) => {
-              let title = options?.find((x) => x.id == value)?.[titleName];
-              return <Chip key={'chip-' + name + index} label={title} sx={{height : '23px'}} />;
-            })}
-          </Box>
-        )}
+        defaultValue={options?.filter((x) =>  x.id == defaultValue) ?? ''}
+        renderValue={(selected) => (<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    <Chip label={options?.find((x) => x.id == selected)?.[titleName]} sx={{height : '23px'}} />
+                  </Box>
+  )}
       >
         {options?.map((item) => {
           return (
-            <MenuItem key={'menu-' + name + item.id} value={item.id} style={getStyles(item.id, values, theme)}>
+            <MenuItem key={'menu-' + name + item.id} value={item.id} style={getStyles(item.id,value, theme)}>
               <span style={{ 'white-space': 'pre-wrap' }}>{item?.[titleName]}</span>
             </MenuItem>
           );

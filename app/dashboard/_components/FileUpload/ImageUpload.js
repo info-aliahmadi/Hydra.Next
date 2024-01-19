@@ -1,3 +1,4 @@
+'use client'
 // Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond';
 // Import the plugin code
@@ -25,38 +26,29 @@ import CONFIG from '/config';
 import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
 import { useSession } from 'next-auth/react';
 
-const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize, disabled, filePosterMaxHeight, allowMultiple }) => {
+export default function ImageUpload({
+  id,
+  name,
+  setFieldValue,
+  value,
+  minFileSize,
+  maxFileSize,
+  disabled,
+  filePosterMaxHeight,
+  allowMultiple
+}) {
   const [files, setFiles] = useState([]);
   const [values, setValues] = useState([]);
   const [t, i18n] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   let tokenBearer = jwt ? 'Bearer ' + jwt : '';
+
   const uploadUrl = CONFIG.API_BASEPATH + '/FileStorage/UploadFile';
 
   var fileUploadService = new FileStorageService(jwt);
 
-  function downloadFunction(item) {
-    // create a temporary hyperlink to force the browser to download the file
-    const a = document.createElement('a');
-    let url;
-    if (item.source > 0) {
-      window.open(item.file.url);
-      return;
-      // url = item.file.url;
-    } else {
-      url = window.URL.createObjectURL(item.file);
-    }
-    document.body.appendChild(a);
-    a.style.display = 'none';
-    a.href = url;
-    a.download = item.file.name;
-    a.click();
-    window.URL.revokeObjectURL(url);
-    a.remove();
-  }
-
-  const loadImages = async (fileIds) => {
+  const loadFiles = async (fileIds) => {
     fileUploadService.getFilesInfoById(fileIds).then((fileInfos) => {
       let fileInfosData = [];
       fileInfos.forEach((fileInfo) => {
@@ -91,9 +83,8 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       });
       setFiles(fileInfosData);
     });
-  }
-
-  const loadImage = async (fileId) => {
+  };
+  const loadFile = async (fileId) => {
     fileUploadService.getFileInfoById(fileId).then((fileInfo) => {
       let fileUrl = CONFIG.UPLOAD_BASEPATH + fileInfo.directory + fileInfo.fileName;
       let imagePosterUrl = CONFIG.UPLOAD_BASEPATH + fileInfo.directory;
@@ -128,11 +119,45 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
     });
   };
 
-  const onupdatefiles = async (file) => {
-    if (setFieldValue != undefined) setFieldValue(id, file[0]?.serverId || undefined);
-    setFiles(file);
-  };
+  useEffect(() => {
+    if (allowMultiple) {
+      if (value != undefined && value.length > 0) {
+        loadFiles(value);
+      } else {
+        setFiles([]);
+      }
+    } else {
+      if (value > 0) {
+        loadFile(value);
+      } else {
+        setFiles([]);
+      }
+    }
+  }, [value]);
 
+  function downloadFunction(item) {
+    // create a temporary hyperlink to force the browser to download the file
+    const a = document.createElement('a');
+    let url;
+    if (item.source > 0) {
+      window.open(item.file.url);
+      return;
+      // url = item.file.url;
+    } else {
+      url = window.URL.createObjectURL(item.file);
+    }
+    document.body.appendChild(a);
+    a.style.display = 'none';
+    a.href = url;
+    a.download = item.file.name;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    a.remove();
+  }
+
+  const onupdatefiles = async (fileItems) => {
+    setFiles(fileItems);
+  };
   function beforeRemoveFile(file) {
     if (setFieldValue != undefined) {
       fileUploadService.deleteFile(file?.serverId).then((result) => {
@@ -149,7 +174,6 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       }
     }
   }
-
   function onprocessfile(error, file) {
     let response = JSON.parse(file?.serverId);
     if (response?.succeeded) {
@@ -167,23 +191,6 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       }
     }
   }
-
-  useEffect(() => {
-    if (allowMultiple) {
-      if (value != undefined && value.length > 0) {
-        loadImages(value);
-      } else {
-        setFiles([]);
-      }
-    } else {
-      if (value > 0) {
-        loadImage(value);
-      } else {
-        setFiles([]);
-      }
-    }
-  }, [value]);
-
   const getError = async (errorCode) => {
     switch (errorCode) {
       case 500:
@@ -247,5 +254,4 @@ const ImageUpload = ({ id, name, setFieldValue, value, minFileSize, maxFileSize,
       }}
     />
   );
-};
-export default ImageUpload;
+}

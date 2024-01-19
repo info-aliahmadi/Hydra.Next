@@ -5,7 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
+<<<<<<< HEAD
 import {debounce} from 'lodash-es';
+=======
+import debounce from 'lodash/debounce';
+>>>>>>> 1160e90 (complete editor & add mono select & multiselect & product settings & inventory)
 import {useMemo, useRef} from 'react';
 
 export function useDebounce<T extends (...args: never[]) => void>(

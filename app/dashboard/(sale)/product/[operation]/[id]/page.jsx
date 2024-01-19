@@ -32,6 +32,8 @@ import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import ProductBaseInfo from '@dashboard/(sale)/_components/Product/ProductBaseInfo';
+import ProductSettings from '@dashboard/(sale)/_components/Product/ProductSettings';
+import ProductInventory from '@dashboard/(sale)/_components/Product/ProductInventory';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -77,7 +79,7 @@ export default function AddOrEditProduct({ params }) {
     if (operation == 'edit' && id > 0) loadProduct();
   }, [operation, id]);
 
-  const handleChange = (event, newValue) => {
+  const handleTabChange = (event, newValue) => {
     setTab(newValue);
   };
   const handleSubmit = async (product, resetForm, setErrors, setSubmitting) => {
@@ -205,7 +207,7 @@ export default function AddOrEditProduct({ params }) {
                   <form noValidate onSubmit={handleSubmit}>
                     <Tabs
                       value={tab}
-                      onChange={handleChange}
+                      onChange={handleTabChange}
                       aria-label="Vertical tabs example"
                       // sx={{ ml: '25px' }}
                       variant="scrollable"
@@ -226,8 +228,27 @@ export default function AddOrEditProduct({ params }) {
                         touched={touched}
                       />
                     </TabPanel>
-                    <TabPanel component="div" value={tab} index={1}></TabPanel>
-                    <TabPanel component="div" value={tab} index={2}></TabPanel>
+                    <TabPanel component="div" value={tab} index={1}>
+                    <ProductSettings
+                        values={values}
+                        handleChange={handleChange}
+                        setFieldValue={setFieldValue}
+                        handleBlur={handleBlur}
+                        errors={errors}
+                        touched={touched}
+                      />
+
+                    </TabPanel>
+                    <TabPanel component="div" value={tab} index={2}>
+                    <ProductInventory
+                        values={values}
+                        handleChange={handleChange}
+                        setFieldValue={setFieldValue}
+                        handleBlur={handleBlur}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </TabPanel>
                     <TabPanel component="div" value={tab} index={3}></TabPanel>
                     <Grid container item spacing={3} direction="row" justifyContent="space-between" alignItems="center">
                       <Grid item>

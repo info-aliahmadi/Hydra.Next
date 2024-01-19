@@ -221,7 +221,6 @@ export default function ExcalidrawModal({
     setElements(els);
     setFiles(fls);
   };
-
   return createPortal(
     <div className="ExcalidrawModal__overlay" role="dialog">
       <div

@@ -8,7 +8,7 @@ import CONFIG from '/config';
 
 import moment from 'moment';
 // import Editor from '@dashboard/_components/Editor/Editor';
-import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
+import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
 import SelectDeliveryDate from '../DeliveryDate/SelectDeliveryDate';
 import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
@@ -36,7 +36,6 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               name="name"
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'name')}
               fullWidth
               error={Boolean(touched.name && errors.name)}
             />
@@ -51,13 +50,12 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
           <Stack>
             <TextField
               id="shortDescription"
+              name="shortDescription"
               type="text"
               value={values?.shortDescription || ''}
               label={t(fieldsName + 'shortDescription')}
-              name="shortDescription"
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'shortDescription')}
               fullWidth
               error={Boolean(touched.shortDescription && errors.shortDescription)}
             />
@@ -144,10 +142,10 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <SelectDeliveryDate
-              defaultValues={values?.deliveryDateId || []}
-              id="topicsIds"
+              defaultValue={values?.deliveryDateId || ''}
+              id="deliveryDateId"
               label={t(fieldsName + 'deliveryDateId')}
-              name="topicsIds"
+              name="deliveryDateId"
               setFieldValue={setFieldValue}
               error={Boolean(touched.deliveryDateId && errors.deliveryDateId)}
             />
@@ -161,9 +159,9 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <SelectTaxCategory
-              defaultValues={values?.taxCategoryId || []}
-              id="topicsIds"
-              name="topicsIds"
+              defaultValue={values?.taxCategoryId || ''}
+              id="taxCategoryId"
+              name="taxCategoryId"
               label={t(fieldsName + 'taxCategoryId')}
               setFieldValue={setFieldValue}
               error={Boolean(touched.taxCategoryId && errors.taxCategoryId)}
@@ -179,13 +177,12 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
           <Stack>
             <TextField
               id="price"
-              type="text"
+              type="number"
               value={values?.price || ''}
               name="price"
               label={t(fieldsName + 'price')}
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'price')}
               fullWidth
               error={Boolean(touched.price && errors.price)}
             />
@@ -200,13 +197,12 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
           <Stack>
             <TextField
               id="oldPrice"
-              type="text"
+              type="number"
               value={values?.oldPrice || ''}
               name="oldPrice"
               label={t(fieldsName + 'oldPrice')}
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'oldPrice')}
               fullWidth
               error={Boolean(touched.oldPrice && errors.oldPrice)}
             />
@@ -227,7 +223,6 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               label={t(fieldsName + 'weight')}
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'weight')}
               fullWidth
               error={Boolean(touched.weight && errors.weight)}
             />
@@ -248,7 +243,6 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               label={t(fieldsName + 'length')}
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'length')}
               fullWidth
               error={Boolean(touched.length && errors.length)}
             />
@@ -269,7 +263,6 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               label={t(fieldsName + 'width')}
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'width')}
               fullWidth
               error={Boolean(touched.width && errors.width)}
             />
@@ -290,7 +283,6 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               label={t(fieldsName + 'height')}
               onBlur={handleBlur}
               onChange={handleChange}
-              placeholder={t(fieldsName + 'height')}
               fullWidth
               error={Boolean(touched.height && errors.height)}
             />
@@ -409,8 +401,9 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
       <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
         <Stack>
           <InputLabel htmlFor="pictureIds">{t(fieldsName + 'pictureIds')}</InputLabel>
-          <ImageUpload
+          <FileUpload
             id="pictureIds"
+            name="pictureIds"
             setFieldValue={setFieldValue}
             value={values?.pictureIds || []}
             filePosterMaxHeight={400}

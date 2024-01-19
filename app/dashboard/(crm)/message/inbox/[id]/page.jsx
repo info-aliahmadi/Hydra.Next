@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import ViewMessage from '../../../_components/message/ViewMessage';
+import ViewMessage from '@dashboard/(crm)/_components/Message/ViewMessage';
 import MessageService from '@dashboard/(crm)/_service/MessageService';
 
 export default function ViewInboxMessage({params}) {
