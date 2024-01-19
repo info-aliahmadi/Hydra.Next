@@ -31,7 +31,6 @@ import StoreIcon from '@mui/icons-material/Store';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import '/public/css/editor-style.css';
 import ProductBaseInfo from '@dashboard/(sale)/_components/Product/ProductBaseInfo';
 
 function TabPanel(props) {

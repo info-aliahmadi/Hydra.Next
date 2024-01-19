@@ -20,6 +20,7 @@ import Tabs from './Tabs';
 import Typography from './Typography';
 import Tooltip from './Tooltip';
 import DialogContent from './DialogContent';
+import Select from './Select';
 
 // ==============================|| OVERRIDES - MAIN ||============================== //
 
@@ -42,6 +43,7 @@ export default function ComponentsOverrides(theme) {
     Tabs(),
     Typography(),
     Tooltip(theme),
-    DialogContent(theme)
+    DialogContent(theme),
+    Select(theme)
   );
 }

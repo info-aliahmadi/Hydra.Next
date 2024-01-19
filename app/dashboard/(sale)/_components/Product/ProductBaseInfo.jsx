@@ -15,6 +15,8 @@ import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
 import SelectCategory from '../Category/SelectCategory';
 import SelectManufacturer from '../Manufacturer/SelectManufacturer';
 import SelectDiscount from '../Discount/SelectDiscount';
+import SelectProductTag from '../ProductTag/SelectProductTag';
+import Editor from '@dashboard/_components/Editor/Editor';
 
 export default function ProductBaseInfo({ operation, values, setFieldValue, handleBlur, handleChange, errors, touched }) {
   const [t, i18n] = useTranslation();
@@ -68,31 +70,20 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <Stack>
-            <TextField
-              id="fullDescription"
-              type="text"
-              value={values?.fullDescription || ''}
-              label={t(fieldsName + 'fullDescription')}
-              name="fullDescription"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              placeholder={t(fieldsName + 'fullDescription')}
-              fullWidth
-              error={Boolean(touched.fullDescription && errors.fullDescription)}
-            />
-            {touched.fullDescription && errors.fullDescription && (
-              <FormHelperText error id="helper-text">
-                {errors.fullDescription}
-              </FormHelperText>
-            )}
+          
 
-            {/* <Editor2
+            <Editor
               id={'fullDescription'}
               name={'fullDescription'}
               defaultValue={values?.fullDescription || ''}
               setFieldValue={setFieldValue}
               error={Boolean(touched.fullDescription && errors.fullDescription)}
-            /> */}
+            />
+              {touched.fullDescription && errors.fullDescription && (
+              <FormHelperText error id="helper-text">
+                {errors.fullDescription}
+              </FormHelperText>
+            )}
             {operation == 'edit' && (
               <Grid>
                 {t(fieldsName + 'createUser') + ' : '}
@@ -363,7 +354,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
-            <SelectDiscount
+            <SelectProductTag
               defaultValues={values?.productTagIds || []}
               id="productTagIds"
               name="productTagIds"

@@ -21,7 +21,7 @@ export default class DiscountService {
   getDiscountListForSelect = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/GetDiscountListForSelect')
+        .post(CONFIG.API_BASEPATH + '/sale/GetDiscountListForSelect')
         .then((response) => {
           resolve(response.data);
         })

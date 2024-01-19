@@ -21,7 +21,7 @@ export default class CategoryService {
   getCategoryListForSelect = async () => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/sale/GetCategoryListForSelect')
+        .post(CONFIG.API_BASEPATH + '/sale/GetCategoryListForSelect')
         .then((response) => {
           resolve(response.data);
         })
