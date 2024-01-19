@@ -1,49 +1,27 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
-import InputLabel from '@mui/material/InputLabel';
-
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSession } from 'next-auth/react';
 import OrderService from '../../_service/OrderService';
-import { Divider } from '@mui/material';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Currency from '@dashboard/_components/Currency/Currency';
 
 // ===============================|| COLOR BOX ||=============================== //
 
-export default function OrderItemData({ id }) {
+export default function OrderItemData({ id, currency }) {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   const service = new OrderService(jwt);
   const [values, setValues] = useState([]);
   const [fieldsName, buttonName] = ['fields.orderItem.', 'buttons.orderItem.'];
-
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: 'productName',
-        header: t(fieldsName + 'productName'),
-        enableClickToCopy: true,
-        type: 'string'
-      },
-      {
-        accessorKey: 'quantity',
-        header: t(fieldsName + 'quantity'),
-        enableClickToCopy: true,
-        type: 'string'
-      },
-      {
-        accessorKey: 'unitPrice',
-        header: t(fieldsName + 'unitPrice'),
-        enableClickToCopy: true,
-        type: 'string'
-      }
-    ],
-    []
-  );
 
   useEffect(() => {
     loadOrderItems();
@@ -62,71 +40,46 @@ export default function OrderItemData({ id }) {
 
   return (
     <>
-      {values.map((res, index) => (
-        <List key={index} sx={{ width: '100%', bgcolor: 'background.paper' }}>
-          <ListItem>
-            <Grid container spacing={3} direction="row">
-              <Grid container item spacing={3} xd={12} sm={6} md={6} lg={12}>
-                <Grid item xs={12} md={1}>
-                  <Stack spacing={1}>
+      {values.length > 0 ? (
+        <TableContainer component={Paper}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Photo</TableCell>
+                <TableCell align="center">{t(fieldsName + 'productName')}</TableCell>
+                <TableCell align="center">{t(fieldsName + 'quantity')}</TableCell>
+                <TableCell align="center">{t(fieldsName + 'unitPrice')}</TableCell>
+                <TableCell align="center">{t(fieldsName + 'discountAmount')}</TableCell>
+                <TableCell align="center">{t(fieldsName + 'totalPriceTax')}</TableCell>
+                <TableCell align="center">{t(fieldsName + 'totalPrice')}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {values.map((res, index) => (
+                <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
                     <Avatar alt="" src={'/images/rez.jpg'} sx={{ width: 80, height: 80, borderRadius: 1 }}></Avatar>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="productName">{t(fieldsName + 'productName')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.productName}</Stack>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="quantity">{t(fieldsName + 'quantity')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.quantity}</Stack>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="unitPrice">{t(fieldsName + 'unitPrice')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.unitPrice}</Stack>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="unitPriceTax">{t(fieldsName + 'unitPriceTax')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.unitPriceTax}</Stack>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="discountAmountTax">{t(fieldsName + 'discountAmountTax')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.discountAmountTax}</Stack>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="priceTax">{t(fieldsName + 'priceTax')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.priceTax}</Stack>
-                  </Stack>
-                </Grid>
-
-                <Grid item xs={12} md={1} style={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                  <Stack spacing={1}>
-                    <InputLabel htmlFor="totalPrice">{t(fieldsName + 'totalPrice')}</InputLabel>
-                    <Stack spacing={1} sx={{ fontWeight: 'bold' }}>{res.totalPrice}</Stack>
-                  </Stack>
-                </Grid>
-              </Grid>
-            </Grid>
-          </ListItem>
-          <Divider />
-        </List>
-      ))}
+                  </TableCell>
+                  <TableCell align="center">{res.productName}</TableCell>
+                  <TableCell align="center">{res.quantity}</TableCell>
+                  <TableCell align="center">
+                    <Currency value={res.unitPrice} currency={currency} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <Currency value={res.discountAmount} currency={currency} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <Currency value={res.totalPriceTax} currency={currency} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <Currency value={res.totalPrice} currency={currency} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ):<span>There is no item.</span>}
     </>
   );
 }

@@ -74,7 +74,7 @@ function OrderDataGrid() {
         header: t(fieldsName + 'finalPrice'),
         enableClickToCopy: true,
         type: 'string',
-        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.userCurrencyTitle} />
+        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.userCurrency} />
       },
       {
         accessorKey: 'paymentStatusTitle',

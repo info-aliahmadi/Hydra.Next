@@ -25,6 +25,7 @@ export default function Currency({ value, currency }) {
       result = `IRR${rial.format(value)}`;
       break;
     }
+    debugger
   }
   return (
     <>

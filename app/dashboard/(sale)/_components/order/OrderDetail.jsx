@@ -12,7 +12,6 @@ export default function OrderDetail(props) {
   const [t] = useTranslation();
   const [fieldsName, buttonName] = ['fields.order.', 'buttons.order.'];
   const row = props.row;
-  debugger;
   return (
     <>
       <Grid container spacing={3} direction="row">
@@ -47,19 +46,6 @@ export default function OrderDetail(props) {
                 id="shippingMethodTitle"
                 label={t(fieldsName + 'shippingMethodTitle')}
                 defaultValue={row.original.shippingMethodTitle}
-                InputProps={{
-                  readOnly: true
-                }}
-              />
-            </Stack>
-          </Grid>
-
-          <Grid item xs={12} md={2}>
-            <Stack spacing={1}>
-              <TextField
-                id="userCurrencyTitle"
-                label={t(fieldsName + 'userCurrencyTitle')}
-                defaultValue={row.original.userCurrencyTitle}
                 InputProps={{
                   readOnly: true
                 }}
@@ -145,8 +131,7 @@ export default function OrderDetail(props) {
           )}
           <Grid item xs={12} md={12}>
             <Stack spacing={1}>
-              <Divider variant="fullWidth" />
-              <OrderItemData id={row.original.id} />
+              <OrderItemData id={row.original.id} currency={row.original.userCurrency} />
             </Stack>
           </Grid>
         </Grid>
