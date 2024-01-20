@@ -1,5 +1,7 @@
 
 import { useEffect, useState } from 'react';
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
+
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 // import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
 import { CheckListPlugin } from '@lexical/react/LexicalCheckListPlugin';
@@ -13,7 +15,7 @@ import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 // import useLexicalEditable from '@lexical/react/useLexicalEditable';
-// import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -30,14 +32,12 @@ import AutoLinkPlugin from './plugins/AutoLinkPlugin';
 import CodeActionMenuPlugin from './plugins/CodeActionMenuPlugin';
 import CodeHighlightPlugin from './plugins/CodeHighlightPlugin';
 import CollapsiblePlugin from './plugins/CollapsiblePlugin';
-// import CommentPlugin from './plugins/CommentPlugin';
 import ComponentPickerPlugin from './plugins/ComponentPickerPlugin';
 import ContextMenuPlugin from './plugins/ContextMenuPlugin';
 import DragDropPaste from './plugins/DragDropPastePlugin';
 import DraggableBlockPlugin from './plugins/DraggableBlockPlugin';
 import EmojiPickerPlugin from './plugins/EmojiPickerPlugin';
 import EmojisPlugin from './plugins/EmojisPlugin';
-// import EquationsPlugin from './plugins/EquationsPlugin';
 import ExcalidrawPlugin from './plugins/ExcalidrawPlugin';
 import FigmaPlugin from './plugins/FigmaPlugin';
 import FloatingLinkEditorPlugin from './plugins/FloatingLinkEditorPlugin';
@@ -64,9 +64,10 @@ import YouTubePlugin from './plugins/YouTubePlugin';
 import ToolbarPlugin from './plugins/ToolbarPlugin';
 import Placeholder from './ui/Placeholder';
 import PlaygroundNodes from './nodes/PlaygroundNodes';
-import {CAN_USE_DOM} from './shared/canUseDOM';
+import { CAN_USE_DOM } from './shared/canUseDOM';
 import PlaygroundEditorTheme from './themes/PlaygroundEditorTheme';
 import ContentEditable from './ui/ContentEditable';
+import HtmlPlugin from './plugins/HtmlPlugin';
 import './themes/theme.css';
 
 
@@ -92,13 +93,13 @@ function onError(error: any) {
   console.error(error);
 }
 
-export default function Editor() {
+export default function Editor({ id, name, defaultValue, setFieldValue } : { id: any, name: any, defaultValue: any, setFieldValue: any }): JSX.Element  {
 
   const placeholder = <Placeholder>{'Enter full description...'}</Placeholder>;
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null);
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);
   const [isSmallWidthViewport, setIsSmallWidthViewport] =
-  useState<boolean>(false);
+    useState<boolean>(false);
   const onRef = (_floatingAnchorElem: HTMLDivElement) => {
     if (_floatingAnchorElem !== null) {
       setFloatingAnchorElem(_floatingAnchorElem);
@@ -121,97 +122,111 @@ export default function Editor() {
       window.removeEventListener('resize', updateViewPortWidth);
     };
   }, [isSmallWidthViewport]);
+
+
+
   const initialConfig = {
     namespace: 'Playground',
-    theme : PlaygroundEditorTheme,
+    theme: PlaygroundEditorTheme,
     onError,
     nodes: [...PlaygroundNodes],
   };
 
+  const onChange = (editorState : any) => {
+    editorState.read(() => {
+      setFieldValue(id, editorState)
+      // const json = editorState.toJSON();
+      console.log(editorState);
+    })
+  }
+
   return (
     <LexicalComposer initialConfig={initialConfig}>
-          <div className="editor-shell">
+      <div className="editor-shell">
 
-      <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} />  
-      <div
-        className={`editor-container`}>
-       <DragDropPaste />
-      <AutoFocusPlugin />
-      <ClearEditorPlugin />
-      <ComponentPickerPlugin />
-      <EmojiPickerPlugin />
-      <AutoEmbedPlugin />
+        <ToolbarPlugin setIsLinkEditMode={setIsLinkEditMode} />
+        <div
+          className={`editor-container`}>
+          <DragDropPaste />
+          <AutoFocusPlugin />
+          <ClearEditorPlugin />
+          <ComponentPickerPlugin />
+          <EmojiPickerPlugin />
+          <AutoEmbedPlugin />
 
-      <MentionsPlugin />
-      <EmojisPlugin />
-      <HashtagPlugin />
-      <KeywordsPlugin />
-      <SpeechToTextPlugin />
-      <AutoLinkPlugin />
-      <RichTextPlugin
-        contentEditable={
-          <div className="editor-scroller">
-            <div className="editor" ref={onRef}>
-              <ContentEditable />
-            </div>
-          </div>
-        }
-        placeholder={placeholder}
-        ErrorBoundary={LexicalErrorBoundary}
-      />
-   
-      <HistoryPlugin />
-      <CodeHighlightPlugin />
-      <ListPlugin />
-      <CheckListPlugin />
-      <ListMaxIndentLevelPlugin maxDepth={7} />
-      <TablePlugin
-        hasCellMerge={true}
-        hasCellBackgroundColor={true}
-      />
-      <TableCellResizer />
-      <ImagesPlugin />
-      <InlineImagePlugin />
-      <LinkPlugin />
-      <PollPlugin />
-      <TwitterPlugin />
-      <YouTubePlugin />
-      <FigmaPlugin />
-      <LexicalClickableLinkPlugin />
-      <HorizontalRulePlugin />
-      {/* <EquationsPlugin /> */}
-      <ExcalidrawPlugin />
-      <TabFocusPlugin />
-      <TabIndentationPlugin />
-      <CollapsiblePlugin />
-      <PageBreakPlugin />
-      <LayoutPlugin />
-      <AutocompletePlugin />
-      {/* <ContextMenuPlugin /> */}
-      {floatingAnchorElem && !isSmallWidthViewport && (
-              <>
-                <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
-                <CodeActionMenuPlugin anchorElem={floatingAnchorElem} />
-                <FloatingLinkEditorPlugin
-                  anchorElem={floatingAnchorElem}
-                  isLinkEditMode={isLinkEditMode}
-                  setIsLinkEditMode={setIsLinkEditMode}
-                />
-                <TableCellActionMenuPlugin
-                  anchorElem={floatingAnchorElem}
-                  cellMerge={true}
-                />
-                <FloatingTextFormatToolbarPlugin
-                  anchorElem={floatingAnchorElem}
-                />
-              </>
-            )}
-            
-      {/* <div>{<TableOfContentsPlugin />}</div> */}
-              <ActionsPlugin isRichText={true} />
+          <MentionsPlugin />
+          <EmojisPlugin />
+          <HashtagPlugin />
+          <KeywordsPlugin />
+          <SpeechToTextPlugin />
+          <AutoLinkPlugin />
+          <RichTextPlugin
+            contentEditable={
+              <div id={id} className="editor-scroller">
+                <div className="editor" ref={onRef}>
+                  <ContentEditable />
+                </div>
               </div>
-      {/* <TreeViewPlugin /> */}
-      {/* <MyCustomAutoFocusPlugin /> */}
+            }
+            placeholder={placeholder}
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+
+          <HistoryPlugin />
+          <CodeHighlightPlugin />
+          <ListPlugin />
+          <CheckListPlugin />
+          <ListMaxIndentLevelPlugin maxDepth={7} />
+          <TablePlugin
+            hasCellMerge={true}
+            hasCellBackgroundColor={true}
+          />
+          <TableCellResizer />
+          <ImagesPlugin />
+          <InlineImagePlugin />
+          <LinkPlugin />
+          <PollPlugin />
+          <TwitterPlugin />
+          <YouTubePlugin />
+          <FigmaPlugin />
+          <LexicalClickableLinkPlugin />
+          <HorizontalRulePlugin />
+          <ExcalidrawPlugin />
+          <TabFocusPlugin />
+          <TabIndentationPlugin />
+          <CollapsiblePlugin />
+          <PageBreakPlugin />
+          <LayoutPlugin />
+          <AutocompletePlugin />
+          <HtmlPlugin
+            onHtmlChanged={(html) => setFieldValue(id, html)}
+            initialHtml={defaultValue}
+          />
+          {/* <ContextMenuPlugin /> */}
+          {floatingAnchorElem && !isSmallWidthViewport && (
+            <>
+              <DraggableBlockPlugin anchorElem={floatingAnchorElem} />
+              <CodeActionMenuPlugin anchorElem={floatingAnchorElem} />
+              <FloatingLinkEditorPlugin
+                anchorElem={floatingAnchorElem}
+                isLinkEditMode={isLinkEditMode}
+                setIsLinkEditMode={setIsLinkEditMode}
+              />
+              <TableCellActionMenuPlugin
+                anchorElem={floatingAnchorElem}
+                cellMerge={true}
+              />
+              <FloatingTextFormatToolbarPlugin
+                anchorElem={floatingAnchorElem}
+              />
+            </>
+          )}
+
+          {/* <div>{<TableOfContentsPlugin />}</div> */}
+          <ActionsPlugin isRichText={true} />
+        </div>
+        {/* <TreeViewPlugin /> */}
+        {/* <MyCustomAutoFocusPlugin /> */}
       </div>
     </LexicalComposer>
   );

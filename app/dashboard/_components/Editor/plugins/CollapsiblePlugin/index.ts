@@ -194,7 +194,7 @@ export default function CollapsiblePlugin(): null {
             return false;
           }
 
-          const container = topLevelElement.getPreviousSibling<LexicalNode>();
+          const container = topLevelElement.getPreviousSibling();
           if (!$isCollapsibleContainerNode(container) || container.getOpen()) {
             return false;
           }

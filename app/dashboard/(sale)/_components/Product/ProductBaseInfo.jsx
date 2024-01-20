@@ -68,14 +68,11 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <Stack>
-          
-
             <Editor
               id={'fullDescription'}
               name={'fullDescription'}
               defaultValue={values?.fullDescription || ''}
               setFieldValue={setFieldValue}
-              error={Boolean(touched.fullDescription && errors.fullDescription)}
             />
               {touched.fullDescription && errors.fullDescription && (
               <FormHelperText error id="helper-text">

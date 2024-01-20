@@ -6,19 +6,11 @@
  *
  */
 
-<<<<<<< HEAD
-import type {BaseSelection, NodeKey} from 'lexical';
-
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {$isAtNodeEnd} from '@lexical/selection';
-import {mergeRegister} from '@lexical/utils';
-=======
 import type { BaseSelection, NodeKey } from 'lexical';
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { $isAtNodeEnd } from '@lexical/selection';
 import { mergeRegister } from '@lexical/utils';
->>>>>>> 1160e90 (complete editor & add mono select & multiselect & product settings & inventory)
 import {
   $createTextNode,
   $getNodeByKey,
@@ -30,24 +22,14 @@ import {
   KEY_ARROW_RIGHT_COMMAND,
   KEY_TAB_COMMAND,
 } from 'lexical';
-<<<<<<< HEAD
-import {useCallback, useEffect} from 'react';
-
-import {useSharedAutocompleteContext} from '../../context/SharedAutocompleteContext';
-=======
 import { useCallback, useEffect } from 'react';
 
 import { useSharedAutocompleteContext } from '../../context/SharedAutocompleteContext';
->>>>>>> 1160e90 (complete editor & add mono select & multiselect & product settings & inventory)
 import {
   $createAutocompleteNode,
   AutocompleteNode,
 } from '../../nodes/AutocompleteNode';
-<<<<<<< HEAD
-import {addSwipeRightListener} from '../../utils/swipe';
-=======
 import { addSwipeRightListener } from '../../utils/swipe';
->>>>>>> 1160e90 (complete editor & add mono select & multiselect & product settings & inventory)
 
 type SearchPromise = {
   dismiss: () => void;
@@ -149,11 +131,7 @@ export default function AutocompletePlugin(): JSX.Element | null {
           lastSuggestion = newSuggestion;
           setSuggestion(newSuggestion);
         },
-<<<<<<< HEAD
-        {tag: 'history-merge'},
-=======
         { tag: 'history-merge' },
->>>>>>> 1160e90 (complete editor & add mono select & multiselect & product settings & inventory)
       );
     }
 

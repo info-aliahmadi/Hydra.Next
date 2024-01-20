@@ -32,7 +32,7 @@ export interface ImagePayload {
   key?: NodeKey;
   maxWidth?: number;
   showCaption?: boolean;
-  src: string;
+  src: any;
   width?: number;
   captionsEnabled?: boolean;
 }
