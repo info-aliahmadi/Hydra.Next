@@ -291,7 +291,10 @@
       "taxAmount": "Tax Amount",
       "discountAmount": "Discount Amount",
       "totalAmount": "Total Amount",
-      "finalPrice": "Final Price"
+      "finalPrice": "Final Price",
+      "paymentStatusId": "Payment Status",
+      "shippingStatusId": "Shipping Status",
+      "shippingMethodId": "Shipping Method"
     },
     "orderItem": {
       "id": "Id",

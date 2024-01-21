@@ -41,7 +41,7 @@ export default function OrderItemData({ id, currency }) {
   return (
     <>
       {values.length > 0 ? (
-        <TableContainer component={Paper}>
+        <TableContainer  sx={{ marginTop:'10px'}} component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
