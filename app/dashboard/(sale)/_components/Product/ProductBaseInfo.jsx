@@ -1,5 +1,5 @@
 // material-ui
-import { Avatar, Chip, FormHelperText, Grid, InputLabel, Link, TextField, Stack } from '@mui/material';
+import { Avatar, Chip, FormHelperText, Grid, InputLabel, TextField, Stack } from '@mui/material';
 import { EventNote } from '@mui/icons-material';
 
 // assets
@@ -15,7 +15,6 @@ import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
 import SelectCategory from '../Category/SelectCategory';
 import SelectManufacturer from '../Manufacturer/SelectManufacturer';
 import SelectDiscount from '../Discount/SelectDiscount';
-import SelectProductTag from '../ProductTag/SelectProductTag';
 import Editor from '@dashboard/_components/Editor/Editor';
 
 export default function ProductBaseInfo({ operation, values, setFieldValue, handleBlur, handleChange, errors, touched }) {
@@ -341,23 +340,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
-            <SelectProductTag
-              defaultValues={values?.productTagIds || []}
-              id="productTagIds"
-              name="productTagIds"
-              label={t(fieldsName + 'productTagIds')}
-              setFieldValue={setFieldValue}
-              error={Boolean(touched.productTagIds && errors.productTagIds)}
-            />
-            {touched.tags && errors.tags && (
-              <FormHelperText error id="helper-tagIds">
-                {errors.tags}
-              </FormHelperText>
-            )}
-          </Stack>
-        </Grid>
+    
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <DateTimeInput

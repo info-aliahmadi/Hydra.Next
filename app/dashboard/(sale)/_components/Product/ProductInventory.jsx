@@ -1,21 +1,9 @@
 // material-ui
-import { Avatar, Chip, FormHelperText, Grid, InputLabel, Link, TextField, Stack } from '@mui/material';
-import { EventNote } from '@mui/icons-material';
+import { FormHelperText, Grid, TextField, Stack } from '@mui/material';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import CONFIG from '/config';
 
-import moment from 'moment';
-import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
-import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
-import SelectDeliveryDate from '../DeliveryDate/SelectDeliveryDate';
-import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
-import SelectCategory from '../Category/SelectCategory';
-import SelectManufacturer from '../Manufacturer/SelectManufacturer';
-import SelectDiscount from '../Discount/SelectDiscount';
-import SelectProductTag from '../ProductTag/SelectProductTag';
-import Editor from '@dashboard/_components/Editor/Editor';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 

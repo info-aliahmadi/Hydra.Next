@@ -23,8 +23,14 @@
       }
     ],
     "paths": {
-      "@*": [
-        "./app/*"
+      "@dashboard/*": [
+        "./app/dashboard/*"
+      ],
+      "@(home)/*": [
+        "./app/(home)/*"
+      ],
+      "@api/*": [
+        "./app/api/*"
       ],
       "/*": [
         "./*"

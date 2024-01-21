@@ -34,6 +34,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ProductBaseInfo from '@dashboard/(sale)/_components/Product/ProductBaseInfo';
 import ProductSettings from '@dashboard/(sale)/_components/Product/ProductSettings';
 import ProductInventory from '@dashboard/(sale)/_components/Product/ProductInventory';
+import ProductSEO from '@dashboard/(sale)/_components/Product/ProductSEO';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -129,8 +130,8 @@ export default function AddOrEditProduct({ params }) {
                 initialValues={{
                   id: product?.id,
                   name: product?.name,
-                  metaKeywords: product?.metaKeywords,
                   metaTitle: product?.metaTitle,
+                  metaKeywords: product?.metaKeywords,
                   metaDescription: product?.metaDescription,
                   shortDescription: product?.shortDescription,
                   fullDescription: product?.fullDescription,
@@ -249,7 +250,16 @@ export default function AddOrEditProduct({ params }) {
                         touched={touched}
                       />
                     </TabPanel>
-                    <TabPanel component="div" value={tab} index={3}></TabPanel>
+                    <TabPanel component="div" value={tab} index={3}>
+                    <ProductSEO
+                        values={values}
+                        handleChange={handleChange}
+                        setFieldValue={setFieldValue}
+                        handleBlur={handleBlur}
+                        errors={errors}
+                        touched={touched}
+                      />
+                    </TabPanel>
                     <Grid container item spacing={3} direction="row" justifyContent="space-between" alignItems="center">
                       <Grid item>
                         <Stack direction="row" spacing={2}>
