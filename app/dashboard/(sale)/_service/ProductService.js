@@ -57,8 +57,9 @@ export default class ProductService {
   };
   addProduct = async (product) => {
     return new Promise((resolve, reject) => {
+      debugger
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/addProduct', Product)
+        .post(CONFIG.API_BASEPATH + '/sale/addProduct', product)
         .then((response) => {
           resolve(response.data);
         })
@@ -70,7 +71,7 @@ export default class ProductService {
   updateProduct = async (product) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/updateProduct', Product)
+        .post(CONFIG.API_BASEPATH + '/sale/updateProduct', product)
         .then((response) => {
           resolve(response.data);
         })

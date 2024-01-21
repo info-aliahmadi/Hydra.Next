@@ -4,14 +4,19 @@ import { useEffect, useState } from 'react';
 
 export default function DateTimeInput({ id, name, label, setFieldValue, defaultValue, placeholder, error }) {
   const onChange = (value) => {
+    debugger
     let newValue = moment.utc(value).format();
     setFieldValue(id, newValue);
-    setValue(value);
   };
   const [value, setValue] = useState();
   useEffect(() => {
+    debugger
     if (defaultValue) {
-      setValue(moment(defaultValue + 'Z'));
+      if (defaultValue.substr(defaultValue.length - 1) == 'Z') {
+        setValue(moment(defaultValue));
+      } else {
+        setValue(moment(defaultValue + 'Z'));
+      }
     } else {
       setValue(null);
     }

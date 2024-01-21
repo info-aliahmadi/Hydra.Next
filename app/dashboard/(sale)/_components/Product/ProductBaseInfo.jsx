@@ -380,7 +380,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
         <Stack>
-          <InputLabel htmlFor="pictureIds">{t(fieldsName + 'pictureIds')}</InputLabel>
+          <InputLabel htmlFor="pictureIds" sx={{textAlign : 'center' , mb : '5px'}}  p={2}>{t(fieldsName + 'pictureIds')}</InputLabel>
           <FileUpload
             id="pictureIds"
             name="pictureIds"

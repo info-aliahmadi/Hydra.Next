@@ -35,6 +35,7 @@ import ProductBaseInfo from '@dashboard/(sale)/_components/Product/ProductBaseIn
 import ProductSettings from '@dashboard/(sale)/_components/Product/ProductSettings';
 import ProductInventory from '@dashboard/(sale)/_components/Product/ProductInventory';
 import ProductSEO from '@dashboard/(sale)/_components/Product/ProductSEO';
+import { useSession } from 'next-auth/react';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,7 +66,11 @@ export default function AddOrEditProduct({ params }) {
   const operation = params.operation;
   const id = params.id;
 
-  let productService = new ProductsService();
+  const { data: session } = useSession();
+
+  const jwt = session?.user?.accessToken;
+  let productService = new ProductsService(jwt);
+
   const [fieldsName, validation, buttonName] = ['fields.product.', 'validation.product.', 'buttons.product.'];
   const [product, setProduct] = useState();
   const [notify, setNotify] = useState({ open: false });
@@ -85,6 +90,7 @@ export default function AddOrEditProduct({ params }) {
   };
   const handleSubmit = async (product, resetForm, setErrors, setSubmitting) => {
     if (operation == 'add') {
+      debugger
       productService
         .addProduct(product)
         .then(() => {
@@ -151,11 +157,6 @@ export default function AddOrEditProduct({ params }) {
                   height: product?.height,
                   availableStartDateTimeUtc: product?.availableStartDateTimeUtc,
                   availableEndDateTimeUtc: product?.availableEndDateTimeUtc,
-                  displayOrder: product?.displayOrder,
-                  approvedRatingSum: product?.approvedRatingSum,
-                  notApprovedRatingSum: product?.notApprovedRatingSum,
-                  approvedTotalReviews: product?.approvedTotalReviews,
-                  notApprovedTotalReviews: product?.notApprovedTotalReviews,
                   hasDiscountsApplied: product?.hasDiscountsApplied,
                   markAsNew: product?.markAsNew,
                   markAsNewStartDateTimeUtc: product?.markAsNewStartDateTimeUtc,
@@ -183,12 +184,12 @@ export default function AddOrEditProduct({ params }) {
                 }}
                 enableReinitialize={true}
                 validationSchema={Yup.object().shape({
-                  subject: Yup.string()
+                  name: Yup.string()
                     .max(250)
                     .required(t(validation + 'requiredSubject')),
-                  body: Yup.string().required(t(validation + 'requiredBody')),
-                  publishDate: Yup.string().required(t(validation + 'requiredPublishDate')),
-                  topicsIds: Yup.array()
+                    fullDescription: Yup.string().required(t(validation + 'requiredBody')),
+                    availableStartDateTimeUtc: Yup.string().required(t(validation + 'requiredPublishDate')),
+                    categoryIds: Yup.array()
                     .min(1, t(validation + 'requiredTopics'))
                     .required(t(validation + 'requiredTopics'))
                 })}
@@ -283,7 +284,7 @@ export default function AddOrEditProduct({ params }) {
                               type="submit"
                               variant="contained"
                               color="primary"
-                              onClick={() => setFieldValue('isDraft', false)}
+                              onClick={() => setFieldValue('published', false)}
                               startIcon={<Send />}
                             >
                               {operation == 'edit' ? t(buttonName + 'save') : t(buttonName + 'publish')}
@@ -296,7 +297,7 @@ export default function AddOrEditProduct({ params }) {
                               type="submit"
                               variant="contained"
                               color="warning"
-                              onClick={() => setFieldValue('isDraft', true)}
+                              onClick={() => setFieldValue('published', true)}
                               startIcon={<Save />}
                             >
                               {t(buttonName + 'draft')}

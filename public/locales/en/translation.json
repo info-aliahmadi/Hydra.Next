@@ -492,8 +492,10 @@
       "delete": "Delete File"
     },
     "product": {
-      "add": "New Product",
+      "publish": "Publish",
+      "save": "Save",
       "edit": "Edit Product",
+      "draft": "Save as Draft",
       "delete": "Delete Product",
       "saveOrder": "Save Order"
     }
