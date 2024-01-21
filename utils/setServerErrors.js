@@ -14,11 +14,11 @@ export default function setServerErrors(response, setErrors) {
         errorsObject[camelCase(key)] = description;
       }
     } else {
-      var keys = keys(errorData);
+      var keysVar = keys(errorData);
 
-      for (let i = 0; i < keys.length; i++) {
-        let errors = errorData[keys[i]];
-        let key = camelCase(keys[i]);
+      for (let i = 0; i < keysVar.length; i++) {
+        let errors = errorData[keysVar[i]];
+        let key = camelCase(keysVar[i]);
         let error = '';
         let errorsLength = errors.length;
         if (!errorsLength) return;

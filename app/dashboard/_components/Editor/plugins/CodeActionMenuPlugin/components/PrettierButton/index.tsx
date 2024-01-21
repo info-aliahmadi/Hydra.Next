@@ -9,9 +9,9 @@ import './index.css';
 
 import {$isCodeNode} from '@lexical/code';
 import {$getNearestNodeFromDOMNode, LexicalEditor} from 'lexical';
-import {Options} from 'prettier';
 import * as React from 'react';
 import {useState} from 'react';
+import {Options} from 'prettier';
 
 interface Props {
   lang: string;
@@ -86,7 +86,7 @@ export function PrettierButton({lang, editor, getCodeDOMNode}: Props) {
         return;
       }
 
-      editor.update(() => {
+      editor.update(async () => {
         const codeNode = $getNearestNodeFromDOMNode(codeDOMNode);
 
         if ($isCodeNode(codeNode)) {
@@ -95,7 +95,7 @@ export function PrettierButton({lang, editor, getCodeDOMNode}: Props) {
           let parsed = '';
 
           try {
-            parsed = format(content, options);
+            parsed = await format(content, options);
           } catch (error: unknown) {
             setError(error);
           }

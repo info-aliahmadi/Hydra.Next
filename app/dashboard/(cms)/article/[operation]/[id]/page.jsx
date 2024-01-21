@@ -20,12 +20,11 @@ import setServerErrors from '/utils/setServerErrors';
 import moment from 'moment';
 import { useRouter } from 'next/navigation';
 import ArticlesService from '@dashboard/(cms)/_service/ArticlesService';
-// import Editor from '@dashboard/_components/Editor/Editor';
 import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
 import SelectTopic from '@dashboard/(cms)/_components/Topic/SelectTopic';
 import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
-import '/public/css/editor-style.css'
+import Editor from '@dashboard/_components/Editor/Editor';
 export default function AddOrEditArticle({params}) {
   const [t, i18n] = useTranslation();
   const operation = params.operation;
@@ -156,6 +155,12 @@ export default function AddOrEditArticle({params}) {
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="body">{t(fieldsName + 'body')}</InputLabel>
+                            <Editor
+              id={'body'}
+              name={'body'}
+              defaultValue={values?.fullDescription || ''}
+              setFieldValue={setFieldValue}
+            />
                             {/* <Editor2
                               id={'body'}
                               name={'body'}

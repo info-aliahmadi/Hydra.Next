@@ -1,10 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
 
 import './ExcalidrawModal.css';
 
@@ -30,7 +23,7 @@ type Props = {
   /**
    * The initial set of elements to draw into the scene
    */
-  initialElements: ReadonlyArray<ExcalidrawElementFragment>;
+  initialElements: any | null;
   /**
    * The initial set of elements to draw into the scene
    */
@@ -152,17 +145,17 @@ export default function ExcalidrawModal({
       const appState = excalidrawAPI?.getAppState();
       // We only need a subset of the state
       const partialState: Partial<AppState> = {
-        exportBackground: appState.exportBackground,
-        exportScale: appState.exportScale,
-        exportWithDarkMode: appState.theme === 'dark',
-        isBindingEnabled: appState.isBindingEnabled,
-        isLoading: appState.isLoading,
-        name: appState.name,
-        theme: appState.theme,
-        viewBackgroundColor: appState.viewBackgroundColor,
-        viewModeEnabled: appState.viewModeEnabled,
-        zenModeEnabled: appState.zenModeEnabled,
-        zoom: appState.zoom,
+        exportBackground: appState?.exportBackground,
+        exportScale: appState?.exportScale,
+        exportWithDarkMode: appState?.theme === 'dark',
+        isBindingEnabled: appState?.isBindingEnabled,
+        isLoading: appState?.isLoading,
+        name: appState?.name,
+        theme: appState?.theme,
+        viewBackgroundColor: appState?.viewBackgroundColor,
+        viewModeEnabled: appState?.viewModeEnabled,
+        zenModeEnabled: appState?.zenModeEnabled,
+        zoom: appState?.zoom,
       };
       onSave(elements, partialState, files);
     } else {
@@ -221,7 +214,7 @@ export default function ExcalidrawModal({
     setElements(els);
     setFiles(fls);
   };
-
+  
   return createPortal(
     <div className="ExcalidrawModal__overlay" role="dialog">
       <div

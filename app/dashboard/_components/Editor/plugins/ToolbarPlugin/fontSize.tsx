@@ -6,12 +6,15 @@
  *
  */
 
+// import { $patchStyleText } from '@lexical/selection';
+import { $patchStyleText } from '@lexical/selection';
 import './fontSize.css';
 
-import {$patchStyleText} from '@lexical/selection';
+// import {$patchStyleText} from '@lexical/selection';
 import {
   $getSelection,
   $INTERNAL_isPointSelection,
+  INTERNAL_PointSelection,
   LexicalEditor,
 } from 'lexical';
 import * as React from 'react';
@@ -126,8 +129,9 @@ export default function FontSize({
         if (editor.isEditable()) {
           const selection = $getSelection();
           if (selection && $INTERNAL_isPointSelection(selection)) {
+            const size = newFontSize || getNextFontSize;
             $patchStyleText(selection, {
-              'font-size': newFontSize || getNextFontSize,
+              'font-size': size as string | null ,
             });
           }
         }

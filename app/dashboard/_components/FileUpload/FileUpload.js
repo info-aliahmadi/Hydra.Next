@@ -70,7 +70,7 @@ export default function FileUpload({
             // optional stub file information
             file: {
               name: fileInfo.fileName,
-              type: isVideo ? 'video/*' : '/*',
+              type: isVideo ? 'video/*' : 'image/*',
               size: fileInfo.size,
               url: fileUrl
             },

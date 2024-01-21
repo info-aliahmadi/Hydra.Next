@@ -9,10 +9,10 @@
   border-radius: 5px !important;
   padding: 15px 15px !important;
 }
-.select-topic fieldset {
+.select-margin fieldset {
   top: 0 !important;
 }
-.select-topic fieldset legend {
+.select-margin fieldset legend {
   display: none !important;
 }
 

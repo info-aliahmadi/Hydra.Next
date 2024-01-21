@@ -2,16 +2,21 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 
-const DateTimeInput = ({ id, name, label, setFieldValue, defaultValue, placeholder, error }) => {
+export default function DateTimeInput({ id, name, label, setFieldValue, defaultValue, placeholder, error }) {
   const onChange = (value) => {
+    debugger
     let newValue = moment.utc(value).format();
     setFieldValue(id, newValue);
-    setValue(value);
   };
   const [value, setValue] = useState();
   useEffect(() => {
+    debugger
     if (defaultValue) {
-      setValue(moment(defaultValue + 'Z'));
+      if (defaultValue.substr(defaultValue.length - 1) == 'Z') {
+        setValue(moment(defaultValue));
+      } else {
+        setValue(moment(defaultValue + 'Z'));
+      }
     } else {
       setValue(null);
     }
@@ -33,5 +38,4 @@ const DateTimeInput = ({ id, name, label, setFieldValue, defaultValue, placehold
       }}
     />
   );
-};
-export default DateTimeInput;
+}

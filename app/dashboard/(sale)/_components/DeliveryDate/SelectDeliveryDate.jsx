@@ -1,17 +1,17 @@
 import * as React from 'react';
 import DeliveryDateService from '@dashboard/(sale)/_service/DeliveryDateService';
-import MultiSelect from '@dashboard/_components/Select/MultiSelect';
+import MonoSelect from '@dashboard/_components/Select/MonoSelect';
 import { useSession } from 'next-auth/react';
 
-export default function SelectDeliveryDate({ defaultValues, id, name, label, setFieldValue, error, disabled }) {
+export default function SelectDeliveryDate({ defaultValue, id, name, label, setFieldValue, error, disabled }) {
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
 
   const deliveryDateService = new DeliveryDateService(jwt);
 
   return (
-    <MultiSelect
-      defaultValues={defaultValues}
+    <MonoSelect
+      defaultValue={defaultValue}
       id={id}
       name={name}
       label={label}

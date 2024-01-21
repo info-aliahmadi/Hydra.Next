@@ -14,8 +14,8 @@ import '/public/css/customStyle/dashboard.css'
 
 export default function DashboardThemeLayout({ children }: {
   children: React.ReactNode
-}) {
-
+}) { 
+ 
   return (
     <html lang="en">
       <head>

@@ -7,7 +7,7 @@
       "strict": false,
       "noEmit": true,
       "esModuleInterop": true,
-      "module": "esnext",
+      "module": "ESNext",
       "moduleResolution": "Bundler",
       "resolveJsonModule": true,
       "isolatedModules": true,
@@ -17,11 +17,7 @@
         {
           "name": "next"
         }
-      ],
-      "paths": {
-        "@*": ["./app/*"],
-        "/*": ["./*"]
-      }
+      ]
     },
     "exclude": ["node_modules"]
   } 

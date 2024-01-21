@@ -41,6 +41,9 @@ import Button from '../../ui/Button';
 import {DialogActions, DialogButtonsList} from '../../ui/Dialog';
 import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
+import { useSession } from 'next-auth/react';
+import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
+import CONFIG from '/config';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
@@ -96,19 +99,32 @@ export function InsertImageUploadedDialogBody({
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
 
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  var fileService = new FileStorageService(jwt);
+
   const isDisabled = src === '';
 
   const loadImage = (files: FileList | null) => {
-    const reader = new FileReader();
-    reader.onload = function () {
-      if (typeof reader.result === 'string') {
-        setSrc(reader.result);
-      }
-      return '';
-    };
     if (files !== null) {
-      reader.readAsDataURL(files[0]);
-    }
+    let data = new FormData();
+    data.append('file', files[0]);
+    fileService.uploadFile(data, 'Rename').then((result) => {
+      let src = CONFIG.UPLOAD_BASEPATH + result.data.directory + result.data.fileName;
+      setSrc(src);
+    });
+  }
+    // const reader = new FileReader();
+    // reader.onload = function () {
+    //   if (typeof reader.result === 'string') {
+    //     setSrc(reader.result);
+    //   }
+    //   return '';
+    // };
+    // if (files !== null) {
+    //   reader.readAsDataURL(files[0]);
+    // }
   };
 
   return (
