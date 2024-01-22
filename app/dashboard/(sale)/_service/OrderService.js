@@ -70,7 +70,7 @@ export default class OrderService {
   updateOrder = async (order) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/sale/updateOrder', Order)
+        .post(CONFIG.API_BASEPATH + '/sale/UpdateOrderState', order)
         .then((response) => {
           resolve(response.data);
         })

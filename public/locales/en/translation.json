@@ -294,7 +294,10 @@
       "finalPrice": "Final Price",
       "paymentStatusId": "Payment Status",
       "shippingStatusId": "Shipping Status",
-      "shippingMethodId": "Shipping Method"
+      "shippingMethodId": "Shipping Method",
+      "transactionTrackingCode": "Tracking Code",
+      "paymentTrackingCode": "Payment Code",
+      "trackingNumber": "Shipping Number"
     },
     "orderItem": {
       "id": "Id",

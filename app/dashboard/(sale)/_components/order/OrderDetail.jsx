@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 // material-ui
-import { FormHelperText, Grid, InputLabel, TextField, Stack } from '@mui/material';
+import { FormHelperText, Grid, InputLabel, TextField, Stack, DeleteIcon } from '@mui/material';
 
 // third party
 import * as Yup from 'yup';
@@ -29,7 +29,7 @@ export default function OrderDetail(props) {
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   const orderService = new OrderService(jwt);
-  const [fieldsName, validation, buttonName] = ['fields.order.', 'validation.order.', 'buttons.order.'];
+  const [fieldsName, validation, buttonName] = ['fields.order.', 'validation.order.', 'buttons.'];
   const [notify, setNotify] = useState({ open: false });
   const row = props.row;
 
@@ -49,11 +49,11 @@ export default function OrderDetail(props) {
     return orderService.getAllShippingMethodForSelect();
   };
 
-  const handleSubmit = (user, resetForm, setErrors) => {
+  const handleSubmit = (order, resetForm, setErrors) => {
     orderService
-      .update(user)
+      .updateOrder(order)
       .then((result) => {
-        //setUser(result);
+        props.refreshTable();
         setNotify({ open: true });
       })
       .catch((error) => {
@@ -69,11 +69,13 @@ export default function OrderDetail(props) {
       <Formik
         initialValues={{
           id: row.original.id,
-          paymentStatusTitle: row.original.paymentStatusTitle,
-          paymentStatusId: row.original.paymentStatusId
+          paymentStatusId: row.original.paymentStatusId,
+          shippingMethodId: row.original.shippingMethodId,
+          orderStatusId: row.original.orderStatusId,
+          shippingStatusId: row.original.shippingStatusId
         }}
         enableReinitialize={true}
-        validationSchema={Yup.object().shape({
+        validatioOrderStatusIdnSchema={Yup.object().shape({
           paymentStatusTitle: Yup.string().max(255).required(t('validation.required-userName'))
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
@@ -183,50 +185,60 @@ export default function OrderDetail(props) {
                             </Stack>
                           </Grid>
 
-                          {/* <Grid item xs={12} md={3} lg={3} xl={3}>
+                          <Grid item xs={12} md={3} lg={3} xl={3}>
                             <Stack spacing={1}>
                               <TextField
-                                id="paymentStatusTitle"
-                                label={t(fieldsName + 'paymentStatusTitle')}
-                                defaultValue={row.original.paymentStatusTitle}
+                                id="transactionTrackingCode"
+                                label={t(fieldsName + 'transactionTrackingCode')}
+                                defaultValue={row.original.transactionTrackingCode}
                                 InputProps={{
                                   readOnly: true
                                 }}
                               />
                             </Stack>
-                          </Grid> */}
+                          </Grid>
+                          <Grid item xs={12} md={3} lg={3} xl={3}>
+                            <Stack spacing={1}>
+                              <TextField
+                                id="paymentTrackingCode"
+                                label={t(fieldsName + 'paymentTrackingCode')}
+                                defaultValue={row.original.paymentTrackingCode}
+                                InputProps={{
+                                  readOnly: true
+                                }}
+                              />
+                            </Stack>
+                          </Grid>
+
+                          <Grid item xs={12} md={3} lg={3} xl={3}>
+                            <Stack spacing={1}>
+                              <TextField
+                                id="trackingNumber"
+                                label={t(fieldsName + 'trackingNumber')}
+                                defaultValue={row.original.trackingNumber}
+                                InputProps={{
+                                  readOnly: true
+                                }}
+                              />
+                            </Stack>
+                          </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
-
-                    <Grid container item spacing={3} direction="row" justifyContent="space-between" alignItems="center">
+                    <Grid container spacing={3} direction="row" justifyContent="space-between" alignItems="center">
                       <Grid item>
                         <Stack direction="row" spacing={2}>
-                          {' '}
-                          <AnimateButton>
-                            <Button
-                              size="large"
-                              onClick={() => {
-                                router.back();
-                              }}
-                              variant="outlined"
-                              color="secondary"
-                              startIcon={<ArrowBack />}
-                            >
-                              {t('buttons.back')}
-                            </Button>
-                          </AnimateButton>
                           <AnimateButton>
                             <Button
                               disa
-                              //disabled={isSubmitting}
+                              disabled={isSubmitting}
                               size="large"
                               type="submit"
                               variant="contained"
                               color="primary"
                               startIcon={<Save />}
                             >
-                              {t(buttonName + 'edit')}
+                              {t(buttonName + 'save')}
                             </Button>
                           </AnimateButton>
                         </Stack>
