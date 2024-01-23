@@ -85,8 +85,8 @@ function OrderDataGrid() {
         Cell: ({ renderedCellValue, row }) => <PaymentStatus status={renderedCellValue} id={row.original.paymentStatusId} />
       },
       {
-        accessorKey: 'createdOnUtcString',
-        header: t(fieldsName + 'createdOnUtcString'),
+        accessorKey: 'paymentDateUtcToString',
+        header: t(fieldsName + 'paymentDateUtcToString'),
         enableClickToCopy: true,
         type: 'string'
       }

@@ -2,7 +2,14 @@
 import { useState } from 'react';
 
 // material-ui
-import { FormHelperText, Grid, InputLabel, TextField, Stack, DeleteIcon } from '@mui/material';
+import FormHelperText from '@mui/material/FormHelperText';
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@dashboard/_components/Editor/ui/Button';
+import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
+import Save from '@mui/icons-material/Save';
 
 // third party
 import * as Yup from 'yup';
@@ -10,6 +17,8 @@ import { Formik } from 'formik';
 
 // assets
 import { useTranslation } from 'react-i18next';
+import { useSession } from 'next-auth/react';
+
 import MainCard from '@dashboard/_components/MainCard';
 import setServerErrors from '/utils/setServerErrors';
 import Notify from '@dashboard/_components/@extended/Notify';
@@ -19,10 +28,6 @@ import SelectShippingStatus from '../../_components/Order/SelectPaymentStatus';
 import SelectOrderStatus from '../../_components/Order/SelectOrderStatus';
 import SelectShippingMethod from '../../_components/Order/SelectShippingMethod';
 import OrderItemData from '../../_components/OrderItem/OrderItemData';
-import { useSession } from 'next-auth/react';
-import { ArrowBack, Save } from '@mui/icons-material';
-import Button from '@dashboard/_components/Editor/ui/Button';
-import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 export default function OrderDetail(props) {
   const [t] = useTranslation();
@@ -225,12 +230,11 @@ export default function OrderDetail(props) {
                         </Grid>
                       </Grid>
                     </Grid>
-                    <Grid container spacing={3} direction="row" justifyContent="space-between" alignItems="center">
+                    <Grid container mt={1} direction="row" justifyContent="space-between" alignItems="center">
                       <Grid item>
                         <Stack direction="row" spacing={2}>
                           <AnimateButton>
                             <Button
-                              disa
                               disabled={isSubmitting}
                               size="large"
                               type="submit"

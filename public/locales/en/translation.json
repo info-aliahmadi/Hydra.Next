@@ -297,7 +297,8 @@
       "shippingMethodId": "Shipping Method",
       "transactionTrackingCode": "Tracking Code",
       "paymentTrackingCode": "Payment Code",
-      "trackingNumber": "Shipping Number"
+      "trackingNumber": "Shipping Number",
+      "paymentDateUtcToString":"Payment Date"
     },
     "orderItem": {
       "id": "Id",
