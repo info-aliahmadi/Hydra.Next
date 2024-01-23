@@ -292,7 +292,7 @@ export default function AddOrEditProduct({ params }) {
                           <AnimateButton>
                             <Button
                               disabled={isSubmitting}
-                              size="large"
+                              size="large" 
                               type="submit"
                               variant="contained"
                               color="warning"
