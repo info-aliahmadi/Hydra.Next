@@ -84,7 +84,7 @@ export default function ProductDataGrid() {
         // filterVariant: 'text' | 'select' | 'multi-select' | 'range' | 'range-slider' | 'checkbox',
       }, {
         accessorKey: 'previewImage',
-        header: t('fields.slideshow.previewImage'),
+        header: t(fieldsName + 'previewImage'),
         type: 'string',
         Cell: ({ renderedCellValue, row }) => <ImagePreviewRow renderedCellValue={renderedCellValue} row={row} />
       }, {
@@ -106,7 +106,7 @@ export default function ProductDataGrid() {
         header: t(fieldsName + 'price'),
         type: 'decimal',
         enableResizing: true,
-        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={"USD"} />
+        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.currencyCode} />
       },
       {
         accessorKey: 'published',

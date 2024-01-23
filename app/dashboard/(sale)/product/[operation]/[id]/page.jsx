@@ -151,6 +151,7 @@ export default function AddOrEditProduct({ params }) {
                   orderMaximumQuantity: product?.orderMaximumQuantity,
                   price: product?.price,
                   oldPrice: product?.oldPrice,
+                  currencyId: product?.currencyId,
                   weight: product?.weight,
                   length: product?.length,
                   width: product?.width,

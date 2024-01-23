@@ -4,7 +4,7 @@ import { Chip, FormControl, MenuItem, OutlinedInput, Select, InputLabel } from '
 import { Box, useTheme } from '@mui/system';
 // import GlobalService from '@dashboard/_service/GlobalService';
 
-export default function MultiSelect({ defaultValues, id, name, label, optionLabel, setFieldValue, error, disabled, dataApi }) {
+export default function MultiSelect({ defaultValues, id, name, label, optionLabel, setFieldValue, error, disabled, dataApi, sx }) {
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState();
@@ -67,6 +67,7 @@ export default function MultiSelect({ defaultValues, id, name, label, optionLabe
             })}
           </Box>
         )}
+        sx={sx}
       >
         {options?.map((item) => {
           return (

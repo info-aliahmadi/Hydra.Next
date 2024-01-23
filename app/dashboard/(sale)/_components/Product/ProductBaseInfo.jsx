@@ -14,6 +14,7 @@ import SelectDeliveryDate from '../DeliveryDate/SelectDeliveryDate';
 import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
 import SelectCategory from '../Category/SelectCategory';
 import SelectManufacturer from '../Manufacturer/SelectManufacturer';
+import SelectCurrency from '../Currency/SelectCurrency';
 import Editor from '@dashboard/_components/Editor/Editor';
 import ProductsAutoComplete from './ProductAutoComplete';
 
@@ -73,7 +74,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               defaultValue={values?.fullDescription || ''}
               setFieldValue={setFieldValue}
             />
-              {touched.fullDescription && errors.fullDescription && (
+            {touched.fullDescription && errors.fullDescription && (
               <FormHelperText error id="helper-text">
                 {errors.fullDescription}
               </FormHelperText>
@@ -169,25 +170,51 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
-            <TextField
-              id="price"
-              type="number"
-              value={values?.price || ''}
-              name="price"
-              label={t(fieldsName + 'price')}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              fullWidth
-              error={Boolean(touched.price && errors.price)}
-            />
-            {touched.price && errors.price && (
-              <FormHelperText error id="helper-text">
-                {errors.price}
-              </FormHelperText>
-            )}
-          </Stack>
+        <Grid container item columnSpacing={1} xs={12} sm={12} md={6} lg={6} xl={4}>
+          <Grid item xs={8} sm={8} md={8} lg={7} xl={7}>
+            <Stack>
+              <TextField
+                id="price"
+                type="number"
+                value={values?.price || ''}
+                name="price"
+                label={t(fieldsName + 'price')}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                fullWidth
+                error={Boolean(touched.price && errors.price)}
+              />
+              {touched.price && errors.price && (
+                <FormHelperText error id="helper-text">
+                  {errors.price}
+                </FormHelperText>
+              )}
+            </Stack>
+          </Grid>
+          <Grid item xs={4} sm={4} md={4} lg={5} xl={5}>
+            <Stack>
+              <SelectCurrency
+                defaultValue={values?.currencyId || ''}
+                id="currencyId"
+                name="currencyId"
+                label={''}
+                setFieldValue={setFieldValue}
+                error={Boolean(touched.currencyId && errors.currencyId)}
+                sx={{
+                  '& .MuiInputBase-root': {
+                    borderBottomLeftRadius: 0,
+                    borderTopLeftRadius: 0
+                  }
+                }}
+              />
+              {touched.currencyId && errors.currencyId && (
+                <FormHelperText error id="helper-text">
+                  {errors.currencyId}
+                </FormHelperText>
+              )}
+            </Stack>
+          </Grid>
+
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
@@ -380,7 +407,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
         <Stack>
-          <InputLabel htmlFor="pictureIds" sx={{textAlign : 'center' , mb : '5px'}}  p={2}>{t(fieldsName + 'pictureIds')}</InputLabel>
+          <InputLabel htmlFor="pictureIds" sx={{ textAlign: 'center', mb: '5px' }} p={2}>{t(fieldsName + 'pictureIds')}</InputLabel>
           <ImageUpload
             id="pictureIds"
             name="pictureIds"

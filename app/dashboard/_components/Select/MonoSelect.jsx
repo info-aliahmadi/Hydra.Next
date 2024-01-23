@@ -4,7 +4,7 @@ import { Chip, FormControl, MenuItem, OutlinedInput, Select, InputLabel } from '
 import { Box, useTheme } from '@mui/system';
 // import GlobalService from '@dashboard/_service/GlobalService';
 
-export default function MonoSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi }) {
+export default function MonoSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi}) {
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
