@@ -10,7 +10,8 @@ import {
   IconButton,
   InputLabel,
   OutlinedInput,
-  Tooltip} from '@mui/material';
+  Tooltip
+} from '@mui/material';
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
@@ -30,7 +31,7 @@ import { useSession } from 'next-auth/react';
 
 export default function ProductDataGrid() {
   const [t, i18n] = useTranslation();
-  
+
   const { data: session } = useSession();
 
   const jwt = session?.user?.accessToken;
@@ -45,8 +46,8 @@ export default function ProductDataGrid() {
       ? mediaExtensions.some((extension) => extension == _.toLower(renderedCellValue?.extension))
         ? CONFIG.UPLOAD_BASEPATH + renderedCellValue.directory + renderedCellValue?.thumbnail
         : row.original.previewImageUrl
-        ? row.original.previewImageUrl
-        : null
+          ? row.original.previewImageUrl
+          : null
       : null;
 
     return (
@@ -143,7 +144,7 @@ export default function ProductDataGrid() {
     ),
     []
   );
-  
+
   const DeleteOrEdit = useCallback(
     ({ row }) => (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -153,7 +154,7 @@ export default function ProductDataGrid() {
           </IconButton>
         </Tooltip>
         <Tooltip arrow placement="top-start" title={t(buttonName + 'edit')}>
-          <IconButton onClick={() => handleEditRow(row)}>
+          <IconButton onClick={() => router.push('/dashboard/product/edit/' + row.original.id)}>
             <Edit />
           </IconButton>
         </Tooltip>

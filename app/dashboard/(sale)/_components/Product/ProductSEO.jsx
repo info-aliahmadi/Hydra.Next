@@ -18,16 +18,16 @@ export default function ProductSEO({ operation, values, setFieldValue, handleBlu
         <Grid item xs={12} sm={12} md={6} lg={4} xl={4}>
           <Stack>
             <SelectProductTag
-              defaultValues={values?.productTagIds || []}
-              id="productTagIds"
-              name="productTagIds"
-              label={t(fieldsName + 'productTagIds')}
+              defaultValues={values?.productTags || []}
+              id="productTags"
+              name="productTags"
+              label={t(fieldsName + 'productTags')}
               setFieldValue={setFieldValue}
-              error={Boolean(touched.productTagIds && errors.productTagIds)}
+              error={Boolean(touched.productTags && errors.productTags)}
             />
-            {touched.tags && errors.tags && (
+            {touched.productTags && errors.productTags && (
               <FormHelperText error id="helper-tagIds">
-                {errors.tags}
+                {errors.productTags}
               </FormHelperText>
             )}
           </Stack>

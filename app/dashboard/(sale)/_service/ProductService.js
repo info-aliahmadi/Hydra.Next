@@ -48,7 +48,31 @@ export default class ProductService {
       axios
         .get(CONFIG.API_BASEPATH + '/sale/getProductById', { params: { productId: productId } })
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+  getProductsByIds = async (productIds) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(CONFIG.API_BASEPATH + '/sale/getProductsByIds', { params: { productIds: productIds } })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+  getProductsByInput = async (input) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(CONFIG.API_BASEPATH + '/sale/getProductsByInput', { params: { input: input } })
+        .then((response) => {
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
@@ -57,7 +81,6 @@ export default class ProductService {
   };
   addProduct = async (product) => {
     return new Promise((resolve, reject) => {
-      debugger
       axios
         .post(CONFIG.API_BASEPATH + '/sale/addProduct', product)
         .then((response) => {

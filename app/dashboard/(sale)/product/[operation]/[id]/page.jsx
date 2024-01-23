@@ -78,7 +78,7 @@ export default function AddOrEditProduct({ params }) {
 
   const loadProduct = () => {
     productService.getProductById(id).then((result) => {
-      setProduct(result);
+      setProduct(result.data);
     });
   };
   useEffect(() => {
@@ -90,7 +90,6 @@ export default function AddOrEditProduct({ params }) {
   };
   const handleSubmit = async (product, resetForm, setErrors, setSubmitting) => {
     if (operation == 'add') {
-      debugger
       productService
         .addProduct(product)
         .then(() => {
@@ -178,9 +177,8 @@ export default function AddOrEditProduct({ params }) {
                   categoryIds: product?.categoryIds,
                   manufacturerIds: product?.manufacturerIds,
                   pictureIds: product?.pictureIds,
-                  discountIds: product?.discountIds,
                   relatedProductIds: product?.relatedProductIds,
-                  productTagIds: product?.productTagIds
+                  productTags: product?.productTags
                 }}
                 enableReinitialize={true}
                 validationSchema={Yup.object().shape({

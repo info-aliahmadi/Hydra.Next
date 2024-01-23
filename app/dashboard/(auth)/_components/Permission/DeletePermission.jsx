@@ -33,7 +33,6 @@ const DeletePermission = ({ row, open, setOpen, refetch }) => {
         refetch();
       })
       .catch((error) => {
-        debugger
         setNotify({ open: true, type: 'error', description: error });
       });
   };

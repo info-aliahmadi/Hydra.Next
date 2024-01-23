@@ -41,7 +41,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts" ],
+    ".next/types/**/*.ts", "app/dashboard/_components/Editor/LoadInitialContent.tsx" ],
   "exclude": [
     "node_modules",
     "./public/**/*.ts"

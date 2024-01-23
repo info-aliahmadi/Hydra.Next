@@ -20,7 +20,6 @@ import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 
 export default function SendMessage({ params }) {
   const [t] = useTranslation();
-  debugger;
   const [id, toUserId] = params.id;
   let sss = params.id;
   // const toUserId = params.toUser;

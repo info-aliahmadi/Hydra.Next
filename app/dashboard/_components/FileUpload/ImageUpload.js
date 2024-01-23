@@ -58,7 +58,7 @@ export default function ImageUpload({
         if (isVideo) {
           imagePosterUrl += fileInfo.thumbnail;
         } else {
-          imagePosterUrl += fileInfo.fileName;
+          imagePosterUrl += fileInfo.thumbnail;
         }
 
         fileInfosData.push({

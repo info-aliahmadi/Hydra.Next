@@ -16,7 +16,7 @@ export default function SelectManufacturer({ defaultValues, id, name, label, set
       id={id}
       name={name}
       label={label}
-      titleName={'name'}
+      optionLabel={'name'}
       setFieldValue={setFieldValue}
       error={error}
       disabled={disabled}

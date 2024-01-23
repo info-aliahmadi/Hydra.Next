@@ -359,7 +359,7 @@
       "pictureIds": "Product Images",
       "discountIds": "Discounts",
       "relatedProductIds": "Related Products",
-      "productTagIds": "Product Tags"
+      "productTags": "Product Tags"
     }
   },
   "buttons": {
@@ -494,6 +494,7 @@
     "product": {
       "publish": "Publish",
       "save": "Save",
+      "add": "Add New Product",
       "edit": "Edit Product",
       "draft": "Save as Draft",
       "delete": "Delete Product",

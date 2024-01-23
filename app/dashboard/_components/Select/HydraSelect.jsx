@@ -43,7 +43,6 @@ export default function HydraSelect({ defaultValue, id, name, setFieldValue, err
   }
 
   const handleChange = (event) => {
-    debugger;
     setFieldValue(id, event.target.value);
     setValues(event.target.value);
   };

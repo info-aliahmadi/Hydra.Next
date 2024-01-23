@@ -15,7 +15,7 @@ export default function SelectCategory({ defaultValues, id, name, label, setFiel
       id={id}
       name={name}
       label={label}
-      titleName={'name'}
+      optionLabel={'name'}
       setFieldValue={setFieldValue}
       error={error}
       disabled={disabled}

@@ -8,14 +8,14 @@ import CONFIG from '/config';
 
 import moment from 'moment';
 // import Editor from '@dashboard/_components/Editor/Editor';
-import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
+import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
 import SelectDeliveryDate from '../DeliveryDate/SelectDeliveryDate';
 import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
 import SelectCategory from '../Category/SelectCategory';
 import SelectManufacturer from '../Manufacturer/SelectManufacturer';
-import SelectDiscount from '../Discount/SelectDiscount';
 import Editor from '@dashboard/_components/Editor/Editor';
+import ProductsAutoComplete from './ProductAutoComplete';
 
 export default function ProductBaseInfo({ operation, values, setFieldValue, handleBlur, handleChange, errors, touched }) {
   const [t, i18n] = useTranslation();
@@ -23,7 +23,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
   const fieldsName = 'fields.product.';
 
   return (
-    <Grid container item columnSpacing={3}>
+    <Grid container item columnSpacing={3} alignItems="flex-start">
       <Grid container item spacing={3} xs={12} sm={12} md={12} lg={8} xl={8}>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <Stack>
@@ -325,24 +325,6 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
-            <SelectDiscount
-              defaultValues={values?.discountIds || []}
-              id="discountIds"
-              name="discountIds"
-              label={t(fieldsName + 'discountIds')}
-              setFieldValue={setFieldValue}
-              error={Boolean(touched.discountIds && errors.discountIds)}
-            />
-            {touched.discountIds && errors.discountIds && (
-              <FormHelperText error id="helper-text">
-                {errors.discountIds}
-              </FormHelperText>
-            )}
-          </Stack>
-        </Grid>
-    
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
             <DateTimeInput
               id="availableStartDateTimeUtc"
               name="availableStartDateTimeUtc"
@@ -377,16 +359,34 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          <Stack>
+            <ProductsAutoComplete
+              id="relatedProductIds"
+              name="relatedProductIds"
+              type="number"
+              defaultValues={values?.relatedProductIds || []}
+              label={t(fieldsName + 'relatedProductIds')}
+              setFieldValue={setFieldValue}
+              error={Boolean(touched.relatedProductIds && errors.stocrelatedProductIdskQuantity)}
+            />
+            {touched.relatedProductIds && errors.relatedProductIds && (
+              <FormHelperText error id="helper-text">
+                {errors.relatedProductIds}
+              </FormHelperText>
+            )}
+          </Stack>
+        </Grid>
       </Grid>
       <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
         <Stack>
           <InputLabel htmlFor="pictureIds" sx={{textAlign : 'center' , mb : '5px'}}  p={2}>{t(fieldsName + 'pictureIds')}</InputLabel>
-          <FileUpload
+          <ImageUpload
             id="pictureIds"
             name="pictureIds"
             setFieldValue={setFieldValue}
             value={values?.pictureIds || []}
-            filePosterMaxHeight={400}
+            filePosterMaxHeight={200}
             allowMultiple={true}
           />
         </Stack>

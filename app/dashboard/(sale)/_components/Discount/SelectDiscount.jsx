@@ -15,7 +15,7 @@ export default function SelectDiscount({ defaultValues, id, name,label, setField
       id={id}
       name={name}
       label={label}
-      titleName={'name'}
+      optionLabel={'name'}
       setFieldValue={setFieldValue}
       error={error}
       disabled={disabled}

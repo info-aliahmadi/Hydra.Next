@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react';
-import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
+// import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 
 import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
 // import { CharacterLimitPlugin } from '@lexical/react/LexicalCharacterLimitPlugin';
@@ -15,7 +15,6 @@ import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
 import { TablePlugin } from '@lexical/react/LexicalTablePlugin';
 // import useLexicalEditable from '@lexical/react/useLexicalEditable';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 
 
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
@@ -93,7 +92,7 @@ function onError(error: any) {
   console.error(error);
 }
 
-export default function Editor({ id, name, defaultValue, setFieldValue } : { id: any, name: any, defaultValue: any, setFieldValue: any }): JSX.Element  {
+export default function Editor({ id, name, defaultValue, setFieldValue }: { id: any, name: any, defaultValue: any, setFieldValue: any }): JSX.Element {
 
   const placeholder = <Placeholder>{'Enter full description...'}</Placeholder>;
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null);
@@ -105,7 +104,6 @@ export default function Editor({ id, name, defaultValue, setFieldValue } : { id:
       setFloatingAnchorElem(_floatingAnchorElem);
     }
   };
-
   useEffect(() => {
     const updateViewPortWidth = () => {
       const isNextSmallWidthViewport =
@@ -124,7 +122,6 @@ export default function Editor({ id, name, defaultValue, setFieldValue } : { id:
   }, [isSmallWidthViewport]);
 
 
-
   const initialConfig = {
     namespace: 'Playground',
     theme: PlaygroundEditorTheme,
@@ -132,13 +129,7 @@ export default function Editor({ id, name, defaultValue, setFieldValue } : { id:
     nodes: [...PlaygroundNodes],
   };
 
-  const onChange = (editorState : any) => {
-    editorState.read(() => {
-      setFieldValue(id, editorState)
-      // const json = editorState.toJSON();
-      console.log(editorState);
-    })
-  }
+
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
