@@ -6,19 +6,19 @@ export default function OrderStatus({ status }) {
   let title = 'None';
 
   switch (status) {
-    case 0:
+    case 1:
       color = 'warning';
       title = 'Pending';
       break;
-    case 1:
+    case 2:
       color = 'primary';
       title = 'Processing';
       break;
-    case 2:
+    case 3:
       color = 'success';
       title = 'Complete';
       break;
-    case 3:
+    case 4:
       color = 'error';
       title = 'Cancelled';
       break;
