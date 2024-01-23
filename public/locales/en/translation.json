@@ -364,6 +364,7 @@
       "availableForPreOrder": "Available For PreOrder",
       "callForPrice": "Call For Price",
       "published": "Published",
+      "draft": "Draft",
       "createdOnUtc": "Created On",
       "updatedOnUtc": "Updated On",
       "categoryIds": "Categories",

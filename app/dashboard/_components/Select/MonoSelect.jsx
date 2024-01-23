@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Chip, FormControl, MenuItem, OutlinedInput, Select,InputLabel } from '@mui/material';
+import { Chip, FormControl, MenuItem, OutlinedInput, Select, InputLabel } from '@mui/material';
 import { Box, useTheme } from '@mui/system';
 // import GlobalService from '@dashboard/_service/GlobalService';
 
 export default function MonoSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi }) {
-  const [t] = useTranslation();
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
@@ -36,9 +34,9 @@ export default function MonoSelect({ defaultValue, id, name, label, titleName, s
       }
     }
   };
-  function getStyles(value,defaultValue, theme) {
+  function getStyles(value, defaultValue, theme) {
     return {
-      fontWeight: defaultValue === value ?  theme.typography.fontWeightMedium:theme.typography.fontWeightRegular
+      fontWeight: defaultValue === value ? theme.typography.fontWeightMedium : theme.typography.fontWeightRegular
     };
   }
 
@@ -49,7 +47,7 @@ export default function MonoSelect({ defaultValue, id, name, label, titleName, s
 
   return (
     <FormControl error={error} disabled={disabled}>
-    <InputLabel htmlFor={id} sx={{overflow : 'visible'}}>{label}</InputLabel>
+      <InputLabel htmlFor={id} sx={{ overflow: 'visible' }}>{label}</InputLabel>
       <Select
         id={id}
         name={name}
@@ -59,16 +57,16 @@ export default function MonoSelect({ defaultValue, id, name, label, titleName, s
         size="medium"
         onChange={handleChange}
         MenuProps={MenuProps}
-        input={<OutlinedInput label={label} sx={{minHeight : '41px'}} />}
-        defaultValue={options?.filter((x) =>  x.id == defaultValue) ?? ''}
+        input={<OutlinedInput label={label} sx={{ minHeight: '41px' }} />}
+        defaultValue={options?.filter((x) => x.id == defaultValue) ?? ''}
         renderValue={(selected) => (<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                    <Chip label={options?.find((x) => x.id == selected)?.[titleName]} sx={{height : '23px'}} />
-                  </Box>
-  )}
+          <Chip label={options?.find((x) => x.id == selected)?.[titleName]} sx={{ height: '23px' }} />
+        </Box>
+        )}
       >
         {options?.map((item) => {
           return (
-            <MenuItem key={'menu-' + name + item.id} value={item.id} style={getStyles(item.id,value, theme)}>
+            <MenuItem key={'menu-' + name + item.id} value={item.id} style={getStyles(item.id, value, theme)}>
               <span style={{ 'white-space': 'pre-wrap' }}>{item?.[titleName]}</span>
             </MenuItem>
           );

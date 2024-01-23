@@ -15,7 +15,7 @@ import {
 
 // project import
 import MainCard from '@dashboard/_components/MainCard';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProductsService from '@dashboard/(sale)/_service/ProductService';
 import { ImageNotSupported, Delete, Edit } from '@mui/icons-material';
@@ -27,11 +27,16 @@ import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import TableCard from '@dashboard/_components/TableCard';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import DeleteProduct from './DeleteProduct';
+import Currency from '@dashboard/_components/Currency/Currency';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function ProductDataGrid() {
   const [t, i18n] = useTranslation();
 
+  const [refetch, setRefetch] = useState();
+  const [openDelete, setOpenDelete] = useState(false);
+  const [row, setRow] = useState({});
   const { data: session } = useSession();
 
   const jwt = session?.user?.accessToken;
@@ -71,12 +76,18 @@ export default function ProductDataGrid() {
   const columns = useMemo(
     () => [
       {
+        accessorKey: 'id',
+        header: t(fieldsName + 'id'),
+        enableClickToCopy: true,
+        size: 70,
+        type: 'number'
+        // filterVariant: 'text' | 'select' | 'multi-select' | 'range' | 'range-slider' | 'checkbox',
+      }, {
         accessorKey: 'previewImage',
         header: t('fields.slideshow.previewImage'),
         type: 'string',
         Cell: ({ renderedCellValue, row }) => <ImagePreviewRow renderedCellValue={renderedCellValue} row={row} />
-      },
-      {
+      }, {
         accessorKey: 'name',
         header: t(fieldsName + 'name'),
         enableClickToCopy: true,
@@ -94,7 +105,8 @@ export default function ProductDataGrid() {
         accessorKey: 'price',
         header: t(fieldsName + 'price'),
         type: 'decimal',
-        enableResizing: true
+        enableResizing: true,
+        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={"USD"} />
       },
       {
         accessorKey: 'published',
@@ -104,9 +116,9 @@ export default function ProductDataGrid() {
         Cell: ({ renderedCellValue, row }) => (
           <Chip
             variant="combined"
-            color={renderedCellValue == true ? 'warning' : 'primary'}
+            color={renderedCellValue == true ? 'primary' : 'warning'}
             // icon={<>{renderedCellValue == true ? 'Published' : 'Draft'}</>}
-            label={renderedCellValue == true ? t(fieldsName + 'draft') : t(fieldsName + 'published')}
+            label={renderedCellValue == true ? t(fieldsName + 'published') : t(fieldsName + 'draft')}
             // sx={{ ml: 1.25, pl: 1 }}
             size="small"
           />
@@ -125,7 +137,13 @@ export default function ProductDataGrid() {
     ],
     []
   );
-
+  const handleDeleteRow = (row) => {
+    setRow(row);
+    setOpenDelete(true);
+  };
+  const handleRefetch = () => {
+    setRefetch(Date.now());
+  };
   const handleProductList = useCallback(async (filters) => {
     return await service.getProductList(filters);
   }, []);
@@ -314,6 +332,7 @@ export default function ProductDataGrid() {
       <MainCard title={<AddRow />}>
         <TableCard>
           <MaterialTable
+            refetch={refetch}
             columns={columns}
             dataApi={handleProductList}
             enableRowActions
@@ -323,6 +342,7 @@ export default function ProductDataGrid() {
           />
         </TableCard>
       </MainCard>
+      <DeleteProduct row={row} open={openDelete} setOpen={setOpenDelete} refetch={handleRefetch} />
     </>
   );
 }
