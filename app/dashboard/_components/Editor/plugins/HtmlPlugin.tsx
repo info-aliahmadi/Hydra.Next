@@ -15,15 +15,21 @@ const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
     const [isFirstRender, setIsFirstRender] = useState(true);
     useEffect(() => {
         if (isFirstRender && initialHtml != undefined) {
-            setIsFirstRender(false);
-            editor.update(() => {
+            if (initialHtml == '') {
+                editor.update(() => {
+                    $getRoot().clear();
+                });
+            } else {
+                setIsFirstRender(false);
+                editor.update(() => {
+                    const parser = new DOMParser();
+                    const dom = parser.parseFromString(initialHtml, "text/html");
+                    const nodes = $generateNodesFromDOM(editor, dom);
+                    $getRoot().clear();
+                    $insertNodes(nodes);
+                });
+            }
 
-                const parser = new DOMParser();
-                const dom = parser.parseFromString(initialHtml, "text/html");
-                const nodes = $generateNodesFromDOM(editor, dom);
-                $getRoot().clear();
-                $insertNodes(nodes);
-            });
         }
     }, [isFirstRender]);
 

@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Chip, FormControl, MenuItem, OutlinedInput, Select, InputLabel } from '@mui/material';
 import { Box, useTheme } from '@mui/system';
 // import GlobalService from '@dashboard/_service/GlobalService';
 
 export default function MultiSelect({ defaultValues, id, name, label, optionLabel, setFieldValue, error, disabled, dataApi }) {
-  const [t] = useTranslation();
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState();
   const [values, setValues] = useState();
-debugger
+
   const loadAllData = () => {
     dataApi.then((result) => {
       setOptions(result?.data);
@@ -65,8 +63,7 @@ debugger
         renderValue={(selected) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
             {selected.map((value, index) => {
-              let title = options?.find((x) => x.id == value)?.[optionLabel];
-              return <Chip key={'chip-' + name + index} label={title} sx={{ height: '23px' }} />;
+              return <Chip key={'chip-' + name + index} label={options?.find((x) => x.id == value)?.[optionLabel]} sx={{ height: '23px' }} />;
             })}
           </Box>
         )}

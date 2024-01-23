@@ -115,4 +115,16 @@ export default class ProductService {
         });
     });
   };
+  removeProduct = async (productId) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(CONFIG.API_BASEPATH + '/sale/removeProduct', { params: { productId: productId } })
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
 }

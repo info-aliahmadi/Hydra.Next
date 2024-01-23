@@ -93,7 +93,8 @@ export default function AddOrEditProduct({ params }) {
       productService
         .addProduct(product)
         .then(() => {
-          resetForm();
+          resetForm({});
+          setProduct({});
           setNotify({ open: true });
         })
         .catch((error) => {
@@ -107,7 +108,7 @@ export default function AddOrEditProduct({ params }) {
       productService
         .updateProduct(product)
         .then((result) => {
-          setProduct(result);
+          setProduct(result.data);
           setNotify({ open: true });
         })
         .catch((error) => {
@@ -129,7 +130,7 @@ export default function AddOrEditProduct({ params }) {
           <Grid item>
             <Typography variant="h5">{t('pages.cards.product-' + operation)}</Typography>
           </Grid>
-          <Grid item>
+          <Grid item key={product}>
             <MainCard>
               <Formik
                 initialValues={{
@@ -282,7 +283,7 @@ export default function AddOrEditProduct({ params }) {
                               type="submit"
                               variant="contained"
                               color="primary"
-                              onClick={() => setFieldValue('published', false)}
+                              onClick={() => setFieldValue('published', true)}
                               startIcon={<Send />}
                             >
                               {operation == 'edit' ? t(buttonName + 'save') : t(buttonName + 'publish')}
@@ -295,7 +296,7 @@ export default function AddOrEditProduct({ params }) {
                               type="submit"
                               variant="contained"
                               color="warning"
-                              onClick={() => setFieldValue('published', true)}
+                              onClick={() => setFieldValue('published', false)}
                               startIcon={<Save />}
                             >
                               {t(buttonName + 'draft')}
