@@ -12,15 +12,17 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Currency from '@dashboard/_components/Currency/Currency';
+import { Divider } from '@mui/material';
 
 // ===============================|| COLOR BOX ||=============================== //
 
-export default function OrderItemData({ id, currency }) {
+export default function OrderItemData({ orderId, currency }) {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   const service = new OrderService(jwt);
   const [values, setValues] = useState([]);
+  const [valueAmounts, setValueSumAmounts] = useState('');
   const [fieldsName, buttonName] = ['fields.orderItem.', 'buttons.orderItem.'];
 
   useEffect(() => {
@@ -28,20 +30,24 @@ export default function OrderItemData({ id, currency }) {
   }, []);
 
   const loadOrderItems = () => {
-    if (id > 0) {
+    if (orderId > 0) {
       //setLoading(true);
-      service.getOrderItemList(id).then((result) => {
-        setValues(result.data);
+      debugger
+
+      service.getOrderItemList(orderId).then((result) => {
+        setValues(result.data.item1);
+        setValueSumAmounts(result.data.item2);
       });
     } else {
       setValues([]);
+      setValues('');
     }
   };
 
   return (
     <>
       {values.length > 0 ? (
-        <TableContainer  sx={{ marginTop:'10px'}} component={Paper}>
+        <TableContainer sx={{ marginTop: '10px' }} component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -78,8 +84,37 @@ export default function OrderItemData({ id, currency }) {
               ))}
             </TableBody>
           </Table>
+          <Divider />
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">Sum {t(fieldsName + 'unitPrice')}</TableCell>
+                <TableCell align="center">Sum {t(fieldsName + 'discountAmount')}</TableCell>
+                <TableCell align="center">Sum {t(fieldsName + 'totalPriceTax')}</TableCell>
+                <TableCell align="center">Sum {t(fieldsName + 'totalPrice')}</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell align="center">
+                  <Currency value={valueAmounts.unitPrice} currency={currency} />
+                </TableCell>
+                <TableCell align="center">
+                  <Currency value={valueAmounts.discountAmount} currency={currency} />
+                </TableCell>
+                <TableCell align="center">
+                  <Currency value={valueAmounts.totalPrice} currency={currency} />
+                </TableCell>
+                <TableCell align="center">
+                  <Currency value={valueAmounts.totalPriceTax} currency={currency} />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </TableContainer>
-      ):<span>There is no item.</span>}
+      ) : (
+        <span>There is no item.</span>
+      )}
     </>
   );
 }

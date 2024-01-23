@@ -257,7 +257,7 @@ export default function OrderDetail({ row, refetch }) {
         )}
       </Formik>
 
-      <OrderItemData id={row.original.id} currency={row.original.userCurrency} />
+      <OrderItemData orderId={row.original.id} currency={row.original.userCurrency} />
     </>
   );
 }
