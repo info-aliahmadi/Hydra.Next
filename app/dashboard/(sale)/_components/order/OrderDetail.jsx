@@ -29,14 +29,14 @@ import SelectOrderStatus from '../../_components/Order/SelectOrderStatus';
 import SelectShippingMethod from '../../_components/Order/SelectShippingMethod';
 import OrderItemData from '../../_components/OrderItem/OrderItemData';
 
-export default function OrderDetail(props) {
+export default function OrderDetail({ row, refetch }) {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   const orderService = new OrderService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.order.', 'validation.order.', 'buttons.'];
   const [notify, setNotify] = useState({ open: false });
-  const row = props.row;
+  //const row = props.row;
 
   const getOrderStatusForSelect = () => {
     return orderService.getAllOrderStatusForSelect();
@@ -57,9 +57,9 @@ export default function OrderDetail(props) {
   const handleSubmit = (order, resetForm, setErrors) => {
     orderService
       .updateOrder(order)
-      .then((result) => {
-        props.refreshTable();
+      .then(() => {
         setNotify({ open: true });
+        refetch();
       })
       .catch((error) => {
         setServerErrors(error, setErrors);
@@ -177,7 +177,7 @@ export default function OrderDetail(props) {
                           </Stack>
                         </Grid>
                         <Grid container item spacing={3}>
-                          <Grid item xs={12} md={3} lg={3} xl={3}>
+                          {/* <Grid item xs={12} md={3} lg={3} xl={3}>
                             <Stack spacing={1}>
                               <TextField
                                 id="paymentStatusTitle"
@@ -188,7 +188,7 @@ export default function OrderDetail(props) {
                                 }}
                               />
                             </Stack>
-                          </Grid>
+                          </Grid> */}
 
                           <Grid item xs={12} md={3} lg={3} xl={3}>
                             <Stack spacing={1}>
@@ -239,7 +239,8 @@ export default function OrderDetail(props) {
                               size="large"
                               type="submit"
                               variant="contained"
-                              color="primary"
+                              color="warning"
+                              onClick={() => {}}
                               startIcon={<Save />}
                             >
                               {t(buttonName + 'save')}

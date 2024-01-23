@@ -94,6 +94,10 @@ function OrderDataGrid() {
     []
   );
 
+  const handleRefetch = () => {
+    setRefetch(Date.now());
+  };
+
   const RowActionMenuItems = useCallback(
     ({ closeMenu, row }) => [
       <MenuItem key={0} sx={{ m: 0 }}>
@@ -128,7 +132,7 @@ function OrderDataGrid() {
             dataApi={handleOrderList}
             enableRowActions
             renderRowActionMenuItems={RowActionMenuItems}
-            renderDetailPanel={({ row }) => <OrderDetail row={row} refreshTable={handleOrderList} />}
+            renderDetailPanel={({ row }) => <OrderDetail row={row} refetch={handleRefetch} />}
           />
         </TableCard>
       </MainCard>
