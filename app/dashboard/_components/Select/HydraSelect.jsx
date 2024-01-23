@@ -52,9 +52,9 @@ export default function HydraSelect({ defaultValue, id, name, setFieldValue, err
       <Select
         id={id}
         name={name}
-        className="select-topic"
+        // className="select-topic"
         value={values || ''}
-        label={''}
+        label='Test'
         size="small"
         onChange={handleChange}
         MenuProps={MenuProps}

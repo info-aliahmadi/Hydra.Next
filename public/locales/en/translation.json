@@ -285,17 +285,28 @@
       "orderTotal": "Order Total",
       "refundedAmount": "Refunded Amount",
       "orderNote": "Order Note",
-      "finalPrice":"Final Price"
+      "shippingTax": "Shipping Tax",
+      "shippingAmount": "Shipping Amount",
+      "shippingAmountTax": "Shipping Amount Tax",
+      "taxAmount": "Tax Amount",
+      "discountAmount": "Discount Amount",
+      "totalAmount": "Total Amount",
+      "finalPrice": "Final Price",
+      "paymentStatusId": "Payment Status",
+      "shippingStatusId": "Shipping Status",
+      "shippingMethodId": "Shipping Method",
+      "transactionTrackingCode": "Tracking Code",
+      "paymentTrackingCode": "Payment Code",
+      "trackingNumber": "Shipping Number"
     },
     "orderItem": {
       "id": "Id",
-      "unitPrice": "UnitPrice",
+      "unitPrice": "Unit Price",
       "quantity": "Quantity",
       "productName": "Product Name",
-      "unitPriceTax": "UnitPrice Tax",
-      "discountAmountTax": "Discount Tax",
-      "priceTax": "Price Tax",
-      "totalPrice": "Total Price"
+      "discountAmount": "Discount Amount",
+      "totalPrice": "Total Price",
+      "totalPriceTax": "Total PriceTax"
     },
     "manufacturer": {
       "id": "Id",

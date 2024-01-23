@@ -15,6 +15,7 @@ import OrderService from '../../_service/OrderService';
 import OrderStatus from './OrderStatus';
 import OrderDetail from './OrderDetail';
 import OrderUserAvatar from './OrderUserAvatar';
+import PaymentStatus from '../../_components/Order/PaymentStatus';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -74,13 +75,14 @@ function OrderDataGrid() {
         header: t(fieldsName + 'finalPrice'),
         enableClickToCopy: true,
         type: 'string',
-        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.userCurrencyTitle} />
+        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.userCurrency} />
       },
       {
         accessorKey: 'paymentStatusTitle',
         header: t(fieldsName + 'paymentStatusTitle'),
         enableClickToCopy: true,
-        type: 'string'
+        type: 'string',
+        Cell: ({ renderedCellValue, row }) => <PaymentStatus status={renderedCellValue} id={row.original.paymentStatusId} />
       },
       {
         accessorKey: 'createdOnUtcString',
@@ -126,7 +128,7 @@ function OrderDataGrid() {
             dataApi={handleOrderList}
             enableRowActions
             renderRowActionMenuItems={RowActionMenuItems}
-            renderDetailPanel={({ row }) => <OrderDetail row={row} />}
+            renderDetailPanel={({ row }) => <OrderDetail row={row} refreshTable={handleOrderList} />}
           />
         </TableCard>
       </MainCard>
