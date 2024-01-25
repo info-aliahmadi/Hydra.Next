@@ -113,7 +113,8 @@
       "countries-list": "Countries List",
       "country-add": "Add New Country",
       "country-edit": "Edit Country",
-      "product-add": "Add New Product"
+      "product-add": "Add New Product",
+      "product-edit": "Edit Product"
     }
   },
   "fields": {
@@ -337,10 +338,6 @@
       "orderMaximumQuantity": "Order Maximum Quantity",
       "price": "Price",
       "oldPrice": "Old Price",
-      "weight": "Weight",
-      "length": "Length",
-      "width": "Width",
-      "height": "Height",
       "availableStartDateTimeUtc": "Available Start At",
       "availableEndDateTimeUtc": "Available End At",
       "displayOrder": "Display Order",
@@ -373,7 +370,10 @@
       "discountIds": "Discounts",
       "previewImage": "Preview Image",
       "relatedProductIds": "Related Products",
-      "productTags": "Product Tags"
+      "attributeIds": "Attributes",
+      "productTags": "Product Tags",
+      "createdBy": "created By", 
+      "editedBy": "Edited By"
     }
   },
   "buttons": {
@@ -577,6 +577,19 @@
     "message": {
       "requiredSubject": "Subject Is Required",
       "requiredUserIds": "Recipient of Message Is Required"
+    },
+    "product": {
+      "requiredName": "Product name is require",
+      "requiredFullDescription": "Full Description is require",
+      "requiredCategoryIds": "Category is require",
+      "requiredDeliveryDateId": "Delivery Date is require",
+      "requiredTaxCategoryId": "Tax Category is require",
+      "requiredStockQuantity": "Stock Quantity is require",
+      "requiredMinStockQuantity": "Min Stock Quantity is require",
+      "requiredOrderMinimumQuantity": "Order Minimum Quantity is require",
+      "requiredOrderMaximumQuantity": "Order Maximum Quantity is require",
+      "requiredPrice": "Price is require",
+      "requiredCurrencyId": "Currency is require"
     }
   },
   "tooltips": {

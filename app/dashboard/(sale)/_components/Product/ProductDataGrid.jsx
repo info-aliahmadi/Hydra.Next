@@ -18,7 +18,7 @@ import MainCard from '@dashboard/_components/MainCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProductsService from '@dashboard/(sale)/_service/ProductService';
-import { ImageNotSupported, Delete, Edit } from '@mui/icons-material';
+import { ImageNotSupported, Delete, Edit, EventNote } from '@mui/icons-material';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import CONFIG from '/config';
 import { Stack } from '@mui/system';
@@ -47,13 +47,7 @@ export default function ProductDataGrid() {
   const [fieldsName, buttonName] = ['fields.product.', 'buttons.product.'];
 
   const ImagePreviewRow = ({ renderedCellValue, row }) => {
-    let src = renderedCellValue?.fileName
-      ? mediaExtensions.some((extension) => extension == _.toLower(renderedCellValue?.extension))
-        ? CONFIG.UPLOAD_BASEPATH + renderedCellValue.directory + renderedCellValue?.thumbnail
-        : row.original.previewImageUrl
-          ? row.original.previewImageUrl
-          : null
-      : null;
+    let src = renderedCellValue ? CONFIG.UPLOAD_BASEPATH + renderedCellValue.directory + renderedCellValue?.thumbnail : null;
 
     return (
       <Box
@@ -64,9 +58,9 @@ export default function ProductDataGrid() {
         }}
       >
         {src != null ? (
-          <img alt="ImagePreview" src={src} height={'80px'} />
+          <Avatar alt="ImagePreview" variant="rounded" src={src} sx={{ width: 50, height: 50 }}></Avatar>
         ) : (
-          <Avatar variant="rounded">
+          <Avatar variant="rounded" sx={{ width: 50, height: 50 }}>
             <ImageNotSupported />
           </Avatar>
         )}
@@ -195,10 +189,11 @@ export default function ProductDataGrid() {
                 }}
               >
                 <Avatar
+                  variant="rounded"
                   loading="lazy"
-                  alt="profile product"
-                  src={row.original.avatar ? CONFIG.AVATAR_BASEPATH + row.original.avatar : '/images/products/anonymous.png'}
-                  sx={{ width: 100, height: 100 }}
+                  alt="product Preview"
+                  src={row.original.previewImage ? CONFIG.UPLOAD_BASEPATH + row.original.previewImage.directory + row.original.previewImage?.fileName : <ImageNotSupported />}
+                  sx={{ width: 200, height: 200 }}
                 ></Avatar>
                 <span>{row.original.name}</span>
               </Box>
@@ -208,44 +203,62 @@ export default function ProductDataGrid() {
         <Grid container item spacing={3} xd={12} sm={6} md={6} lg={6}>
           <Grid item xs={12} md={3}>
             <Stack spacing={1}>
-              <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
-              <OutlinedInput id="name" type="text" value={row.original.name} fullWidth disabled />
+              <InputLabel htmlFor="deliveryDateName">{t(fieldsName + 'deliveryDateId')}</InputLabel>
+              <OutlinedInput id="deliveryDateName" type="text" value={row.original.deliveryDateId} fullWidth disabled />
             </Stack>
           </Grid>
           <Grid item xs={12} md={3}>
             <Stack spacing={1}>
-              <InputLabel htmlFor="productName">{t(fieldsName + 'productName')}</InputLabel>
-              <OutlinedInput id="productName" type="text" value={row.original.productName} fullWidth disabled />
+              <InputLabel htmlFor="taxCategoryName">{t(fieldsName + 'taxCategoryName')}</InputLabel>
+              <OutlinedInput id="taxCategoryName" type="text" value={row.original.taxCategoryName} fullWidth disabled />
             </Stack>
           </Grid>
           <Grid item xs={12} md={3}>
             <Stack spacing={1}>
-              <InputLabel htmlFor="email">{t(fieldsName + 'email')}</InputLabel>
-              <OutlinedInput id="email" type="text" value={row.original.email} fullWidth disabled />
+              <InputLabel htmlFor="price">{t(fieldsName + 'price')}</InputLabel>
+              <OutlinedInput id="price" type="text" value={row.original.price} fullWidth disabled />
             </Stack>
           </Grid>
           <Grid item xs={12} md={3}>
             <Stack spacing={1}>
-              <InputLabel htmlFor="emailConfirmed">{t(fieldsName + 'emailConfirmed')}</InputLabel>
-              <FormControlLabel
-                disabled
-                control={
-                  <Checkbox
-                    id="emailConfirmed"
-                    checked={row.original.emailConfirmed ? true : false}
-                    title={row.original.emailConfirmed ? 'Yes' : 'No'}
-                    color="default"
-                    disabled
-                  />
-                }
-                label={t(fieldsName + 'emailConfirmed')}
-              />
+              <InputLabel htmlFor="currencyName">{t(fieldsName + 'currencyName')}</InputLabel>
+              <OutlinedInput id="currencyName" type="text" value={row.original.currencyName} fullWidth disabled />
             </Stack>
           </Grid>
           <Grid item xs={12} md={3}>
             <Stack spacing={1}>
-              <InputLabel htmlFor="phoneNumber">{t(fieldsName + 'phoneNumber')}</InputLabel>
-              <OutlinedInput id="phoneNumber" type="text" value={row.original.phoneNumber} fullWidth disabled />
+              <InputLabel htmlFor="oldPrice">{t(fieldsName + 'oldPrice')}</InputLabel>
+              <OutlinedInput id="oldPrice" type="text" value={row.original.oldPrice} fullWidth disabled />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="categoryNames">{t(fieldsName + 'categoryNames')}</InputLabel>
+              <OutlinedInput id="categoryNames" type="text" value={row.original.categoryNames} fullWidth disabled />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="manufacturerNames">{t(fieldsName + 'manufacturerNames')}</InputLabel>
+              <OutlinedInput id="manufacturerNames" type="text" value={row.original.manufacturerNames} fullWidth disabled />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="availableStartDateTimeUtc">{t(fieldsName + 'availableStartDateTimeUtc')}</InputLabel>
+              <OutlinedInput id="availableStartDateTimeUtc" type="text" value={row.original.availableStartDateTimeUtc} fullWidth disabled />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="availableEndDateTimeUtc">{t(fieldsName + 'availableEndDateTimeUtc')}</InputLabel>
+              <OutlinedInput id="availableEndDateTimeUtc" type="text" value={row.original.availableEndDateTimeUtc} fullWidth disabled />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <Stack spacing={1}>
+              <InputLabel htmlFor="attributeNames">{t(fieldsName + 'attributeNames')}</InputLabel>
+              <OutlinedInput id="attributeNames" type="text" value={row.original.attributeNames} fullWidth disabled />
             </Stack>
           </Grid>
           <Grid item xs={12} md={3}>
@@ -264,63 +277,6 @@ export default function ProductDataGrid() {
                 }
                 label={t(fieldsName + 'phoneNumberConfirmed')}
               />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="registerDate">{t(fieldsName + 'registerDate')}</InputLabel>
-              <OutlinedInput
-                id="registerDate"
-                type="text"
-                value={new Intl.DateTimeFormat(i18n.language, {
-                  dateStyle: 'long',
-                  timeStyle: [CONFIG.TIME_STYLE],
-                  hour12: false
-                }).format(moment(row.original.registerDate))}
-                fullWidth
-                disabled
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="lockoutEnabled">{t(fieldsName + 'lockoutEnabled')}</InputLabel>
-              <FormControlLabel
-                disabled
-                control={
-                  <Checkbox
-                    id="lockoutEnabled"
-                    checked={row.original.lockoutEnabled ? true : false}
-                    title={row.original.lockoutEnabled ? 'Yes' : 'No'}
-                    color="default"
-                    disabled
-                  />
-                }
-                label={t(fieldsName + 'lockoutEnabled')}
-              />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="lockoutEnd">{t(fieldsName + 'lockoutEnd')}</InputLabel>
-              <OutlinedInput id="lockoutEnd" type="text" value={row.original.lockoutEnd} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="accessFailedCount">{t(fieldsName + 'accessFailedCount')}</InputLabel>
-              <OutlinedInput id="accessFailedCount" type="text" value={row.original.accessFailedCount} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="defaultLanguage">{t(fieldsName + 'defaultLanguage')}</InputLabel>
-              <OutlinedInput id="defaultLanguage" type="text" value={row.original.defaultLanguage} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="roles">{t('pages.roles')}</InputLabel>
             </Stack>
           </Grid>
         </Grid>

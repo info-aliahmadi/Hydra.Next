@@ -65,11 +65,14 @@ export const viewport = {
   themeColor: '#aadbff'
 };
 export default async function HomeLayout({ children }) {
+  var service = new HomeService();
+  const siteSettings = await service.getSettings();
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <script async type="module" src="https://unpkg.com/@splinetool/viewer@1.0.28/build/spline-viewer.js"></script>
+        {siteSettings.headerHtml}
       </head>
       <body>
         <HomePageThemeCustomization>
@@ -85,6 +88,7 @@ export default async function HomeLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&family=Gloock:wght@400;500;600;700"
           rel="stylesheet"
         />
+        {siteSettings.footerHtml}
       </body>
     </html>
   );

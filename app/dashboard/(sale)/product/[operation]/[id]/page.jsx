@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 
 // material-ui
 import {
+  Alert,
+  AlertTitle,
   Box,
   Button,
+  FormHelperText,
   Grid,
   Stack,
   Tab,
@@ -42,7 +45,7 @@ function TabPanel(props) {
 
   return (
     <div role="tabpanel" hidden={value !== index} id={`vertical-tabpanel-${index}`} aria-labelledby={`vertical-tab-${index}`} {...other}>
-      {value === index && <Box sx={{ pt: 4,pb: 4 }}>{children}</Box>}
+      {value === index && <Box sx={{ pt: 4, pb: 4 }}>{children}</Box>}
     </div>
   );
 }
@@ -152,10 +155,6 @@ export default function AddOrEditProduct({ params }) {
                   price: product?.price,
                   oldPrice: product?.oldPrice,
                   currencyId: product?.currencyId,
-                  weight: product?.weight,
-                  length: product?.length,
-                  width: product?.width,
-                  height: product?.height,
                   availableStartDateTimeUtc: product?.availableStartDateTimeUtc,
                   availableEndDateTimeUtc: product?.availableEndDateTimeUtc,
                   hasDiscountsApplied: product?.hasDiscountsApplied,
@@ -176,22 +175,41 @@ export default function AddOrEditProduct({ params }) {
                   published: product?.published,
                   createdOnUtc: product?.createdOnUtc,
                   updatedOnUtc: product?.updatedOnUtc,
+                  createUser: product?.createUser,
+                  updateUser: product?.updateUser,
                   categoryIds: product?.categoryIds,
                   manufacturerIds: product?.manufacturerIds,
                   pictureIds: product?.pictureIds,
                   relatedProductIds: product?.relatedProductIds,
+                  attributeIds: product?.attributeIds,
+                  inventories: product?.inventories,
                   productTags: product?.productTags
                 }}
                 enableReinitialize={true}
                 validationSchema={Yup.object().shape({
                   name: Yup.string()
                     .max(250)
-                    .required(t(validation + 'requiredSubject')),
-                    fullDescription: Yup.string().required(t(validation + 'requiredBody')),
-                    availableStartDateTimeUtc: Yup.string().required(t(validation + 'requiredPublishDate')),
-                    categoryIds: Yup.array()
-                    .min(1, t(validation + 'requiredTopics'))
-                    .required(t(validation + 'requiredTopics'))
+                    .required(t(validation + 'requiredName')),
+                  fullDescription: Yup.string().required(t(validation + 'requiredFullDescription')),
+                  categoryIds: Yup.array()
+                    .min(1, t(validation + 'requiredCategoryIds'))
+                    .required(t(validation + 'requiredCategoryIds')),
+                  deliveryDateId: Yup.number()
+                    .required(t(validation + 'requiredDeliveryDateId')),
+                  taxCategoryId: Yup.number()
+                    .required(t(validation + 'requiredTaxCategoryId')),
+                  stockQuantity: Yup.number()
+                    .required(t(validation + 'requiredStockQuantity')),
+                  minStockQuantity: Yup.number()
+                    .required(t(validation + 'requiredMinStockQuantity')),
+                  orderMinimumQuantity: Yup.number()
+                    .required(t(validation + 'requiredOrderMinimumQuantity')),
+                  orderMaximumQuantity: Yup.number()
+                    .required(t(validation + 'requiredOrderMaximumQuantity')),
+                  price: Yup.number()
+                    .required(t(validation + 'requiredPrice')),
+                  currencyId: Yup.number()
+                    .required(t(validation + 'requiredCurrencyId'))
                 })}
                 onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
                   try {
@@ -222,6 +240,7 @@ export default function AddOrEditProduct({ params }) {
                     </Tabs>
                     <TabPanel component="div" value={tab} index={0}>
                       <ProductBaseInfo
+                        operation={operation}
                         values={values}
                         handleChange={handleChange}
                         setFieldValue={setFieldValue}
@@ -231,7 +250,7 @@ export default function AddOrEditProduct({ params }) {
                       />
                     </TabPanel>
                     <TabPanel component="div" value={tab} index={1}>
-                    <ProductSettings
+                      <ProductSettings
                         values={values}
                         handleChange={handleChange}
                         setFieldValue={setFieldValue}
@@ -242,7 +261,7 @@ export default function AddOrEditProduct({ params }) {
 
                     </TabPanel>
                     <TabPanel component="div" value={tab} index={2}>
-                    <ProductInventory
+                      <ProductInventory
                         values={values}
                         handleChange={handleChange}
                         setFieldValue={setFieldValue}
@@ -252,7 +271,7 @@ export default function AddOrEditProduct({ params }) {
                       />
                     </TabPanel>
                     <TabPanel component="div" value={tab} index={3}>
-                    <ProductSEO
+                      <ProductSEO
                         values={values}
                         handleChange={handleChange}
                         setFieldValue={setFieldValue}
@@ -261,6 +280,18 @@ export default function AddOrEditProduct({ params }) {
                         touched={touched}
                       />
                     </TabPanel>
+                    <Grid container pt={2} pb={3}>
+                      <Grid item xl={7}>
+                        {(values.published || values.published == false) && Object.values(errors).length > 0 && <Alert severity="error">
+                          <AlertTitle>Error</AlertTitle>
+                          {Object.values(errors)?.map((error, index) =>
+                            <FormHelperText key={index} error id="helper-text">
+                              {error}
+                            </FormHelperText>
+                          )}
+                        </Alert>}
+                      </Grid>
+                    </Grid>
                     <Grid container item spacing={3} direction="row" justifyContent="space-between" alignItems="center">
                       <Grid item>
                         <Stack direction="row" spacing={2}>
@@ -293,7 +324,7 @@ export default function AddOrEditProduct({ params }) {
                           <AnimateButton>
                             <Button
                               disabled={isSubmitting}
-                              size="large" 
+                              size="large"
                               type="submit"
                               variant="contained"
                               color="warning"

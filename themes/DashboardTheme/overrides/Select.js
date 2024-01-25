@@ -17,7 +17,7 @@ export default function Select(theme) {
           fontWeight: 400
         },
         outlined: {
-          padding : '10px 32px 8px 10px'
+          padding : '10px 32px 11px 10px'
         },
         select: {
           // padding : '40px'

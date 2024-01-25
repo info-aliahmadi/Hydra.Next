@@ -12,6 +12,7 @@ import ImageUpload from '@dashboard/_components/FileUpload/ImageUpload';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
 import SelectDeliveryDate from '../DeliveryDate/SelectDeliveryDate';
 import SelectTaxCategory from '../TaxCategory/SelectTaxCategory';
+import SelectProductAttribute from '../ProductAttribute/SelectProductAttribute';
 import SelectCategory from '../Category/SelectCategory';
 import SelectManufacturer from '../Manufacturer/SelectManufacturer';
 import SelectCurrency from '../Currency/SelectCurrency';
@@ -74,17 +75,12 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               defaultValue={values?.fullDescription || ''}
               setFieldValue={setFieldValue}
             />
-            {touched.fullDescription && errors.fullDescription && (
-              <FormHelperText error id="helper-text">
-                {errors.fullDescription}
-              </FormHelperText>
-            )}
             {operation == 'edit' && (
               <Grid>
-                {t(fieldsName + 'createUser') + ' : '}
+                {t(fieldsName + 'createdBy') + ' : '}
                 <Chip
-                  title={t(fieldsName + 'createUser')}
                   avatar={<Avatar src={CONFIG.AVATAR_BASEPATH + values.createUser?.avatar} />}
+                  title={values.createUser?.name}
                   label={values.createUser?.userName}
                   variant="filled"
                   size="small"
@@ -236,86 +232,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
-            <TextField
-              id="weight"
-              type="text"
-              value={values?.weight || ''}
-              name="weight"
-              label={t(fieldsName + 'weight')}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              fullWidth
-              error={Boolean(touched.weight && errors.weight)}
-            />
-            {touched.weight && errors.weight && (
-              <FormHelperText error id="helper-text">
-                {errors.weight}
-              </FormHelperText>
-            )}
-          </Stack>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
-            <TextField
-              id="length"
-              type="text"
-              value={values?.length || ''}
-              name="length"
-              label={t(fieldsName + 'length')}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              fullWidth
-              error={Boolean(touched.length && errors.length)}
-            />
-            {touched.length && errors.length && (
-              <FormHelperText error id="helper-text">
-                {errors.length}
-              </FormHelperText>
-            )}
-          </Stack>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
-            <TextField
-              id="width"
-              type="text"
-              value={values?.width || ''}
-              name="width"
-              label={t(fieldsName + 'width')}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              fullWidth
-              error={Boolean(touched.width && errors.width)}
-            />
-            {touched.width && errors.width && (
-              <FormHelperText error id="helper-text">
-                {errors.width}
-              </FormHelperText>
-            )}
-          </Stack>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
-          <Stack>
-            <TextField
-              id="height"
-              type="text"
-              value={values?.height || ''}
-              name="height"
-              label={t(fieldsName + 'height')}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              fullWidth
-              error={Boolean(touched.height && errors.height)}
-            />
-            {touched.height && errors.height && (
-              <FormHelperText error id="helper-text">
-                {errors.height}
-              </FormHelperText>
-            )}
-          </Stack>
-        </Grid>
+      
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <SelectCategory
@@ -333,6 +250,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
+     
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <SelectManufacturer
@@ -388,6 +306,23 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
           <Stack>
+            <SelectProductAttribute
+              defaultValues={values?.attributeIds || []}
+              id="attributeIds"
+              name="attributeIds"
+              label={t(fieldsName + 'attributeIds')}
+              setFieldValue={setFieldValue}
+              error={Boolean(touched.attributeIds && errors.attributeIds)}
+            />
+            {touched.attributeIds && errors.attributeIds && (
+              <FormHelperText error id="helper-text">
+                {errors.attributeIds}
+              </FormHelperText>
+            )}
+          </Stack>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+          <Stack>
             <ProductsAutoComplete
               id="relatedProductIds"
               name="relatedProductIds"
@@ -395,7 +330,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
               defaultValues={values?.relatedProductIds || []}
               label={t(fieldsName + 'relatedProductIds')}
               setFieldValue={setFieldValue}
-              error={Boolean(touched.relatedProductIds && errors.stocrelatedProductIdskQuantity)}
+              error={Boolean(touched.relatedProductIds && errors.relatedProductIds)}
             />
             {touched.relatedProductIds && errors.relatedProductIds && (
               <FormHelperText error id="helper-text">
