@@ -17,7 +17,21 @@
         {
           "name": "next"
         }
-      ]
+      ],
+      "paths": {
+        "@dashboard/*": [
+          "./app/dashboard/*"
+        ],
+        "@(home)/*": [
+          "./app/(home)/*"
+        ],
+        "@api/*": [
+          "./app/api/*"
+        ],
+        "/*": [
+          "./*"
+        ]
+      }
     },
     "exclude": ["node_modules"]
   } 

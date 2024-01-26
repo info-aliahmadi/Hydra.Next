@@ -7,7 +7,7 @@ export const DateViewer = (currentLanguage, date) => {
   return new Intl.DateTimeFormat(currentLanguage, { dateStyle: [CONFIG.DATE_STYLE], timeZone: timeZone }).format(moment(date + 'Z'));
 };
 export const DateTimeViewer = (currentLanguage, dateTime) => {
-  if (dateTime === null || dateTime === '' || dateTime === undefined) return false;
+  if (dateTime === null || dateTime === '' || dateTime === undefined) return '';
   let timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   return new Intl.DateTimeFormat(currentLanguage, {
     dateStyle: [CONFIG.DATE_STYLE],

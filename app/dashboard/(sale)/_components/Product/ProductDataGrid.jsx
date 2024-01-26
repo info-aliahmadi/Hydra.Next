@@ -3,13 +3,8 @@ import {
   Avatar,
   Box,
   Button,
-  Checkbox,
   Chip,
-  FormControlLabel,
-  Grid,
   IconButton,
-  InputLabel,
-  OutlinedInput,
   Tooltip
 } from '@mui/material';
 
@@ -18,17 +13,16 @@ import MainCard from '@dashboard/_components/MainCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ProductsService from '@dashboard/(sale)/_service/ProductService';
-import { ImageNotSupported, Delete, Edit, EventNote } from '@mui/icons-material';
+import { ImageNotSupported, Delete, Edit } from '@mui/icons-material';
 import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import CONFIG from '/config';
-import { Stack } from '@mui/system';
-import moment from 'moment';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import TableCard from '@dashboard/_components/TableCard';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import DeleteProduct from './DeleteProduct';
-import Currency from '@dashboard/_components/Currency/Currency';
+import CurrencyViewer from '/utils/CurrencyViewer';
+import ProductDetail from './ProductDetail';
 // ===============================|| COLOR BOX ||=============================== //
 
 export default function ProductDataGrid() {
@@ -100,7 +94,7 @@ export default function ProductDataGrid() {
         header: t(fieldsName + 'price'),
         type: 'decimal',
         enableResizing: true,
-        Cell: ({ renderedCellValue, row }) => <Currency value={renderedCellValue} currency={row.original.currencyCode} />
+        Cell: ({ renderedCellValue, row }) => CurrencyViewer(renderedCellValue, row.original.currencyCode)
       },
       {
         accessorKey: 'published',
@@ -174,115 +168,7 @@ export default function ProductDataGrid() {
     ),
     []
   );
-  const ProductDetail = ({ row }) => {
-    return (
-      <Grid container spacing={3} direction="row">
-        <Grid container item spacing={3} xd={12} sm={6} md={3} lg={3} direction="row" justifyContent="center" alignItems="center">
-          <Grid item xs={12} md={12}>
-            <Stack>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  margin: '10px'
-                }}
-              >
-                <Avatar
-                  variant="rounded"
-                  loading="lazy"
-                  alt="product Preview"
-                  src={row.original.previewImage ? CONFIG.UPLOAD_BASEPATH + row.original.previewImage.directory + row.original.previewImage?.fileName : <ImageNotSupported />}
-                  sx={{ width: 200, height: 200 }}
-                ></Avatar>
-                <span>{row.original.name}</span>
-              </Box>
-            </Stack>
-          </Grid>
-        </Grid>
-        <Grid container item spacing={3} xd={12} sm={6} md={6} lg={6}>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="deliveryDateName">{t(fieldsName + 'deliveryDateId')}</InputLabel>
-              <OutlinedInput id="deliveryDateName" type="text" value={row.original.deliveryDateId} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="taxCategoryName">{t(fieldsName + 'taxCategoryName')}</InputLabel>
-              <OutlinedInput id="taxCategoryName" type="text" value={row.original.taxCategoryName} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="price">{t(fieldsName + 'price')}</InputLabel>
-              <OutlinedInput id="price" type="text" value={row.original.price} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="currencyName">{t(fieldsName + 'currencyName')}</InputLabel>
-              <OutlinedInput id="currencyName" type="text" value={row.original.currencyName} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="oldPrice">{t(fieldsName + 'oldPrice')}</InputLabel>
-              <OutlinedInput id="oldPrice" type="text" value={row.original.oldPrice} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="categoryNames">{t(fieldsName + 'categoryNames')}</InputLabel>
-              <OutlinedInput id="categoryNames" type="text" value={row.original.categoryNames} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="manufacturerNames">{t(fieldsName + 'manufacturerNames')}</InputLabel>
-              <OutlinedInput id="manufacturerNames" type="text" value={row.original.manufacturerNames} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="availableStartDateTimeUtc">{t(fieldsName + 'availableStartDateTimeUtc')}</InputLabel>
-              <OutlinedInput id="availableStartDateTimeUtc" type="text" value={row.original.availableStartDateTimeUtc} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="availableEndDateTimeUtc">{t(fieldsName + 'availableEndDateTimeUtc')}</InputLabel>
-              <OutlinedInput id="availableEndDateTimeUtc" type="text" value={row.original.availableEndDateTimeUtc} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="attributeNames">{t(fieldsName + 'attributeNames')}</InputLabel>
-              <OutlinedInput id="attributeNames" type="text" value={row.original.attributeNames} fullWidth disabled />
-            </Stack>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Stack spacing={1}>
-              <InputLabel htmlFor="phoneNumberConfirmed">{t(fieldsName + 'phoneNumberConfirmed')}</InputLabel>{' '}
-              <FormControlLabel
-                disabled
-                control={
-                  <Checkbox
-                    id="phoneNumberConfirmed"
-                    checked={row.original.phoneNumberConfirmed ? true : false}
-                    title={row.original.phoneNumberConfirmed ? 'Yes' : 'No'}
-                    color="default"
-                    disabled
-                  />
-                }
-                label={t(fieldsName + 'phoneNumberConfirmed')}
-              />
-            </Stack>
-          </Grid>
-        </Grid>
-      </Grid>
-    );
-  };
+
   return (
     <>
       <MainCard title={<AddRow />}>

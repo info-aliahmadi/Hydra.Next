@@ -8,7 +8,6 @@ export default function SelectProductAttribute({ defaultValues, id, name, label,
   const jwt = session?.user?.accessToken;
 
   const productAttributeService = new ProductAttributeService(jwt);
-
   
   return (
     <MultiSelect
