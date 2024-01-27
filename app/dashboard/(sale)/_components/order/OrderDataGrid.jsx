@@ -16,6 +16,7 @@ import OrderStatus from './OrderStatus';
 import OrderDetail from './OrderDetail';
 import OrderUserAvatar from './OrderUserAvatar';
 import PaymentStatus from '../../_components/Order/PaymentStatus';
+import PaymentDetail from '../../_components/Order/PaymentDetail';
 
 // ===============================|| COLOR BOX ||=============================== //
 
@@ -25,6 +26,8 @@ function OrderDataGrid() {
   const jwt = session?.user?.accessToken;
   const service = new OrderService(jwt);
   const [refetch, setRefetch] = useState();
+  const [rowId, setRowId] = useState(0);
+  const [open, setOpen] = useState(false);
   const [fieldsName, buttonName] = ['fields.order.', 'buttons.order.'];
 
   const columns = useMemo(
@@ -89,6 +92,21 @@ function OrderDataGrid() {
         header: t(fieldsName + 'paymentDateUtcToString'),
         enableClickToCopy: true,
         type: 'string'
+      },
+      {
+        accessorKey: 'paymentTrackingCode',
+        header: t(fieldsName + 'paymentTrackingCode'),
+        enableClickToCopy: true,
+        type: 'string',
+        Cell: ({ renderedCellValue, row }) => (
+          <Box
+            onClick={() => {
+              handlePaymentDetail(row);
+            }}
+          >
+            {renderedCellValue}
+          </Box>
+        )
       }
     ],
     []
@@ -96,6 +114,12 @@ function OrderDataGrid() {
 
   const handleRefetch = () => {
     setRefetch(Date.now());
+  };
+
+  const handlePaymentDetail = (row) => {
+    let orderId = row.original.id;
+    setRowId(orderId);
+    setOpen(true);
   };
 
   const RowActionMenuItems = useCallback(
@@ -136,6 +160,7 @@ function OrderDataGrid() {
           />
         </TableCard>
       </MainCard>
+      <PaymentDetail orderId={rowId} open={open} setOpen={setOpen} refetch={handleRefetch} />
     </>
   );
 }
