@@ -28,22 +28,22 @@ export default function EmailInboxTrashDataGrid() {
   const columns = useMemo(
     () => [
       {
-        accessorKey: 'emailInboxFromAddress',
-        header: t(fieldsName + 'emailInboxFromAddress'),
+        accessorKey: 'fromAddress',
+        header: t(fieldsName + 'fromAddress'),
         enableClickToCopy: false,
         type: 'string',
         enableResizing: true,
 
-        maxSize: 100,
+        maxSize: 60,
         Cell: ({ renderedCellValue, row }) => {
-          renderedCellValue.map((email, index) => {
+          renderedCellValue?.map((email, index) => {
             <Link
               key={index}
 
               href={'/dashboard/email/send/' + email.email}
               underline="none"
               title={renderedCellValue.email}
-              variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
+              variant={row.original.isRead ? 'subtitle2' : 'subtitle1'}
               display="block"
             >
               {renderedCellValue.name}
@@ -59,9 +59,9 @@ export default function EmailInboxTrashDataGrid() {
         enableResizing: true,
         Cell: ({ renderedCellValue, row }) => (
           <Link
-            href={'/dashboard/emailInbox/inbox/' + row.original.id}
+            href={'/dashboard/email/inbox/' + row.original.id}
             underline="none"
-            variant={row.original.toUser.isRead ? 'subtitle2' : 'subtitle1'}
+            variant={row.original.isRead ? 'subtitle2' : 'subtitle1'}
             display="block"
           >
             {renderedCellValue}
@@ -72,8 +72,7 @@ export default function EmailInboxTrashDataGrid() {
       {
         accessorKey: 'registerDate',
         header: t(fieldsName + 'registerDate'),
-        type: 'dateTime',
-        maxSize: 60
+        type: 'dateTime'
       }
     ],
     []
