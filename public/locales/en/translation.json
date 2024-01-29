@@ -313,7 +313,10 @@
       "transactionTrackingCode": "Tracking Code",
       "paymentTrackingCode": "Payment Code",
       "trackingNumber": "Shipping Number",
-      "paymentDateUtcToString":"Payment Date"
+      "paymentDateUtcToString": "Payment Date",
+      "cardName": "Card Name",
+      "cardNumber": "Card Number",
+      "paymentTypeTitle": "Payment Type"
     },
     "orderItem": {
       "id": "Id",
@@ -386,7 +389,7 @@
       "relatedProductIds": "Related Products",
       "attributeIds": "Attributes",
       "productTags": "Product Tags",
-      "createdBy": "created By", 
+      "createdBy": "created By",
       "editedBy": "Edited By"
     }
   },
@@ -675,6 +678,9 @@
     },
     "country": {
       "add": "Add New Country"
+    },
+    "payment": {
+      "title": "Payment Details"
     }
   }
 }

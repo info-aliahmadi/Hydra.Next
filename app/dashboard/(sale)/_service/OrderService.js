@@ -55,6 +55,20 @@ export default class OrderService {
         });
     });
   };
+
+  getOrderPaymentById = async (orderId) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(CONFIG.API_BASEPATH + '/sale/getOrderPaymentById', { params: { orderId: orderId } })
+        .then((response) => {
+          resolve(response.data.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
   addOrder = async (order) => {
     return new Promise((resolve, reject) => {
       axios
