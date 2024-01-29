@@ -75,8 +75,9 @@ const lngs = [
 const DashboardDefault = () => {
   const [t, i18n] = useTranslation();
   const [state, setState] = useState();
-  const changeLanguage = (lng) => {
+  
     let locService = new LocalizationService();
+  const changeLanguage = (lng) => {
     locService.setCurrentLanguage(i18n, lng);
   };
   const clicked = (lng) => {

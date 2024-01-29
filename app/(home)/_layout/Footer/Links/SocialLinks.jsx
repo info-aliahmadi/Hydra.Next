@@ -11,24 +11,24 @@ export default async function SocialLinks() {
     <Box>
       <ul className="footer-links social-link">
         <li className="facebook">
-          <a href="#">
+          <a href="https://www.facebook.com/onwavedesign">
             <Facebook fontSize="medium" />
             <span>Facebook</span>
           </a>
         </li>
         <li className="instagram">
-          <a href="#">
+          <a href="https://www.instagram.com/onwavedesign">
             <InstagramIcon fontSize="medium" />
             <span>Instagram</span>
           </a>
         </li>
         <li className="linkedin">
-          <a href="#">
+          <a href="https://www.linkedin.com/in/info-aliahmadi/">
             <LinkedInIcon fontSize="medium" />
             <span>LinkedIn</span>
           </a>
         </li>
-        <li className="twitter">
+        {/* <li className="twitter">
           <a href="#">
             <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -39,7 +39,7 @@ export default async function SocialLinks() {
 
             <span>X</span>
           </a>
-        </li>
+        </li> */}
       </ul>
     </Box>
   );

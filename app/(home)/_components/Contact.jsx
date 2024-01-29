@@ -24,6 +24,7 @@ import * as Yup from 'yup';
 import HomeService from '@(home)/_service/HomeService';
 import Notify from './Notify';
 import setServerErrors from '/utils/setServerErrors';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 export default function Contact() {
   let messageService = new HomeService();
@@ -78,7 +79,10 @@ export default function Contact() {
                 <Email sx={{ marginRight: '5px' }} /> info@onwavedesign.com
               </Typography>
               <Typography variant="body2" pt={2} sx={{ display: 'flex', alignItems: 'center' }}>
-                <Place sx={{ marginRight: '5px' }} /> We are international developers. We are from Canada, Iran, India and Holland
+                <Place sx={{ marginRight: '5px' }} /> We are international developers
+              </Typography>
+              <Typography variant="body2" pt={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                <WhatsAppIcon sx={{ marginRight: '5px' }} /> +971 58 241 7650
               </Typography>
             </Grid>
           </Grid>

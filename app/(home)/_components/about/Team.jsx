@@ -7,8 +7,10 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import 'react';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
-function Person({ name, jobTitle, description, picture, linkedInAddress, xAddress }) {
+function Person({ name, jobTitle, description, picture, linkedInAddress, gitHubAddress }) {
   return (
     <Stack alignItems="center">
       <Avatar sx={{ width: 170, height: 170 }} src={picture} />
@@ -25,10 +27,8 @@ function Person({ name, jobTitle, description, picture, linkedInAddress, xAddres
         <Link href={linkedInAddress} target="_blank" p={1}>
           <LinkedInIcon fontSize="large" />
         </Link>
-        <Link href={xAddress} target="_blank" style={{ color: '#000' }}>
-          <svg width="28" height="26" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14.8427 0.742676H17.6028L11.5727 7.52008L18.6666 16.7427H13.1122L8.76173 11.1493L3.78386 16.7427H1.02207L7.4718 9.49348L0.666626 0.742676H6.36208L10.2945 5.8553L14.8427 0.742676ZM13.8739 15.1181H15.4034L5.53104 2.28196H3.88983L13.8739 15.1181Z" />
-          </svg>
+        <Link href={gitHubAddress} target="_blank" style={{ color: '#000' }}>
+          <GitHubIcon fontSize="large" />
         </Link>
       </Stack>
     </Stack>
@@ -69,14 +69,26 @@ export default function Team() {
           </Grid>
           <Grid container item xs={12} sm={12} md={12} lg={12} xl={12} rowSpacing={{ xs: 7, sm: 7, md: 5, lg: 7, xl: 7 }}>
             <Grid item xs={12} sm={12} md={4} lg={4} xl={4} textAlign={'center'}>
-              <Person
-                name="Yasin Farahi"
-                jobTitle="UI/UX Designer"
-                description="with 10 years experience"
-                picture="/images/mr.jpg"
-                linkedInAddress="https://www.linkedin.com/in/info-aliahmadi/"
-                xAddress="https://www.linkedin.com/in/info-aliahmadi/"
-              />
+              <Stack alignItems="center">
+                <Avatar sx={{ width: 170, height: 170 }} src="/images/mr.jpg" />
+                <Typography variant="h5" pt={2}>
+                  Eshragh
+                </Typography>
+                <Typography variant="body1" pt={2} fontWeight={800}>
+                  3D Digital Artist
+                </Typography>
+                <Typography variant="body1" pt={1}>
+                  with 10 years experience
+                </Typography>
+                <Stack className="team social-link" pt={2} flexDirection={'row'} alignItems="center" justifyContent="center">
+                  <Link href="https://www.linkedin.com/in/eshraqism/" target="_blank" p={1}>
+                    <LinkedInIcon fontSize="large" />
+                  </Link>
+                  <Link href="https://www.instagram.com/eshraqism/" target="_blank" style={{ color: '#000' }}>
+                    <InstagramIcon fontSize="large" />
+                  </Link>
+                </Stack>
+              </Stack>
             </Grid>
             <Grid item xs={12} sm={12} md={4} lg={4} xl={4} textAlign={'center'}>
               <Person
@@ -85,7 +97,7 @@ export default function Team() {
                 description="with more than 15 years experience"
                 picture="/images/al.jpg"
                 linkedInAddress="https://www.linkedin.com/in/info-aliahmadi/"
-                xAddress="https://www.linkedin.com/in/info-aliahmadi/"
+                gitHubAddress="https://github.com/info-aliahmadi"
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4} lg={4} xl={4} textAlign={'center'}>
@@ -95,7 +107,7 @@ export default function Team() {
                 description="with 10 years experience"
                 picture="/images/rez.jpg"
                 linkedInAddress="https://www.linkedin.com/in/alireza-jadidzadeh/"
-                xAddress="https://www.linkedin.com/in/info-aliahmadi/"
+                gitHubAddress="https://github.com/alireza-jadidzadeh"
               />
             </Grid>
           </Grid>

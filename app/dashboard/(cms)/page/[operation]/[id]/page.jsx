@@ -34,13 +34,17 @@ import PagesService from '@dashboard/(cms)/_service/PagesService';
 import { useRouter } from 'next/navigation';
 import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import Editor from '@dashboard/_components/Editor/Editor';
+import { useSession } from 'next-auth/react';
 
 export default function AddOrEditPage({params}) {
   const [t, i18n] = useTranslation();
   const operation = params.operation;
   const id = params.id;
 
-  let pageService = new PagesService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let pageService = new PagesService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.page.', 'validation.page.', 'buttons.page.'];
   const [page, setPage] = useState();
   const [notify, setNotify] = useState({ open: false });

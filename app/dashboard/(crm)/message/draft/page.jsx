@@ -18,8 +18,6 @@ export default function MessagesOutbox() {
   const [t] = useTranslation();
   let router = useRouter();
 
-  const buttonName = 'buttons.message.messageInbox.';
-
   const MessageHeader = () => {
     return (
       <Grid container item direction="row" justifyContent="space-between" alignItems="center">

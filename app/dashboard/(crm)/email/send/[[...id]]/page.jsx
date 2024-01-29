@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button, Checkbox, FormControlLabel, FormHelperText, Grid, InputLabel, OutlinedInput, Stack, Typography } from '@mui/material';
+import { Button, FormHelperText, Grid, InputLabel, OutlinedInput, Stack, Typography } from '@mui/material';
 import { ArrowBack, Save, Send } from '@mui/icons-material';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -13,76 +13,60 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import MainCard from '@dashboard/_components/MainCard';
 import setServerErrors from '/utils/setServerErrors';
 import { useRouter } from 'next/navigation';
-import MessagesService from '@dashboard/(crm)/_service/MessageService';
-import SelectUser from '@dashboard/(auth)/_components/User/SelectUser';
+import EmailOutboxService from '@dashboard/(crm)/_service/EmailOutboxService';
+import SelectAddress from '@dashboard/(crm)/_components/SelectAddress';
 import Editor from '@dashboard/_components/Editor/Editor';
 import FileUpload from '@dashboard/_components/FileUpload/FileUpload';
 import { useSession } from 'next-auth/react';
 
-export default function SendMessage({ params }) {
+export default function SendEmailInbox({ params }) {
   const [t] = useTranslation();
-  const [id, toUserId] = params.id;
 
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
 
-  let messageService = new MessagesService(jwt);
-  const [fieldsName, validation, buttonName] = ['fields.message.messageInbox.', 'validation.message.', 'buttons.message.messageInbox.'];
-  const [message, setMessage] = useState();
-  const [isPublicMessage, setIsPublicMessage] = useState(false);
+  const [id, emails] = params.id;
+
+  let toAdresses =emails ? decodeURIComponent(emails).split(',') : [];
+
+  let service = new EmailOutboxService(jwt);
+  const [fieldsName, validation, buttonName] = ['fields.email.emailInbox.', 'validation.email.', 'buttons.email.emailInbox.'];
+  const [emailInbox, setEmailInbox] = useState();
   const [notify, setNotify] = useState({ open: false });
   const router = useRouter();
 
-  const loadMessage = () => {
-    messageService.getMessageByIdForSender(id).then((result) => {
-      setMessage(result);
+  const loadEmailInbox = () => {
+    service.getEmailOutboxByIdForSender(id).then((result) => {
+      setEmailInbox(result);
     });
   };
   useEffect(() => {
-    if (id > 0) loadMessage();
-  }, [id, toUserId]);
+    if (id > 0) loadEmailInbox();
+  }, [id]);
 
-  const handleSubmit = async (message, resetForm, setErrors, setSubmitting) => {
-    if (!message.isDraft) {
-      if (isPublicMessage) {
-        message.userIds = [];
-        messageService
-          .sendPublicMessage(message)
-          .then(() => {
-            if (!(id > 0)) {
-              resetForm();
-              setSubmitting(true);
-            }
-            setNotify({ open: true });
-          })
-          .catch((error) => {
-            setServerErrors(error, setErrors);
-            setNotify({ open: true, type: 'error', description: error });
-          })
-          .finally((x) => {});
-      } else {
-        messageService
-          .sendPrivateMessage(message)
-          .then(() => {
-            if (!(id > 0)) {
-              resetForm();
-              setSubmitting(true);
-            }
-            setNotify({ open: true });
-          })
-          .catch((error) => {
-            setServerErrors(error, setErrors);
-            setNotify({ open: true, type: 'error', description: error });
-          })
-          .finally((x) => {
-            // setSubmitting(false);
-          });
-      }
+  const handleSubmit = async (emailInbox, resetForm, setErrors, setSubmitting) => {
+    if (!emailInbox.isDraft) {
+      service
+        .sendEmailOutbox(emailInbox)
+        .then(() => {
+          if (!(id > 0)) {
+            resetForm();
+          }
+          setEmailInbox({})
+          setNotify({ open: true });
+        })
+        .catch((error) => {
+          setServerErrors(error, setErrors);
+          setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((x) => {
+          setSubmitting(false);
+        });
+
     } else {
-      messageService
-        .saveDraftMessage(message)
+      service
+        .saveDraftEmailOutbox(emailInbox)
         .then((result) => {
-          resetForm();
           setNotify({ open: true });
         })
         .catch((error) => {
@@ -101,24 +85,20 @@ export default function SendMessage({ params }) {
 
       <Formik
         initialValues={{
-          id: message?.id,
-          subject: message?.subject,
-          content: message?.content,
-          registerDate: message?.registerDate,
-          isDraft: message?.isDraft,
-          toUserIds: message?.toUserIds,
-          attachments: message?.attachments
+          id: emailInbox?.id,
+          subject: emailInbox?.subject,
+          content: emailInbox?.content,
+          registerDate: emailInbox?.registerDate,
+          isDraft: emailInbox?.isDraft,
+          toAddress: emailInbox?.toAddress,
+          attachments: emailInbox?.attachments
         }}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
           subject: Yup.string()
             .max(250)
             .required(t(validation + 'requiredSubject')),
-          toUserIds: !isPublicMessage
-            ? Yup.array()
-                .min(1, t(validation + 'requiredUserIds'))
-                .required(t(validation + 'requiredUserIds'))
-            : Yup.array().optional()
+          toAddress: Yup.array().min(1, t(validation + 'requiredtoAddress')).required(t(validation + 'requiredtoAddress'))
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
@@ -127,7 +107,7 @@ export default function SendMessage({ params }) {
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
-            setErrors({ submit: err.message });
+            setErrors({ submit: err.emailInbox });
             setSubmitting(false);
           }
         }}
@@ -137,46 +117,30 @@ export default function SendMessage({ params }) {
             <Grid container justifyContent="center" direction="row" alignItems="flex-start">
               <Grid container item spacing={3} xs={12} sm={12} md={12} lg={12} xl={12} direction="column">
                 <Grid item>
-                  <Typography variant="h5">{t('pages.cards.sendMessage')}</Typography>
+                  <Typography variant="h5">{t('pages.cards.sendEmail')}</Typography>
                 </Grid>
                 <Grid item>
                   <MainCard>
                     <Grid container item spacing={3} direction="row" justifyContent="flex-start" alignItems="flex-start">
                       <Grid container item spacing={3} xs={12} sm={12} md={12} lg={12} xl={8} display={''}>
-                        <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
+                        <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                           <Stack spacing={1}>
-                            <InputLabel htmlFor="toUserIds">{t(fieldsName + 'toUserIds')}</InputLabel>
-                            <SelectUser
-                              id="toUserIds"
-                              name="toUserIds"
+                            <InputLabel htmlFor="toUserIds">{t(fieldsName + 'toAddress')}</InputLabel>
+                            <SelectAddress
+                              id="toAddress"
+                              freeSolo
+                              name="toAddress"
+                              label={t(fieldsName + 'toAddress')}
                               multiple={true}
-                              disabled={isPublicMessage}
                               setFieldValue={setFieldValue}
-                              defaultValues={id > 0 ? values?.toUserIds || [] : toUserId > 0 ? [toUserId] : []}
-                              error={Boolean(touched.toUserIds && errors.toUserIds)}
+                              defaultValues={id > 0 ? values?.toAddress || '' : toAdresses}
+                              error={Boolean(touched.toAddress && errors.toAddress)}
                             />
-                            {touched.toUserIds && errors.toUserIds && (
+                            {touched.toAddress && errors.toAddress && (
                               <FormHelperText error id="helper-text-subject">
-                                {errors.toUserIds}
+                                {errors.toAddress}
                               </FormHelperText>
                             )}
-                          </Stack>
-                        </Grid>
-                        <Grid item xs={12} sm={12} md={2} lg={2} xl={2} p={0} mt={3}>
-                          <Stack spacing={1}>
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  id="publicMessageType"
-                                  checked={isPublicMessage}
-                                  title={'Send To All Users'}
-                                  color="default"
-                                  size="large"
-                                  onChange={() => setIsPublicMessage(!isPublicMessage)}
-                                />
-                              }
-                              label={t(fieldsName + 'publicMessageType')}
-                            />
                           </Stack>
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -202,7 +166,6 @@ export default function SendMessage({ params }) {
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                           <Stack spacing={1}>
-                            <InputLabel htmlFor="content">{t(fieldsName + 'content')}</InputLabel>
                             <Editor
                               id="content"
                               name="content"
@@ -239,6 +202,7 @@ export default function SendMessage({ params }) {
                               setFieldValue={setFieldValue}
                               value={values?.attachments || ''}
                               allowMultiple={true}
+                              filePosterMaxHeight={200}
                             />
                           </Stack>
                         </Grid>

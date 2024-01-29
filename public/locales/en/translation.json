@@ -65,6 +65,8 @@
     "messagesOutbox": "Message Outbox",
     "messagesDraft": "Message Draft",
     "messagesTrash": "Message Trash",
+    "emailInboxs": "Email Inbox",
+    "emailInboxsTrash": "Emails Trash",
     "subscribes": "Subscribes",
     "countries": "Countries",
     "product": "Products",
@@ -103,6 +105,7 @@
       "messagesOutbox": "Messages Outbox",
       "messagesDraft": "Drafts",
       "sendMessage": "Send Message",
+      "sendEmail": "Send Email",
       "messagesTrash": "Messages Trash",
       "messagesDeleted": "Deleted Messages",
       "siteSettings": "Site Settings",
@@ -265,6 +268,17 @@
       "messageSettings": {
         "recipientIdsForContactMessage": "Recipient Users For Contact Message",
         "recipientIdsForRequestMessage": "Recipient Users For Request Message"
+      }
+    },
+    "email": {
+      "emailInbox": {
+        "subject": "Subject",
+        "content": "Content",
+        "registerDate": "Register Date",
+        "date": "Date Sent",
+        "fromAddress": "From",
+        "toAddress": "To",
+        "attachments": "Attachments"
       }
     },
     "fileStorage": {
@@ -497,6 +511,21 @@
         "remove": "Remove Message"
       }
     },
+    "email": {
+      "emailInbox": {
+        "inbox": "Email Inbox",
+        "send": "Send Email",
+        "reply": "Reply",
+        "draft": "Save As Draft",
+        "delete": "Delete Email",
+        "pin": "Pin Email",
+        "trash": "Emails Trash"
+      },
+      "emailOutbox": {
+        "outbox": "Emails Sent",
+        "remove": "Remove Email"
+      }
+    },
     "fileStorage": {
       "upload": "Upload",
       "uploadFiles": "Upload Files",
@@ -577,6 +606,10 @@
     "message": {
       "requiredSubject": "Subject Is Required",
       "requiredUserIds": "Recipient of Message Is Required"
+    },
+    "email": {
+      "requiredSubject": "Subject Is Required",
+      "requiredtoAddress": "Recipient of Email Is Required"
     },
     "product": {
       "requiredName": "Product name is require",

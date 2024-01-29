@@ -48,12 +48,17 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import SelectRole from '@dashboard/(auth)/_components/Role/SelectRole';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function AddOrEditUser({params}) {
   const [t] = useTranslation();
   const operation = params.operation;
   const id = params.id;
-  let userService = new UsersService();
+  
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let userService = new UsersService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.user.', 'validation.user.', 'buttons.user.'];
   const [user, setUser] = useState();
   const [notify, setNotify] = useState({ open: false });

@@ -7,6 +7,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import ContactForm from '../../_components/conract/ContactForm';
+import WhatsApp from '@mui/icons-material/WhatsApp';
+import Place from '@mui/icons-material/Place';
 // import WaveContactImage from 'assets/images/wave-contact-page.svg';
 
 export async function generateMetadata({ params }) {
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }) {
     }
   };
 }
-export default async function Page({params}) {
+export default async function Page({ params }) {
   return (
     <>
       <Box className="bg-blue">
@@ -57,6 +59,12 @@ export default async function Page({params}) {
                   </Typography>
                   <Typography variant="body2" pt={2} sx={{ display: 'flex', alignItems: 'center' }}>
                     <EmailIcon sx={{ marginRight: '5px' }} /> info@onwavedesign.com
+                  </Typography>
+                  <Typography variant="body2" pt={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Place sx={{ marginRight: '5px' }} /> We are international developers
+                  </Typography>
+                  <Typography variant="body2" pt={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                    <WhatsApp sx={{ marginRight: '5px' }} /> +971 58 241 7650
                   </Typography>
                 </Box>
               </Grid>

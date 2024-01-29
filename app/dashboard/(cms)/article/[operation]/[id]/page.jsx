@@ -25,12 +25,16 @@ import SelectTopic from '@dashboard/(cms)/_components/Topic/SelectTopic';
 import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
 import Editor from '@dashboard/_components/Editor/Editor';
+import { useSession } from 'next-auth/react';
 export default function AddOrEditArticle({params}) {
   const [t, i18n] = useTranslation();
   const operation = params.operation;
   const id = params.id;
 
-  let articleService = new ArticlesService();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+
+  let articleService = new ArticlesService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.article.', 'validation.article.', 'buttons.article.'];
   const [article, setArticle] = useState();
   const [notify, setNotify] = useState({ open: false });
