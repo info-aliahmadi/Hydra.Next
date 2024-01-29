@@ -7,10 +7,8 @@ import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
 import { AttachFile, RestoreFromTrash } from '@mui/icons-material';
 import Notify from '@dashboard/_components/@extended/Notify';
-import EmailInboxTypeChip from './EmailInboxTypeChip';
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
-import { EmailInboxTypes } from './EmailInboxType';
 import EmailInboxService from '@dashboard/(crm)/_service/EmailInboxService';
 import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
