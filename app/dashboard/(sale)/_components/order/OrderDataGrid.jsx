@@ -15,8 +15,8 @@ import OrderService from '../../_service/OrderService';
 import OrderStatus from './OrderStatus';
 import OrderDetail from './OrderDetail';
 import OrderUserAvatar from './OrderUserAvatar';
-import PaymentStatus from '../../_components/Order/PaymentStatus';
-import PaymentDetail from '../../_components/Order/PaymentDetail';
+import PaymentStatus from './PaymentStatus';
+import PaymentDetail from './PaymentDetail';
 
 // ===============================|| COLOR BOX ||=============================== //
 

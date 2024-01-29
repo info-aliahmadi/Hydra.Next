@@ -23,11 +23,11 @@ import MainCard from '@dashboard/_components/MainCard';
 import setServerErrors from '/utils/setServerErrors';
 import Notify from '@dashboard/_components/@extended/Notify';
 import OrderService from '../../_service/OrderService';
-import SelectPaymentStatus from '../../_components/Order/SelectPaymentStatus';
-import SelectShippingStatus from '../../_components/Order/SelectPaymentStatus';
-import SelectOrderStatus from '../../_components/Order/SelectOrderStatus';
-import SelectShippingMethod from '../../_components/Order/SelectShippingMethod';
-import OrderItemData from '../../_components/OrderItem/OrderItemData';
+import SelectPaymentStatus from './SelectPaymentStatus';
+import SelectShippingStatus from './SelectPaymentStatus';
+import SelectOrderStatus from './SelectOrderStatus';
+import SelectShippingMethod from './SelectShippingMethod';
+import OrderItemData from '../OrderItem/OrderItemData';
 
 export default function OrderDetail({ row, refetch }) {
   const [t] = useTranslation();

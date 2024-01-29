@@ -1,4 +1,4 @@
-import HydraSelect from '../../../../dashboard/_components/Select/HydraSelect';
+import HydraSelect from '../../../_components/Select/HydraSelect';
 
 export default function SelectShippingMethod({ defaultValue, id, name, setFieldValue, error, disabled, loadDataForSelect }) {
   return (

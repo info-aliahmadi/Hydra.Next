@@ -15,7 +15,7 @@ import Grid from '@mui/material/Grid';
 import { Stack } from '@mui/system';
 
 import MainCard from '@dashboard/_components/MainCard';
-import PaymentStatus from '../../_components/Order/PaymentStatus';
+import PaymentStatus from './PaymentStatus';
 
 export default function PaymentDetail({ orderId, open, setOpen, refetch }) {
   const [t] = useTranslation();
