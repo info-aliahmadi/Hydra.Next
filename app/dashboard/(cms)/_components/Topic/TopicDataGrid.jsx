@@ -5,11 +5,12 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Edit, Topic, Add, Delete } from '@mui/icons-material';
+import { Edit, Topic, Add, Delete, Link } from '@mui/icons-material';
 import AddOrEditTopic from './AddOrEditTopic';
 import DeleteTopic from './DeleteTopic';
 import TopicsService from '@dashboard/(cms)/_service/TopicService';
 import { useSession } from 'next-auth/react';
+import CONFIG from '/config';
 
 function TopicDataGrid() {
   const [t] = useTranslation();
@@ -83,6 +84,13 @@ function TopicDataGrid() {
             <Add />
           </IconButton>
         </Tooltip>
+        <Tooltip arrow placement="top-start" title={t('buttons.visitorlink')}>
+          <IconButton
+            target='_blank'
+            href={CONFIG.DOMAIN + "/blogcategory/" + row.original.title}>
+            <Link />
+          </IconButton>
+        </Tooltip>
       </Box>
     ),
     []
@@ -107,7 +115,7 @@ function TopicDataGrid() {
             enableColumnFilterModes={false}
             enableRowActions
             renderRowActions={DeleteOrEdit}
-            // renderTopToolbarCustomActions={AddRow}
+          // renderTopToolbarCustomActions={AddRow}
           />
         </TableCard>
       </MainCard>

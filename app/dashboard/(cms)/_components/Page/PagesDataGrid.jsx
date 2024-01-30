@@ -7,7 +7,7 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Delete, Edit, Description, EventNote } from '@mui/icons-material';
+import { Delete, Edit, Description, EventNote, Link } from '@mui/icons-material';
 import CONFIG from '/config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
@@ -147,6 +147,14 @@ function PagesDataGrid() {
             }}
           >
             <Edit />
+          </IconButton>
+        </Tooltip>
+        <Tooltip arrow placement="top-start" title={t('buttons.visitorlink')}>
+          <IconButton
+            target='_blank'
+            href={CONFIG.DOMAIN + "/page/" + row.original.id + "/" + row.original.pageTitle}
+          >
+            <Link />
           </IconButton>
         </Tooltip>
       </Box>

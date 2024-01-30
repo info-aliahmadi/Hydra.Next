@@ -5,7 +5,7 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Edit, Tag, Add, Delete } from '@mui/icons-material';
+import { Edit, Tag, Add, Delete, Link } from '@mui/icons-material';
 import TagsService from '@dashboard/(cms)/_service/TagsService';
 import AddOrEditTag from './AddOrEditTag';
 import DeleteTag from './DeleteTag';
@@ -79,6 +79,13 @@ function TagDataGrid() {
         <Tooltip arrow placement="top-start" title={t('buttons.tag.edit')}>
           <IconButton onClick={() => handleEditRow(row)}>
             <Edit />
+          </IconButton>
+        </Tooltip>
+        <Tooltip arrow placement="top-start" title={t('buttons.visitorlink')}>
+          <IconButton
+            target='_blank'
+            href={CONFIG.DOMAIN + "/blogtag/" + row.original.title}>
+            <Link />
           </IconButton>
         </Tooltip>
       </Box>

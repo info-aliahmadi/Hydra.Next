@@ -87,6 +87,20 @@ export default class HomeService {
         });
     });
   };
+  getPage = async (pageId) => {
+    return new Promise((resolve, reject) => {
+      fetch(CONFIG.API_BASEPATH + '/cms/GetPage?' + new URLSearchParams({
+        pageId: pageId
+      }), { next: { revalidate: REVALIDATE_TIME } })
+        .then((response) => response.json())
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
   getCategories = async () => {
     return new Promise((resolve, reject) => {
       fetch(CONFIG.API_BASEPATH + '/cms/GetTopicsList', { next: { revalidate: REVALIDATE_TIME } })

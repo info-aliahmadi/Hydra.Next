@@ -149,7 +149,7 @@ export default function AddOrEditPage({params}) {
                               placeholder={t(fieldsName + 'pageTitle')}
                               fullWidth
                               error={Boolean(touched.pageTitle && errors.pageTitle)}
-                              startAdornment={<InputAdornment position="start">{CONFIG.FRONT_PATH + '/Page/'}</InputAdornment>}
+                              startAdornment={<InputAdornment position="start">{CONFIG.DOMAIN + '/page/'}</InputAdornment>}
                             />
                             {touched.pageTitle && errors.pageTitle && (
                               <FormHelperText error id="helper-text-subject">
@@ -181,7 +181,6 @@ export default function AddOrEditPage({params}) {
                         </Grid>
                         <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                           <Stack spacing={1}>
-                            <InputLabel htmlFor="body">{t(fieldsName + 'body')}</InputLabel>
                             <Editor
                               id={'body'}
                               name={'body'}

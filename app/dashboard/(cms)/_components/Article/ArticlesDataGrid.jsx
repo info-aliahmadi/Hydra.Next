@@ -4,13 +4,14 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Delete, Edit, RestoreFromTrash, PostAddOutlined, PushPin } from '@mui/icons-material';
+import { Delete, Edit, RestoreFromTrash, PostAddOutlined, PushPin, Link } from '@mui/icons-material';
 import DeleteArticle from './DeleteArticle';
 import Notify from '@dashboard/_components/@extended/Notify';
 import ArticlesService from '@dashboard/(cms)/_service/ArticlesService';
 import { useRouter } from 'next/navigation';
 import ArticleDetail from './ArticleDetail';
 import { useSession } from 'next-auth/react';
+import CONFIG from '/config';
 
 // ===============================|| COLOR BOX ||=============================== //
 export function ArticlesDataGrid() {
@@ -161,6 +162,14 @@ export function ArticlesDataGrid() {
             <PushPin />
           </IconButton>
         </Tooltip>
+        <Tooltip arrow placement="top-start" title={t('buttons.visitorlink')}>
+          <IconButton
+            target='_blank'
+            href={CONFIG.DOMAIN + "/blogpost/" + row.original.id + "/" + row.original.subject}
+          >
+            <Link />
+          </IconButton>
+        </Tooltip>
       </Box>
     ),
     []
@@ -204,7 +213,7 @@ export function ArticlesDataGrid() {
             displayColumnDefOptions={{
               'mrt-row-actions': {
                 //header: 'Change Account Settings', //change header text
-                size: 80 //make actions column wider
+                size: 110 //make actions column wider
               }
             }} />
         </TableCard>
