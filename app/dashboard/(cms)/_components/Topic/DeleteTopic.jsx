@@ -18,12 +18,14 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
 
   let topicService = new TopicsService(jwt);
   const [notify, setNotify] = useState({ open: false });
+  const [isSubmitting, setSubmitting] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setSubmitting(true);
     let topicId = row.original.id;
     topicService
       .deleteTopic(topicId)
@@ -34,6 +36,8 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      }).finally(() => {
+        setSubmitting(false);
       });
   };
   const CloseDialog = () => (
@@ -71,7 +75,7 @@ const DeleteTopic = ({ row, open, setOpen, refetch }) => {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation disabled={isSubmitting} onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>

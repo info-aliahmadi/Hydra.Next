@@ -61,8 +61,8 @@ const ProfileForm = () => {
     accountService
       .updateCurrentUser(user)
       .then((result) => {
-          update({...session.user, name: user.name, email: user.email, userName: user.userName, avatar: result.avatar, accessToken: result.accessToken });
-          setNotify({ open: true });
+        update({ ...session.user, name: user.name, email: user.email, userName: user.userName, avatar: result.avatar, accessToken: result.accessToken });
+        setNotify({ open: true });
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error.message });
@@ -116,6 +116,7 @@ const ProfileForm = () => {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
+          } finally {
             setSubmitting(false);
           }
         }}
@@ -135,8 +136,8 @@ const ProfileForm = () => {
                             avatarPreview
                               ? avatarPreview
                               : values?.avatar
-                              ? CONFIG.AVATAR_BASEPATH + values?.avatar
-                              : '/images/users/anonymous.png'
+                                ? CONFIG.AVATAR_BASEPATH + values?.avatar
+                                : '/images/users/anonymous.png'
                           }
                           sx={{ width: 85, height: 85 }}
                         ></Avatar>

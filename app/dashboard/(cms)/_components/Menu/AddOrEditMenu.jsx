@@ -123,11 +123,14 @@ const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
+              setSubmitting(true);
               handleSubmit(values, setErrors);
             } catch (err) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
+            } finally {
               setSubmitting(false);
+
             }
           }}
         >

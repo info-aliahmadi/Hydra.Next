@@ -11,19 +11,19 @@ export default async function SocialLinks() {
     <Box>
       <ul className="footer-links social-link">
         <li className="facebook">
-          <a href="https://www.facebook.com/onwavedesign">
+          <a href="https://www.facebook.com/onwavedesign" target='_blank'>
             <Facebook fontSize="medium" />
             <span>Facebook</span>
           </a>
         </li>
         <li className="instagram">
-          <a href="https://www.instagram.com/onwavedesign">
+          <a href="https://www.instagram.com/onwavedesign" target='_blank'>
             <InstagramIcon fontSize="medium" />
             <span>Instagram</span>
           </a>
         </li>
         <li className="linkedin">
-          <a href="https://www.linkedin.com/in/info-aliahmadi/">
+          <a href="https://www.linkedin.com/in/info-aliahmadi/" target='_blank'>
             <LinkedInIcon fontSize="medium" />
             <span>LinkedIn</span>
           </a>

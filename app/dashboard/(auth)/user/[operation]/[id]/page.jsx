@@ -165,12 +165,16 @@ export default function AddOrEditUser({params}) {
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
+            setSubmitting(true);
             handleSubmit(values, resetForm, setErrors);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
+          }
+          finally{
             setSubmitting(false);
+
           }
         }}
       >

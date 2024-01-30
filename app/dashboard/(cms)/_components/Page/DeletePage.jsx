@@ -18,12 +18,14 @@ export default function DeletePage({ row, open, setOpen, refetch }) {
 
   let pageService = new PagesService(jwt);
   const [notify, setNotify] = useState({ open: false });
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setDisableBtn(true);
     let pageId = row.original.id;
     pageService
       .deletePage(pageId)
@@ -34,6 +36,9 @@ export default function DeletePage({ row, open, setOpen, refetch }) {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (
@@ -71,7 +76,7 @@ export default function DeletePage({ row, open, setOpen, refetch }) {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation onClick={handleSubmit} disabled={disableBtn} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>

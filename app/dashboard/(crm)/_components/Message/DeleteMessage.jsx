@@ -17,12 +17,14 @@ const DeleteMessage = ({ row, open, setOpen, refetch }) => {
   const jwt = session?.user?.accessToken;
   let messageService = new MessageService(jwt);
   const [notify, setNotify] = useState({ open: false });
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setDisableBtn(true);
     let messageId = row.original.id;
     messageService
       .deleteMessage(messageId)
@@ -33,6 +35,9 @@ const DeleteMessage = ({ row, open, setOpen, refetch }) => {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (
@@ -70,7 +75,7 @@ const DeleteMessage = ({ row, open, setOpen, refetch }) => {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation disabled={disableBtn} onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>

@@ -58,8 +58,7 @@ export default function SendMessage({ params }) {
           .catch((error) => {
             setServerErrors(error, setErrors);
             setNotify({ open: true, type: 'error', description: error });
-          })
-          .finally((x) => {});
+          });
       } else {
         messageService
           .sendPrivateMessage(message)
@@ -73,9 +72,6 @@ export default function SendMessage({ params }) {
           .catch((error) => {
             setServerErrors(error, setErrors);
             setNotify({ open: true, type: 'error', description: error });
-          })
-          .finally((x) => {
-            // setSubmitting(false);
           });
       }
     } else {
@@ -88,9 +84,6 @@ export default function SendMessage({ params }) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
     }
   };
@@ -116,8 +109,8 @@ export default function SendMessage({ params }) {
             .required(t(validation + 'requiredSubject')),
           toUserIds: !isPublicMessage
             ? Yup.array()
-                .min(1, t(validation + 'requiredUserIds'))
-                .required(t(validation + 'requiredUserIds'))
+              .min(1, t(validation + 'requiredUserIds'))
+              .required(t(validation + 'requiredUserIds'))
             : Yup.array().optional()
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
@@ -128,6 +121,8 @@ export default function SendMessage({ params }) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
+          }
+          finally {
             setSubmitting(false);
           }
         }}

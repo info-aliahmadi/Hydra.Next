@@ -18,12 +18,14 @@ const DeleteSlideshow = ({ row, open, setOpen, refetch }) => {
 
   let slideshowService = new SlideshowService(jwt);
   const [notify, setNotify] = useState({ open: false });
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setDisableBtn(true);
     let slideshowId = row.original.id;
     slideshowService
       .deleteSlideshow(slideshowId)
@@ -34,6 +36,9 @@ const DeleteSlideshow = ({ row, open, setOpen, refetch }) => {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (
@@ -71,7 +76,7 @@ const DeleteSlideshow = ({ row, open, setOpen, refetch }) => {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation disabled={disableBtn} onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>

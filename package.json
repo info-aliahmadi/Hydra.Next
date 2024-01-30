@@ -90,12 +90,10 @@
   "devDependencies": {
     "@types/katex": "^0.16.7",
     "@types/node": "^20",
-    "@types/prettier": "latest",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^7.32.0",
     "eslint-config-next": "14.0.4",
-    "prettier": "latest",
     "typescript": "^5"
   }
 }

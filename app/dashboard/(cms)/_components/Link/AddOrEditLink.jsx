@@ -142,6 +142,7 @@ const AddOrEditLink = ({ row, linkSection, data, setData, isNew, open, setOpen, 
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
+              setSubmitting(true);
               handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               setStatus({ success: false });

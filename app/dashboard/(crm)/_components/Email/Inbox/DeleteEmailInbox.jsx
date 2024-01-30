@@ -17,12 +17,14 @@ const DeleteEmailInbox = ({ row, open, setOpen, refetch }) => {
   const jwt = session?.user?.accessToken;
   let emailInboxService = new EmailInboxService(jwt);
   const [notify, setNotify] = useState({ open: false });
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setDisableBtn(true);
     let emailInboxId = row.original.id;
     emailInboxService
       .deleteEmailInbox(emailInboxId)
@@ -33,6 +35,9 @@ const DeleteEmailInbox = ({ row, open, setOpen, refetch }) => {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (
@@ -70,7 +75,7 @@ const DeleteEmailInbox = ({ row, open, setOpen, refetch }) => {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation disabled={disableBtn} onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>

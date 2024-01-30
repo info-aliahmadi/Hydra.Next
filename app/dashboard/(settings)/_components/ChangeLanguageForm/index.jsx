@@ -43,12 +43,13 @@ const ChangeLanguageForm = () => {
         validationSchema={Yup.object().shape({})}
         onSubmit={async (values, { errors, setErrors, setStatus, setSubmitting }) => {
           try {
-            setStatus({ success: true });
             setSubmitting(true);
+            setStatus({ success: true });
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
+          }finally{
             setSubmitting(false);
           }
         }}

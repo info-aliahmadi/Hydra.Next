@@ -18,12 +18,14 @@ const DeleteLinkSection = ({ row, open, setOpen, refetch }) => {
 
   let linkSectionService = new LinkSectionService(jwt);
   const [notify, setNotify] = useState({ open: false });
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setDisableBtn(true);
     let linkSectionId = row.original.id;
     linkSectionService
       .deleteLinkSection(linkSectionId)
@@ -34,6 +36,9 @@ const DeleteLinkSection = ({ row, open, setOpen, refetch }) => {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (

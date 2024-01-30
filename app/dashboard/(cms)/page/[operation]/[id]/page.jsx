@@ -59,7 +59,7 @@ export default function AddOrEditPage({params}) {
     if (operation == 'edit' && id > 0) loadPage();
   }, [operation, id]);
 
-  const handleSubmit = async (page, resetForm, setErrors, setSubmitting) => {
+  const handleSubmit = async (page, resetForm, setErrors) => {
     if (operation == 'add') {
       pageService
         .addPage(page)
@@ -70,9 +70,6 @@ export default function AddOrEditPage({params}) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
     } else {
       pageService
@@ -84,9 +81,6 @@ export default function AddOrEditPage({params}) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
     }
   };
@@ -119,12 +113,15 @@ export default function AddOrEditPage({params}) {
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
-            handleSubmit(values, resetForm, setErrors, setSubmitting);
+            setSubmitting(true);
+            handleSubmit(values, resetForm, setServerErrors);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
+          }finally{
             setSubmitting(false);
+
           }
         }}
       >

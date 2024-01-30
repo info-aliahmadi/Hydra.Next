@@ -17,12 +17,14 @@ export default function DeleteProduct({ row, open, setOpen, refetch }) {
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   let service = new ProductService(jwt);
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
+    setDisableBtn(true);
     let productId = row.original.id;
     service
       .deleteProduct(productId)
@@ -33,6 +35,9 @@ export default function DeleteProduct({ row, open, setOpen, refetch }) {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error });
+      })
+      .finally((x) => {
+        setDisableBtn(false);
       });
   };
   const CloseDialog = () => (
@@ -69,7 +74,7 @@ export default function DeleteProduct({ row, open, setOpen, refetch }) {
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation disabled={disableBtn} onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>

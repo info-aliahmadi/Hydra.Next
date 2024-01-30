@@ -27,7 +27,7 @@ export default function SendEmailInbox({ params }) {
 
   const [id, emails] = params.id;
 
-  let toAdresses =emails ? decodeURIComponent(emails).split(',') : [];
+  let toAdresses = emails ? decodeURIComponent(emails).split(',') : [];
 
   let service = new EmailOutboxService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.email.emailInbox.', 'validation.email.', 'buttons.email.emailInbox.'];
@@ -58,9 +58,6 @@ export default function SendEmailInbox({ params }) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
 
     } else {
@@ -72,9 +69,6 @@ export default function SendEmailInbox({ params }) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
     }
   };
@@ -108,6 +102,7 @@ export default function SendEmailInbox({ params }) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.emailInbox });
+          } finally {
             setSubmitting(false);
           }
         }}

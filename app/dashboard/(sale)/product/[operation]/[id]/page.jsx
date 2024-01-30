@@ -103,9 +103,6 @@ export default function AddOrEditProduct({ params }) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
     } else {
       productService
@@ -117,9 +114,6 @@ export default function AddOrEditProduct({ params }) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
-        })
-        .finally((x) => {
-          setSubmitting(false);
         });
     }
   };
@@ -219,6 +213,7 @@ export default function AddOrEditProduct({ params }) {
                     console.error(err);
                     setStatus({ success: false });
                     setErrors({ submit: err.message });
+                  }finally{
                     setSubmitting(false);
                   }
                 }}
