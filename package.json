@@ -6,9 +6,7 @@
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prettier": "prettier --list-different .",
-    "prettier:fix": "prettier --write ."
+    "lint": "next lint"
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
@@ -92,15 +90,12 @@
   "devDependencies": {
     "@types/katex": "^0.16.7",
     "@types/node": "^20",
-    "@types/prettier": "^2.0.0",
+    "@types/prettier": "latest",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^7.32.0",
     "eslint-config-next": "14.0.4",
-    "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.3.2",
-    "prettier-plugin-organize-attributes": "^0.0.5",
-    "stylelint-config-prettier": "^9.0.5",
+    "prettier": "latest",
     "typescript": "^5"
   }
 }
