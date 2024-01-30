@@ -95,8 +95,7 @@
     "@types/react-dom": "^18",
     "eslint": "^7.32.0",
     "eslint-config-next": "14.0.4",
-    "patch-package": "^8.0.0",
-    "prettier": "^3.2.4",
+    "prettier": "^2.3.2",
     "typescript": "^5"
   }
 }
