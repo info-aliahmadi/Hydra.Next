@@ -6,7 +6,9 @@
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --list-different .",
+    "prettier:fix": "prettier --write ."
   },
   "dependencies": {
     "@ant-design/colors": "^6.0.0",
@@ -96,8 +98,9 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "^8.3.0",
-    "prettier-plugin-organize-attributes": "^0.0.5",
     "prettier": "^2.3.2",
+    "prettier-plugin-organize-attributes": "^0.0.5",
+    "stylelint-config-prettier": "^9.0.5",
     "typescript": "^5"
   }
 }
