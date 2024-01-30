@@ -90,11 +90,13 @@
   "devDependencies": {
     "@types/katex": "^0.16.7",
     "@types/node": "^20",
-    "@types/prettier": "^3.0.0",
+    "@types/prettier": "^2.0.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^7.32.0",
     "eslint-config-next": "14.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier-plugin-organize-attributes": "^0.0.5",
     "prettier": "^2.3.2",
     "typescript": "^5"
   }
