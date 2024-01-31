@@ -115,6 +115,7 @@ export default function ColorPicker({
       <div className="color-picker-basic-color">
         {basicColors.map((basicColor) => (
           <button
+          type='button'
             className={basicColor === selfColor.hex ? ' active' : ''}
             key={basicColor}
             style={{backgroundColor: basicColor}}

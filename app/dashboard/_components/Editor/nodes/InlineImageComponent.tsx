@@ -5,18 +5,18 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import type {Position} from './InlineImageNode';
-import type {BaseSelection, LexicalEditor, NodeKey} from 'lexical';
+import type { Position } from './InlineImageNode';
+import type { BaseSelection, LexicalEditor, NodeKey } from 'lexical';
 
 import './InlineImageNode.css';
 
-import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
-import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
-import {RichTextPlugin} from '@lexical/react/LexicalRichTextPlugin';
-import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
-import {mergeRegister} from '@lexical/utils';
+import { LexicalNestedComposer } from '@lexical/react/LexicalNestedComposer';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { useLexicalNodeSelection } from '@lexical/react/useLexicalNodeSelection';
+import { mergeRegister } from '@lexical/utils';
 import {
   $getNodeByKey,
   $getSelection,
@@ -32,18 +32,18 @@ import {
   SELECTION_CHANGE_COMMAND,
 } from 'lexical';
 import * as React from 'react';
-import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 import useModal from '../hooks/useModal';
 import FloatingTextFormatToolbarPlugin from '../plugins/FloatingTextFormatToolbarPlugin/index';
 import LinkPlugin from '../plugins/LinkPlugin';
 import Button from '../ui/Button';
 import ContentEditable from '../ui/ContentEditable';
-import {DialogActions} from '../ui/Dialog';
+import { DialogActions } from '../ui/Dialog';
 import Placeholder from '../ui/Placeholder';
 import Select from '../ui/Select';
 import TextInput from '../ui/TextInput';
-import {$isInlineImageNode, InlineImageNode} from './InlineImageNode';
+import { $isInlineImageNode, InlineImageNode } from './InlineImageNode';
 
 const imageCache = new Set();
 
@@ -72,7 +72,7 @@ function LazyImage({
   altText: string;
   className: string | null;
   height: 'inherit' | number;
-  imageRef: {current: null | HTMLImageElement};
+  imageRef: { current: null | HTMLImageElement };
   src: string;
   width: 'inherit' | number;
   position: Position;
@@ -121,7 +121,7 @@ export function UpdateInlineImageDialog({
   };
 
   const handleOnConfirm = () => {
-    const payload = {altText, position, showCaption};
+    const payload = { altText, position, showCaption };
     if (node) {
       activeEditor.update(() => {
         node.update(payload);
@@ -132,7 +132,7 @@ export function UpdateInlineImageDialog({
 
   return (
     <>
-      <div style={{marginBottom: '1em'}}>
+      <div style={{ marginBottom: '1em' }}>
         <TextInput
           label="Alt Text"
           placeholder="Descriptive alternative text"
@@ -143,7 +143,7 @@ export function UpdateInlineImageDialog({
       </div>
 
       <Select
-        style={{marginBottom: '1em', width: '208px'}}
+        style={{ marginBottom: '1em', width: '208px' }}
         value={position}
         label="Position"
         name="position"
@@ -271,7 +271,7 @@ export default function InlineImageComponent({
   useEffect(() => {
     let isMounted = true;
     const unregister = mergeRegister(
-      editor.registerUpdateListener(({editorState}) => {
+      editor.registerUpdateListener(({ editorState }) => {
         if (isMounted) {
           setSelection(editorState.read(() => $getSelection()));
         }
@@ -354,6 +354,7 @@ export default function InlineImageComponent({
       <>
         <div draggable={draggable}>
           <button
+            type='button'
             className="image-edit-button"
             ref={buttonRef}
             onClick={() => {

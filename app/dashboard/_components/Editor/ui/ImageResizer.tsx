@@ -252,6 +252,7 @@ export default function ImageResizer({
     <div ref={controlWrapperRef}>
       {!showCaption && captionsEnabled && (
         <button
+        type='button'
           className="image-caption-button"
           ref={buttonRef}
           onClick={() => {

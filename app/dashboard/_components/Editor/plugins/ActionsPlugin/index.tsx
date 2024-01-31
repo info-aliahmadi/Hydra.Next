@@ -6,18 +6,18 @@
  *
  */
 
-import type {LexicalEditor} from 'lexical';
+import type { LexicalEditor } from 'lexical';
 
-import {$createCodeNode, $isCodeNode} from '@lexical/code';
-import {exportFile, importFile} from '@lexical/file';
+import { $createCodeNode, $isCodeNode } from '@lexical/code';
+import { exportFile, importFile } from '@lexical/file';
 import {
   $convertFromMarkdownString,
   $convertToMarkdownString,
 } from '@lexical/markdown';
-import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {mergeRegister} from '@lexical/utils';
-import {CONNECTED_COMMAND, TOGGLE_CONNECT_COMMAND} from '@lexical/yjs';
+import { useCollaborationContext } from '@lexical/react/LexicalCollaborationContext';
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { mergeRegister } from '@lexical/utils';
+import { CONNECTED_COMMAND, TOGGLE_CONNECT_COMMAND } from '@lexical/yjs';
 import {
   $createTextNode,
   $getRoot,
@@ -26,11 +26,11 @@ import {
   COMMAND_PRIORITY_EDITOR,
 } from 'lexical';
 import * as React from 'react';
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import useModal from '../../hooks/useModal';
 import Button from '../../ui/Button';
-import {PLAYGROUND_TRANSFORMERS} from '../MarkdownTransformers';
+import { PLAYGROUND_TRANSFORMERS } from '../MarkdownTransformers';
 import {
   SPEECH_TO_TEXT_COMMAND,
   SUPPORT_SPEECH_RECOGNITION,
@@ -85,7 +85,7 @@ export default function ActionsPlugin({
   const [connected, setConnected] = useState(false);
   const [isEditorEmpty, setIsEditorEmpty] = useState(true);
   const [modal, showModal] = useModal();
-  const {isCollabActive} = useCollaborationContext();
+  const { isCollabActive } = useCollaborationContext();
 
   useEffect(() => {
     return mergeRegister(
@@ -106,7 +106,7 @@ export default function ActionsPlugin({
 
   useEffect(() => {
     return editor.registerUpdateListener(
-      ({dirtyElements, prevEditorState, tags}) => {
+      ({ dirtyElements, prevEditorState, tags }) => {
         // If we are in read only mode, send the editor state
         // to server and ask for validation if possible.
         if (
@@ -160,7 +160,8 @@ export default function ActionsPlugin({
   return (
     <div className="actions">
       {SUPPORT_SPEECH_RECOGNITION && (
-        <a
+        <button
+          type='button'
           onClick={() => {
             editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
             setIsSpeechToText(!isSpeechToText);
@@ -170,20 +171,21 @@ export default function ActionsPlugin({
             (isSpeechToText ? 'active' : '')
           }
           title="Speech To Text"
-          aria-label={`${
-            isSpeechToText ? 'Enable' : 'Disable'
-          } speech to text`}>
+          aria-label={`${isSpeechToText ? 'Enable' : 'Disable'
+            } speech to text`}>
           <i className="mic" />
-        </a>
+        </button>
       )}
-      <a
+      <button
+        type='button'
         className="action-button import"
         onClick={() => importFile(editor)}
         title="Import"
         aria-label="Import editor state from JSON">
         <i className="import" />
-      </a>
-      <a
+      </button>
+      <button
+        type='button'
         className="action-button export"
         onClick={() =>
           exportFile(editor, {
@@ -194,8 +196,9 @@ export default function ActionsPlugin({
         title="Export"
         aria-label="Export editor state to JSON">
         <i className="export" />
-      </a>
-      <a
+      </button>
+      <button
+        type='button'
         className="action-button clear"
         onClick={() => {
           showModal('Clear editor', (onClose) => (
@@ -205,7 +208,7 @@ export default function ActionsPlugin({
         title="Clear"
         aria-label="Clear editor contents">
         <i className="clear" />
-      </a>
+      </button>
       {/* <button
         className={`action-button ${!isEditable ? 'unlock' : 'lock'}`}
         onClick={() => {
@@ -228,16 +231,15 @@ export default function ActionsPlugin({
       </button> */}
       {isCollabActive && (
         <button
+          type='button'
           className="action-button connect"
           onClick={() => {
             editor.dispatchCommand(TOGGLE_CONNECT_COMMAND, !connected);
           }}
-          title={`${
-            connected ? 'Disconnect' : 'Connect'
-          } Collaborative Editing`}
-          aria-label={`${
-            connected ? 'Disconnect from' : 'Connect to'
-          } a collaborative editing server`}>
+          title={`${connected ? 'Disconnect' : 'Connect'
+            } Collaborative Editing`}
+          aria-label={`${connected ? 'Disconnect from' : 'Connect to'
+            } a collaborative editing server`}>
           <i className={connected ? 'disconnect' : 'connect'} />
         </button>
       )}
