@@ -326,14 +326,12 @@ export default function AddOrEditUser({params}) {
                             <Stack spacing={1}>
                               <InputLabel htmlFor="emailConfirmed">{t(fieldsName + 'emailConfirmed')}</InputLabel>
                               <FormControlLabel
-                                disabled
                                 control={
                                   <Checkbox
                                     id="emailConfirmed"
-                                    checked={values?.emailConfirmed ? true : false}
+                                    checked={values?.emailConfirmed}
                                     title={values?.emailConfirmed ? 'Yes' : 'No'}
                                     color="default"
-                                    disabled
                                   />
                                 }
                                 label={t(fieldsName + 'emailConfirmed')}
@@ -346,14 +344,12 @@ export default function AddOrEditUser({params}) {
                             <Stack spacing={1}>
                               <InputLabel htmlFor="phoneNumberConfirmed">{t(fieldsName + 'phoneNumberConfirmed')}</InputLabel>
                               <FormControlLabel
-                                disabled
                                 control={
                                   <Checkbox
                                     id="phoneNumberConfirmed"
                                     checked={values?.phoneNumberConfirmed ? true : false}
                                     title={values?.phoneNumberConfirmed ? 'Yes' : 'No'}
                                     color="default"
-                                    disabled
                                   />
                                 }
                                 label={t(fieldsName + 'phoneNumberConfirmed')}

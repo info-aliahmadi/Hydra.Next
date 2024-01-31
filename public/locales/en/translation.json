@@ -520,6 +520,7 @@
         "inbox": "Email Inbox",
         "send": "Send Email",
         "reply": "Reply",
+        "reload": "Relaod",
         "draft": "Save As Draft",
         "delete": "Delete Email",
         "pin": "Pin Email",

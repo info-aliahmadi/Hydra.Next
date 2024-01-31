@@ -12,7 +12,7 @@ import DeleteEmailInbox from './DeleteEmailInbox';
 import { useSession } from 'next-auth/react';
 // ===============================|| COLOR BOX ||=============================== //
 
-export default function EmailInboxDataGrid() {
+export default function EmailInboxDataGrid({ reloadCall }) {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
@@ -24,11 +24,11 @@ export default function EmailInboxDataGrid() {
 
   const emailInboxsService = new EmailInboxService(jwt);
 
-  useEffect(() => {
-    emailInboxsService.loadEmailInbox();
-  }, []);
-
   const fieldsName = 'fields.email.emailInbox.';
+
+  useEffect(() => {
+    handleRefetch()
+  }, [reloadCall]);
 
   const columns = useMemo(
     () => [

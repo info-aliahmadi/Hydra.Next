@@ -4,21 +4,39 @@ import { Button, Chip, Grid, Typography } from '@mui/material';
 // project import
 import { useTranslation } from 'react-i18next';
 
-import { Email, RestoreFromTrash } from '@mui/icons-material';
+import { Email, RestoreFromTrash, Refresh } from '@mui/icons-material';
 
 import MainCard from '@dashboard/_components/MainCard';
 import TableCard from '@dashboard/_components/TableCard';
 import EmailInboxDataGrid from '@dashboard/(crm)/_components/Email/Inbox/EmailInboxDataGrid';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
+import EmailInboxService from '@dashboard/(crm)/_service/EmailInboxService';
+import { useState } from 'react';
 
 // ===============================|| COLOR BOX ||=============================== //
 
 function EmailInboxsInbox() {
   const [t] = useTranslation();
+  const { data: session } = useSession();
+  const jwt = session?.user?.accessToken;
+  const [reload, setIsReload] = useState(false);
+  const [reloadData, setReloadData] = useState();
+
+
+  const service = new EmailInboxService(jwt);
+
 
   const buttonName = 'buttons.email.emailInbox.';
 
- 
+  const handleReload = () => {
+    setIsReload(true);
+    service.loadEmailInbox().finally((result) => {
+      setIsReload(false);
+      setReloadData(Date.now())
+    });
+  };
+
   const EmailInboxHeader = () => {
     return (
       <Grid container item direction="row" justifyContent="space-between" alignItems="center">
@@ -31,6 +49,16 @@ function EmailInboxsInbox() {
             startIcon={<Email />}
           >
             {t(buttonName + 'send')}
+          </Button>
+          <Button
+            disabled={reload}
+            sx={{ mr: 2, ml: 2 }}
+            color="info"
+            variant="contained"
+            onClick={handleReload}
+            startIcon={<Refresh />}
+          >
+            {t(buttonName + 'reload')}
           </Button>
         </Grid>
         <Grid item>
@@ -60,7 +88,7 @@ function EmailInboxsInbox() {
           <Grid item>
             <MainCard title={<EmailInboxHeader />}>
               <TableCard>
-                <EmailInboxDataGrid />
+                <EmailInboxDataGrid reloadCall={reloadData} />
               </TableCard>
             </MainCard>
           </Grid>

@@ -11,10 +11,12 @@ export default class EmailInboxService {
       axios
         .get(CONFIG.API_BASEPATH + '/crm/LoadEmailInbox')
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
           reject(error);
+        }).finally((response) => {
+          resolve(response);
         });
     });
   };
