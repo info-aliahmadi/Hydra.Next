@@ -26,7 +26,7 @@ import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import DateTimeInput from '@dashboard/_components/DateTime/DateTimeInput';
 import Editor from '@dashboard/_components/Editor/Editor';
 import { useSession } from 'next-auth/react';
-export default function AddOrEditArticle({params}) {
+export default function AddOrEditArticle({ params }) {
   const [t, i18n] = useTranslation();
   const operation = params.operation;
   const id = params.id;
@@ -160,11 +160,11 @@ export default function AddOrEditArticle({params}) {
                           <Stack spacing={1}>
                             <InputLabel htmlFor="body">{t(fieldsName + 'body')}</InputLabel>
                             <Editor
-              id={'body'}
-              name={'body'}
-              defaultValue={values?.fullDescription || ''}
-              setFieldValue={setFieldValue}
-            />
+                              id={'body'}
+                              name={'body'}
+                              defaultValue={values?.body || ''}
+                              setFieldValue={setFieldValue}
+                            />
                             {/* <Editor2
                               id={'body'}
                               name={'body'}
