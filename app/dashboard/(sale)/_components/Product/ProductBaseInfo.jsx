@@ -99,7 +99,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
                   sx={{ borderRadius: '16px' }}
                 />{' '}
                 {values.updateUser?.userName && (
-                  <Grid>
+                  <span>
                     {t(fieldsName + 'editedBy') + ' : '}
                     <Chip
                       title={t(fieldsName + 'editor')}
@@ -121,7 +121,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
                       size="small"
                       sx={{ borderRadius: '16px' }}
                     />{' '}
-                  </Grid>
+                  </span>
                 )}
               </Grid>
             )}
@@ -232,7 +232,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
-      
+
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <SelectCategory
@@ -250,7 +250,7 @@ export default function ProductBaseInfo({ operation, values, setFieldValue, hand
             )}
           </Stack>
         </Grid>
-     
+
         <Grid item xs={12} sm={12} md={6} lg={6} xl={4}>
           <Stack>
             <SelectManufacturer

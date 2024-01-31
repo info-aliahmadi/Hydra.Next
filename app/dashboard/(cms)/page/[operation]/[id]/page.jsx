@@ -212,7 +212,7 @@ export default function AddOrEditPage({params}) {
                                   sx={{ borderRadius: '16px' }}
                                 />{' '}
                                 {values.editor?.userName && (
-                                  <>
+                                  <span>
                                     {t(fieldsName + 'editedBy') + ' : '}
                                     <Chip
                                       title={t(fieldsName + 'editor')}
@@ -234,7 +234,7 @@ export default function AddOrEditPage({params}) {
                                       size="small"
                                       sx={{ borderRadius: '16px' }}
                                     />{' '}
-                                  </>
+                                  </span>
                                 )}
                               </Grid>
                             )}

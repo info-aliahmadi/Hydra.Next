@@ -28,8 +28,8 @@ export default async function TopPost() {
           alignItems="center"
           alignContent="center"
           justifyContent="center"
-          pl={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
-          pr={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
+          // pl={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
+          // pr={{ xs: 3, sm: 10, md: 15, lg: 0, xl: 0 }}
         >
           <div className="post-card">
             <Grid container columnSpacing={7}>

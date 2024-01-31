@@ -93,7 +93,7 @@ function onError(error: any) {
 }
 
 export default function Editor({ id, name, defaultValue, setFieldValue }: { id: any, name: any, defaultValue: any, setFieldValue: any }): JSX.Element {
-
+debugger
   const placeholder = <Placeholder>{'Enter full description...'}</Placeholder>;
   const [floatingAnchorElem, setFloatingAnchorElem] = useState<HTMLDivElement | null>(null);
   const [isLinkEditMode, setIsLinkEditMode] = useState<boolean>(false);

@@ -165,16 +165,9 @@ export default function AddOrEditArticle({ params }) {
                               defaultValue={values?.body || ''}
                               setFieldValue={setFieldValue}
                             />
-                            {/* <Editor2
-                              id={'body'}
-                              name={'body'}
-                              defaultValue={values?.body || ''}
-                              setFieldValue={setFieldValue}
-                              error={Boolean(touched.body && errors.body)}
-                            /> */}
                             {operation == 'edit' && (
                               <Grid>
-                                {t(fieldsName + 'writedBy') + ' : '}
+                                <span>{t(fieldsName + 'writedBy') + ' : '}</span>
                                 <Chip
                                   title={t(fieldsName + 'writer')}
                                   avatar={<Avatar src={CONFIG.AVATAR_BASEPATH + values.writer?.avatar} />}
@@ -196,8 +189,8 @@ export default function AddOrEditArticle({ params }) {
                                   sx={{ borderRadius: '16px' }}
                                 />{' '}
                                 {values.editor?.userName && (
-                                  <>
-                                    {t(fieldsName + 'editedBy') + ' : '}
+                                  <span>
+                                    <span>{t(fieldsName + 'editedBy') + ' : '}</span>
                                     <Chip
                                       title={t(fieldsName + 'editor')}
                                       avatar={<Avatar src={CONFIG.AVATAR_BASEPATH + values.editor?.avatar} />}
@@ -218,7 +211,7 @@ export default function AddOrEditArticle({ params }) {
                                       size="small"
                                       sx={{ borderRadius: '16px' }}
                                     />{' '}
-                                  </>
+                                  </span>
                                 )}
                               </Grid>
                             )}

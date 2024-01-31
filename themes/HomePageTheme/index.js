@@ -14,7 +14,6 @@ import Typography from './typography';
 import CustomShadows from './shadows';
 import componentsOverride from './overrides';
 
-import '/public/css/customStyle/homePage.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 // import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 

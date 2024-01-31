@@ -88,6 +88,7 @@ export default async function HomeLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap&family=Gloock:wght@400;500;600;700"
           rel="stylesheet"
         />
+        <link rel="stylesheet" href="/css/customStyle/homePage.css" />
         {siteSettings.footerHtml}
       </body>
     </html>

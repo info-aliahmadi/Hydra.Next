@@ -160,7 +160,7 @@ export default function ActionsPlugin({
   return (
     <div className="actions">
       {SUPPORT_SPEECH_RECOGNITION && (
-        <button
+        <a
           onClick={() => {
             editor.dispatchCommand(SPEECH_TO_TEXT_COMMAND, !isSpeechToText);
             setIsSpeechToText(!isSpeechToText);
@@ -174,16 +174,16 @@ export default function ActionsPlugin({
             isSpeechToText ? 'Enable' : 'Disable'
           } speech to text`}>
           <i className="mic" />
-        </button>
+        </a>
       )}
-      <button
+      <a
         className="action-button import"
         onClick={() => importFile(editor)}
         title="Import"
         aria-label="Import editor state from JSON">
         <i className="import" />
-      </button>
-      <button
+      </a>
+      <a
         className="action-button export"
         onClick={() =>
           exportFile(editor, {
@@ -194,10 +194,9 @@ export default function ActionsPlugin({
         title="Export"
         aria-label="Export editor state to JSON">
         <i className="export" />
-      </button>
-      <button
+      </a>
+      <a
         className="action-button clear"
-        disabled={isEditorEmpty}
         onClick={() => {
           showModal('Clear editor', (onClose) => (
             <ShowClearDialog editor={editor} onClose={onClose} />
@@ -206,7 +205,7 @@ export default function ActionsPlugin({
         title="Clear"
         aria-label="Clear editor contents">
         <i className="clear" />
-      </button>
+      </a>
       {/* <button
         className={`action-button ${!isEditable ? 'unlock' : 'lock'}`}
         onClick={() => {
