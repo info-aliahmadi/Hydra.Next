@@ -58,7 +58,7 @@ export default function AddOrEditProductAttribute({ manufacturerId, isNew, open,
     setManufacturer({});
   };
 
-  const handleSubmit = (Manufacturer, setErrors) => {
+  const handleSubmit = (Manufacturer, setErrors, setSubmitting) => {
     if (isNew == true) {
       manufacturerService
         .addManufacturer(Manufacturer)
@@ -71,6 +71,9 @@ export default function AddOrEditProductAttribute({ manufacturerId, isNew, open,
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
     } else {
       manufacturerService
@@ -84,6 +87,9 @@ export default function AddOrEditProductAttribute({ manufacturerId, isNew, open,
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
     }
   };
@@ -131,12 +137,12 @@ export default function AddOrEditProductAttribute({ manufacturerId, isNew, open,
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-              handleSubmit(values, setErrors);
+              setSubmitting(true);
+              handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               console.error(err);
               setStatus({ success: false });
               setErrors({ submit: err.message });
-              setSubmitting(false);
             }
           }}
         >

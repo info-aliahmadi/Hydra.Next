@@ -55,7 +55,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
     }
   }, [permissionId, isNew, open]);
 
-  const handleSubmit = (permission, setErrors) => {
+  const handleSubmit = (permission, setErrors, setSubmitting) => {
     if (isNew == true) {
       permissionService
         .addPermission(permission)
@@ -68,6 +68,9 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     } else {
       permissionService
@@ -81,6 +84,9 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     }
   };
@@ -118,14 +124,12 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-              // setStatus({ success: true });
-              // setSubmitting(true);
-              handleSubmit(values, setErrors);
+              setSubmitting(true);
+              handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               console.error(err);
               setStatus({ success: false });
               setErrors({ submit: err.message });
-              setSubmitting(false);
             }
           }}
         >

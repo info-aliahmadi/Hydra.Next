@@ -112,7 +112,6 @@ export default function Contact() {
                   console.error(err);
                   setStatus({ success: false });
                   setErrors({ submit: err.message });
-                  setSubmitting(false);
                 }
               }}
             >

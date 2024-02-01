@@ -122,9 +122,6 @@ export default function SendMessage({ params }) {
             setStatus({ success: false });
             setErrors({ submit: err.message });
           }
-          finally {
-            setSubmitting(false);
-          }
         }}
       >
         {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (

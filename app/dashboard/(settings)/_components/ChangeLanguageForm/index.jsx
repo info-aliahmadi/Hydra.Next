@@ -31,7 +31,7 @@ const ChangeLanguageForm = () => {
   const changeLanguage = (lng) => {
     let locService = new LocalizationService(accessToken);
     locService.setCurrentLanguage(i18n, theme, lng);
-    update({...session.user, defaultLanguage: lng.key });
+    update({ ...session.user, defaultLanguage: lng.key });
   };
 
   return (
@@ -49,8 +49,6 @@ const ChangeLanguageForm = () => {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-          }finally{
-            setSubmitting(false);
           }
         }}
       >

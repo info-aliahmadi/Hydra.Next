@@ -56,7 +56,7 @@ const AddOrEditTopic = ({ row, isNew, open, setOpen, refetch }) => {
     }
   }, [row, isNew, open]);
 
-  const handleSubmit = (topic, setErrors) => {
+  const handleSubmit = (topic, setErrors,setSubmitting) => {
     if (isNew == true) {
       topicService
         .addTopic(topic)
@@ -69,6 +69,9 @@ const AddOrEditTopic = ({ row, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     } else {
       topicService
@@ -82,6 +85,9 @@ const AddOrEditTopic = ({ row, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     }
   };
@@ -119,13 +125,10 @@ const AddOrEditTopic = ({ row, isNew, open, setOpen, refetch }) => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               setSubmitting(true);
-              handleSubmit(values, setErrors);
+              handleSubmit(values, setErrors,setSubmitting);
             } catch (err) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
-            }
-            finally {
-              setSubmitting(false);
             }
           }}
         >

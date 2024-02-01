@@ -25,7 +25,7 @@ export default function SendEmailInbox({ params }) {
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
 
-  const [id, emails] = params.id;
+  const emails = params.emails;
 
   let toAdresses = emails ? decodeURIComponent(emails).split(',') : [];
 
@@ -35,40 +35,39 @@ export default function SendEmailInbox({ params }) {
   const [notify, setNotify] = useState({ open: false });
   const router = useRouter();
 
-  const loadEmailInbox = () => {
-    service.getEmailOutboxByIdForSender(id).then((result) => {
-      setEmailInbox(result);
-    });
-  };
-  useEffect(() => {
-    if (id > 0) loadEmailInbox();
-  }, [id]);
 
   const handleSubmit = async (emailInbox, resetForm, setErrors, setSubmitting) => {
     if (!emailInbox.isDraft) {
       service
         .sendEmailOutbox(emailInbox)
         .then(() => {
-          if (!(id > 0)) {
-            resetForm();
-          }
-          setEmailInbox({})
+          resetForm({});
+          setEmailInbox({});
           setNotify({ open: true });
         })
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
 
     } else {
       service
         .saveDraftEmailOutbox(emailInbox)
         .then((result) => {
+          debugger
+          resetForm({});
+          setEmailInbox({});
           setNotify({ open: true });
         })
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
     }
   };
@@ -102,8 +101,6 @@ export default function SendEmailInbox({ params }) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.emailInbox });
-          } finally {
-            setSubmitting(false);
           }
         }}
       >
@@ -128,7 +125,7 @@ export default function SendEmailInbox({ params }) {
                               label={t(fieldsName + 'toAddress')}
                               multiple={true}
                               setFieldValue={setFieldValue}
-                              defaultValues={id > 0 ? values?.toAddress || '' : toAdresses}
+                              defaultValues={values?.toAddress || toAdresses || ''}
                               error={Boolean(touched.toAddress && errors.toAddress)}
                             />
                             {touched.toAddress && errors.toAddress && (

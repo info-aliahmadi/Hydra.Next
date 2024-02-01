@@ -17,6 +17,7 @@ export default function ViewInboxEmail({params}) {
   const loadEmailInbox = () => {
     emailInboxService.getEmailInboxById(id).then((result) => {
       setEmailInbox(result);
+      emailInboxService.readEmailInbox(id);
     });
   };
   useEffect(() => {

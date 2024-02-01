@@ -14,24 +14,24 @@ const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
     const [editor] = useLexicalComposerContext();
     const [isFirstRender, setIsFirstRender] = useState(true);
     useEffect(() => {
-        if (isFirstRender && initialHtml != undefined) {
-            if (initialHtml == '') {
-                editor.update(() => {
-                    $getRoot().clear();
-                });
-            } else {
-                setIsFirstRender(false);
-                editor.update(() => {
-                    const parser = new DOMParser();
-                    const dom = parser.parseFromString(initialHtml, "text/html");
-                    const nodes = $generateNodesFromDOM(editor, dom);
-                    $getRoot().clear();
-                    $insertNodes(nodes);
-                });
-            }
+        debugger
+        if (initialHtml == '') {
+            editor.update(() => {
+                $getRoot().clear();
+            });
+        }
+        if (isFirstRender && initialHtml != undefined && initialHtml != '') {
+            setIsFirstRender(false);
+            editor.update(() => {
+                const parser = new DOMParser();
+                const dom = parser.parseFromString(initialHtml, "text/html");
+                const nodes = $generateNodesFromDOM(editor, dom);
+                $getRoot().clear();
+                $insertNodes(nodes);
+            });
 
         }
-    }, [isFirstRender,initialHtml]);
+    }, [isFirstRender, initialHtml]);
 
     return (
         <OnChangePlugin

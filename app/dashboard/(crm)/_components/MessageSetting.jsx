@@ -69,13 +69,12 @@ const MessageSetting = () => {
         // })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
+            setSubmitting(true);
             handleAddOrUpdateSettings(values, setSubmitting);
             setStatus({ success: true });
           } catch (err) {
-            console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-            setSubmitting(false);
           }
         }}
       >

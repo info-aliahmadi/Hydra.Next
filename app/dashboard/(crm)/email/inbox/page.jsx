@@ -45,7 +45,7 @@ function EmailInboxsInbox() {
             component={Link}
             color="primary"
             variant="contained"
-            href='/dashboard/email/send/0'
+            href='/dashboard/email/send'
             startIcon={<Email />}
           >
             {t(buttonName + 'send')}

@@ -44,7 +44,7 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
       setSubscribe(result);
     });
   };
-  
+
   const getSubscribeLabelForSelect = () => {
     return subscribeService.getSubscribeLabelForSelect();
   };
@@ -62,7 +62,7 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
     setSubscribe({});
   };
 
-  const handleSubmit = (subscribe, setErrors) => {
+  const handleSubmit = (subscribe, setErrors, setSubmitting) => {
     if (isNew == true) {
       subscribeService
         .addSubscribe(subscribe)
@@ -75,6 +75,9 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     } else {
       subscribeService
@@ -88,6 +91,9 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     }
   };
@@ -123,12 +129,11 @@ const AddOrEditSubscribe = ({ subscribeId, isNew, open, setOpen, refetch }) => {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-              handleSubmit(values, setErrors);
+              handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               console.error(err);
               setStatus({ success: false });
               setErrors({ submit: err.message });
-              setSubmitting(false);
             }
           }}
         >

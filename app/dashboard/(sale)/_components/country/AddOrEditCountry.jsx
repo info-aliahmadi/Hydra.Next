@@ -57,7 +57,7 @@ const AddOrEditCountry = ({ countryId, isNew, open, setOpen, refetch }) => {
     setCountry({});
   };
 
-  const handleSubmit = (Country, setErrors) => {
+  const handleSubmit = (Country, setErrors, setSubmitting) => {
     if (isNew == true) {
       countryService
         .addCountry(Country)
@@ -70,6 +70,9 @@ const AddOrEditCountry = ({ countryId, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
     } else {
       countryService
@@ -83,6 +86,9 @@ const AddOrEditCountry = ({ countryId, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally(() => {
+          setSubmitting(false);
         });
     }
   };
@@ -134,12 +140,12 @@ const AddOrEditCountry = ({ countryId, isNew, open, setOpen, refetch }) => {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-              handleSubmit(values, setErrors);
+              setSubmitting(true);
+              handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               console.error(err);
               setStatus({ success: false });
               setErrors({ submit: err.message });
-              setSubmitting(false);
             }
           }}
         >

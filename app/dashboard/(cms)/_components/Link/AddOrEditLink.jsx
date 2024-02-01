@@ -147,7 +147,6 @@ const AddOrEditLink = ({ row, linkSection, data, setData, isNew, open, setOpen, 
             } catch (err) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
-              setSubmitting(false);
             }
           }}
         >

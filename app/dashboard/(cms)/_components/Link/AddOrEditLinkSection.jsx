@@ -55,7 +55,7 @@ const AddOrEditLinkSection = ({ row, isNew, open, setOpen, refetch }) => {
     }
   }, [row, isNew, open]);
 
-  const handleSubmit = (linkSection, setErrors) => {
+  const handleSubmit = (linkSection, setErrors, setSubmitting) => {
     if (isNew == true) {
       linkSectionService
         .addLinkSection(linkSection)
@@ -69,6 +69,9 @@ const AddOrEditLinkSection = ({ row, isNew, open, setOpen, refetch }) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
         })
+        .finally((x) => {
+          setSubmitting(false);
+        });
     } else {
       linkSectionService
         .updateLinkSection(linkSection)
@@ -82,6 +85,9 @@ const AddOrEditLinkSection = ({ row, isNew, open, setOpen, refetch }) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
         })
+        .finally((x) => {
+          setSubmitting(false);
+        });
     }
   };
   const CloseDialog = () => (
@@ -121,12 +127,10 @@ const AddOrEditLinkSection = ({ row, isNew, open, setOpen, refetch }) => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               setSubmitting(true);
-              handleSubmit(values, setErrors);
+              handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
-            } finally {
-              setSubmitting(false);
             }
           }}
         >

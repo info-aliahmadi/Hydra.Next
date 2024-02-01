@@ -79,7 +79,7 @@ export default function AddOrEditUser({params}) {
 
   const onClose = () => {};
 
-  const handleSubmit = (user, resetForm, setErrors) => {
+  const handleSubmit = (user, resetForm, setErrors,setSubmitting) => {
     if (operation == 'add') {
       userService
         .addUser(user)
@@ -91,6 +91,9 @@ export default function AddOrEditUser({params}) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((error) => {
+          setSubmitting(false);
         });
     } else {
       userService
@@ -102,6 +105,9 @@ export default function AddOrEditUser({params}) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((error) => {
+          setSubmitting(false);
         });
     }
   };
@@ -166,15 +172,11 @@ export default function AddOrEditUser({params}) {
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
             setSubmitting(true);
-            handleSubmit(values, resetForm, setErrors);
+            handleSubmit(values, resetForm, setErrors,setSubmitting);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-          }
-          finally{
-            setSubmitting(false);
-
           }
         }}
       >

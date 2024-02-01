@@ -56,7 +56,7 @@ const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
     }
   }, [row, isNew, open]);
 
-  const handleSubmit = (menu, setErrors) => {
+  const handleSubmit = (menu, setErrors, setSubmitting) => {
     if (isNew == true) {
       menuService
         .addMenu(menu)
@@ -69,6 +69,8 @@ const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        }).finally(() => {
+          setSubmitting(false);
         });
     } else {
       menuService
@@ -82,6 +84,8 @@ const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        }).finally(() => {
+          setSubmitting(false);
         });
     }
   };
@@ -124,13 +128,10 @@ const AddOrEditMenu = ({ row, isNew, open, setOpen, refetch }) => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               setSubmitting(true);
-              handleSubmit(values, setErrors);
+              handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
-            } finally {
-              setSubmitting(false);
-
             }
           }}
         >

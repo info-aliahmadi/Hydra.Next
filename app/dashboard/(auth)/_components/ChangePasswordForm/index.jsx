@@ -90,6 +90,9 @@ const ChangePasswordForm = () => {
                   type: 'error',
                   description: error
                 });
+              })
+              .finally((x) => {
+                setSubmitting(false);
               });
             setStatus({ success: true });
             setSubmitting(true);
@@ -97,7 +100,6 @@ const ChangePasswordForm = () => {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-            setSubmitting(false);
           }
         }}
       >

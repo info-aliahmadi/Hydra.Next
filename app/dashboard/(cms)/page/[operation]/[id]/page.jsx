@@ -36,7 +36,7 @@ import SelectTag from '@dashboard/(cms)/_components/Tag/SelectTag';
 import Editor from '@dashboard/_components/Editor/Editor';
 import { useSession } from 'next-auth/react';
 
-export default function AddOrEditPage({params}) {
+export default function AddOrEditPage({ params }) {
   const [t, i18n] = useTranslation();
   const operation = params.operation;
   const id = params.id;
@@ -59,7 +59,7 @@ export default function AddOrEditPage({params}) {
     if (operation == 'edit' && id > 0) loadPage();
   }, [operation, id]);
 
-  const handleSubmit = async (page, resetForm, setErrors) => {
+  const handleSubmit = async (page, resetForm, setErrors, setSubmitting) => {
     if (operation == 'add') {
       pageService
         .addPage(page)
@@ -70,6 +70,9 @@ export default function AddOrEditPage({params}) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     } else {
       pageService
@@ -81,6 +84,9 @@ export default function AddOrEditPage({params}) {
         .catch((error) => {
           setServerErrors(error, setErrors);
           setNotify({ open: true, type: 'error', description: error });
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     }
   };
@@ -114,14 +120,11 @@ export default function AddOrEditPage({params}) {
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
             setSubmitting(true);
-            handleSubmit(values, resetForm, setServerErrors);
+            handleSubmit(values, resetForm, setErrors, setSubmitting);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-          }finally{
-            setSubmitting(false);
-
           }
         }}
       >

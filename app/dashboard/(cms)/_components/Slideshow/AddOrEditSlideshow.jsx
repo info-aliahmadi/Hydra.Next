@@ -56,7 +56,7 @@ const AddOrEditSlideshow = ({ row, isNew, open, setOpen, refetch }) => {
     }
   }, [row, isNew, open]);
 
-  const handleSubmit = (slideshow, setErrors) => {
+  const handleSubmit = (slideshow, setErrors,setSubmitting) => {
     if (isNew == true) {
       slideshowService
         .addSlideshow(slideshow)
@@ -69,6 +69,9 @@ const AddOrEditSlideshow = ({ row, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     } else {
       slideshowService
@@ -82,6 +85,9 @@ const AddOrEditSlideshow = ({ row, isNew, open, setOpen, refetch }) => {
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
+        })
+        .finally((x) => {
+          setSubmitting(false);
         });
     }
   };
@@ -121,13 +127,10 @@ const AddOrEditSlideshow = ({ row, isNew, open, setOpen, refetch }) => {
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               setSubmitting(true);
-              handleSubmit(values, setErrors);
+              handleSubmit(values, setErrors,setSubmitting);
             } catch (err) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
-            }
-            finally {
-              setSubmitting(false);
             }
           }}
         >

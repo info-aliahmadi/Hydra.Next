@@ -57,7 +57,7 @@ const ProfileForm = () => {
     loadUser();
   }, []);
 
-  const handleUpdate = (user) => {
+  const handleUpdate = (user,setSubmitting) => {
     accountService
       .updateCurrentUser(user)
       .then((result) => {
@@ -66,6 +66,9 @@ const ProfileForm = () => {
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error.message });
+      })
+      .finally((x) => {
+        setSubmitting(false);
       });
   };
   const changeAvatar = (e, setFieldValue) => {
@@ -111,14 +114,12 @@ const ProfileForm = () => {
           try {
             setStatus({ success: true });
             setSubmitting(true);
-            handleUpdate(values);
+            handleUpdate(values,setSubmitting);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-          } finally {
-            setSubmitting(false);
-          }
+          } 
         }}
       >
         {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (

@@ -79,7 +79,6 @@ const SiteSetting = () => {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-            setSubmitting(false);
           }
         }}
       >

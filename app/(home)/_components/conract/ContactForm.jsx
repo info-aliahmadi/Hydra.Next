@@ -95,7 +95,6 @@ export default function ContactForm() {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
-            setSubmitting(false);
           }
         }}
       >
