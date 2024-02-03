@@ -13,9 +13,7 @@ import { useTheme } from '@mui/material';
 const RootStyle = styled(BrowserView)({
   flexGrow: 1,
   height: '100%',
-  overflowY: 'scroll',
-  scrollbarColor: '#007 #bada55',
-  scrollbarWidth: 'thin'
+  overflowY: 'auto',
 });
 
 // scroll bar wrapper
