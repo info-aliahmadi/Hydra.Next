@@ -51,6 +51,7 @@ export default async function Content({ post }) {
                 className="content"
               >
                 <Box
+                className="post-body"
                   variant="body1"
                   textAlign="justify"
                   dangerouslySetInnerHTML={{

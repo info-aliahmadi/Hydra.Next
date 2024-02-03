@@ -743,3 +743,6 @@ html {
 .criteria-chcklist li {
   margin: 3px 0;
 }
+.post-body span[data-lexical-excalidraw-json]{
+  max-width: 100%;
+}
