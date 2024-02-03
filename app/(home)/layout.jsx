@@ -4,6 +4,8 @@ import Navigation from './_layout/Navigation';
 import Footer from './_layout/Footer';
 import HomeService from './_service/HomeService';
 import CONFIG from '/config';
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 
 export async function generateMetadata() {
   var service = new HomeService();
@@ -48,7 +50,6 @@ export async function generateMetadata() {
       }
     },
     verification: {
-      google: 'google-site-verification',
       yandex: 'yandex',
       bing: 'bing',
       yahoo: 'y_key',
@@ -67,11 +68,14 @@ export const viewport = {
 export default async function HomeLayout({ children }) {
   var service = new HomeService();
   const siteSettings = await service.getSettings();
+
+
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <script async type="module" src="https://unpkg.com/@splinetool/viewer@1.0.28/build/spline-viewer.js"></script>
+        <GoogleAnalytics gaId="G-FHXSNCCHND" />
         {siteSettings.headerHtml}
       </head>
       <body>
