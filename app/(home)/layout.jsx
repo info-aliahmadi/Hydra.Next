@@ -24,7 +24,7 @@ export async function generateMetadata() {
     keywords: siteSettings.siteKeywords,
     category: 'web development',
     alternates: {
-      canonical: '/'
+      canonical: 'http://onwavedesign.com'
     },
     openGraph: {
       title: siteSettings.siteTitle,
