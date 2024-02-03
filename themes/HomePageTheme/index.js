@@ -16,7 +16,7 @@ import componentsOverride from './overrides';
 
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 import '/public/css/PlaygroundEditorTheme.css'
-import '/public/css/customStyle/HomePage.css'
+import '/public/css/customStyle/homePage.css'
 // import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
