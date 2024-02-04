@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 
 // material-ui
@@ -24,7 +25,6 @@ const MessageSetting = () => {
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
   let settingsService = new MessageService(jwt);
-
   const [fieldsName, validation, buttonName] = ['fields.message.messageSettings.', 'validation.message.messageSettings', 'buttons.'];
   const [settings, setSettings] = useState();
   const [notify, setNotify] = useState({ open: false });

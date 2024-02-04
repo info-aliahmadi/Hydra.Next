@@ -5,7 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-export default function MultiAutoComplete({ id, name, defaultValues, setFieldValue, label,inputDataApi, loadDataApi }) {
+export default function MultiAutoComplete({ id, name, defaultValues, setFieldValue, label, inputDataApi, loadDataApi }) {
 
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState([]);
@@ -23,6 +23,7 @@ export default function MultiAutoComplete({ id, name, defaultValues, setFieldVal
   const loadAllData = (ids) => {
     setLoading(true);
     var defIds = ids.toString();
+    
     loadDataApi(defIds).then((products) => {
       setOptions([...products.data]);
       setValues([...products.data]);
@@ -35,7 +36,7 @@ export default function MultiAutoComplete({ id, name, defaultValues, setFieldVal
       setClear(Date.now());
       setOptions([]);
     } else {
-      loadAllData(defaultValues);
+      loadAllData(defaultValues); 
     }
 
   }, [JSON.stringify(defaultValues)]);
@@ -47,6 +48,7 @@ export default function MultiAutoComplete({ id, name, defaultValues, setFieldVal
     setValues(newValue);
   };
   const onInputChange = (event, newInputValue) => {
+    
     if (newInputValue != 'undefined' && newInputValue != null && newInputValue != '') {
       setLoading(true);
       inputDataApi(newInputValue).then((products) => {
