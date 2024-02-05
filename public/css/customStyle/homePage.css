@@ -723,7 +723,7 @@ html {
   box-shadow: rgba(54, 131, 187, 0.3) 0px 10px 15px -6px, rgba(255, 255, 255, 0.2) 0px 4px 0px 0px inset;
 }
 .content img {
-  width: 100%;
+  max-width: 100%;
 }
 
 .text-card {

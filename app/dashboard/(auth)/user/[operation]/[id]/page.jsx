@@ -50,11 +50,11 @@ import SelectRole from '@dashboard/(auth)/_components/Role/SelectRole';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-export default function AddOrEditUser({params}) {
+export default function AddOrEditUser({ params }) {
   const [t] = useTranslation();
   const operation = params.operation;
   const id = params.id;
-  
+
   const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
 
@@ -77,9 +77,9 @@ export default function AddOrEditUser({params}) {
     if (operation == 'edit' && id > 0) loadUser();
   }, [operation, id]);
 
-  const onClose = () => {};
+  const onClose = () => { };
 
-  const handleSubmit = (user, resetForm, setErrors,setSubmitting) => {
+  const handleSubmit = (user, resetForm, setErrors, setSubmitting) => {
     if (operation == 'add') {
       userService
         .addUser(user)
@@ -172,7 +172,7 @@ export default function AddOrEditUser({params}) {
         onSubmit={(values, { setErrors, setStatus, setSubmitting, resetForm }) => {
           try {
             setSubmitting(true);
-            handleSubmit(values, resetForm, setErrors,setSubmitting);
+            handleSubmit(values, resetForm, setErrors, setSubmitting);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
@@ -465,14 +465,13 @@ export default function AddOrEditUser({params}) {
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="lockoutEnabled">{t(fieldsName + 'lockoutEnabled')}</InputLabel>
                                     <FormControlLabel
-                                      disabled
                                       control={
                                         <Checkbox
                                           id="lockoutEnabled"
-                                          checked={values.lockoutEnabled ? true : false}
-                                          title={values.lockoutEnabled ? 'Yes' : 'No'}
+                                          checked={values.lockoutEnabled}
                                           color="default"
-                                          disabled
+
+                                          onChange={handleChange}
                                         />
                                       }
                                       label={t(fieldsName + 'lockoutEnabled')}
