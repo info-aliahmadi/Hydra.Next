@@ -1,14 +1,9 @@
 // assets
-import { Article, Menu, Slideshow, Description, Topic, Link, Flag, ShoppingCart } from '@mui/icons-material';
+import   ShoppingCart  from '@mui/icons-material/ShoppingCart';
+import CategoryIcon from '@mui/icons-material/Category';
 // icons
 const icons = {
-  Article,
-  Description,
-  Menu,
-  Slideshow,
-  Topic,
-  Link,
-  Flag,
+  CategoryIcon,
   ShoppingCart
 };
 
@@ -25,7 +20,7 @@ const pages = {
       title: 'Products',
       type: 'item',
       url: '/dashboard/product/list',
-      icon: icons.ShoppingCart,
+      icon: icons.CategoryIcon,
       breadcrumbs: false,
       permission: 'AUTH.GET_PERMISSION_LIST'
     },{
