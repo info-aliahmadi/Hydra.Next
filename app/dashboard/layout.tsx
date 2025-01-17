@@ -1,20 +1,18 @@
 'use client';
 // types
 import { Provider as ReduxProvider } from 'react-redux';
-import DashboardThemeCustomization from '/themes/DashboardTheme';
+import DashboardThemeCustomization from '@root/themes/DashboardTheme';
 import DashboardLayout from './_layout/Index';
-import { store } from '/store';
+import { store } from '@root/store';
 import { Suspense } from 'react';
 import Loader from './_components/Loader';
 import { SessionProvider } from 'next-auth/react'
 import AuthorizationProvider from './(auth)/_service/Authorization/AuthorizationProvider';
-import '/public/css/customStyle/dashboard.css'
+import '@root/public/css/customStyle/dashboard.css'
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-export default function DashboardThemeLayout({ children }: {
-  children: React.ReactNode
-}) { 
+export default function DashboardThemeLayout({ children }: Readonly<{  children: React.ReactNode }>) { 
  
   return (
     <html lang="en">

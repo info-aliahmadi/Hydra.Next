@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import PermissionRoleService from '@dashboard/(auth)/_service/PermissionRoleService';
+import PermissionRoleService from '@root/app/dashboard/(auth)/_service/PermissionRoleService';
 import { useSession } from 'next-auth/react';
 
 const DeletePermissionRole = ({ row, roleId, permissionRow, open, setOpen, data, setData, refetch }) => {

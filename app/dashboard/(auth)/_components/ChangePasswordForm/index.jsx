@@ -20,13 +20,13 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import { strengthColor, strengthIndicator } from '/utils/password-strength';
+import { strengthColor, strengthIndicator } from '@root/utils/password-strength';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import setServerErrors from '/utils/setServerErrors';
+import setServerErrors from '@root/utils/setServerErrors';
 import { Save } from '@mui/icons-material';
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import AccountService from '@dashboard/(auth)/_service/AccountService';

@@ -8,8 +8,8 @@ import Container from '@mui/material/Container';
 import 'react';
 import ShareButtons from './ShareButtons';
 import PostTags from './PostTags';
-import { DateTimeViewer } from '/utils/DateViewer';
-import readingTime from '/utils/readingTime';
+import { DateTimeViewer } from '@root/utils/DateViewer';
+import readingTime from '@root/utils/readingTime';
 import CONFIG from '/config';
 import Author from '@(home)/_components/Author';
 

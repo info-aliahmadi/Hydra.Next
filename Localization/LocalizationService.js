@@ -1,8 +1,8 @@
 'use client';
 import axios from 'axios';
-import CONFIG from '/config.js';
-import { setDefaultHeader } from '/utils/axiosHeaders';
-import LocalStorageService from '/utils/LocalStorageService';
+import CONFIG from '@root/config.js';
+import { setDefaultHeader } from '@root/utils/axiosHeaders';
+import LocalStorageService from '@root/utils/LocalStorageService';
 
 export default class LocalizationService {
   constructor(jwt) {     

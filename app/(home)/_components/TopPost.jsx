@@ -7,8 +7,8 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import 'react';
 import Author from './Author';
-import { DateTimeViewer } from '/utils/DateViewer';
-import readingTime from '/utils/readingTime';
+import { DateTimeViewer } from '@root/utils/DateViewer';
+import readingTime from '@root/utils/readingTime';
 import CONFIG from '/config';
 
 import Link from 'next/link';

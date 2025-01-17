@@ -8,7 +8,6 @@ import { useTheme } from '@mui/material/styles';
 
 import dynamic from "next/dynamic";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-// import ReactApexChart from 'react-apexcharts';
 
 // chart options
 const barChartOptions = {

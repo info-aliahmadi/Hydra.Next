@@ -12,7 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import navigation from '@dashboard/_lib/menu-items';
 
 // types
-import { openDrawer } from '/store/reducers/menu';
+import { openDrawer } from '@root/store/reducers/menu';
 import Header from './Header';
 import MainDrawer from './Drawer';
 import Breadcrumbs from '@dashboard/_components/@extended/Breadcrumbs';

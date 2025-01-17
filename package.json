@@ -1,5 +1,5 @@
 {
-  "name": "hydra-react-app",
+  "name": "app",
   "version": "1.1.2",
   "private": true,
   "scripts": {
@@ -65,7 +65,7 @@
     "material-react-table": "^1.14.0",
     "moment": "^2.29.4",
     "moment-jalaali": "^0.10.0",
-    "next": "14.0.4",
+    "next": "^14.0.4",
     "next-auth": "^4.24.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -90,8 +90,10 @@
   },
   "devDependencies": {
     "@types/katex": "^0.16.7",
+    "@types/moment-jalaali": "^0.7.9",
     "@types/node": "^20",
     "@types/react": "^18",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18",
     "eslint": "^7.32.0",
     "eslint-config-next": "14.0.4",

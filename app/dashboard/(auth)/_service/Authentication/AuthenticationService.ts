@@ -1,6 +1,6 @@
 import axios from 'axios';
-import CONFIG from '/config.js';
-import { setAuthenticationHeader } from '/utils/axiosHeaders';
+import CONFIG from '@root/config.js';
+import { setAuthenticationHeader } from '@root/utils/axiosHeaders';
 
 export default class AuthenticationService {
   login = async (username: string, password: string, rememberMe: boolean) => {

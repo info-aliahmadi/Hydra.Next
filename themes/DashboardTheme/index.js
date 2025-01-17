@@ -1,6 +1,6 @@
 'use client';
 import PropTypes from 'prop-types';
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 
 // material-ui
 import { CssBaseline, StyledEngineProvider } from '@mui/material';
@@ -13,15 +13,15 @@ import CustomShadows from './shadows';
 import componentsOverride from './overrides';
 import { prefixer } from 'stylis';
 import stylisRTLPlugin from 'stylis-plugin-rtl';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 
-import i18n from '/Localization/i18n';
+import i18n from '@root/Localization/i18n';
 
 import IranSans from './fonts/IranSans';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import {AdapterDateFnsJalali} from '@mui/x-date-pickers/AdapterDateFnsJalali/AdapterDateFnsJalali';
-import '/public/css/customStyle/dashboard.css';
+import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali/AdapterDateFnsJalali';
+import '@root/public/css/customStyle/dashboard.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { useSession } from 'next-auth/react';

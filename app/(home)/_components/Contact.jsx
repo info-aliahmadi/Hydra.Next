@@ -23,7 +23,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import HomeService from '@(home)/_service/HomeService';
 import Notify from './Notify';
-import setServerErrors from '/utils/setServerErrors';
+import setServerErrors from '@root/utils/setServerErrors';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 export default function Contact() {
