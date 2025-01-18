@@ -6,11 +6,11 @@ import { useTheme } from '@mui/material/styles';
 
 // third-party
 import dynamic from 'next/dynamic';
+import { ApexOptions } from 'apexcharts';
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
-// import ReactApexChart from 'react-apexcharts';
 
 // chart options
-const columnChartOptions = {
+const columnChartOptions : ApexOptions = {
   chart: {
     type: 'bar',
     height: 430,
@@ -61,9 +61,9 @@ const columnChartOptions = {
     markers: {
       width: 16,
       height: 16,
-      radius: '50%',
-      offsexX: 2,
-      offsexY: 2
+      radius: 50,
+      offsetX: 2,
+      offsetY: 2
     },
     itemMargin: {
       horizontal: 15,
@@ -105,7 +105,7 @@ const SalesColumnChart = () => {
     }
   ]);
 
-  const [options, setOptions] = useState(columnChartOptions);
+  const [options, setOptions] = useState<ApexOptions>(columnChartOptions);
 
   useEffect(() => {
     setOptions((prevState) => ({

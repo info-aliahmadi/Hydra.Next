@@ -27,7 +27,7 @@ import Save from '@mui/icons-material/Save';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import Notify from '@dashboard/_components/@extended/Notify';
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import AccountService from '@dashboard/(auth)/_service/AccountService';

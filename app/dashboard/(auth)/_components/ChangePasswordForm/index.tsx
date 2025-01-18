@@ -32,17 +32,21 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import AccountService from '@dashboard/(auth)/_service/AccountService';
 import { useSession } from 'next-auth/react';
 
-// ============================|| FIREBASE - REGISTER ||============================ //
+interface FormValues {
+  oldPassword: string;
+  newPassword: string;
+  submit?: string;
+}
 
 const ChangePasswordForm = () => {
-  const [t] = useTranslation();
-  const [level, setLevel] = useState();
-  const { data: session } = useSession();
+  const [t] = useTranslation() as any;
+  const [level, setLevel] = useState<any>();
+  const { data: session } = useSession() as { data: any };
   const jwt = session?.user?.accessToken;
 
 
   const [showPassword, setShowPassword] = useState(false);
-  const [notify, setNotify] = useState({ open: false });
+  const [notify, setNotify] = useState<any>({  open: false, type: 'success', description: '' });
 
   let accountService = new AccountService(jwt);
 
@@ -50,11 +54,11 @@ const ChangePasswordForm = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
 
-  const changePassword = (value) => {
+  const changePassword = (value: any) => {
     const temp = strengthIndicator(value);
     setLevel(strengthColor(temp));
   };
@@ -70,36 +74,37 @@ const ChangePasswordForm = () => {
         enableReinitialize={true}
         initialValues={{
           oldPassword: '',
-          newPassword: ''
+          newPassword: '',
+          submit: ''
         }}
         validationSchema={Yup.object().shape({
-          oldPassword: Yup.string().max(255).required(t('validation.required-old-password')),
-          newPassword: Yup.string().max(255).required(t('validation.required-new-password'))
+          oldPassword: Yup.string().max(255).required(t('validation.required-old-password') as string),
+          newPassword: Yup.string().max(255).required(t('validation.required-new-password') as string)
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
+
+
             accountService
-              .changePassword(values)
+              .changePassword(values as FormValues)
               .then(() => {
-                setNotify({ open: true });
+                setNotify({ open: true, type: 'success', description: '' });
               })
-              .catch((error) => {
+              .catch((error: any) => {
                 setServerErrors(error, setErrors);
                 setNotify({
                   open: true,
                   type: 'error',
                   description: error
-                });
+                } as any);
               })
-              .finally((x) => {
-                setSubmitting(false);
-              });
+              .finally(() => setSubmitting(false));
             setStatus({ success: true });
             setSubmitting(true);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });
-            setErrors({ submit: err.message });
+            setErrors({ newPassword: (err as any).message });
           }
         }}
       >

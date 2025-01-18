@@ -1,15 +1,22 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // material-ui
-import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 // third-party
 import Dot from '@dashboard/_components/@extended/Dot';
-
+import Link from 'next/link';
 // project import
 
-function createData(trackingNo, name, fat, carbs, protein) {
+interface Data {
+  trackingNo: number;
+  name: string;
+  fat: number;
+  carbs: number;
+  protein: number;
+}
+
+function createData(trackingNo: number, name: string, fat: number, carbs: number, protein: number): Data {
   return { trackingNo, name, fat, carbs, protein };
 }
 
@@ -26,7 +33,7 @@ const rows = [
   createData(98753291, 'Chair', 100, 0, 14001)
 ];
 
-function descendingComparator(a, b, orderBy) {
+function descendingComparator(a: Data, b: Data, orderBy: keyof Data): number {
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -36,12 +43,14 @@ function descendingComparator(a, b, orderBy) {
   return 0;
 }
 
-function getComparator(order, orderBy) {
+function getComparator(order: 'asc' | 'desc', orderBy: keyof Data): (a: Data, b: Data) => number {
   return order === 'desc' ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
+type Comparator<T> = (a: T, b: T) => number;
+
+function stableSort<T>(array: T[], comparator: Comparator<T>): T[] {
+  const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
     if (order !== 0) {
@@ -54,7 +63,14 @@ function stableSort(array, comparator) {
 
 // ==============================|| ORDER TABLE - HEADER CELL ||============================== //
 
-const headCells = [
+interface HeadCell {
+  id: keyof Data;
+  align: 'left' | 'right' | 'center' | 'inherit' | 'justify';
+  disablePadding: boolean;
+  label: string;
+}
+
+const headCells: HeadCell[] = [
   {
     id: 'trackingNo',
     align: 'left',
@@ -90,7 +106,11 @@ const headCells = [
 
 // ==============================|| ORDER TABLE - HEADER ||============================== //
 
-function OrderTableHead({ order, orderBy }) {
+
+
+type Order = 'asc' | 'desc';
+
+function OrderTableHead({ order, orderBy }: { readonly order: Order; readonly orderBy: keyof Data }) {
   return (
     <TableHead>
       <TableRow>
@@ -109,14 +129,9 @@ function OrderTableHead({ order, orderBy }) {
   );
 }
 
-OrderTableHead.propTypes = {
-  order: PropTypes.string,
-  orderBy: PropTypes.string
-};
-
 // ==============================|| ORDER TABLE - STATUS ||============================== //
 
-const OrderStatus = ({ status }) => {
+const OrderStatus = ({ status }: { status: number }) => {
   let color;
   let title;
 
@@ -140,24 +155,20 @@ const OrderStatus = ({ status }) => {
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <Dot color={color} />
+      <Dot color={color} size={16} />
       <Typography>{title}</Typography>
     </Stack>
   );
 };
 
-OrderStatus.propTypes = {
-  status: PropTypes.number
-};
-
 // ==============================|| ORDER TABLE ||============================== //
 
 export default function OrderTable() {
-  const [order] = useState('asc');
-  const [orderBy] = useState('trackingNo');
-  const [selected] = useState([]);
+  const [order] = useState<Order>('asc');
+  const [orderBy] = useState<keyof Data>('trackingNo');
+  const [selected] = useState<number[]>([]);
 
-  const isSelected = (trackingNo) => selected.indexOf(trackingNo) !== -1;
+  const isSelected = (trackingNo : any) => selected.indexOf(trackingNo) !== -1;
 
   return (
     <Box>
@@ -191,15 +202,16 @@ export default function OrderTable() {
               return (
                 <TableRow
                   hover
-                  role="checkbox"
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  aria-checked={isItemSelected}
                   tabIndex={-1}
                   key={row.trackingNo}
                   selected={isItemSelected}
                 >
+                  <TableCell padding="checkbox">
+                    <input type="checkbox" checked={isItemSelected} readOnly />
+                  </TableCell>
                   <TableCell component="th" id={labelId} scope="row" align="left">
-                    <Link color="secondary" to="">
+                    <Link color="secondary" href="#">
                       {row.trackingNo}
                     </Link>
                   </TableCell>

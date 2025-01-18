@@ -10,7 +10,9 @@ import dynamic from "next/dynamic";
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 // chart options
-const barChartOptions = {
+import { ApexOptions } from 'apexcharts';
+
+const barChartOptions: ApexOptions = {
   chart: {
     type: 'bar',
     height: 365,
@@ -61,7 +63,7 @@ const MonthlyBarChart = () => {
   const [options, setOptions] = useState(barChartOptions);
 
   useEffect(() => {
-    setOptions((prevState) => ({
+    setOptions((prevState : any) => ({
       ...prevState,
       colors: [info],
       xaxis: {

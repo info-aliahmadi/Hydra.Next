@@ -39,7 +39,7 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import MainCard from '@dashboard/_components/MainCard';
 import languageList from '/Localization/languageList';
 import DeleteUser from '../../../_components/User/DeleteUser';

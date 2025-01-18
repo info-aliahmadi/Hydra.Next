@@ -17,7 +17,7 @@ import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import UsersService from '@dashboard/(auth)/_service/UsersService';
 import { AccountCircle, Send, PersonAdd } from '@mui/icons-material';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import { Stack } from '@mui/system';
 import moment from 'moment';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';

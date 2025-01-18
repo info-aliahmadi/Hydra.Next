@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
@@ -19,13 +19,14 @@ import Breadcrumbs from '@dashboard/_components/@extended/Breadcrumbs';
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-export default function DashboardLayout({ children }) {
+
+export default function DashboardLayout({ children }: Readonly<{ children: ReactNode }>) {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
   const dispatch = useDispatch();
 
-  const { drawerOpen } = useSelector((state) => state.menu);
-  
+  const { drawerOpen } = useSelector((state : any) => state.menu);
+
   // drawer toggler
   const [open, setOpen] = useState(drawerOpen);
   const [minimize, setMinimize] = useState(false);

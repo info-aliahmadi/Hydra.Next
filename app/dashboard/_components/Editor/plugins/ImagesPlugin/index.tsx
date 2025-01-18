@@ -43,7 +43,7 @@ import FileInput from '../../ui/FileInput';
 import TextInput from '../../ui/TextInput';
 import { useSession } from 'next-auth/react';
 import FileStorageService from '@dashboard/(filestorage)/_service/FileStorageService';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 

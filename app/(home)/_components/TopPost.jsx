@@ -9,7 +9,7 @@ import 'react';
 import Author from './Author';
 import { DateTimeViewer } from '@root/utils/DateViewer';
 import readingTime from '@root/utils/readingTime';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 
 import Link from 'next/link';
 import HomeService from '@(home)/_service/HomeService';

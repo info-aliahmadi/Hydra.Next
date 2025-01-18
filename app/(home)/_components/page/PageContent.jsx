@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 import 'react';
 import { DateTimeViewer } from '@root/utils/DateViewer';
 import readingTime from '@root/utils/readingTime';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import Author from '@(home)/_components/Author';
 import ShareButtons from '../blogpost/ShareButtons';
 import PostTags from '../blogpost/PostTags';

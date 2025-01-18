@@ -1,4 +1,4 @@
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import HomeService from './_service/HomeService';
 
 

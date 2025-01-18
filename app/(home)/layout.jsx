@@ -1,9 +1,9 @@
 import 'react';
-import HomePageThemeCustomization from '/themes/HomePageTheme';
+import HomePageThemeCustomization from '@root/themes/HomePageTheme';
 import Navigation from './_layout/Navigation';
 import Footer from './_layout/Footer';
 import HomeService from './_service/HomeService';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 

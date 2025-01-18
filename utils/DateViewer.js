@@ -1,4 +1,4 @@
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import moment from 'moment';
 
 export const DateViewer = (currentLanguage, date) => {

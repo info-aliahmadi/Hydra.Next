@@ -6,11 +6,11 @@ import { useTheme } from '@mui/material/styles';
 
 // third-party
 import dynamic from "next/dynamic";
+import { ApexOptions } from 'apexcharts';
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-// import ReactApexChart from 'react-apexcharts';
 
 // chart options
-const areaChartOptions = {
+const areaChartOptions : ApexOptions = {
   chart: {
     height: 340,
     type: 'line',
@@ -68,10 +68,10 @@ const ReportAreaChart = () => {
   const { primary, secondary } = theme.palette.text;
   const line = theme.palette.divider;
 
-  const [options, setOptions] = useState(areaChartOptions);
+  const [options, setOptions] = useState<ApexOptions>(areaChartOptions);
 
   useEffect(() => {
-    setOptions((prevState) => ({
+    setOptions((prevState :any)  => ({
       ...prevState,
       colors: [theme.palette.warning.main],
       xaxis: {

@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import 'react';
 
 export default async function Statistics() {

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import 'react';
 import { Suspense, useState } from 'react';
 import dynamic from 'next/dynamic';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 import { useTheme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 

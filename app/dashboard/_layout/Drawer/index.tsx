@@ -15,9 +15,9 @@ import { drawerWidth } from '@root/config';
 // ==============================|| MAIN LAYOUT - DRAWER ||============================== //
 interface MainDrawerProps { 
   open: boolean, 
-  handleDrawerToggle: () => void,
-  handleDrawerOpen: () => void, 
-  handleDrawerClose: () => void,
+  handleDrawerToggle: any
+  handleDrawerOpen: any, 
+  handleDrawerClose: any,
   window?: () => Window 
 }
 const MainDrawer = ({ open, handleDrawerToggle, handleDrawerOpen, handleDrawerClose, window }: MainDrawerProps ) => {

@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 
 // let localizationService = new LocalizationService();
 // // // don't want to use this?

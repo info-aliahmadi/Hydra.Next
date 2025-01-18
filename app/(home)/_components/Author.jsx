@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import 'react';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 
 export default async function Author({ author, date, readingTime }) {
   console.log(JSON.stringify(author) );

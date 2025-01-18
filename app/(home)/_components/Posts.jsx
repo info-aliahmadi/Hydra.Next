@@ -13,7 +13,7 @@ import truncate from 'lodash/truncate';
 import readingTime from '@root/utils/readingTime';
 import { DateTimeViewer } from '@root/utils/DateViewer';
 import Link from 'next/link';
-import CONFIG from '/config';
+import CONFIG from '@root/config';
 
 function Post({ post }) {
   return (
