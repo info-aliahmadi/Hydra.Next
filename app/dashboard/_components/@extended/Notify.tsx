@@ -5,23 +5,15 @@ import Typography from '@mui/material/Typography';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-interface NotifyProps {
-  readonly notify: {
-    type: 'error' | 'success';
-    description?: any;
-    open: boolean;
-    title?: string;
-  };
-  readonly setNotify: (notify: { type: 'error' | 'success'; description?: any; open: boolean; title?: string }) => void;
-  readonly position?: {
+
+  interface Position {
     vertical?: 'top' | 'bottom';
     horizontal?: 'left' | 'center' | 'right';
   };
-  readonly sx?: any;
-}
 
 
-function Notify({ notify, setNotify, position, sx }: NotifyProps) {
+
+function Notify({ notify, setNotify, position, sx }: Readonly<{notify: Notify, setNotify: setNotify, position?: Position, sx?: any }>) {
   const Strong = styled.strong`
     font-weight: 900;
     margin: auto 5px;

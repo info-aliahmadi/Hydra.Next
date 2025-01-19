@@ -28,64 +28,80 @@ import setServerErrors from '@root/utils/setServerErrors';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
 import { useSession } from 'next-auth/react';
 
-const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) => {
+
+const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
+  permissionId: number,
+  isNew: boolean,
+  open: boolean,
+  setOpen: (open: boolean) => void,
+  refetch: () => void
+}) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
 
-  let permissionService = new PermissionService(jwt);
+  let permissionService = new PermissionService(session as any);
   const [fieldsName, validation, buttonName] = ['fields.permission.', 'validation.permission.', 'buttons.permission.'];
-  const [permission, setPermission] = useState();
-  const [notify, setNotify] = useState({ open: false });
+  const [permission, setPermission] = useState<Permission | null>(null);
+  const [notify, setNotify] = useState<Notify>({ open: false, type: 'success' });
 
   const loadPermission = () => {
-    permissionService.getPermissionById(permissionId).then((result) => {
+    permissionService.getPermissionById(permissionId).then((result: any) => {
       setPermission(result);
     });
   };
   const onClose = () => {
     setOpen(false);
-    setPermission({});
+    setPermission(null);
   };
   useEffect(() => {
     if (isNew == false && permissionId > 0) {
       loadPermission();
     } else {
-      setPermission({});
+      setPermission(null);
     }
   }, [permissionId, isNew, open]);
 
-  const handleSubmit = (permission, setErrors, setSubmitting) => {
-    if (isNew == true) {
+  interface ServerErrors {
+    [key: string]: string;
+  }
+
+  const handleSubmit = (
+    permission: Permission,
+    setErrors: (errors: ServerErrors) => void,
+    setSubmitting: (isSubmitting: boolean) => void
+  ) => {
+    debugger
+    if (isNew) {
       permissionService
         .addPermission(permission)
         .then(() => {
-          setPermission({});
+          setPermission(null);
           onClose();
-          setNotify({ open: true });
+          setNotify((provious) => ({ ...provious, open: true }));
           refetch();
         })
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
         })
-        .finally((x) => {
+        .finally(() => {
           setSubmitting(false);
         });
     } else {
       permissionService
         .updatePermission(permission)
         .then(() => {
-          setPermission({});
+          setPermission(null);
           onClose();
-          setNotify({ open: true });
+          setNotify((provious) => ({ ...provious, open: true }));
           refetch();
         })
         .catch((error) => {
+          debugger
           setNotify({ open: true, type: 'error', description: error });
           setServerErrors(error, setErrors);
         })
-        .finally((x) => {
+        .finally(() => {
           setSubmitting(false);
         });
     }
@@ -104,32 +120,32 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
       <CloseIcon />
     </IconButton>
   );
+  const initialValues: Permission = {
+    id: permission?.id,
+    name: permission?.name,
+    normalizedName: permission?.normalizedName
 
+  };
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
-      <Dialog open={open} fullWidth={'xs'}>
+      <Dialog open={open} fullWidth={true}>
         <Formik
-          initialValues={{
-            id: permission?.id,
-            name: permission?.name,
-            normalizedName: permission?.normalizedName
-          }}
+          initialValues={initialValues}
           enableReinitialize={true}
           validationSchema={Yup.object().shape({
             name: Yup.string()
               .max(255)
-              .required(t(validation + 'required-permission-name')),
-            normalizedName: Yup.string().max(255, t(validation + 'maxlength-permission-normalizedname'))
+              .required(t(validation + 'required-permission-name') as string),
+            normalizedName: Yup.string().max(255, t(validation + 'maxlength-permission-normalizedname') as string)
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
               setSubmitting(true);
               handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
-              console.error(err);
               setStatus({ success: false });
-              setErrors({ submit: err.message });
+              setErrors({ });
             }
           }}
         >
@@ -151,7 +167,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
                         name="name"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder={t(fieldsName + 'name')}
+                        placeholder={t(fieldsName + 'name') as string}
                         fullWidth
                         error={Boolean(touched.name && errors.name)}
                       />
@@ -174,7 +190,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }) =>
                         name="normalizedName"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder={t(fieldsName + 'normalizedname')}
+                        placeholder={t(fieldsName + 'normalizedname') as string}
                         inputProps={{}}
                       />
                       {touched.normalizedName && errors.normalizedName && (

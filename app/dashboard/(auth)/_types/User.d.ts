@@ -1,4 +1,4 @@
-interface UserModel {
+interface User {
   id: number;
   name: string;
   username: string;

@@ -1,13 +1,15 @@
 import axios from 'axios';
 import CONFIG from '@root/config.js';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
+import { Session } from 'next-auth';
 
 export default class PermissionService {
-  constructor(jwt : string) {
-    if(jwt)
-    setDefaultHeader(jwt);
+  constructor(session: Session | null) {
+    if (session) {
+      setDefaultHeader(session);
+    }
   }
-  getPermissionList = async (searchParams : any) => {
+  getPermissionList = async (searchParams: any) => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetPermissionList', searchParams)
@@ -67,7 +69,7 @@ export default class PermissionService {
         });
     });
   };
-  deletePermission = async (permissionId : number) => {
+  deletePermission = async (permissionId: number) => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/deletePermission', { params: { permissionId: permissionId } })
