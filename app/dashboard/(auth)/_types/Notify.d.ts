@@ -1,5 +1,5 @@
 interface Notify {
-    type: 'error' | 'success';
+    type?: 'error' | 'success';
     description?: any;
     open: boolean;
     title?: string;

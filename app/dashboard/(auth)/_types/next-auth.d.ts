@@ -12,7 +12,6 @@ declare module 'next-auth' {
     avatar: string;
     defaultLanguage: string;
     defaultTheme: string;
-    accessToken: string;
     roles: Array<string>;
   }
 

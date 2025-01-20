@@ -1,11 +1,21 @@
-import type { NextAuthOptions } from 'next-auth';
+import type { Account, NextAuthOptions, Profile, Session, User } from 'next-auth';
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
+import { JWT } from 'next-auth/jwt';
+import { AdapterUser } from 'next-auth/adapters';
 
 export const options: NextAuthOptions = {
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, trigger, session }): Promise<{
+      token: JWT;
+      user: User | AdapterUser;
+      account: Account | null;
+      profile?: Profile | undefined;
+      trigger?: "signIn" | "signUp" | "update";
+      isNewUser?: boolean;
+      session?: any;
+    }> {
       // the processing of JWT occurs before handling sessions.
       if (user) {
         token.refreshToken = token.refreshToken;
@@ -36,7 +46,7 @@ export const options: NextAuthOptions = {
     },
 
     //  The session receives the token from JWT
-    async session({ session, token, user }) {
+    async session({ session, token, user }: { session: Session; token: JWT; user: AdapterUser }): Promise<Session> {
       session.user = {
         ...session.user,
         userName: token.userName as string,
@@ -47,9 +57,10 @@ export const options: NextAuthOptions = {
         defaultLanguage: token.defaultLanguage as string,
         defaultTheme: token.defaultTheme as string,
         avatar: token.avatar as string,
-        accessToken: token.accessToken as string
       };
       session.error = token.error as string;
+      session.accessToken = token.token as string
+      session.accessTokenExpires = token.expiresOn as number
 
       return session;
     }
@@ -73,9 +84,9 @@ export const options: NextAuthOptions = {
           placeholder: 'Password'
         }
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<User | null> {
         const authenticationService = new AuthenticationService();
-        var result = await authenticationService.login(credentials?.username as string, credentials?.password as string, true);
+        let result = await authenticationService.login(credentials?.username as string, credentials?.password as string, true);
         if (result.succeeded) {
           return result.data;
         } else {

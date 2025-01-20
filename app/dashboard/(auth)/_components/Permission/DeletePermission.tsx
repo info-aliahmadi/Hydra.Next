@@ -11,13 +11,11 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
 import { useSession } from 'next-auth/react';
 
-const DeletePermission = ({ row, open, setOpen, refetch }) => {
+const DeletePermission = ({ row, open, setOpen, refetch }: { row: any; open: boolean; setOpen: (open: boolean) => void; refetch: () => void }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
-
-  let permissionService = new PermissionService(jwt);
-  const [notify, setNotify] = useState({ open: false });
+  let permissionService = new PermissionService(session as any);
+  const [notify, setNotify] = useState<Notify>({ open: false });
 
   const onClose = () => {
     setOpen(false);

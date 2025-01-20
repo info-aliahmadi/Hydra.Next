@@ -6,6 +6,7 @@ import { Session } from 'next-auth';
 export default class PermissionService {
   constructor(session: Session | null) {
     if (session) {
+      debugger
       setDefaultHeader(session);
     }
   }
@@ -34,10 +35,12 @@ export default class PermissionService {
     });
   };
   getPermissionsByName = async (name: string) => {
+    debugger
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/GetPermissionsByName', { params: { name: name } })
         .then((response) => {
+          debugger
           resolve(response.data);
         })
         .catch((error) => {
