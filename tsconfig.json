@@ -42,7 +42,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts", "app/dashboard/_components/Editor/LoadInitialContent.tsx" ],
+    ".next/types/**/*.ts", "themes/DashboardTheme/fonts/IranSans.tss" ],
   "exclude": [
     "node_modules",
     "./public/**/*.ts"

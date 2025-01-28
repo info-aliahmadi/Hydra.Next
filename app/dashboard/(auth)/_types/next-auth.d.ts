@@ -11,8 +11,9 @@ declare module 'next-auth' {
     userName: string;
     avatar: string;
     defaultLanguage: string;
-    defaultTheme: string;
+    defaultTheme: 'light' | 'dark';
     roles: Array<string>;
+    accesssToken : string;
   }
 
   interface Session extends DefaultSession {

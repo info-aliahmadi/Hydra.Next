@@ -89,7 +89,7 @@ export default function AddOrEditUser({ params }) {
           setNotify({ open: true });
         })
         .catch((error) => {
-          setServerErrors(error, setErrors);
+                                  setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: error });
         })
         .finally((error) => {
@@ -103,7 +103,7 @@ export default function AddOrEditUser({ params }) {
           setNotify({ open: true });
         })
         .catch((error) => {
-          setServerErrors(error, setErrors);
+                                  setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: error });
         })
         .finally((error) => {

@@ -6,6 +6,7 @@ import {
   Button,
   FormControl,
   FormHelperText,
+  Grid2,
   Grid,
   IconButton,
   InputAdornment,
@@ -14,6 +15,8 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+
+// material-ui
 
 // third party
 import * as Yup from 'yup';
@@ -91,7 +94,7 @@ const ChangePasswordForm = () => {
                 setNotify({ open: true, type: 'success', description: '' });
               })
               .catch((error: any) => {
-                setServerErrors(error, setErrors);
+                setErrors(setServerErrors(error));
                 setNotify({
                   open: true,
                   type: 'error',
@@ -110,10 +113,10 @@ const ChangePasswordForm = () => {
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
-            <Grid container direction="row" justifyContent="center">
-              <Grid item xs={12} sm={8} md={8} lg={6}>
-                <Grid container spacing={2} direction="column" justifyContent="center">
-                  <Grid item xs={12}>
+            <Grid2 container direction="row" justifyContent="center">
+              <Grid2 size={{ sm: 8, md: 8 ,lg : 6, xs: 6}}>
+                <Grid2 container spacing={2} direction="column" justifyContent="center">
+                  <Grid xs={12}>
                     <Stack>
                       <InputLabel htmlFor="old-password">{t('fields.old-password')}</InputLabel>
                       <OutlinedInput
@@ -190,9 +193,9 @@ const ChangePasswordForm = () => {
                       <FormHelperText error>{errors.submit}</FormHelperText>
                     </Grid>
                   )}
-                </Grid>
-              </Grid>
-            </Grid>
+                </Grid2>
+              </Grid2>
+            </Grid2>
             <Grid container item xs={12} justifyContent="center">
               <AnimateButton>
                 <Button

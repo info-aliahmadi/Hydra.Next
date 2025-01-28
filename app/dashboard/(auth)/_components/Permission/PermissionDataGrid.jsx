@@ -7,8 +7,7 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Delete } from '@mui/icons-material';
-import { Edit } from '@mui/icons-material';
+import { Delete , Edit } from '@mui/icons-material';
 import AddOrEditPermission from './AddOrEditPermission';
 import DeletePermission from './DeletePermission';
 

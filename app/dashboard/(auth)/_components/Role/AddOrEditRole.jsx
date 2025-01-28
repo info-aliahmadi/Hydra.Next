@@ -69,7 +69,7 @@ const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
         })
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
-          setServerErrors(error, setErrors);
+                                    setErrors(setServerErrors(error));
         });
     } else {
       roleService
@@ -81,7 +81,7 @@ const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
           refetch();
         })
         .catch((error) => {
-          setServerErrors(error, setErrors);
+                                  setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: error });
         });
     }

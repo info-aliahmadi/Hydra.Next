@@ -40,7 +40,7 @@ export default function Contact() {
         setNotify({ open: true, description: 'Your Message Sent Successfully' });
       })
       .catch((error) => {
-        setServerErrors(error, setErrors);
+        setErrors(setServerErrors(error));
         setNotify({ open: true, type: 'error', description: 'Your message could not be sent, please send your message via email' });
       })
       .finally((x) => {

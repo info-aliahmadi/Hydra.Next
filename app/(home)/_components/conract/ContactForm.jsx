@@ -29,7 +29,7 @@ export default function ContactForm() {
   const [notify, setNotify] = useState({ open: false });
 
   const handleSubmit = async (message, resetForm, setErrors, setSubmitting) => {
-    message.messageType =Number(message.messageType)
+    message.messageType = Number(message.messageType)
     if (message.messageType == 2) {
       messageService
         .sendContactMessage(message)
@@ -39,7 +39,7 @@ export default function ContactForm() {
           setNotify({ open: true, description: 'Your Message Sent Successfully' });
         })
         .catch((error) => {
-          setServerErrors(error, setErrors);
+          setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: 'Your message could not be sent, please send your message via email' });
         })
         .finally((x) => {
@@ -54,7 +54,7 @@ export default function ContactForm() {
           setNotify({ open: true, description: 'Your Message Sent Successfully' });
         })
         .catch((error) => {
-          setServerErrors(error, setErrors);
+          setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: 'Your message could not be sent, please send your message via email' });
         })
         .finally((x) => {
@@ -217,7 +217,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     aria-labelledby="demo-radio-buttons-group-label"
                     error={Boolean(touched.knowing && errors.knowing)}
-                    // row={4}
+                  // row={4}
                   >
                     <FormControlLabel value="I am a Developer" control={<Radio icon={<CircleIcon />} />} label="I am a Developer" />
                     <FormControlLabel

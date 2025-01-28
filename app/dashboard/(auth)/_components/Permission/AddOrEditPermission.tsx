@@ -82,7 +82,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
         })
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
-          setServerErrors(error, setErrors);
+                          setErrors(setServerErrors(error));
         })
         .finally(() => {
           setSubmitting(false);
@@ -99,7 +99,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
         .catch((error) => {
           debugger
           setNotify({ open: true, type: 'error', description: error });
-          setServerErrors(error, setErrors);
+                          setErrors(setServerErrors(error));
         })
         .finally(() => {
           setSubmitting(false);

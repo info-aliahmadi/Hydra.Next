@@ -7,7 +7,7 @@ import { AdapterUser } from 'next-auth/adapters';
 
 export const options: NextAuthOptions = {
   callbacks: {
-    async jwt({ token, user, trigger, session }): Promise<{
+    async jwt({ token, user, trigger, session }:{
       token: JWT;
       user: User | AdapterUser;
       account: Account | null;
@@ -15,20 +15,19 @@ export const options: NextAuthOptions = {
       trigger?: "signIn" | "signUp" | "update";
       isNewUser?: boolean;
       session?: any;
-    }> {
+    }): Promise<JWT> {
+      debugger
       // the processing of JWT occurs before handling sessions.
       if (user) {
-        token.refreshToken = token.refreshToken;
-        token.accessTokenExpires = token.accessTokenExpires;
         token.name = user.name;
         token.userName = user.userName;
         token.email = user.email;
         token.defaultLanguage = user.defaultLanguage;
         token.defaultTheme = user.defaultTheme;
-        token.avatar = user.avatar;
+        token.picture = user.avatar;
         token.roles = user.roles;
         token.id = user.id;
-        token.accessToken = user.accessToken;
+        token.accessToken = session.accessToken;
       }
 
       if (trigger === 'update' && session) {
@@ -47,6 +46,7 @@ export const options: NextAuthOptions = {
 
     //  The session receives the token from JWT
     async session({ session, token, user }: { session: Session; token: JWT; user: AdapterUser }): Promise<Session> {
+      debugger
       session.user = {
         ...session.user,
         userName: token.userName as string,
@@ -88,6 +88,7 @@ export const options: NextAuthOptions = {
         const authenticationService = new AuthenticationService();
         let result = await authenticationService.login(credentials?.username as string, credentials?.password as string, true);
         if (result.succeeded) {
+          debugger;
           return result.data;
         } else {
           return null;
