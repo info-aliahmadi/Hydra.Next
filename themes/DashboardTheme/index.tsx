@@ -19,7 +19,7 @@ import i18n from '@root/Localization/i18n';
 import IranSans from './fonts/IranSans';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali/AdapterDateFnsJalali';
+import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalaliV3';
 import '@root/public/css/customStyle/dashboard.css';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
@@ -27,12 +27,11 @@ import { useSession } from 'next-auth/react';
 import Loader from '@dashboard/_components/Loader';
 import { Options } from '@emotion/cache';
 // ==============================|| DEFAULT THEME - MAIN  ||============================== //
-export default function DashboardThemeCustomization({ children } : Readonly<{  children: React.ReactNode }>) {
+export default function DashboardThemeCustomization({ children }: { children: any }) {
 
   const { data: session, status } = useSession();
 
-  i18n.changeLanguage(session?.user?.defaultLanguage);
-  let themeMode : 'light' | 'dark' | undefined = session?.user?.defaultTheme;
+  let themeMode: 'light' | 'dark' | undefined = session?.user?.defaultTheme;
 
   if (session != undefined && themeMode == undefined) {
     themeMode = CONFIG.DASHBOARD_DEFAULT_THEME_MODE as 'light' | 'dark';
@@ -47,6 +46,7 @@ export default function DashboardThemeCustomization({ children } : Readonly<{  c
   useLayoutEffect(() => {
     setDirection(dir)
     document.dir = dir;
+    i18n.changeLanguage(session?.user?.defaultLanguage);
   }, [dir]);
 
   useLayoutEffect(() => {
@@ -54,7 +54,7 @@ export default function DashboardThemeCustomization({ children } : Readonly<{  c
     direction === 'rtl' ? setFonts(`Iran Sans`) : setFonts(CONFIG.DASHBOARD_FONT_FAMILY);
   }, [direction]);
 
-  function changeDirection(dir : 'ltr' | 'rtl') {
+  function changeDirection(dir: 'ltr' | 'rtl') {
     setDirection(dir);
   }
 
@@ -88,13 +88,11 @@ export default function DashboardThemeCustomization({ children } : Readonly<{  c
     }),
     [theme, themeTypography, themeCustomShadows]
   );
-
   const themes = createTheme(themeOptions);
-
   themes.components = componentsOverride(themes);
   // Create rtl cache
 
-  const cacheRtl : Options = {
+  const cacheRtl: Options = {
     key: 'muirtl',
     stylisPlugins: [prefixer, stylisRTLPlugin]
   };

@@ -53,7 +53,7 @@ function PollOptionComponent({
     cb: (pollNode: PollNode) => void,
     onSelect?: () => void,
   ) => void;
-}): JSX.Element {
+}): React.JSX.Element {
   const { clientID } = useCollaborationContext();
   const checkboxRef = useRef(null);
   const votesArray = option.votes;
@@ -137,7 +137,7 @@ export default function PollComponent({
   nodeKey: NodeKey;
   options: Options;
   question: string;
-}): JSX.Element {
+}): React.JSX.Element {
   const [editor] = useLexicalComposerContext();
   const totalVotes = useMemo(() => getTotalVotes(options), [options]);
   const [isSelected, setSelected, clearSelection] =

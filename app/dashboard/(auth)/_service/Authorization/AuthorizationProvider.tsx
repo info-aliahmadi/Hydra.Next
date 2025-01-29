@@ -3,20 +3,13 @@ import { useSession } from 'next-auth/react';
 import { Session } from 'next-auth';
 import AuthorizationService from './AuthorizationService';
 
-interface AuthorizationContextType {
-  permissions: string[] | null;
-  loading: boolean;
-}
+
 
 export const AuthorizationContext = createContext<AuthorizationContextType | null>(null);
 
-interface AuthorizationProviderProps {
-  children: ReactNode;
-}
-
-export default function AuthorizationProvider({ children }: AuthorizationProviderProps) {
+export default function AuthorizationProvider({ children }: { readonly children: ReactNode }) {
   const { data: session } = useSession();
-  const jwt = (session as Session)?.user?.accessToken;
+  const jwt = (session as Session)?.accessToken;
   const service = new AuthorizationService(jwt);
   const [permissions, setPermissions] = useState<string[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -24,7 +17,6 @@ export default function AuthorizationProvider({ children }: AuthorizationProvide
   useEffect(() => {
     if (jwt) {
       service.getUserPermissions().then((permissions: any) => {
-        debugger
         setPermissions(permissions);
         setLoading(false);
       })
@@ -36,8 +28,10 @@ export default function AuthorizationProvider({ children }: AuthorizationProvide
     }
   }, [jwt]);
 
+  const value = React.useMemo(() => ({ permissions, loading }), [permissions, loading]);
+
   return (
-    <AuthorizationContext.Provider value={{ permissions, loading }}>
+    <AuthorizationContext.Provider value={value}>
       {children}
     </AuthorizationContext.Provider>
   );

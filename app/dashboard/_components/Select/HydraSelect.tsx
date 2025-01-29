@@ -15,7 +15,7 @@ interface HydraSelectProps {
 
 export default function HydraSelect({ defaultValue, id, name, setFieldValue, error, disabled, loadDataForSelect }: HydraSelectProps) {
   const [t] = useTranslation();
-  const theme: Theme = useTheme();
+  const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState<{ id: any; title: string }[]>([]);
   const [values, setValues] = useState();

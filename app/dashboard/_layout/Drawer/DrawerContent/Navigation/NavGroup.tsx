@@ -11,21 +11,8 @@ import Authorize from '@dashboard/(auth)/_service/Authorization/Authorize';
 
 // ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
-interface GroupItem {
-  id: string;
-  permission?: string;
-  children?: Array<MenuItem>;
-}
-interface MenuItem {
-  id: string,
-  title: string,
-  type: string,
-  url: string,
-  icon: any,
-  breadcrumbs: boolean,
-  permission: string
-}
-const NavGroup = ({ item }: { item: GroupItem }) => {
+
+const NavGroup = ({ item }: { item: MenuItem }) => {
   const menu = useSelector((state: any) => state.menu);
   const { drawerOpen } = menu;
   const navCollapse = item.children?.map((menuItem) => {
@@ -34,7 +21,7 @@ const NavGroup = ({ item }: { item: GroupItem }) => {
         <NavGroupSwitch menuItem={menuItem} />
       </Authorize>
     ) : (
-      <NavGroupSwitch menuItem={menuItem} />
+      <NavGroupSwitch key={menuItem.id + '_auth'} menuItem={menuItem} />
     );
   });
   return item.permission ? (
@@ -67,14 +54,14 @@ const NavGroupSwitch = ({ menuItem }: { menuItem: MenuItem }) => {
 };
 
 interface NavListProps {
-  item: GroupItem;
+  item: MenuItem;
   navCollapse: React.ReactNode;
   drawerOpen: boolean;
 }
 
 const NavList = ({ item, navCollapse, drawerOpen }: NavListProps) => {
 
-  const [t] = useTranslation();
+  const {t} = useTranslation();
   const nsTranslation = 'navigation.';
 
   return (

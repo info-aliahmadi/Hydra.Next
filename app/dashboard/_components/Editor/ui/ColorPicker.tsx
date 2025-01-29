@@ -44,7 +44,7 @@ const HEIGHT = 150;
 export default function ColorPicker({
   color,
   onChange,
-}: Readonly<ColorPickerProps>): JSX.Element {
+}: Readonly<ColorPickerProps>): React.JSX.Element {
   const [selfColor, setSelfColor] = useState(transformColor('hex', color));
   const [inputColor, setInputColor] = useState(color);
   const innerDivRef = useRef(null);
@@ -165,7 +165,7 @@ interface MoveWrapperProps {
   className?: string;
   style?: React.CSSProperties;
   onChange: (position: Position) => void;
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 
 function MoveWrapper({className, style, onChange, children}: MoveWrapperProps) {

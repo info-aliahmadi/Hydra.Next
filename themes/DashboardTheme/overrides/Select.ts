@@ -11,9 +11,9 @@ export default function Select(theme : Theme) {
 
   return {
     MuiSelect: {
-      defaultProps: {
-        disableElevation: true
-      },
+      // defaultProps: {
+      //   disableElevation: true
+      // },
       styleOverrides: {
         root: {
           fontWeight: 400

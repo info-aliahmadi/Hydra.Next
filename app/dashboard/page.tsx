@@ -32,6 +32,7 @@ import AnalyticEcommerce from './_components/cards/statistics/AnalyticEcommerce'
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import LocalizationService from '@root/Localization/LocalizationService';
+import { useSession } from 'next-auth/react';
 
 // avatar style
 const avatarSX = {
@@ -75,9 +76,10 @@ const lngs = [
 const DashboardDefault = () => {
   const [t, i18n] = useTranslation();
   const [state, setState] = useState();
-  
-    let locService = new LocalizationService();
-  const changeLanguage = (lng : string) => {
+  const { data: session } = useSession();
+
+  let locService = new LocalizationService(session?.accessToken);
+  const changeLanguage = (lng: string) => {
     locService.setCurrentLanguage(i18n, lng);
   };
 
@@ -89,14 +91,17 @@ const DashboardDefault = () => {
       {/* row 1 */}
       <Grid item xs={12} sx={{ mb: -2.25 }}>
         <Typography variant="h5">Dashboard</Typography>
-      
+
       </Grid>
+
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Page Views" count="4,42,236" percentage={59.3} extra="35,000" />
       </Grid>
+
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Users" count="78,250" percentage={70.5} extra="8,900" />
       </Grid>
+      
       <Grid item xs={12} sm={6} md={4} lg={3}>
         <AnalyticEcommerce title="Total Order" count="18,800" percentage={27.4} isLoss color="warning" extra="1,943" />
       </Grid>
@@ -230,6 +235,7 @@ const DashboardDefault = () => {
           <SalesColumnChart />
         </MainCard>
       </Grid>
+
       <Grid item xs={12} md={5} lg={4}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>

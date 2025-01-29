@@ -1,6 +1,6 @@
 // material-ui
 import { alpha, styled } from '@mui/material/styles';
-import { Box , useTheme , Theme } from '@mui/material';
+import { Box , useTheme } from '@mui/material';
 
 // third-party
 import SimpleBar from 'simplebar-react';
@@ -43,12 +43,12 @@ import { ReactNode } from 'react';
 
 export default function SimpleBarScroll({ children, sx, ...other }: Readonly<{ children: ReactNode, sx?: object }>) {
 
-  const theme : Theme = useTheme();
+  const theme = useTheme();
   let themeMode = theme.palette.mode;
   return (
     <>
       <RootStyle className={themeMode == 'light' ? 'scroll' : 'scroll-dark'}>
-        <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
+        <SimpleBarStyle clickOnTrack={false} sx={sx} {...other}>
           {children}
         </SimpleBarStyle>
       </RootStyle>

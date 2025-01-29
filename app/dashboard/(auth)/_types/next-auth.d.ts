@@ -1,5 +1,6 @@
 
 import 'next-auth';
+import { DefaultSession } from 'next-auth';
 import { DefaultJWT } from 'next-auth/jwt';
 
 
@@ -13,7 +14,7 @@ declare module 'next-auth' {
     defaultLanguage: string;
     defaultTheme: 'light' | 'dark';
     roles: Array<string>;
-    accesssToken : string;
+    accessToken : string;
   }
 
   interface Session extends DefaultSession {

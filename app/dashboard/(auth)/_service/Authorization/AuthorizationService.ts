@@ -14,7 +14,6 @@ export default class AuthorizationService {
 
   isAuthorized = async (permission: any) => {
     return new Promise((resolve, reject) => {
-      debugger
       this.getUserPermissions()
         .then((permissions: any) => {
           debugger
@@ -30,7 +29,6 @@ export default class AuthorizationService {
     });
   };
   getUserPermissions() {
-    debugger
     return new Promise((resolve, reject) => {
       fetch(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser', {
         headers: {

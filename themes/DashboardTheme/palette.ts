@@ -1,5 +1,5 @@
 // material-ui
-import { createTheme, Theme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 
 // third-party
 import { presetPalettes, presetDarkPalettes } from '@ant-design/colors';
@@ -9,7 +9,7 @@ import ThemeOption from './theme';
 
 // ==============================|| DEFAULT THEME - PALETTE  ||============================== //
 
-const Palette = (mode : 'light' | 'dark' | undefined) : Theme => {
+const Palette = (mode : 'light' | 'dark' | undefined) : any => {
   const colors = mode === 'light' ? presetPalettes : presetDarkPalettes;
 
   const greyPrimary =

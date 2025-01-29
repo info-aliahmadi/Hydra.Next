@@ -18,7 +18,7 @@ interface MultiSelectProps {
 }
 
 export default function MultiSelect({ defaultValues, id, name, label, optionLabel, setFieldValue, onChange, error, disabled, dataApi, sx }: MultiSelectProps) {
-  const theme : Theme = useTheme();
+  const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState<any[]>([]);
   const [values, setValues] = useState<any[]>([]);

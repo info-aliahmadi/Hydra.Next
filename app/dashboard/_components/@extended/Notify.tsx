@@ -20,7 +20,7 @@ function Notify({ notify, setNotify, position, sx }: Readonly<{notify: Notify, s
   `;
   const [open, setOpen] = useState<boolean>();
   const [t] = useTranslation();
-  let description = notify.type == 'error' ? t('notification.error-description') : t('notification.success-description');
+  let description : string = notify.type == 'error' ? t('notification.error-description') : t('notification.success-description');
 
   if (notify.type === 'error' && notify.description) {
     if (notify.description?.response?.data?.message) {

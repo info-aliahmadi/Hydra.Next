@@ -20,7 +20,7 @@ interface StylesParams {
 }
 
 export default function MonoSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi }: Readonly<MonoSelectProps>) {
-  const theme : Theme = useTheme();
+  const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
   const [value, setValue] = useState();

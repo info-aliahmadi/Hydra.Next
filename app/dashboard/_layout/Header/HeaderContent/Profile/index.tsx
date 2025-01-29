@@ -30,23 +30,23 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 import CONFIG from '@root/config';
 import Transitions from '@dashboard/_components/@extended/Transitions';
 import MainCard from '@dashboard/_components/MainCard';
-
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+  dir : 'ltr' | 'rtl'
+}
 // tab panel wrapper
-function TabPanel({ children, value, index, dir, ...other }: { children: React.ReactNode, value: any, index: any, dir: any }) {
+function TabPanel(props: Readonly<TabPanelProps>) {
+  const { children, value, index, dir,...other } = props;
   return (
-    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`}{...dir} {...other}>
-      {value === index && children}
+    <div role="tabpanel" hidden={value !== index} id={`profile-tabpanel-${index}`} aria-labelledby={`profile-tab-${index}`}{...other} style={{direction : dir}}>
+      {value === index && <Box >{children}</Box>}
     </div>
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
-};
-
-function a11yProps(index: any) {
+function a11yProps(index: number) {
   return {
     id: `profile-tab-${index}`,
     'aria-controls': `profile-tabpanel-${index}`
@@ -56,11 +56,11 @@ function a11yProps(index: any) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
-  const theme: any = useTheme();
+  const theme = useTheme();
 
   const { data: session } = useSession();
 
-  const user: any = session?.user;
+  const user = session?.user;
   const avatar = user?.image ? CONFIG.AVATAR_BASEPATH + user?.image : '/images/users/anonymous.png';
 
   const anchorRef = useRef<HTMLButtonElement | null>(null);
@@ -123,11 +123,11 @@ const Profile = () => {
         }}
       >
         {({ TransitionProps }) => (
-          <Transitions type="fade" in={open} {...TransitionProps}>
+          <Transitions type="fade" in={open} position="bottom" {...TransitionProps} others={{}}>
             {open && (
               <Paper
                 sx={{
-                  boxShadow: theme.customShadows.z1,
+                  boxShadow: theme.shadows[15],
                   width: 290,
                   minWidth: 240,
                   maxWidth: 290,

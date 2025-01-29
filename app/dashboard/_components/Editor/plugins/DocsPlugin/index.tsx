@@ -7,7 +7,7 @@
  */
 import * as React from 'react';
 
-export default function DocsPlugin(): JSX.Element {
+export default function DocsPlugin(): React.JSX.Element {
   return (
     <a target="__blank" href="https://lexical.dev/docs/intro">
       <button

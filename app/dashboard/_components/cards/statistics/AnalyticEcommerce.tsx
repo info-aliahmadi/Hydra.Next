@@ -17,7 +17,7 @@ interface AnalyticEcommerceProps {
   count: string;
   percentage?: number;
   isLoss?: boolean;
-  extra?: React.ReactNode | string;
+  extra?:  string;
 }
 
 const AnalyticEcommerce = ({ color, title, count, percentage, isLoss, extra }: AnalyticEcommerceProps) => (

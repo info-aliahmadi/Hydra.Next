@@ -24,19 +24,19 @@ const SettingTab = () => {
 
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32, color: theme.palette.grey[500] } }}>
-      <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)} href="/dashboard/change-language">
+      <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)} >
         <ListItemIcon>
           <Language fontSize="small" />
         </ListItemIcon>
         <ListItemText primary={t('pages.language')} />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)} href="/dashboard/accountsetting">
+      <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)}>
         <ListItemIcon>
           <ManageAccounts fontSize="small" />
         </ListItemIcon>
         <ListItemText primary={t('pages.accountSettings')} />
       </ListItemButton>
-      <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)} href="/dashboard/settings">
+      <ListItemButton selected={selectedIndex === 2} onClick={(event) => handleListItemClick(event, 2)} >
         <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>

@@ -12,8 +12,7 @@ import '@root/public/css/customStyle/dashboard.css'
 
 // ==============================|| MAIN LAYOUT ||============================== //
 
-export default function DashboardThemeLayout({ children }: Readonly<{  children: React.ReactNode }>) { 
- 
+export default function DashboardThemeLayout({ children }: {  children: any }) { 
   return (
     <html lang="en">
       <head>
@@ -35,7 +34,10 @@ export default function DashboardThemeLayout({ children }: Readonly<{  children:
                 <AuthorizationProvider>
                   <Suspense fallback={<Loader />}>
                     <DashboardThemeCustomization>
-                      <DashboardLayout>{children}</DashboardLayout>
+                      <DashboardLayout>
+                        {children}
+
+                      </DashboardLayout>
                     </DashboardThemeCustomization>
                   </Suspense>
                 </AuthorizationProvider>

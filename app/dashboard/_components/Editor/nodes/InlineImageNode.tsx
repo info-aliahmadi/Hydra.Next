@@ -73,7 +73,7 @@ export type SerializedInlineImageNode = Spread<
   SerializedLexicalNode
 >;
 
-export class InlineImageNode extends DecoratorNode<JSX.Element> {
+export class InlineImageNode extends DecoratorNode<React.JSX.Element> {
   __src: string;
   __altText: string;
   __width: 'inherit' | number;
@@ -252,7 +252,7 @@ export class InlineImageNode extends DecoratorNode<JSX.Element> {
     return false;
   }
 
-  decorate(): JSX.Element {
+  decorate(): React.JSX.Element {
     return (
       <Suspense fallback={null}>
         <InlineImageComponent

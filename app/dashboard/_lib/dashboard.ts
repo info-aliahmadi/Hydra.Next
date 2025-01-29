@@ -8,7 +8,7 @@ const icons = {
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
 
-const dashboard = {
+const dashboard : MenuItem = {
   id: 'group-dashboard',
   title: 'Navigation',
   type: 'group',

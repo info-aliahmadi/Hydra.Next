@@ -34,7 +34,7 @@ export type SerializedAutocompleteNode = Spread<
   SerializedLexicalNode
 >;
 
-export class AutocompleteNode extends DecoratorNode<JSX.Element | null> {
+export class AutocompleteNode extends DecoratorNode<React.JSX.Element | null> {
   // TODO add comment
   __uuid: string;
 
@@ -79,7 +79,7 @@ export class AutocompleteNode extends DecoratorNode<JSX.Element | null> {
     return document.createElement('span');
   }
 
-  decorate(): JSX.Element | null {
+  decorate(): React.JSX.Element | null {
     if (this.__uuid !== UUID) {
       return null;
     }
@@ -91,7 +91,7 @@ export function $createAutocompleteNode(uuid: string): AutocompleteNode {
   return new AutocompleteNode(uuid);
 }
 
-function AutocompleteComponent(): JSX.Element {
+function AutocompleteComponent(): React.JSX.Element {
   const [suggestion] = useSharedAutocompleteContext();
   const userAgentData = window.navigator.userAgentData;
   const isMobile =

@@ -10,7 +10,7 @@ const icons = {
 
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
 
-const pages = {
+const authentication: MenuItem = {
   id: 'authentication',
   title: 'Authentication',
   type: 'group',
@@ -46,4 +46,4 @@ const pages = {
   ]
 };
 
-export default pages;
+export default authentication;

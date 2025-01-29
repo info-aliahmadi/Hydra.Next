@@ -17,7 +17,7 @@ export const INSERT_TWEET_COMMAND: LexicalCommand<string> = createCommand(
   'INSERT_TWEET_COMMAND',
 );
 
-export default function TwitterPlugin(): JSX.Element | null {
+export default function TwitterPlugin(): React.JSX.Element | null {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {

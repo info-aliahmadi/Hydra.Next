@@ -37,7 +37,7 @@ import { useSession } from 'next-auth/react';
 const ProfileForm = () => {
   const [t] = useTranslation();
   const [avatarPreview, setAvatarPreview] = useState();
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
 
   const jwt = session?.user?.accessToken;
 

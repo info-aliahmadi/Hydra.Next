@@ -1,6 +1,6 @@
 'use client'
 // material-ui
-import {  Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import { Box, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 
 // project import
 import Search from './Search';
@@ -17,15 +17,18 @@ import { useSession } from 'next-auth/react';
 // ==============================|| HEADER - CONTENT ||============================== //
 
 const HeaderContent = () => {
-  const matchesXs = useMediaQuery((theme : any) => theme.breakpoints.down('md'));
+  const matchesXs = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
 
   const { data: session, update } = useSession();
+  debugger
   const theme = useTheme();
 
-  const [t] = useTranslation();
-  const handleThemeMode = (mode : any) => {
+  const { t } = useTranslation();
+  const handleThemeMode = (mode: 'light' | 'dark') => {
+    debugger
     if (session) {
-      update({ ...session.user, defaultTheme: mode });
+      session.user.defaultTheme = mode;
+      update({ ...session.user });
     }
     axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultTheme', { params: { defaultTheme: mode } }).catch((error) => {
     });
@@ -36,7 +39,7 @@ const HeaderContent = () => {
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
 
       {theme.palette.mode == 'light' ? (
-        <Tooltip title={t('tooltips.switch-to-darkmode')}>
+        <Tooltip title={'tooltips.switch-to-darkmode'}>
           <IconButton
             disableRipple
             aria-label="open drawer"
@@ -49,7 +52,7 @@ const HeaderContent = () => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title={t('tooltips.switch-to-lightmode')}>
+        <Tooltip title={'tooltips.switch-to-lightmode'}>
           <IconButton
             disableRipple
             aria-label="open drawer"

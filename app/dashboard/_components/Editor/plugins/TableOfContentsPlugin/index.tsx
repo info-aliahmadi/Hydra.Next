@@ -47,7 +47,7 @@ function TableOfContentsList({
   tableOfContents,
 }: {
   tableOfContents: Array<TableOfContentsEntry>;
-}): JSX.Element {
+}): React.JSX.Element {
   const [selectedKey, setSelectedKey] = useState('');
   const selectedIndex = useRef(0);
   const [editor] = useLexicalComposerContext();

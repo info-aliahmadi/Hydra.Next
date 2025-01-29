@@ -1,5 +1,5 @@
 import axios from 'axios';
-import CONFIG from '@root/config.js';
+import CONFIG from '@root/config';
 import { setAuthenticationHeader } from '@root/utils/axiosHeaders';
 
 export default class AuthenticationService {
@@ -14,7 +14,7 @@ export default class AuthenticationService {
             rememberMe: rememberMe
           }
         })
-        .then((response) => {
+        .then((response) => {debugger
           resolve(response.data);
         })
         .catch((error) => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export function setDefaultHeader(jwt: string, contentType: string) {
-  setAuthenticationHeader(jwt, contentType || 'application/json');
+export function setDefaultHeader(jwt: string, contentType: string = 'application/json') {
+  setAuthenticationHeader(jwt, contentType);
 }
 export function setAuthenticationHeader(token: string, contentType: string) {
   let tokenBearer = token ? 'Bearer ' + token : '';

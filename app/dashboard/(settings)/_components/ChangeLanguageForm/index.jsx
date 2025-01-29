@@ -20,7 +20,7 @@ import { useSession } from 'next-auth/react';
 const ChangeLanguageForm = () => {
   const theme = useTheme();
   const [t, i18n] = useTranslation();
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
 
   const accessToken = session?.user?.accessToken;
 

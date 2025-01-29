@@ -78,7 +78,7 @@ export default function ActionsPlugin({
   isRichText,
 }: {
   isRichText: boolean;
-}): JSX.Element {
+}): React.JSX.Element {
   const [editor] = useLexicalComposerContext();
   const [isEditable, setIsEditable] = useState(() => editor.isEditable());
   const [isSpeechToText, setIsSpeechToText] = useState(false);
@@ -254,7 +254,7 @@ function ShowClearDialog({
 }: {
   editor: LexicalEditor;
   onClose: () => void;
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <>
       Are you sure you want to clear the editor?

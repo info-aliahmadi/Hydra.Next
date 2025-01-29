@@ -47,7 +47,7 @@ function convertExcalidrawElement(
   return null;
 }
 
-export class ExcalidrawNode extends DecoratorNode<JSX.Element> {
+export class ExcalidrawNode extends DecoratorNode<React.JSX.Element> {
   __data: string;
   __width: number | 'inherit';
   __height: number | 'inherit';
@@ -153,7 +153,7 @@ export class ExcalidrawNode extends DecoratorNode<JSX.Element> {
     self.__height = height;
   }
 
-  decorate(editor: LexicalEditor, config: EditorConfig): JSX.Element {
+  decorate(editor: LexicalEditor, config: EditorConfig): React.JSX.Element {
     return (
       <Suspense fallback={null}>
         <ExcalidrawComponent nodeKey={this.getKey()} data={this.__data} />

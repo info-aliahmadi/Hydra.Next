@@ -1,0 +1,22 @@
+{
+  "title": "سلام به ری اکت خوش آمدید",
+  "description": {
+    "part1": "توضیحات بخش اول",
+    "part2": "توضیحات بخش دوم"
+  },
+  "navigation": {
+    "group-dashboard": "ناوبری",
+    "dashboard": "داشبرد",
+    "authentication": "احراز هویت",
+    "login": "ورود",
+    "register": "ثبتنام",
+    "utilities": "خدمات",
+    "util-typography": "تایپوگرافی",
+    "util-color": "رنگ",
+    "util-shadow": "سایه",
+    "ant-icons": "آیکون ها",
+    "support": "پشتیبانی",
+    "sample-page": "صفحه نمونه",
+    "documentation": "مستندات"
+  }
+}

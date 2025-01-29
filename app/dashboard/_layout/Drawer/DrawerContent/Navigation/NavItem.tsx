@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip,  ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 
 // project import
 import { activeItem } from '@root//store/reducers/menu';
@@ -15,33 +15,15 @@ import Link from 'next/link';
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
-interface NavItemProps {
-  item: {
-    id: string;
-    url: string;
-    target?: string;
-    external?: boolean;
-    disabled?: boolean;
-    icon?: any;
-    chip?: {
-      color: string;
-      variant: string;
-      size: string;
-      label: string;
-      avatar?: string;
-    };
-  };
-  level: number;
-}
 
-const NavItem = ({ item, level }: NavItemProps) => {
-  const [t] = useTranslation();
+const NavItem = ({ item, level }: { item: MenuItem, level: number }) => {
+  const { t } = useTranslation();
   const nsTranslation = 'navigation.';
-
-  const theme : any = useTheme();
+  const keyName = nsTranslation + item.id;
+  const theme = useTheme();
   const dispatch = useDispatch();
 
-  const { drawerOpen, openItem } = useSelector((state : any) => state.menu);
+  const { drawerOpen, openItem } = useSelector((state: any) => state.menu);
 
   let itemTarget = '_self';
   if (item.target) {
@@ -50,7 +32,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
 
   // eslint-disable-next-line react/display-name
   const LinkComponent = forwardRef<HTMLAnchorElement, any>((props, ref) => (
-    <Link ref={ref} {...props} href={item.url} target={itemTarget} />
+    <Link ref={ref} {...props} href={item.url || ''} target={itemTarget} />
   ));
 
   let listItemProps: any = { component: LinkComponent };
@@ -58,18 +40,18 @@ const NavItem = ({ item, level }: NavItemProps) => {
     listItemProps = { component: 'a' as any, href: item.url, target: itemTarget };
   }
 
-  const itemHandler = (id : any) => {
+  const itemHandler = (id: any) => {
     dispatch(activeItem({ openItem: [id] }));
   };
 
   const Icon = item.icon;
   const itemIcon = item.icon ? <Icon style={{ fontSize: drawerOpen ? '1rem' : '1.25rem' }} /> : false;
 
-  const isSelected = openItem.findIndex((id :any) => id === item.id) > -1;
+  const isSelected = openItem.findIndex((id: any) => id === item.id) > -1;
   // active menu item on page load
   let path = usePathname();
   useEffect(() => {
-    if (path.includes(item.url)) {
+    if (path.includes(item.url as string)) {
       dispatch(activeItem({ openItem: [item.id] }));
     }
     // eslint-disable-next-line
@@ -90,15 +72,15 @@ const NavItem = ({ item, level }: NavItemProps) => {
         py: !drawerOpen && level === 1 ? 1.25 : 1,
         ...(drawerOpen && {
           '&:hover': {
-            bgcolor: theme.palette.primary.lighter
+            bgcolor: theme.palette.primary.light
           },
           '&.Mui-selected': {
-            bgcolor: theme.palette.primary.lighter,
+            bgcolor: theme.palette.primary.light,
             borderRight: `2px solid ${theme.palette.primary.main}`,
             color: iconSelectedColor,
             '&:hover': {
               color: iconSelectedColor,
-              bgcolor: theme.palette.primary.lighter
+              bgcolor: theme.palette.primary.light
             }
           }
         }),
@@ -132,11 +114,11 @@ const NavItem = ({ item, level }: NavItemProps) => {
             }),
             ...(!drawerOpen &&
               isSelected && {
-                bgcolor: 'primary.lighter',
-                '&:hover': {
-                  bgcolor: 'primary.lighter'
-                }
-              })
+              bgcolor: 'primary.lighter',
+              '&:hover': {
+                bgcolor: 'primary.lighter'
+              }
+            })
           }}
         >
           {itemIcon}
@@ -146,7 +128,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         <ListItemText
           primary={
             <Typography variant="h6" sx={{ color: isSelected ? iconSelectedColor : textColor }}>
-              {t(nsTranslation + item.id)}
+              {t(keyName)}
             </Typography>
           }
         />

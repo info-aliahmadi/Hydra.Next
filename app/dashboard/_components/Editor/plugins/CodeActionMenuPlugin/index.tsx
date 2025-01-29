@@ -35,7 +35,7 @@ function CodeActionMenuContainer({
   anchorElem,
 }: {
   anchorElem: HTMLElement;
-}): JSX.Element {
+}): React.JSX.Element {
   const [editor] = useLexicalComposerContext();
 
   const [lang, setLang] = useState('');

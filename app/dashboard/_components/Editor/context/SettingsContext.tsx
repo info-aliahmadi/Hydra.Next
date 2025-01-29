@@ -36,7 +36,7 @@ export const SettingsContext = ({
   children,
 }: {
   children: ReactNode;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
 
   const setOption = useCallback((setting: SettingName, value: boolean) => {

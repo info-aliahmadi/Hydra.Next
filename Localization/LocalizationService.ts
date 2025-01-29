@@ -1,12 +1,13 @@
 'use client';
 import axios from 'axios';
-import CONFIG from '@root/config.js';
+import CONFIG from '@root/config';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
 import LocalStorageService from '@root/utils/LocalStorageService';
 
 export default class LocalizationService {
-  constructor(jwt) {     
-     setDefaultHeader(jwt);
+  constructor(jwt: any) {
+    if(jwt)
+    setDefaultHeader(jwt);
   }
 
   getCurrentLanguage = async () => {
@@ -21,18 +22,17 @@ export default class LocalizationService {
           }
         })
         .catch((error) => {
-          reject(error);
+          reject(new Error(error));
         });
 
     });
     return await result;
   };
 
-  setCurrentLanguage = async (i18n, theme, lang) => {
+  setCurrentLanguage = async (i18n: any, lang: any) => {
     i18n.changeLanguage(lang.key);
-    // theme.setDirection(i18n.dir(lang.key));
-      axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultLanguage', { params: { defaultLanguage: lang.key } }).catch((error) => {
-      });
+    axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultLanguage', { params: { defaultLanguage: lang.key } }).catch((error) => {
+    });
   };
 
   getSavedLanguage = () => {

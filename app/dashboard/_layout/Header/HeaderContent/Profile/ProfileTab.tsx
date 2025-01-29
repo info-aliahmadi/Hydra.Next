@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 // material-ui
@@ -17,14 +16,15 @@ const ProfileTab = ({ handleLogout }: { handleLogout: () => void }) => {
   const theme = useTheme();
   const [t] = useTranslation();
 
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const handleListItemClick = (event : any, index : any) => {
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const handleListItemClick = (event : any, index : number) => {
+    debugger
     setSelectedIndex(index);
   };
 
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32, color: theme.palette.grey[500] } }}>
-      <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)} href="/dashboard/account/profile">
+      <ListItemButton selected={selectedIndex === 0} onClick={(event) => handleListItemClick(event, 0)}  href="/dashboard/account/profile">
         <ListItemIcon>
           <AccountBox fontSize="small" />
         </ListItemIcon>
@@ -43,7 +43,7 @@ const ProfileTab = ({ handleLogout }: { handleLogout: () => void }) => {
         </ListItemIcon>
         <ListItemText primary="Social Profile" />
       </ListItemButton> */}
-      <ListItemButton selected={selectedIndex === 4} onClick={(event) => handleListItemClick(event, 1)} href="/dashboard/account/change-password">
+      <ListItemButton selected={selectedIndex === 1} onClick={(event) => handleListItemClick(event, 1)} href="/dashboard/account/change-password">
         <ListItemIcon>
           <Password fontSize="small" />
         </ListItemIcon>
@@ -57,10 +57,6 @@ const ProfileTab = ({ handleLogout }: { handleLogout: () => void }) => {
       </ListItemButton>
     </List>
   );
-};
-
-ProfileTab.propTypes = {
-  handleLogout: PropTypes.func
 };
 
 export default ProfileTab;

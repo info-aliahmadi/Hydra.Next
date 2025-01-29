@@ -8,8 +8,7 @@ import menuItems from '@dashboard/_lib/menu-items';
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
 const Navigation = () => {
-
-  const navGroups = menuItems.items.map((item) => {
+  const navGroups = Object.values(menuItems.items).map((item) => {
     if (item.type === 'group') {
       return <NavGroup key={item.id} item={item} />;
     } else {

@@ -17,7 +17,7 @@ export const INSERT_FIGMA_COMMAND: LexicalCommand<string> = createCommand(
   'INSERT_FIGMA_COMMAND',
 );
 
-export default function FigmaPlugin(): JSX.Element | null {
+export default function FigmaPlugin(): React.JSX.Element | null {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {

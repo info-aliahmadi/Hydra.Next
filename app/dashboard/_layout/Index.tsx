@@ -20,7 +20,7 @@ import Breadcrumbs from '@dashboard/_components/@extended/Breadcrumbs';
 // ==============================|| MAIN LAYOUT ||============================== //
 
 
-export default function DashboardLayout({ children }: Readonly<{ children: ReactNode }>) {
+export default function DashboardLayout({ children }: { children: any }) {
   const theme = useTheme();
   const matchDownLG = useMediaQuery(theme.breakpoints.down('lg'));
   const dispatch = useDispatch();

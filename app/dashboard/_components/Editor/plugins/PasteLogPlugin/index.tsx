@@ -11,7 +11,7 @@ import {COMMAND_PRIORITY_NORMAL, PASTE_COMMAND} from 'lexical';
 import * as React from 'react';
 import {useEffect, useState} from 'react';
 
-export default function PasteLogPlugin(): JSX.Element {
+export default function PasteLogPlugin(): React.JSX.Element {
   const [editor] = useLexicalComposerContext();
   const [isActive, setIsActive] = useState(false);
   const [lastClipboardData, setLastClipboardData] = useState<string | null>(

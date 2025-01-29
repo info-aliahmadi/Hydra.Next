@@ -17,6 +17,6 @@ export default function Placeholder({
 }: {
   children: ReactNode;
   className?: string;
-}): JSX.Element {
+}): React.JSX.Element {
   return <div className={className || 'Placeholder__root'}>{children}</div>;
 }

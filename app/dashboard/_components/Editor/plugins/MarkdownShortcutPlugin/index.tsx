@@ -11,6 +11,6 @@ import * as React from 'react';
 
 import {PLAYGROUND_TRANSFORMERS} from '../MarkdownTransformers';
 
-export default function MarkdownPlugin(): JSX.Element {
+export default function MarkdownPlugin(): React.JSX.Element {
   return <MarkdownShortcutPlugin transformers={PLAYGROUND_TRANSFORMERS} />;
 }

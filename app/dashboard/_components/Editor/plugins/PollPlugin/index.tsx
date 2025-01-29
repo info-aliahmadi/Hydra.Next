@@ -39,7 +39,7 @@ export function InsertPollDialog({
 }: {
   activeEditor: LexicalEditor;
   onClose: () => void;
-}): JSX.Element {
+}): React.JSX.Element {
   const [question, setQuestion] = useState('');
 
   const onClick = () => {
@@ -59,7 +59,7 @@ export function InsertPollDialog({
   );
 }
 
-export default function PollPlugin(): JSX.Element | null {
+export default function PollPlugin(): React.JSX.Element | null {
   const [editor] = useLexicalComposerContext();
   useEffect(() => {
     if (!editor.hasNodes([PollNode])) {

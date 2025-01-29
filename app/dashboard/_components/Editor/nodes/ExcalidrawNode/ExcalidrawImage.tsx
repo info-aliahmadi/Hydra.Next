@@ -85,7 +85,7 @@ export default function ExcalidrawImage({
   imageContainerRef,
   appState,
   rootClassName = null,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   const [Svg, setSvg] = useState<SVGElement | null>(null);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
-import CONFIG from '@root/config.js';
+import CONFIG from '@root/config';
 
 export default class AccountService {
   constructor(jwt: any) {

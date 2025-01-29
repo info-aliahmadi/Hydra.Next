@@ -9,6 +9,7 @@ export const config = { matcher: ['/dashboard/:path*'] };
 export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
   callbacks: {
     authorized: async ({ token, req }: { token: any; req: NextRequest }) => {
+      debugger
       if (req.nextUrl.pathname.startsWith('/dashboard')) {
         if (token) {
           const path = req.nextUrl.pathname;
@@ -33,6 +34,7 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
   }
 });
 async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
+  debugger
   const apiResult = await fetch(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser', {
     headers: {
       Authorization: `Bearer ${jwt}`,

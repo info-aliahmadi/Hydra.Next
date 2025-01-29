@@ -44,7 +44,7 @@ interface FormValues {
 const ChangePasswordForm = () => {
   const [t] = useTranslation() as any;
   const [level, setLevel] = useState<any>();
-  const { data: session } = useSession() as { data: any };
+  const { data: session } = useSession();
   const jwt = session?.user?.accessToken;
 
 

@@ -148,7 +148,7 @@ type Steps = Step[];
 
 function useTestRecorder(
   editor: LexicalEditor,
-): [JSX.Element, JSX.Element | null] {
+): [React.JSX.Element, React.JSX.Element | null] {
   const [steps, setSteps] = useState<Steps>([]);
   const [isRecording, setIsRecording] = useState(false);
   const [, setCurrentInnerHTML] = useState('');
@@ -455,7 +455,7 @@ ${steps.map(formatStep).join(`\n`)}
   return [button, output];
 }
 
-export default function TestRecorderPlugin(): JSX.Element {
+export default function TestRecorderPlugin(): React.JSX.Element {
   const [editor] = useLexicalComposerContext();
   const [testRecorderButton, testRecorderOutput] = useTestRecorder(editor);
 
