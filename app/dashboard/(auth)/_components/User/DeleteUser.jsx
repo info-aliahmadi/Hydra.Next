@@ -15,7 +15,7 @@ const DeleteUser = ({ userId, open, setOpen }) => {
   const [t] = useTranslation();
   
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   let userService = new UsersService(jwt);
   const [notify, setNotify] = useState({ open: false });

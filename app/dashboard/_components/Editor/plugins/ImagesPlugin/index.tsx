@@ -100,7 +100,7 @@ export function InsertImageUploadedDialogBody({
   const [altText, setAltText] = useState('');
 
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   var fileService = new FileStorageService(jwt);
 

@@ -32,7 +32,7 @@ import { useSession } from 'next-auth/react';
 const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   let roleService = new RoleService(jwt);
   const [fieldsName, validation, buttonName] = ['fields.role.', 'validation.role.', 'buttons.role.'];

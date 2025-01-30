@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // material-ui
 import {
@@ -13,7 +13,7 @@ import {
   Divider,
   FormHelperText,
   InputAdornment,
-  Grid,
+  Grid2,
   InputLabel,
   OutlinedInput,
   Stack,
@@ -41,7 +41,7 @@ import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import { useTranslation } from 'react-i18next';
 import CONFIG from '@root/config';
 import MainCard from '@dashboard/_components/MainCard';
-import languageList from '/Localization/languageList';
+import languageList from '@root/Localization/languageList';
 import DeleteUser from '../../../_components/User/DeleteUser';
 import setServerErrors from '@root/utils/setServerErrors';
 import Notify from '@dashboard/_components/@extended/Notify';
@@ -49,22 +49,22 @@ import UsersService from '@dashboard/(auth)/_service/UsersService';
 import SelectRole from '@dashboard/(auth)/_components/Role/SelectRole';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { UserModel } from '../../../_types/User/UserModel';
 
-export default function AddOrEditUser({ params }) {
+export default function AddOrEditUser({ params }: { readonly params: Promise<{ id: number, operation: 'edit' | 'add' }> }) {
   const [t] = useTranslation();
-  const operation = params.operation;
-  const id = params.id;
+  const { id, operation } = React.use(params);
 
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
-
-  let userService = new UsersService(jwt);
+  const jwt = session?.accessToken;
+  let userService = new UsersService(jwt ?? '');
   const [fieldsName, validation, buttonName] = ['fields.user.', 'validation.user.', 'buttons.user.'];
-  const [user, setUser] = useState();
-  const [notify, setNotify] = useState({ open: false });
-  const [avatarPreview, setAvatarPreview] = useState();
+
+  const [user, setUser] = useState<UserModel>();
+  const [notify, setNotify] = useState<NotifyProps>({ open: false });
+  const [avatarPreview, setAvatarPreview] = useState<string | ArrayBuffer | null>('');
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordLevel, setPasswordLevel] = useState();
+  const [passwordLevel, setPasswordLevel] = useState<{ label: string, color: string }>();
   const [openDelete, setOpenDelete] = useState(false);
   const router = useRouter();
 
@@ -75,24 +75,24 @@ export default function AddOrEditUser({ params }) {
   };
   useEffect(() => {
     if (operation == 'edit' && id > 0) loadUser();
-  }, [operation, id]);
+  }, [id, operation]);
 
   const onClose = () => { };
 
-  const handleSubmit = (user, resetForm, setErrors, setSubmitting) => {
+  const handleSubmit = (user: UserModel, resetForm: any, setErrors: any, setSubmitting: any) => {
     if (operation == 'add') {
       userService
         .addUser(user)
         .then(() => {
           resetForm();
-          setAvatarPreview();
+          setAvatarPreview('');
           setNotify({ open: true });
         })
         .catch((error) => {
-                                  setErrors(setServerErrors(error));
+          setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: error });
         })
-        .finally((error) => {
+        .finally(() => {
           setSubmitting(false);
         });
     } else {
@@ -103,10 +103,10 @@ export default function AddOrEditUser({ params }) {
           setNotify({ open: true });
         })
         .catch((error) => {
-                                  setErrors(setServerErrors(error));
+          setErrors(setServerErrors(error));
           setNotify({ open: true, type: 'error', description: error });
         })
-        .finally((error) => {
+        .finally(() => {
           setSubmitting(false);
         });
     }
@@ -114,15 +114,15 @@ export default function AddOrEditUser({ params }) {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
 
-  const changePassword = (value) => {
+  const changePassword = (value: number) => {
     const temp = strengthIndicator(value);
     setPasswordLevel(strengthColor(temp));
   };
-  const changeAvatar = (e, setFieldValue) => {
+  const changeAvatar = (e: any, setFieldValue: any) => {
     if (e?.target?.files) {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(e.target.files[0]);
@@ -134,33 +134,36 @@ export default function AddOrEditUser({ params }) {
       };
     }
   };
-  const deleteAvatar = (setFieldValue) => {
+  const deleteAvatar = (setFieldValue: any) => {
     setFieldValue('avatarFile', '');
     setFieldValue('avatar', '');
-    setAvatarPreview();
+    setAvatarPreview('');
   };
+
+  const initialValues: UserModel = {
+    id: user?.id ?? 0,
+    name: user?.name,
+    userName: user?.userName ?? '',
+    phoneNumber: user?.phoneNumber ?? '',
+    email: user?.email ?? '',
+    avatar: user?.avatar,
+    avatarFile: user?.avatarFile,
+    emailConfirmed: user?.emailConfirmed ?? false,
+    phoneNumberConfirmed: user?.phoneNumberConfirmed ?? false,
+    lockoutEnabled: user?.lockoutEnabled ?? false,
+    lockoutEnd: user?.lockoutEnd,
+    accessFailedCount: user?.accessFailedCount ?? 0,
+    defaultLanguage: user?.defaultLanguage,
+    password: user?.password,
+    roleIds: user?.roleIds ?? [],
+    roles: user?.roles ?? [],
+  }
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
 
       <Formik
-        initialValues={{
-          id: user?.id,
-          name: user?.name,
-          userName: user?.userName,
-          phoneNumber: user?.phoneNumber,
-          email: user?.email,
-          avatar: user?.avatar,
-          avatarFile: user?.avatarFile,
-          emailConfirmed: user?.emailConfirmed,
-          phoneNumberConfirmed: user?.phoneNumberConfirmed,
-          lockoutEnabled: user?.lockoutEnabled,
-          lockoutEnd: user?.lockoutEnd,
-          accessFailedCount: user?.accessFailedCount,
-          defaultLanguage: user?.defaultLanguage,
-          password: user?.password,
-          roleIds: user?.roleIds
-        }}
+        initialValues={initialValues}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
           userName: Yup.string().max(255).required(t('validation.required-userName')),
@@ -173,7 +176,7 @@ export default function AddOrEditUser({ params }) {
           try {
             setSubmitting(true);
             handleSubmit(values, resetForm, setErrors, setSubmitting);
-          } catch (err) {
+          } catch (err: any) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
@@ -182,19 +185,19 @@ export default function AddOrEditUser({ params }) {
       >
         {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
-            <Grid container justifyContent="center" direction="row" alignItems="flex-start">
-              <Grid container spacing={3} item xs={12} sm={12} md={10} lg={10} xl={7} direction="column">
-                <Grid item>
+            <Grid2 container justifyContent="center" direction="row" alignItems="flex-start">
+              <Grid2 container spacing={3} columns={{ xs: 12, sm: 12, md: 10, lg: 10, xl: 10 }} direction="column">
+                <Grid2>
                   <Typography variant="h5">{t('pages.cards.user-' + operation)}</Typography>
-                </Grid>
-                <Grid item>
+                </Grid2>
+                <Grid2>
                   <MainCard>
-                    <Grid container spacing={3} direction="column">
-                      <Grid container item spacing={0} direction="row" justifyContent="flex-end" alignItems="flex-start">
-                        <Grid item xs={12} md={2}>
+                    <Grid2 container spacing={3} direction="column">
+                      <Grid2 container spacing={0} direction="row" sx={{ justifyContent: "flex-end", alignItems: "flex-start" }} >
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 2, lg: 2, xl: 2 }}>
                           <Stack justifyContent="center" alignItems="center">
                             <Tooltip title={t('tooltips.edit-avatar')} placement="top">
-                              <ButtonBase variant="contained" component="label">
+                              <ButtonBase component="label">
                                 <input
                                   type="file"
                                   hidden
@@ -204,7 +207,7 @@ export default function AddOrEditUser({ params }) {
                                 />
                                 <Avatar
                                   alt=""
-                                  src={avatarPreview ? avatarPreview : values.avatar ? CONFIG.AVATAR_BASEPATH + values.avatar : '/images/users/anonymous.png'}
+                                  src={avatarPreview ? avatarPreview.toString() : values.avatar ? CONFIG.AVATAR_BASEPATH + values.avatar : '/images/users/anonymous.png'}
                                   sx={{ width: 85, height: 85 }}
                                 ></Avatar>
                               </ButtonBase>
@@ -219,7 +222,7 @@ export default function AddOrEditUser({ params }) {
                               )}
                               <Tooltip title={t('tooltips.edit-avatar')}>
                                 <Button>
-                                  <ButtonBase variant="contained" component="label">
+                                  <ButtonBase component="label">
                                     <input
                                       type="file"
                                       hidden
@@ -233,10 +236,10 @@ export default function AddOrEditUser({ params }) {
                               </Tooltip>
                             </ButtonGroup>
                           </Stack>
-                        </Grid>
-                      </Grid>
-                      <Grid container item spacing={3}>
-                        <Grid item xs={12} md={6} lg={6} xl={4}>
+                        </Grid2>
+                      </Grid2>
+                      <Grid2 container spacing={3}>
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
                             <OutlinedInput
@@ -256,8 +259,8 @@ export default function AddOrEditUser({ params }) {
                               </FormHelperText>
                             )}
                           </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={6} xl={4}>
+                        </Grid2>
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="userName">{t(fieldsName + 'userName')}</InputLabel>
                             <OutlinedInput
@@ -278,8 +281,8 @@ export default function AddOrEditUser({ params }) {
                               </FormHelperText>
                             )}
                           </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={6} xl={4}>
+                        </Grid2>
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="email">{t(fieldsName + 'email')}</InputLabel>
                             <OutlinedInput
@@ -300,8 +303,8 @@ export default function AddOrEditUser({ params }) {
                               </FormHelperText>
                             )}
                           </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={6} lg={6} xl={4}>
+                        </Grid2>
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="phoneNumber">{t(fieldsName + 'phoneNumber')}</InputLabel>
                             <OutlinedInput
@@ -322,9 +325,9 @@ export default function AddOrEditUser({ params }) {
                               </FormHelperText>
                             )}
                           </Stack>
-                        </Grid>
+                        </Grid2>
                         {operation == 'edit' && (
-                          <Grid item xs={12} md={6} lg={6} xl={4}>
+                          <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="emailConfirmed">{t(fieldsName + 'emailConfirmed')}</InputLabel>
                               <FormControlLabel
@@ -339,10 +342,10 @@ export default function AddOrEditUser({ params }) {
                                 label={t(fieldsName + 'emailConfirmed')}
                               />
                             </Stack>
-                          </Grid>
+                          </Grid2>
                         )}
                         {operation == 'edit' && (
-                          <Grid item xs={12} md={6} lg={6} xl={4}>
+                          <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="phoneNumberConfirmed">{t(fieldsName + 'phoneNumberConfirmed')}</InputLabel>
                               <FormControlLabel
@@ -357,9 +360,9 @@ export default function AddOrEditUser({ params }) {
                                 label={t(fieldsName + 'phoneNumberConfirmed')}
                               />
                             </Stack>
-                          </Grid>
+                          </Grid2>
                         )}
-                        <Grid item xs={12} md={6} lg={6} xl={4}>
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel id="defaultLanguage">{t(fieldsName + 'defaultLanguage')}</InputLabel>
                             <Select
@@ -381,19 +384,19 @@ export default function AddOrEditUser({ params }) {
                               ))}
                             </Select>
                           </Stack>
-                        </Grid>
-                        <Grid item xs={12} md={12} lg={12}>
+                        </Grid2>
+                        <Grid2 columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
                           <Divider textAlign="left">
                             {t('pages.cards.user-security')}
                             {/* <Chip label={t('pages.cards.user-security')} /> */}
                           </Divider>
-                        </Grid>
-                        <Grid container item xs={12} md={12} lg={6} xl={6} spacing={1}>
-                          <Grid item xs={12} md={6} lg={12} xl={12}>
+                        </Grid2>
+                        <Grid2 container columns={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }} spacing={1}>
+                          <Grid2 columns={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="newPassword">{t(fieldsName + 'password')}</InputLabel>
                               <OutlinedInput
-                                autocomplete="off"
+                                autoComplete="off"
                                 fullWidth
                                 error={Boolean(touched.password && errors.password)}
                                 id="newPassword"
@@ -401,7 +404,7 @@ export default function AddOrEditUser({ params }) {
                                 value={values?.password || ''}
                                 name="password"
                                 onBlur={handleBlur}
-                                onChange={(e) => {
+                                onChange={(e: any) => {
                                   handleChange(e);
                                   changePassword(e.target.value);
                                 }}
@@ -428,22 +431,23 @@ export default function AddOrEditUser({ params }) {
                               )}
                             </Stack>
                             <FormControl sx={{ mt: 2 }}>
-                              <Grid container spacing={0} alignItems="center">
-                                <Grid item>
+                              <Grid2 container spacing={0} alignItems="center">
+                                <Grid2>
                                   <Box sx={{ bgcolor: passwordLevel?.color, width: 85, height: 8, borderRadius: '7px' }} />
-                                </Grid>
-                                <Grid item>
+                                </Grid2>
+                                <Grid2>
                                   <Typography variant="subtitle1" fontSize="0.75rem">
                                     {passwordLevel?.label}
                                   </Typography>
-                                </Grid>
-                              </Grid>
+                                </Grid2>
+                              </Grid2>
                             </FormControl>
-                          </Grid>
-                          <Grid item xs={12} md={6} lg={12} xl={12}>
+                          </Grid2>
+                          <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 12, xl: 12 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="roleIds">{t('pages.roles')}</InputLabel>
                               <SelectRole
+                                disabled={false}
                                 defaultValues={values?.roleIds || []}
                                 id={'roleIds'}
                                 setFieldValue={setFieldValue}
@@ -455,13 +459,13 @@ export default function AddOrEditUser({ params }) {
                                 </FormHelperText>
                               )}
                             </Stack>
-                          </Grid>
-                        </Grid>
+                          </Grid2>
+                        </Grid2>
                         {operation == 'edit' && (
-                          <Grid container item xs={12} md={12} lg={6} xl={6}>
+                          <Grid2 container columns={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
                             <MainCard title={'User Try to Login'}>
-                              <Grid container xs={12} md={12} lg={12} xl={12} spacing={3}>
-                                <Grid item xs={12} md={6} lg={6} xl={4}>
+                              <Grid2 container columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }} spacing={3}>
+                                <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="lockoutEnabled">{t(fieldsName + 'lockoutEnabled')}</InputLabel>
                                     <FormControlLabel
@@ -477,14 +481,14 @@ export default function AddOrEditUser({ params }) {
                                       label={t(fieldsName + 'lockoutEnabled')}
                                     />
                                   </Stack>
-                                </Grid>
-                                <Grid item xs={12} md={6} lg={6} xl={4}>
+                                </Grid2>
+                                <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="lockoutEnd">{t(fieldsName + 'lockoutEnd')}</InputLabel>
                                     <OutlinedInput id="lockoutEnd" type="text" value={values?.lockoutEnd || ''} fullWidth disabled />
                                   </Stack>
-                                </Grid>
-                                <Grid item xs={12} md={6} lg={6} xl={4}>
+                                </Grid2>
+                                <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="accessFailedCount">{t(fieldsName + 'accessFailedCount')}</InputLabel>
                                     <OutlinedInput
@@ -495,13 +499,13 @@ export default function AddOrEditUser({ params }) {
                                       disabled
                                     />
                                   </Stack>
-                                </Grid>
-                              </Grid>
+                                </Grid2>
+                              </Grid2>
                             </MainCard>
-                          </Grid>
+                          </Grid2>
                         )}
-                        <Grid container item spacing={3} direction="row" justifyContent="space-between" alignItems="center">
-                          <Grid item>
+                        <Grid2 container spacing={3} direction="row" justifyContent="space-between" alignItems="center">
+                          <Grid2>
                             <Stack direction="row" spacing={2}>
                               {' '}
                               <AnimateButton>
@@ -519,7 +523,6 @@ export default function AddOrEditUser({ params }) {
                               </AnimateButton>
                               <AnimateButton>
                                 <Button
-                                  disa
                                   disabled={isSubmitting}
                                   size="large"
                                   type="submit"
@@ -531,8 +534,8 @@ export default function AddOrEditUser({ params }) {
                                 </Button>
                               </AnimateButton>
                             </Stack>
-                          </Grid>
-                          <Grid item>
+                          </Grid2>
+                          <Grid2>
                             {operation == 'edit' && (
                               <AnimateButton>
                                 <Button
@@ -546,14 +549,14 @@ export default function AddOrEditUser({ params }) {
                                 </Button>
                               </AnimateButton>
                             )}
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
+                          </Grid2>
+                        </Grid2>
+                      </Grid2>
+                    </Grid2>
                   </MainCard>
-                </Grid>
-              </Grid>
-            </Grid>
+                </Grid2>
+              </Grid2>
+            </Grid2>
           </form>
         )}
       </Formik>

@@ -39,7 +39,7 @@ const ProfileForm = () => {
   const [avatarPreview, setAvatarPreview] = useState();
   const { data: session } = useSession();
 
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   let accountService = new AccountService(jwt);
 

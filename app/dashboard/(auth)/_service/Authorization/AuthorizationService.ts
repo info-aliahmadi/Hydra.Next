@@ -16,9 +16,7 @@ export default class AuthorizationService {
     return new Promise((resolve, reject) => {
       this.getUserPermissions()
         .then((permissions: any) => {
-          debugger
           let result = permissions?.findIndex(function (element: any) {
-            debugger
             return element === permission;
           });
           resolve(result >= 0);

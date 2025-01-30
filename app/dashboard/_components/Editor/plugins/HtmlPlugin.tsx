@@ -14,7 +14,6 @@ const HtmlPlugin = ({ initialHtml, onHtmlChanged }: Props) => {
     const [editor] = useLexicalComposerContext();
     const [isFirstRender, setIsFirstRender] = useState(true);
     useEffect(() => {
-        debugger
         if (initialHtml == '') {
             editor.update(() => {
                 $getRoot().clear();

@@ -18,7 +18,6 @@ const ProfileTab = ({ handleLogout }: { handleLogout: () => void }) => {
 
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const handleListItemClick = (event : any, index : number) => {
-    debugger
     setSelectedIndex(index);
   };
 

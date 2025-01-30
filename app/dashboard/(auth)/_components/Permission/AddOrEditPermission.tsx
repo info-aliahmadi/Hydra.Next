@@ -70,7 +70,6 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
     setErrors: (errors: ServerErrors) => void,
     setSubmitting: (isSubmitting: boolean) => void
   ) => {
-    debugger
     if (isNew) {
       permissionService
         .addPermission(permission)
@@ -97,7 +96,6 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
           refetch();
         })
         .catch((error) => {
-          debugger
           setNotify({ open: true, type: 'error', description: error });
                           setErrors(setServerErrors(error));
         })

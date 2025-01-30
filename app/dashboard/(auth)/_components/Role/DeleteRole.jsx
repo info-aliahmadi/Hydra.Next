@@ -14,7 +14,7 @@ import { useSession } from 'next-auth/react';
 const DeleteRole = ({ row, open, setOpen, refetch }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   let roleService = new RoleService(jwt);
   const [notify, setNotify] = useState({ open: false });

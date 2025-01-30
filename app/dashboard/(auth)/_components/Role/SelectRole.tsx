@@ -7,13 +7,14 @@ import { useTranslation } from 'react-i18next';
 import RoleService from '../../_service/RoleService';
 import { useSession } from 'next-auth/react';
 
-export default function SelectRole({ defaultValues, id, setFieldValue, error, disabled }) {
+export default function SelectRole({ defaultValues, id, setFieldValue, error, disabled }:
+  { readonly defaultValues: number[], readonly disabled: boolean, readonly id?: string, readonly setFieldValue?: any, readonly error?: boolean }) {
   const [t] = useTranslation();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);
   const { data: session } = useSession();
 
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
   const roleService = new RoleService(jwt);
 
   const loadRoles = () => {
@@ -29,15 +30,13 @@ export default function SelectRole({ defaultValues, id, setFieldValue, error, di
   return (
     <Autocomplete
       disabled={disabled}
-      key={loading + defaultValues + error}
+      key={Number(loading) + defaultValues + Number(error)}
       multiple
       size="small"
       getOptionLabel={(option) => option?.name}
       options={options}
       loading={loading}
-      error={error}
       id={id}
-      name={id}
       onChange={(e, newValue) =>
         setFieldValue(
           id,

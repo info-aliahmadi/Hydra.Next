@@ -14,7 +14,7 @@ import { useSession } from 'next-auth/react';
 const DeletePermissionRole = ({ row, roleId, permissionRow, open, setOpen, data, setData, refetch }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   let permissionService = new PermissionRoleService(jwt);
   const [notify, setNotify] = useState({ open: false });

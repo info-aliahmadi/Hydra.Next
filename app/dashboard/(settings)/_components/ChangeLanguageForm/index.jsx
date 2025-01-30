@@ -10,8 +10,8 @@ import { Formik } from 'formik';
 
 // assets
 import { useTranslation } from 'react-i18next';
-import languageList from '/Localization/languageList';
-import LocalizationService from '/Localization/LocalizationService';
+import languageList from '@root/Localization/languageList';
+import LocalizationService from '@root/Localization/LocalizationService';
 import Notify from '@dashboard/_components/@extended/Notify';
 import { useSession } from 'next-auth/react';
 
@@ -20,9 +20,9 @@ import { useSession } from 'next-auth/react';
 const ChangeLanguageForm = () => {
   const theme = useTheme();
   const [t, i18n] = useTranslation();
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
 
-  const accessToken = session?.user?.accessToken;
+  const accessToken = session?.accessToken;
 
   let currentLanguage = languageList.find((l) => l.key === i18n.language);
 

@@ -20,12 +20,10 @@ const HeaderContent = () => {
   const matchesXs = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
 
   const { data: session, update } = useSession();
-  debugger
   const theme = useTheme();
 
   const { t } = useTranslation();
   const handleThemeMode = (mode: 'light' | 'dark') => {
-    debugger
     if (session) {
       session.user.defaultTheme = mode;
       update({ ...session.user });

@@ -9,7 +9,7 @@ export default function SelectUser({ defaultValues, id, name, setFieldValue, err
   const [t] = useTranslation();
   const { data: session } = useSession();
 
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   const usersService = new UsersService(jwt);
 

@@ -14,7 +14,7 @@ export default class AuthenticationService {
             rememberMe: rememberMe
           }
         })
-        .then((response) => {debugger
+        .then((response) => {
           resolve(response.data);
         })
         .catch((error) => {

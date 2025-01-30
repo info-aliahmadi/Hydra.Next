@@ -16,7 +16,7 @@ import { useSession } from 'next-auth/react';
 function PermissionRoleDataGrid({ row }) {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
   let permissionRoleService = new PermissionRoleService(jwt);
 
   const [data, setData] = useState(() => row.original.permissions);

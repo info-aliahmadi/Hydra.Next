@@ -19,7 +19,7 @@ import { useSession } from 'next-auth/react';
 function PermissionDataGrid() {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  const jwt = session?.user?.accessToken;
+  const jwt = session?.accessToken;
 
   const service = new PermissionService(jwt);
   const [isNew, setIsNew] = useState(true);

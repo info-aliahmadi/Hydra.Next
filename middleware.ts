@@ -17,7 +17,6 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
 
           const route = AllRoutes.routes.find((item) => item.path == path);
 
-          // find(AllRoutes.routes, (element: any) => element.path == path);
           if (route) {
             const Authorized = await isAuthorized(route.permission, jwt);
             if (!Authorized) {
@@ -34,7 +33,6 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
   }
 });
 async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
-  debugger
   const apiResult = await fetch(CONFIG.API_BASEPATH + '/Auth/GetPermissionsOfCurrentUser', {
     headers: {
       Authorization: `Bearer ${jwt}`,
@@ -45,7 +43,7 @@ async function isAuthorized(permission: string, jwt: string): Promise<boolean> {
   if (apiResult.ok) {
     const permissions = await apiResult.json();
     let result = permissions.findIndex((element: string) => element === permission);
-    return result >= 0 ? true : false;
+    return result >= 0;
   } else {
     return false;
   }

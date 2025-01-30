@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
 import CONFIG from '@root/config';
+import { UserModel } from '../_types/User/UserModel';
+import GridDataBound from '@root/app/types/GridDataBound';
+import Result from '@root/app/types/Result';
+import { PaginatedList } from '@root/app/types/PaginatedList';
 
 export default class UsersService {
-  constructor(jwt : string) {
-    if(jwt)
-    setDefaultHeader(jwt);
+  constructor(jwt?: string) {
+    if (jwt)
+      setDefaultHeader(jwt);
   }
-  getUserList = async (searchParams : any) => {
+  getUserList = async (searchParams: GridDataBound): Promise<Result<PaginatedList<UserModel>>> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetUserList', searchParams)
@@ -19,7 +23,7 @@ export default class UsersService {
         });
     });
   };
-  getUserListForSelect = async (input : any) => {
+  getUserListForSelect = async (input: string) => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetUserListForSelect', input)
@@ -31,7 +35,7 @@ export default class UsersService {
         });
     });
   };
-  getUserListForSelectByIds = async (userIds : any) => {
+  getUserListForSelectByIds = async (userIds: number[]) => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetUserListForSelectByIds', userIds)
@@ -43,7 +47,7 @@ export default class UsersService {
         });
     });
   };
-  getUserById = async (userId : number) => {
+  getUserById = async (userId: number) : Promise<UserModel> => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/getUserById', { params: { userId: userId } })
@@ -55,7 +59,7 @@ export default class UsersService {
         });
     });
   };
-  addUser = async (user : any) => {
+  addUser = async (user: UserModel): Promise<UserModel> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/addUser', user)
@@ -67,7 +71,7 @@ export default class UsersService {
         });
     });
   };
-  updateUser = async (user: any) => {
+  updateUser = async (user: UserModel): Promise<UserModel> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/updateUser', user)
