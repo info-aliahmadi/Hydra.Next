@@ -10,20 +10,22 @@ import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
 import { useSession } from 'next-auth/react';
+import { MRT_Row } from 'material-react-table';
 
-const DeletePermission = ({ row, open, setOpen, refetch }: { row: any; open: boolean; setOpen: (open: boolean) => void; refetch: () => void }) => {
+const DeletePermission = ({ row, open, setOpen, refetch }: { row?: MRT_Row<Permission>; open: boolean; setOpen: (open: boolean) => void; refetch: () => void }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
-  let permissionService = new PermissionService(session as any);
-  const [notify, setNotify] = useState<Notify>({ open: false });
+  const jwt = session?.accessToken;
+  let service = new PermissionService(jwt ?? "");
+  const [notify, setNotify] = useState<NotifyProps>({ open: false });
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
-    let permissionId = row.getValue('id');
-    permissionService
+    let permissionId = row?.original.id ?? 0;
+    service
       .deletePermission(permissionId)
       .then(() => {
         onClose();
@@ -53,10 +55,8 @@ const DeletePermission = ({ row, open, setOpen, refetch }: { row: any; open: boo
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
       <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">
-          <Typography variant="caption" fontSize={17} fontWeight={600}>
-            {t('buttons.permission.delete')}
-          </Typography>
+        <DialogTitle id="alert-dialog-title" variant='h3'>
+          {t('buttons.permission.delete')}
           <CloseDialog />
         </DialogTitle>
         <DialogContent>

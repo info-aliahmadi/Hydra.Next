@@ -8,37 +8,36 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import RoleService from '@dashboard/(auth)/_service/RoleService';
+import PermissionRoleService from '@root/app/dashboard/(auth)/_service/PermissionRoleService';
 import { useSession } from 'next-auth/react';
+import { MRT_Row } from 'material-react-table';
 
-const DeleteRole = ({ row, open, setOpen, refetch }) => {
+const DeletePermissionRole = ({ row, roleId, permissionRow, open, setOpen, data, setData, refetch }: { row: MRT_Row<RoleModel>, roleId: number, permissionRow?: MRT_Row<Permission>, open: boolean, setOpen: (open: boolean) => void, data: any[], setData: (data: any[]) => void, refetch: () => void }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.accessToken;
 
-  let roleService = new RoleService(jwt);
-  const [notify, setNotify] = useState({ open: false });
-  const [disableBtn, setDisableBtn] = useState(false);
+  let permissionService = new PermissionRoleService(jwt ?? '');
+  const [notify, setNotify] = useState<NotifyProps>({ open: false });
 
   const onClose = () => {
     setOpen(false);
   };
 
   const handleSubmit = () => {
-    setDisableBtn(true);
-    let roleId = row.original.id;
-    roleService
-      .deleteRole(roleId)
+    let permissionId = permissionRow?.original.id ?? 0;
+    permissionService
+      .deletePermissionRole(permissionId, roleId)
       .then(() => {
-        onClose();
-        setNotify({ open: true });
+        setNotify({ open: true, type: 'success' });
+        data.splice(permissionRow?.index ?? 0, 1);
+        setData([...data]);
+        row.original.permissions = [...data];
         refetch();
+        onClose();
       })
       .catch((error) => {
-        setNotify({ open: true, type: 'error', description: error });
-      })
-      .finally((x) => {
-        setDisableBtn(false);
+        setNotify({ open: true, type: 'error', description: error.message });
       });
   };
   const CloseDialog = () => (
@@ -60,23 +59,19 @@ const DeleteRole = ({ row, open, setOpen, refetch }) => {
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
       <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">
-          <Typography variant="caption" fontSize={17} fontWeight={600}>
-            {t('buttons.role.delete')}
-          </Typography>
+        <DialogTitle id="alert-dialog-title" variant='h3'>
+          {t('buttons.permission.delete')}
           <CloseDialog />
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <Typography variant="caption" fontSize={15}>
-              {t('dialog.delete.description')}
-            </Typography>
+            <Typography variant="caption" fontSize={15}> {t('dialog.delete.description')}</Typography>
           </DialogContentText>
           {/* <Typography variant="h3">{t('alert.delete.item')}</Typography> */}
         </DialogContent>
         <DialogActions sx={{ p: '1.25rem' }}>
           <Button onClick={onClose}>Cancel</Button>
-          <Button disableElevation disabled={disableBtn} onClick={handleSubmit} size="large" variant="contained" color="error">
+          <Button disableElevation onClick={handleSubmit} size="large" variant="contained" color="error">
             {t('buttons.delete')}
           </Button>
         </DialogActions>
@@ -85,4 +80,4 @@ const DeleteRole = ({ row, open, setOpen, refetch }) => {
   );
 };
 
-export default DeleteRole;
+export default DeletePermissionRole;

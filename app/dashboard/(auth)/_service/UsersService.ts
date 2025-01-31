@@ -2,9 +2,7 @@ import axios from 'axios';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
 import CONFIG from '@root/config';
 import { UserModel } from '../_types/User/UserModel';
-import GridDataBound from '@root/app/types/GridDataBound';
 import Result from '@root/app/types/Result';
-import { PaginatedList } from '@root/app/types/PaginatedList';
 
 export default class UsersService {
   constructor(jwt?: string) {
@@ -19,11 +17,11 @@ export default class UsersService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  getUserListForSelect = async (input: string) => {
+  getUserListForSelect = async (input: string): Promise<Result<UserModel[]>> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetUserListForSelect', input)
@@ -31,11 +29,11 @@ export default class UsersService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  getUserListForSelectByIds = async (userIds: number[]) => {
+  getUserListForSelectByIds = async (userIds: number[]): Promise<Result<UserModel[]>> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetUserListForSelectByIds', userIds)
@@ -43,7 +41,7 @@ export default class UsersService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
@@ -55,7 +53,7 @@ export default class UsersService {
           resolve(response.data.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
@@ -67,7 +65,7 @@ export default class UsersService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
@@ -79,11 +77,11 @@ export default class UsersService {
           resolve(response.data.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  deleteUser = async (userId: number) => {
+  deleteUser = async (userId: number): Promise<Result<null>> => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/deleteUser', { params: { userId: userId } })
@@ -91,7 +89,7 @@ export default class UsersService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };

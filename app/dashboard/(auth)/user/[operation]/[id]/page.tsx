@@ -77,8 +77,6 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
     if (operation == 'edit' && id > 0) loadUser();
   }, [id, operation]);
 
-  const onClose = () => { };
-
   const handleSubmit = (user: UserModel, resetForm: any, setErrors: any, setSubmitting: any) => {
     if (operation == 'add') {
       userService
@@ -186,7 +184,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
         {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid2 container justifyContent="center" direction="row" alignItems="flex-start">
-              <Grid2 container spacing={3} columns={{ xs: 12, sm: 12, md: 10, lg: 10, xl: 10 }} direction="column">
+              <Grid2 container spacing={3} size={{ xs: 12, sm: 12, md: 10, lg: 10, xl: 7 }} direction="column">
                 <Grid2>
                   <Typography variant="h5">{t('pages.cards.user-' + operation)}</Typography>
                 </Grid2>
@@ -194,7 +192,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                   <MainCard>
                     <Grid2 container spacing={3} direction="column">
                       <Grid2 container spacing={0} direction="row" sx={{ justifyContent: "flex-end", alignItems: "flex-start" }} >
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 2, lg: 2, xl: 2 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 2, lg: 2, xl: 2 }}>
                           <Stack justifyContent="center" alignItems="center">
                             <Tooltip title={t('tooltips.edit-avatar')} placement="top">
                               <ButtonBase component="label">
@@ -239,7 +237,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                         </Grid2>
                       </Grid2>
                       <Grid2 container spacing={3}>
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
                             <OutlinedInput
@@ -260,7 +258,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                             )}
                           </Stack>
                         </Grid2>
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="userName">{t(fieldsName + 'userName')}</InputLabel>
                             <OutlinedInput
@@ -282,7 +280,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                             )}
                           </Stack>
                         </Grid2>
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="email">{t(fieldsName + 'email')}</InputLabel>
                             <OutlinedInput
@@ -304,7 +302,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                             )}
                           </Stack>
                         </Grid2>
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel htmlFor="phoneNumber">{t(fieldsName + 'phoneNumber')}</InputLabel>
                             <OutlinedInput
@@ -327,7 +325,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                           </Stack>
                         </Grid2>
                         {operation == 'edit' && (
-                          <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                          <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="emailConfirmed">{t(fieldsName + 'emailConfirmed')}</InputLabel>
                               <FormControlLabel
@@ -345,7 +343,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                           </Grid2>
                         )}
                         {operation == 'edit' && (
-                          <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                          <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="phoneNumberConfirmed">{t(fieldsName + 'phoneNumberConfirmed')}</InputLabel>
                               <FormControlLabel
@@ -362,7 +360,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                             </Stack>
                           </Grid2>
                         )}
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                           <Stack spacing={1}>
                             <InputLabel id="defaultLanguage">{t(fieldsName + 'defaultLanguage')}</InputLabel>
                             <Select
@@ -385,14 +383,14 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                             </Select>
                           </Stack>
                         </Grid2>
-                        <Grid2 columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
+                        <Grid2 size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
                           <Divider textAlign="left">
                             {t('pages.cards.user-security')}
                             {/* <Chip label={t('pages.cards.user-security')} /> */}
                           </Divider>
                         </Grid2>
-                        <Grid2 container columns={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }} spacing={1}>
-                          <Grid2 columns={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
+                        <Grid2 container size={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }} spacing={1}>
+                          <Grid2 size={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="newPassword">{t(fieldsName + 'password')}</InputLabel>
                               <OutlinedInput
@@ -443,7 +441,7 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                               </Grid2>
                             </FormControl>
                           </Grid2>
-                          <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 12, xl: 12 }}>
+                          <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 12, xl: 12 }}>
                             <Stack spacing={1}>
                               <InputLabel htmlFor="roleIds">{t('pages.roles')}</InputLabel>
                               <SelectRole
@@ -462,10 +460,10 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                           </Grid2>
                         </Grid2>
                         {operation == 'edit' && (
-                          <Grid2 container columns={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
+                          <Grid2 container size={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
                             <MainCard title={'User Try to Login'}>
-                              <Grid2 container columns={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }} spacing={3}>
-                                <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                              <Grid2 container size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }} spacing={3}>
+                                <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="lockoutEnabled">{t(fieldsName + 'lockoutEnabled')}</InputLabel>
                                     <FormControlLabel
@@ -482,13 +480,13 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                                     />
                                   </Stack>
                                 </Grid2>
-                                <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                                <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="lockoutEnd">{t(fieldsName + 'lockoutEnd')}</InputLabel>
                                     <OutlinedInput id="lockoutEnd" type="text" value={values?.lockoutEnd || ''} fullWidth disabled />
                                   </Stack>
                                 </Grid2>
-                                <Grid2 columns={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
+                                <Grid2 size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 4 }}>
                                   <Stack spacing={1}>
                                     <InputLabel htmlFor="accessFailedCount">{t(fieldsName + 'accessFailedCount')}</InputLabel>
                                     <OutlinedInput
@@ -504,52 +502,53 @@ export default function AddOrEditUser({ params }: { readonly params: Promise<{ i
                             </MainCard>
                           </Grid2>
                         )}
-                        <Grid2 container spacing={3} direction="row" justifyContent="space-between" alignItems="center">
-                          <Grid2>
-                            <Stack direction="row" spacing={2}>
-                              {' '}
-                              <AnimateButton>
-                                <Button
-                                  size="large"
-                                  onClick={() => {
-                                    router.back();
-                                  }}
-                                  variant="outlined"
-                                  color="secondary"
-                                  startIcon={<ArrowBack />}
-                                >
-                                  {t('buttons.back')}
-                                </Button>
-                              </AnimateButton>
-                              <AnimateButton>
-                                <Button
-                                  disabled={isSubmitting}
-                                  size="large"
-                                  type="submit"
-                                  variant="contained"
-                                  color="primary"
-                                  startIcon={<Save />}
-                                >
-                                  {operation == 'edit' ? t(buttonName + 'save') : t(buttonName + 'add')}
-                                </Button>
-                              </AnimateButton>
-                            </Stack>
-                          </Grid2>
-                          <Grid2>
-                            {operation == 'edit' && (
-                              <AnimateButton>
-                                <Button
-                                  size="large"
-                                  variant="contained"
-                                  color="error"
-                                  startIcon={<DeleteIcon />}
-                                  onClick={() => setOpenDelete(true)}
-                                >
-                                  {t(buttonName + 'delete')}
-                                </Button>
-                              </AnimateButton>
-                            )}
-                          </Grid2>
+
+                      </Grid2>
+                      <Grid2 container spacing={3} direction="row" justifyContent="space-between" alignItems="center">
+                        <Grid2 >
+                          <Stack direction="row" spacing={2}>
+                            <AnimateButton>
+                              <Button
+                                size="large"
+                                onClick={() => {
+                                  router.back();
+                                }}
+                                variant="outlined"
+                                color="secondary"
+                                startIcon={<ArrowBack />}
+                              >
+                                {t('buttons.back')}
+                              </Button>
+                            </AnimateButton>
+                            <AnimateButton>
+                              <Button
+                                disabled={isSubmitting}
+                                size="large"
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                startIcon={<Save />}
+                              >
+                                {operation == 'edit' ? t(buttonName + 'save') : t(buttonName + 'add')}
+                              </Button>
+                            </AnimateButton>
+
+                          </Stack>
+                        </Grid2>
+                        <Grid2 >
+                          {operation == 'edit' && (
+                            <AnimateButton>
+                              <Button
+                                size="large"
+                                variant="contained"
+                                color="error"
+                                startIcon={<DeleteIcon />}
+                                onClick={() => setOpenDelete(true)}
+                              >
+                                {t(buttonName + 'delete')}
+                              </Button>
+                            </AnimateButton>
+                          )}
                         </Grid2>
                       </Grid2>
                     </Grid2>

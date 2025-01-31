@@ -1,4 +1,5 @@
-const languageList = [
+
+const languageList: Language[] = [
   {
     name: 'English',
     key: 'en',

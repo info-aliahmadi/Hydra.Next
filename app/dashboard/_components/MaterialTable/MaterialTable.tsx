@@ -64,7 +64,7 @@ function MaterialTable({
   enableRowDragging = false,
   enableColumnDragging = false,
   muiTableBodyRowDragHandleProps,
-  enablePinning = true,
+  enablePinning = false,
   enableRowActions,
   renderRowActions,
   displayColumnDefOptions,
@@ -257,9 +257,7 @@ function MaterialTable({
 
     if (dataApi) {
       fetchData();
-    } else if (dataSet) {
-      setData(dataSet);
-    }
+    } 
   }, [columnFilters, globalFilter, pagination.pageIndex, pagination.pageSize, sorting, refetch, dataSet]);
 
   const supportedLanguage = ['de', 'en', 'es', 'fa', 'fr', 'it', 'nl', 'pt'];
@@ -315,7 +313,7 @@ function MaterialTable({
   return (
     <MaterialReactTable
       columns={columns}
-      data={data?.items ?? []} //data is always an array
+      data={dataApi ? data?.items ?? [] : dataSet || []} //data is always an array
       initialState={{ showColumnFilters: false, density: defaultDensity }}
       enableTopToolbar={enableTopToolbar ?? true}
       enableColumnActions={enableColumnActions ?? true}
@@ -370,7 +368,7 @@ function MaterialTable({
       renderDetailPanel={renderDetailPanel}
       muiTableBodyCellProps={muiTableBodyRowDragHandleProps}
       enableRowOrdering={enableRowOrdering ?? false}
-      rowCount={data?.totalItems ?? 0}
+      rowCount={dataApi ? data?.totalItems ?? 0 : dataSet?.length ?? 0}
       state={{
         columnFilters,
         columnFilterFns,

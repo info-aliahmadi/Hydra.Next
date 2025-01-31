@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 
 
 
-function Notify({ notify, setNotify, position, sx }: Readonly<{notify: Notify, setNotify: setNotify, position?: Position, sx?: any }>) {
+function Notify({ notify, setNotify, position, sx }: Readonly<{notify: NotifyProps, setNotify: setNotify, position?: Position, sx?: any }>) {
   const Strong = styled.strong`
     font-weight: 900;
     margin: auto 5px;

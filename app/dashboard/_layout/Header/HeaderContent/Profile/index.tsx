@@ -1,5 +1,4 @@
 'use client';
-import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 
 // material-ui
@@ -61,7 +60,7 @@ const Profile = () => {
   const { data: session } = useSession();
 
   const user = session?.user;
-  const avatar = user?.image ? CONFIG.AVATAR_BASEPATH + user?.image : '/images/users/anonymous.png';
+  const avatar = user?.avatar ? CONFIG.AVATAR_BASEPATH + user?.avatar : '/images/users/anonymous.png';
 
   const anchorRef = useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);

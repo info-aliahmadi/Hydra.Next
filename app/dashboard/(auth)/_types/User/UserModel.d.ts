@@ -1,10 +1,10 @@
 import { MRT_RowData } from 'material-react-table';
-export interface UserModel extends MRT_RowData {
-    id: number;
+interface UserModel extends MRT_RowData {
+    id?: number;
     name?: string;
     userName: string;
     email: string;
-    phoneNumber: string;
+    phoneNumber?: string;
     avatar?: string;
     avatarFile?: string;
     registerDate?: Date;
@@ -12,11 +12,11 @@ export interface UserModel extends MRT_RowData {
     defaultTheme?: string;
     password?: string;
     accessToken?: string;
-    emailConfirmed: boolean;
-    phoneNumberConfirmed: boolean;
+    emailConfirmed?: boolean;
+    phoneNumberConfirmed?: boolean;
     lockoutEnd?: Date;
-    lockoutEnabled: boolean;
-    accessFailedCount: number;
-    roleIds: number[];
-    roles: string[];
+    lockoutEnabled?: boolean;
+    accessFailedCount?: number;
+    roleIds?: number[];
+    roles?: string[];
   }

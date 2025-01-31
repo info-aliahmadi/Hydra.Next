@@ -8,17 +8,23 @@ import CloseIcon from '@mui/icons-material/Close';
 // assets
 import { useTranslation } from 'react-i18next';
 import Notify from '@dashboard/_components/@extended/Notify';
-import UsersService from '@dashboard/(auth)/_service/UsersService';
+import RoleService from '@dashboard/(auth)/_service/RoleService';
 import { useSession } from 'next-auth/react';
 
-const DeleteUser = ({ userId, open, setOpen }) => {
+interface DeleteRoleProps {
+  row: any;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  refetch: () => void;
+}
+
+const DeleteRole = ({ row, open, setOpen, refetch }: DeleteRoleProps) => {
   const [t] = useTranslation();
-  
   const { data: session } = useSession();
   const jwt = session?.accessToken;
 
-  let userService = new UsersService(jwt);
-  const [notify, setNotify] = useState({ open: false });
+  let roleService = new RoleService(jwt ?? '');
+  const [notify, setNotify] = useState<NotifyProps>({ open: false });
   const [disableBtn, setDisableBtn] = useState(false);
 
   const onClose = () => {
@@ -27,19 +33,18 @@ const DeleteUser = ({ userId, open, setOpen }) => {
 
   const handleSubmit = () => {
     setDisableBtn(true);
-    userService
-      .deleteUser(userId)
+    let roleId = row.original.id;
+    roleService
+      .deleteRole(roleId)
       .then(() => {
         onClose();
         setNotify({ open: true });
-        setTimeout(function () {
-          window.location.replace('/usersList');
-        }, 4000);
+        refetch();
       })
       .catch((error) => {
-        setNotify({ open: true, type: 'error', description: error.message });
+        setNotify({ open: true, type: 'error', description: error });
       })
-      .finally((x) => {
+      .finally(() => {
         setDisableBtn(false);
       });
   };
@@ -64,7 +69,7 @@ const DeleteUser = ({ userId, open, setOpen }) => {
       <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">
           <Typography variant="caption" fontSize={17} fontWeight={600}>
-            {t('buttons.user.delete')}
+            {t('buttons.role.delete')}
           </Typography>
           <CloseDialog />
         </DialogTitle>
@@ -87,4 +92,4 @@ const DeleteUser = ({ userId, open, setOpen }) => {
   );
 };
 
-export default DeleteUser;
+export default DeleteRole;

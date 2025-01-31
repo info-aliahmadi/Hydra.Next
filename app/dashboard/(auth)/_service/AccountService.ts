@@ -2,13 +2,14 @@
 import axios from 'axios';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
 import CONFIG from '@root/config';
+import { UserModel } from '../_types/User/UserModel';
 
 export default class AccountService {
-  constructor(jwt: any) {
-    if(jwt)
-    setDefaultHeader(jwt);
+  constructor(jwt: string) {
+    if (jwt)
+      setDefaultHeader(jwt);
   }
-  getCurrentUser = async () => {
+  getCurrentUser = async (): Promise<UserModel> => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/getCurrentUser')
@@ -16,25 +17,25 @@ export default class AccountService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error));
+          reject(error);
         });
     });
   };
 
-  setDefaultTheme = async (theme : any) => {
+  setDefaultTheme = async (defaultTheme: 'light' | 'dark') => {
     return new Promise((resolve, reject) => {
       axios
-        .get(CONFIG.API_BASEPATH + '/auth/SetDefaultTheme')
+        .get(CONFIG.API_BASEPATH + '/auth/SetDefaultTheme', { params: { defaultTheme: defaultTheme } })
         .then((response) => {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error));
+          reject(error);
         });
     });
   };
 
-  updateCurrentUser = async (user: any) => {
+  updateCurrentUser = async (user: UserModel) : Promise<UserModel>  => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/updateCurrentUser', user)
@@ -42,19 +43,19 @@ export default class AccountService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error));
+          reject(error);
         });
     });
   };
-  changePassword = async (passwords: any) => {
+  changePassword = async (password: ChangePassword) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(CONFIG.API_BASEPATH + '/auth/changePassword', passwords)
+        .post(CONFIG.API_BASEPATH + '/auth/changePassword', password)
         .then((response) => {
           resolve(response.data);
         })
         .catch((error) => {
-           reject(new Error(error));
+          reject(error);
         });
     });
   };

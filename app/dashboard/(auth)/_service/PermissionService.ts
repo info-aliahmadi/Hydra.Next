@@ -1,39 +1,40 @@
 import axios from 'axios';
-import CONFIG from '@root/config';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
-import { Session } from 'next-auth';
+import CONFIG from '@root/config';
+import Result from '@root/app/types/Result';
 
 export default class PermissionService {
-  constructor(session: Session | null) {
-    if (session) {
-      setDefaultHeader(session.accessToken);
-    }
+  constructor(jwt: string) {
+    if (jwt)
+      setDefaultHeader(jwt);
+
   }
-  getPermissionList = async (searchParams: any) => {
+  getPermissionList = async (searchParams: GridDataBound): Promise<Result<PaginatedList<Permission>>> => {
     return new Promise((resolve, reject) => {
+
       axios
         .post(CONFIG.API_BASEPATH + '/auth/GetPermissionList', searchParams)
         .then((response) => {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  getPermissionById = async (permissionId: number) => {
+  getPermissionById = async (permissionId: number): Promise<Result<Permission>> => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/getPermissionById', { params: { permissionId: permissionId } })
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  getPermissionsByName = async (name: string) => {
+  getPermissionsByName = async (name: string): Promise<Result<Permission[]>> => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/GetPermissionsByName', { params: { name: name } })
@@ -41,11 +42,11 @@ export default class PermissionService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  addPermission = async (permission: any) => {
+  addPermission = async (permission: Permission): Promise<Result<Permission>> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/addPermission', permission)
@@ -53,23 +54,23 @@ export default class PermissionService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  updatePermission = async (permission: any) => {
+  updatePermission = async (permission: Permission): Promise<Result<Permission>> => {
     return new Promise((resolve, reject) => {
       axios
         .post(CONFIG.API_BASEPATH + '/auth/updatePermission', permission)
         .then((response) => {
-          resolve(response.data.data);
+          resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };
-  deletePermission = async (permissionId: number) => {
+  deletePermission = async (permissionId: number): Promise<Result<null>> => {
     return new Promise((resolve, reject) => {
       axios
         .get(CONFIG.API_BASEPATH + '/auth/deletePermission', { params: { permissionId: permissionId } })
@@ -77,7 +78,7 @@ export default class PermissionService {
           resolve(response.data);
         })
         .catch((error) => {
-          reject(new Error(error.message))
+          reject(error)
         });
     });
   };

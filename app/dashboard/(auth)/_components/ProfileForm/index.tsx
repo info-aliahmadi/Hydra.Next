@@ -3,19 +3,18 @@ import { useEffect, useState } from 'react';
 
 // material-ui
 import {
-  Alert,
   Avatar,
   Button,
   ButtonBase,
   ButtonGroup,
   FormHelperText,
-  Grid,
   InputLabel,
   OutlinedInput,
   Stack,
   Tooltip
 } from '@mui/material';
 
+import Grid from '@mui/material/Grid2';
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -32,20 +31,21 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import AnimateButton from '@dashboard/_components/@extended/AnimateButton';
 import AccountService from '@dashboard/(auth)/_service/AccountService';
 import { useSession } from 'next-auth/react';
+import { UserModel } from '../../_types/User/UserModel';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const ProfileForm = () => {
   const [t] = useTranslation();
-  const [avatarPreview, setAvatarPreview] = useState();
-  const { data: session } = useSession();
+  const [avatarPreview, setAvatarPreview] = useState<string | ArrayBuffer | null>('');
+  const { data: session, update } = useSession();
 
   const jwt = session?.accessToken;
 
-  let accountService = new AccountService(jwt);
+  let accountService = new AccountService(jwt ?? "");
 
   const [fieldsName, validation, buttonName] = ['fields.', 'validation.', 'buttons.'];
-  const [user, setUser] = useState();
-  const [notify, setNotify] = useState({ open: false });
+  const [user, setUser] = useState<UserModel>();
+  const [notify, setNotify] = useState<NotifyProps>({ open: false });
 
   const loadUser = () => {
     accountService.getCurrentUser().then((userData) => {
@@ -57,21 +57,21 @@ const ProfileForm = () => {
     loadUser();
   }, []);
 
-  const handleUpdate = (user,setSubmitting) => {
+  const handleUpdate = (user: UserModel, setSubmitting: any) => {
     accountService
       .updateCurrentUser(user)
       .then((result) => {
-        update({ ...session.user, name: user.name, email: user.email, userName: user.userName, avatar: result.avatar, accessToken: result.accessToken });
+        update({ ...session?.user, name: user.name, email: user.email, userName: user.userName, avatar: result.avatar, accessToken: result.accessToken });
         setNotify({ open: true });
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error.message });
       })
-      .finally((x) => {
+      .finally(() => {
         setSubmitting(false);
       });
   };
-  const changeAvatar = (e, setFieldValue) => {
+  const changeAvatar = (e: any, setFieldValue: any) => {
     if (e?.target?.files) {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(e.target.files[0]);
@@ -83,23 +83,25 @@ const ProfileForm = () => {
       };
     }
   };
-  const deleteAvatar = (setFieldValue) => {
+  const deleteAvatar = (setFieldValue: any) => {
     setFieldValue('avatarFile', '');
     setFieldValue('avatar', '');
-    setAvatarPreview();
+    setAvatarPreview('');
   };
+
+  const initialValues: UserModel = {
+    name: user?.name,
+    userName: user?.userName ?? "",
+    phoneNumber: user?.phoneNumber ?? "",
+    email: user?.email ?? "",
+    avatar: user?.avatar,
+    avatarFile: user?.avatarFile
+  }
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
       <Formik
-        initialValues={{
-          name: user?.name,
-          userName: user?.userName,
-          phoneNumber: user?.phoneNumber,
-          email: user?.email,
-          avatar: user?.avatar,
-          avatarFile: user?.avatarFile
-        }}
+        initialValues={initialValues}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
           userName: Yup.string()
@@ -114,32 +116,25 @@ const ProfileForm = () => {
           try {
             setStatus({ success: true });
             setSubmitting(true);
-            handleUpdate(values,setSubmitting);
-          } catch (err) {
-            console.error(err);
+            handleUpdate(values, setSubmitting);
+          } catch (err: any) {
             setStatus({ success: false });
             setErrors({ submit: err.message });
-          } 
+          }
         }}
       >
         {({ errors, handleBlur, handleChange, setFieldValue, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container spacing={3} direction="column">
-              <Grid container item spacing={0} direction="row" justifyContent="flex-end" alignItems="flex-start">
-                <Grid item xs={12} md={2}>
+              <Grid container spacing={0} direction="row" justifyContent="flex-end" alignItems="flex-start">
+                <Grid size={{ xs: 12, sm: 12, md: 2, lg: 2, xl: 2 }} >
                   <Stack justifyContent="center" alignItems="center">
                     <Tooltip title={t('tooltips.edit-avatar')} placement="top">
-                      <ButtonBase variant="contained" component="label">
+                      <ButtonBase component="label">
                         <input type="file" hidden accept="image/*" name="avatarFile" onChange={(e) => changeAvatar(e, setFieldValue)} />
                         <Avatar
                           alt=""
-                          src={
-                            avatarPreview
-                              ? avatarPreview
-                              : values?.avatar
-                                ? CONFIG.AVATAR_BASEPATH + values?.avatar
-                                : '/images/users/anonymous.png'
-                          }
+                          src={avatarPreview ? avatarPreview.toString() : values.avatar ? CONFIG.AVATAR_BASEPATH + values.avatar : '/images/users/anonymous.png'}
                           sx={{ width: 85, height: 85 }}
                         ></Avatar>
                       </ButtonBase>
@@ -154,7 +149,7 @@ const ProfileForm = () => {
                       )}
                       <Tooltip title={t('tooltips.edit-avatar')}>
                         <Button>
-                          <ButtonBase variant="contained" component="label">
+                          <ButtonBase component="label">
                             <input type="file" hidden accept="image/*" name="avatarFile" onChange={(e) => changeAvatar(e, setFieldValue)} />
                             <Edit />
                           </ButtonBase>
@@ -164,8 +159,8 @@ const ProfileForm = () => {
                   </Stack>
                 </Grid>
               </Grid>
-              <Grid container item spacing={3} justifyContent="center">
-                <Grid item xs={12} md={6}>
+              <Grid container spacing={3} justifyContent="center">
+                <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
                     <OutlinedInput
@@ -186,7 +181,7 @@ const ProfileForm = () => {
                     )}
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="userName">{t(fieldsName + 'userName')}</InputLabel>
                     <OutlinedInput
@@ -208,9 +203,9 @@ const ProfileForm = () => {
                     )}
                   </Stack>
                 </Grid>
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="email">{t(fieldsName + 'email')}</InputLabel>
+                    <InputLabel htmlFor="email">{t(fieldsName + "emaill")}</InputLabel>
                     <OutlinedInput
                       fullWidth
                       error={Boolean(touched.email && errors.email)}
@@ -220,7 +215,7 @@ const ProfileForm = () => {
                       name="email"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder={t(fieldsName + 'email')}
+                      placeholder={t(fieldsName + 'emaill')}
                       inputProps={{}}
                     />
                     {touched.email && errors.email && (
@@ -231,7 +226,7 @@ const ProfileForm = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
+                <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
                   <Stack spacing={1}>
                     <InputLabel htmlFor="phoneNumber">{t(fieldsName + 'phoneNumber')}</InputLabel>
                     <OutlinedInput
@@ -254,8 +249,8 @@ const ProfileForm = () => {
                   </Stack>
                 </Grid>
               </Grid>
-              <Grid container item spacing={3} justifyContent="center" alignItems="center" direction="row">
-                <Grid item xs={12} sm={6} md={3}>
+              <Grid container spacing={3} justifyContent="center" alignItems="center" direction="row">
+                <Grid size={{ xs: 12, sm: 6, md: 3, lg: 3, xl: 2 }}>
                   <AnimateButton>
                     <Button
                       disableElevation

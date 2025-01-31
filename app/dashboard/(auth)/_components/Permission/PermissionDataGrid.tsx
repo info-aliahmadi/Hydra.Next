@@ -7,28 +7,31 @@ import TableCard from '@dashboard/_components/TableCard';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import MaterialTable from '@dashboard/_components/MaterialTable/MaterialTable';
-import { Delete , Edit } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import AddOrEditPermission from './AddOrEditPermission';
 import DeletePermission from './DeletePermission';
 
 import AddIcon from '@mui/icons-material/Add';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
 import { useSession } from 'next-auth/react';
+import { MRT_Column } from '@root/app/types/MRT_Column';
+import { MRT_Row } from 'material-react-table';
 // ===============================|| COLOR BOX ||=============================== //
 
 function PermissionDataGrid() {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.accessToken;
+  console.log("Auth :" + jwt);
 
-  const service = new PermissionService(jwt);
-  const [isNew, setIsNew] = useState(true);
-  const [rowId, setRowId] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
-  const [row, setRow] = useState({});
-  const [refetch, setRefetch] = useState();
-  const columns = useMemo(
+  const service = new PermissionService(jwt ?? "");
+  const [isNew, setIsNew] = useState<boolean>(true);
+  const [rowId, setRowId] = useState<number>(0);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
+  const [row, setRow] = useState<MRT_Row<Permission>>();
+  const [refetch, setRefetch] = useState<number>();
+  const columns = useMemo<MRT_Column<RoleModel>[]>(
     () => [
       {
         accessorKey: 'id',
@@ -56,13 +59,13 @@ function PermissionDataGrid() {
     setRowId(0);
     setOpen(true);
   };
-  const handleEditRow = (row) => {
-    let permissionId = row.getValue('id');
+  const handleEditRow = (row: MRT_Row<Permission>) => {
+    let permissionId = row.original.id ?? 0;
     setIsNew(false);
     setRowId(permissionId);
     setOpen(true);
   };
-  const handleDeleteRow = (row) => {
+  const handleDeleteRow = (row: MRT_Row<Permission>) => {
     setRow(row);
     setOpenDelete(true);
   };
@@ -70,8 +73,8 @@ function PermissionDataGrid() {
     setRefetch(Date.now());
   };
 
-  const handlePermissionList = useCallback(async (x) => {
-    return await service.getPermissionList(x);
+  const handlePermissionList = useCallback(async (searchParams: GridDataBound) => {
+    return await service.getPermissionList(searchParams);
   }, []);
   const AddRow = useCallback(
     () => (
@@ -82,7 +85,7 @@ function PermissionDataGrid() {
     []
   );
   const DeleteOrEdit = useCallback(
-    ({ row }) => (
+    ({ row }: { row: MRT_Row<Permission> }) => (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
         <Tooltip arrow placement="top-start" title={t('buttons.permission.delete')}>
           <IconButton color="error" onClick={() => handleDeleteRow(row)}>
@@ -108,7 +111,6 @@ function PermissionDataGrid() {
             dataApi={handlePermissionList}
             enableRowActions
             renderRowActions={DeleteOrEdit}
-            // renderTopToolbarCustomActions={AddRow}
           />
         </TableCard>
       </MainCard>

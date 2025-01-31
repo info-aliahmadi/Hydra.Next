@@ -8,11 +8,11 @@ import {
   DialogContent,
   DialogTitle,
   FormHelperText,
-  Grid,
   InputLabel,
   OutlinedInput,
   Stack
 } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 // third party
@@ -27,6 +27,7 @@ import Notify from '@dashboard/_components/@extended/Notify';
 import setServerErrors from '@root/utils/setServerErrors';
 import PermissionService from '@dashboard/(auth)/_service/PermissionService';
 import { useSession } from 'next-auth/react';
+import Result from '@root/app/types/Result';
 
 
 const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
@@ -38,26 +39,27 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
 }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
+  const jwt = session?.accessToken;
 
-  let permissionService = new PermissionService(session as any);
+  let permissionService = new PermissionService(jwt ?? "");
   const [fieldsName, validation, buttonName] = ['fields.permission.', 'validation.permission.', 'buttons.permission.'];
-  const [permission, setPermission] = useState<Permission | null>(null);
-  const [notify, setNotify] = useState<Notify>({ open: false, type: 'success' });
+  const [permission, setPermission] = useState<Permission>();
+  const [notify, setNotify] = useState<NotifyProps>({ open: false, type: 'success' });
 
   const loadPermission = () => {
-    permissionService.getPermissionById(permissionId).then((result: any) => {
-      setPermission(result);
+    permissionService.getPermissionById(permissionId).then((result: Result<Permission>) => {
+      setPermission(result.data);
     });
   };
   const onClose = () => {
     setOpen(false);
-    setPermission(null);
+    setPermission({});
   };
   useEffect(() => {
-    if (isNew == false && permissionId > 0) {
+    if (!isNew && permissionId > 0) {
       loadPermission();
     } else {
-      setPermission(null);
+      setPermission({});
     }
   }, [permissionId, isNew, open]);
 
@@ -74,14 +76,14 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
       permissionService
         .addPermission(permission)
         .then(() => {
-          setPermission(null);
+          setPermission({});
           onClose();
           setNotify((provious) => ({ ...provious, open: true }));
           refetch();
         })
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
-                          setErrors(setServerErrors(error));
+          setErrors(setServerErrors(error));
         })
         .finally(() => {
           setSubmitting(false);
@@ -90,14 +92,14 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
       permissionService
         .updatePermission(permission)
         .then(() => {
-          setPermission(null);
+          setPermission({});
           onClose();
           setNotify((provious) => ({ ...provious, open: true }));
           refetch();
         })
         .catch((error) => {
           setNotify({ open: true, type: 'error', description: error });
-                          setErrors(setServerErrors(error));
+          setErrors(setServerErrors(error));
         })
         .finally(() => {
           setSubmitting(false);
@@ -134,8 +136,8 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
           validationSchema={Yup.object().shape({
             name: Yup.string()
               .max(255)
-              .required(t(validation + 'required-permission-name') as string),
-            normalizedName: Yup.string().max(255, t(validation + 'maxlength-permission-normalizedname') as string)
+              .required(t(validation + 'required-permission-name')),
+            normalizedName: Yup.string().max(255, t(validation + 'maxlength-permission-normalizedname'))
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
@@ -143,19 +145,19 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
               handleSubmit(values, setErrors, setSubmitting);
             } catch (err) {
               setStatus({ success: false });
-              setErrors({ });
+              setErrors({});
             }
           }}
         >
           {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
             <form noValidate onSubmit={handleSubmit}>
               <DialogTitle>
-                {t('dialog.' + (isNew == true ? 'add' : 'edit') + '.title', { item: 'Permission' })}
+                {t('dialog.' + (isNew ? 'add' : 'edit') + '.title', { item: 'Permission' })}
                 <CloseDialog />
               </DialogTitle>
               <DialogContent>
                 <Grid container spacing={3} direction="column">
-                  <Grid item>
+                  <Grid>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
                       <OutlinedInput
@@ -165,7 +167,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
                         name="name"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder={t(fieldsName + 'name') as string}
+                        placeholder={t(fieldsName + 'name')}
                         fullWidth
                         error={Boolean(touched.name && errors.name)}
                       />
@@ -176,7 +178,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
                       )}
                     </Stack>
                   </Grid>
-                  <Grid item>
+                  <Grid>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="normalizedName">{t(fieldsName + 'normalizedname')}</InputLabel>
                       <OutlinedInput
@@ -188,7 +190,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
                         name="normalizedName"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        placeholder={t(fieldsName + 'normalizedname') as string}
+                        placeholder={t(fieldsName + 'normalizedname')}
                         inputProps={{}}
                       />
                       {touched.normalizedName && errors.normalizedName && (
@@ -215,7 +217,7 @@ const AddOrEditPermission = ({ permissionId, isNew, open, setOpen, refetch }: {
                     color="primary"
                     startIcon={<AddIcon />}
                   >
-                    {t(buttonName + (isNew == true ? 'add' : 'edit'))}
+                    {t(buttonName + (isNew ? 'add' : 'edit'))}
                   </Button>
                 </AnimateButton>
               </DialogActions>

@@ -1,7 +1,7 @@
 interface MaterialTableProps {
     readonly columns: MRT_ColumnDef<MRT_RowData, any>[],
     readonly dataApi?: (filters: GridDataBound) => Promise<Result<PaginatedList<MRT_RowData>>>,
-    readonly dataSet?: PaginatedList<MRT_RowData>,
+    readonly dataSet?: MRT_RowData[],
     readonly refetch?: number,
     readonly addSearchParams?: GridDataBound,
     readonly enableColumnActions?: boolean,

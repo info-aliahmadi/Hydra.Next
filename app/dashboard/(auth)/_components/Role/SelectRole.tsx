@@ -1,25 +1,26 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import RoleService from '../../_service/RoleService';
 import { useSession } from 'next-auth/react';
+import { OutlinedInput } from '@mui/material';
 
 export default function SelectRole({ defaultValues, id, setFieldValue, error, disabled }:
   { readonly defaultValues: number[], readonly disabled: boolean, readonly id?: string, readonly setFieldValue?: any, readonly error?: boolean }) {
   const [t] = useTranslation();
   const [loading, setLoading] = useState(true);
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState<Option[]>([]);
   const { data: session } = useSession();
 
   const jwt = session?.accessToken;
-  const roleService = new RoleService(jwt);
+  const roleService = new RoleService(jwt ?? '');
 
   const loadRoles = () => {
     roleService.getAllRoles().then((result) => {
-      setOptions(result.data);
+      const optionsData: Option[] = result.data?.map((x) => ({ id: x.id, name: x.name })) as Option[];
+      setOptions(optionsData);
       setLoading(false);
     });
   };
@@ -30,7 +31,7 @@ export default function SelectRole({ defaultValues, id, setFieldValue, error, di
   return (
     <Autocomplete
       disabled={disabled}
-      key={Number(loading) + defaultValues + Number(error)}
+      key={Number(loading) + Number(error)}
       multiple
       size="small"
       getOptionLabel={(option) => option?.name}
@@ -45,11 +46,11 @@ export default function SelectRole({ defaultValues, id, setFieldValue, error, di
       }
       defaultValue={options.filter((x) => defaultValues?.find((c) => c === x.id)) ?? []}
       renderInput={(params) => (
-        <TextField
+        <OutlinedInput
           {...params}
           error={error}
           placeholder={t('pages.roles')}
-          InputProps={{
+          inputProps={{
             ...params.InputProps,
             endAdornment: (
               <React.Fragment>

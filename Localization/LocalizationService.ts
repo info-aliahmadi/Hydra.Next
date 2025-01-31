@@ -29,7 +29,7 @@ export default class LocalizationService {
     return await result;
   };
 
-  setCurrentLanguage = async (i18n: any, lang: any) => {
+  setCurrentLanguage = async (i18n: any, lang: Language) => {
     i18n.changeLanguage(lang.key);
     axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultLanguage', { params: { defaultLanguage: lang.key } }).catch((error) => {
     });

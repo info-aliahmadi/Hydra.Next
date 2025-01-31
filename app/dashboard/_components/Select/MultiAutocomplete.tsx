@@ -3,28 +3,27 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState, useEffect } from 'react';
+import Result from '@root/app/types/Result';
+import { UserModel } from '../../(auth)/_types/User/UserModel';
 
 interface MultiAutoCompleteProps {
   id: string;
   name: string;
-  defaultValues: OptionType[];
+  defaultValues: Option[];
   setFieldValue: (field: string, value: any) => void;
   label: string;
-  inputDataApi: (input: string) => Promise<{ data: any[] }>;
-  loadDataApi: (ids: string) => Promise<{ data: any[] }>;
+  inputDataApi: (input: string) => Promise<Result<UserModel[]>>;
+  loadDataApi: (ids: string) => Promise<Result<UserModel[]>>;
 }
-interface OptionType {
-  id: string;
-  name: string;
-}
+
 export default function MultiAutoComplete({ id, name, defaultValues, setFieldValue, label, inputDataApi, loadDataApi }: Readonly<MultiAutoCompleteProps>) {
 
   const [open, setOpen] = useState(false);
-  const [options, setOptions] = useState<any[]>([]);
-  const [values, setValues] = useState(defaultValues);
+  const [options, setOptions] = useState<Option[]>([]);
+  const [values, setValues] = useState<Option[]>(defaultValues);
   const [loading, setLoading] = useState(false);
 
-  const [clear, setClear] = useState<OptionType[]>(defaultValues);
+  const [clear, setClear] = useState<Option[]>(defaultValues);
   useEffect(() => {
 
     if (!open) {
@@ -32,11 +31,11 @@ export default function MultiAutoComplete({ id, name, defaultValues, setFieldVal
     }
   }, [open]);
 
-  const loadAllData = (ids : any) => {
+  const loadAllData = (ids: any) => {
     setLoading(true);
     const defIds = ids.toString();
 
-    loadDataApi(defIds).then((products : any) => {
+    loadDataApi(defIds).then((products: any) => {
       setOptions([...products.data]);
       setValues([...products.data]);
       setLoading(false);
@@ -54,9 +53,9 @@ export default function MultiAutoComplete({ id, name, defaultValues, setFieldVal
   }, [JSON.stringify(defaultValues)]);
 
 
- 
 
-  const onChange = (event: React.ChangeEvent<{}>, newValue: OptionType[] | null) => {
+
+  const onChange = (event: React.ChangeEvent<{}>, newValue: Option[] | null) => {
     let ids = newValue?.map(a => a.id);
     setFieldValue(id, ids);
     setValues(newValue || []);
@@ -64,56 +63,57 @@ export default function MultiAutoComplete({ id, name, defaultValues, setFieldVal
   const onInputChange = (event: React.ChangeEvent<{}>, newInputValue: string) => {
     if (newInputValue !== 'undefined' && newInputValue !== null && newInputValue !== '') {
       setLoading(true);
-      inputDataApi(newInputValue).then((products: { data: OptionType[] }) => {
-        setOptions([...products.data]);
+      inputDataApi(newInputValue).then((result) => {
+        const optionsData : Option[] = result.data?.map((x) => ({ id: x.id, name: x.name })) as Option[];
+        setOptions([...optionsData]);
         setLoading(false);
       });
     }
   };
 
   return (
-      <Autocomplete
-        //key={defaultValues}
-        id={id}
-        clearOnBlur={true}
-        clearOnEscape={true}
-        autoSelect={true}
-        sx={{ minWidth: 300 }}
-        open={open}
-        multiple
-        onOpen={() => {
-          setOpen(true);
-        }}
-        onClose={() => {
-          setOpen(false);
-        }}
-        //inputValue={newValue}s
-        onInputChange={onInputChange}
-        onChange={onChange}
-        value={values || []}
-        options={options}
-        getOptionLabel={(option: any) => option?.name}
-        isOptionEqualToValue={(option : any, value: any) => option.id === value.id}
-        loading={loading}
-        defaultValue={options?.filter((x) => values?.find((c) => c === x.id)) ?? []}
-        renderInput={(params : any) => (
-          <TextField
-            {...params}
-            variant="standard"
-            // value={values}
-            size="small"
-            label={label}
-            InputProps={{
-              ...params.InputProps,
-              endAdornment: (
-                <React.Fragment>
-                  {loading && <CircularProgress color="inherit" size={15} />}
-                  {params.InputProps.endAdornment}
-                </React.Fragment>
-              )
-            }}
-          />
-        )}
-      />
+    <Autocomplete
+      //key={defaultValues}
+      id={id}
+      clearOnBlur={true}
+      clearOnEscape={true}
+      autoSelect={true}
+      sx={{ minWidth: 300 }}
+      open={open}
+      multiple
+      onOpen={() => {
+        setOpen(true);
+      }}
+      onClose={() => {
+        setOpen(false);
+      }}
+      //inputValue={newValue}s
+      onInputChange={onInputChange}
+      onChange={onChange}
+      value={values || []}
+      options={options}
+      getOptionLabel={(option: Option) => option?.name}
+      isOptionEqualToValue={(option: Option, value: any) => option.id === value.id}
+      loading={loading}
+      defaultValue={options?.filter((x) => values?.find((c) => c.id === x.id)) ?? []}
+      renderInput={(params: any) => (
+        <TextField
+          {...params}
+          variant="standard"
+          // value={values}
+          size="small"
+          label={label}
+          InputProps={{
+            ...params.InputProps,
+            endAdornment: (
+              <React.Fragment>
+                {loading && <CircularProgress color="inherit" size={15} />}
+                {params.InputProps.endAdornment}
+              </React.Fragment>
+            )
+          }}
+        />
+      )}
+    />
   );
 }

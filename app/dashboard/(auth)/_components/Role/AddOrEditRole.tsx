@@ -8,11 +8,12 @@ import {
   DialogContent,
   DialogTitle,
   FormHelperText,
-  Grid,
   InputLabel,
   OutlinedInput,
   Stack
 } from '@mui/material';
+Stack
+import Grid from '@mui/material/Grid2';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 // third party
@@ -29,61 +30,70 @@ import AddIcon from '@mui/icons-material/Add';
 import RoleService from '@dashboard/(auth)/_service/RoleService';
 import { useSession } from 'next-auth/react';
 
-const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
+const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }: { roleId: number, isNew: boolean, open: boolean, setOpen: (open: boolean) => void, refetch: () => void }) => {
   const [t] = useTranslation();
   const { data: session } = useSession();
   const jwt = session?.accessToken;
 
-  let roleService = new RoleService(jwt);
+  let roleService = new RoleService(jwt ?? '');
   const [fieldsName, validation, buttonName] = ['fields.role.', 'validation.role.', 'buttons.role.'];
-  const [role, setRole] = useState();
-  const [notify, setNotify] = useState({ open: false });
+  const [role, setRole] = useState<RoleModel>();
+  const [notify, setNotify] = useState<NotifyProps>({ open: false });
 
   const loadRole = () => {
     roleService.getRoleById(roleId).then((result) => {
-      setRole(result);
+      setRole(result.data);
     });
   };
   useEffect(() => {
-    if (isNew == false && roleId > 0) {
+    if (!isNew && roleId > 0) {
       loadRole();
     } else {
-      setRole({});
+      setRole(undefined);
     }
   }, [roleId, isNew, open]);
 
   const onClose = () => {
     setOpen(false);
-    setRole({});
+    setRole(undefined);
   };
 
-  const handleSubmit = (role, setErrors) => {
-    if (isNew == true) {
-      roleService
-        .addRole(role)
-        .then(() => {
-          onClose();
-          setRole({});
-          setNotify({ open: true });
-          refetch();
-        })
-        .catch((error) => {
-          setNotify({ open: true, type: 'error', description: error });
-                                    setErrors(setServerErrors(error));
-        });
+  const addRole = (role: RoleModel, setErrors: any) => {
+    roleService
+      .addRole(role)
+      .then(() => {
+        onClose();
+        setRole(undefined);
+        setNotify({ open: true });
+        refetch();
+      })
+      .catch((error) => {
+        setNotify({ open: true, type: 'error', description: error });
+        setErrors(setServerErrors(error));
+      });
+  };
+
+  const updateRole = (role: RoleModel, setErrors: any) => {
+    debugger
+    roleService
+      .updateRole(role)
+      .then(() => {
+        onClose();
+        setRole(undefined);
+        setNotify({ open: true });
+        refetch();
+      })
+      .catch((error) => {
+        setErrors(setServerErrors(error));
+        setNotify({ open: true, type: 'error', description: error });
+      });
+  };
+
+  const handleSubmit = (role: RoleModel, setErrors: any) => {
+    if (isNew) {
+      addRole(role, setErrors);
     } else {
-      roleService
-        .updateRole(role)
-        .then(() => {
-          onClose();
-          setRole({});
-          setNotify({ open: true });
-          refetch();
-        })
-        .catch((error) => {
-                                  setErrors(setServerErrors(error));
-          setNotify({ open: true, type: 'error', description: error });
-        });
+      updateRole(role, setErrors);
     }
   };
   const CloseDialog = () => (
@@ -101,16 +111,19 @@ const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
     </IconButton>
   );
 
+  const initialValues: RoleModel = {
+    id: role?.id ?? 0,
+    name: role?.name ?? '',
+    normalizedName: role?.normalizedName ?? '',
+    concurrencyStamp: role?.concurrencyStamp ?? '',
+    permissions: role?.permissions ?? []
+  }
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
-      <Dialog open={open} fullWidth={'xs'}>
+      <Dialog open={open} fullWidth={true}>
         <Formik
-          initialValues={{
-            id: role?.id,
-            name: role?.name,
-            normalizedName: role?.normalizedName
-          }}
+          initialValues={initialValues}
           enableReinitialize={true}
           validationSchema={Yup.object().shape({
             name: Yup.string()
@@ -125,23 +138,21 @@ const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
             } catch (err) {
               console.error(err);
               setStatus({ success: false });
-              setErrors({ submit: err.message });
             }
-            finally{
+            finally {
               setSubmitting(false);
-
             }
           }}
         >
           {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
             <form noValidate onSubmit={handleSubmit}>
               <DialogTitle>
-                {t('dialog.' + (isNew == true ? 'add' : 'edit') + '.title', { item: 'Role' })}
+                {t('dialog.' + (isNew ? 'add' : 'edit') + '.title', { item: 'Role' })}
                 <CloseDialog />
               </DialogTitle>
               <DialogContent>
                 <Grid container spacing={3} direction="column">
-                  <Grid item>
+                  <Grid>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
                       <OutlinedInput
@@ -162,7 +173,7 @@ const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
                       )}
                     </Stack>
                   </Grid>
-                  <Grid item>
+                  <Grid>
                     <Stack spacing={1}>
                       <InputLabel htmlFor="normalizedName">{t(fieldsName + 'normalizedname')}</InputLabel>
                       <OutlinedInput
@@ -201,7 +212,7 @@ const AddOrEditRole = ({ roleId, isNew, open, setOpen, refetch }) => {
                     color="primary"
                     startIcon={<AddIcon />}
                   >
-                    {t(buttonName + (isNew == true ? 'add' : 'edit'))}
+                    {t(buttonName + (isNew ? 'add' : 'edit'))}
                   </Button>
                 </AnimateButton>
               </DialogActions>

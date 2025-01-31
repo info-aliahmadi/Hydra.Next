@@ -6,8 +6,6 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  Grid2,
-  Grid,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -15,7 +13,7 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-
+import Grid from '@mui/material/Grid2';
 // material-ui
 
 // third party
@@ -46,12 +44,12 @@ const ChangePasswordForm = () => {
   const [level, setLevel] = useState<any>();
   const { data: session } = useSession();
   const jwt = session?.accessToken;
+  let accountService = new AccountService(jwt ?? "");
 
 
   const [showPassword, setShowPassword] = useState(false);
-  const [notify, setNotify] = useState<any>({  open: false, type: 'success', description: '' });
+  const [notify, setNotify] = useState<any>({ open: false, type: 'success', description: '' });
 
-  let accountService = new AccountService(jwt);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -69,27 +67,24 @@ const ChangePasswordForm = () => {
   useEffect(() => {
     changePassword('');
   }, []);
-
+  const changePasswordModel: ChangePassword = {
+    newPassword: '',
+    oldPassword: ''
+  }
   return (
     <>
       <Notify notify={notify} setNotify={setNotify}></Notify>
       <Formik
         enableReinitialize={true}
-        initialValues={{
-          oldPassword: '',
-          newPassword: '',
-          submit: ''
-        }}
+        initialValues={changePasswordModel}
         validationSchema={Yup.object().shape({
           oldPassword: Yup.string().max(255).required(t('validation.required-old-password') as string),
           newPassword: Yup.string().max(255).required(t('validation.required-new-password') as string)
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-
-
             accountService
-              .changePassword(values as FormValues)
+              .changePassword(values)
               .then(() => {
                 setNotify({ open: true, type: 'success', description: '' });
               })
@@ -104,19 +99,18 @@ const ChangePasswordForm = () => {
               .finally(() => setSubmitting(false));
             setStatus({ success: true });
             setSubmitting(true);
-          } catch (err) {
+          } catch (err: any) {
             console.error(err);
             setStatus({ success: false });
-            setErrors({ newPassword: (err as any).message });
+            setErrors({ newPassword: err.message });
           }
         }}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
-            <Grid2 container direction="row" justifyContent="center">
-              <Grid2 size={{ sm: 8, md: 8 ,lg : 6, xs: 6}}>
-                <Grid2 container spacing={2} direction="column" justifyContent="center">
-                  <Grid xs={12}>
+            <Grid container direction="row" justifyContent="center">
+                <Grid container size={{ xs: 12, sm: 10, md: 12, lg: 10, xl: 10 }} spacing={2} justifyContent="center">
+                  <Grid size={{ xs: 12, sm: 10, md: 10, lg: 8, xl: 8 }}>
                     <Stack>
                       <InputLabel htmlFor="old-password">{t('fields.old-password')}</InputLabel>
                       <OutlinedInput
@@ -137,7 +131,7 @@ const ChangePasswordForm = () => {
                       )}
                     </Stack>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12, sm: 10, md: 10, lg: 8, xl: 8}}>
                     <Stack>
                       <InputLabel htmlFor="new-password">{t('fields.new-password')}</InputLabel>
                       <OutlinedInput
@@ -176,10 +170,10 @@ const ChangePasswordForm = () => {
                     </Stack>
                     <FormControl sx={{ mt: 2 }}>
                       <Grid container spacing={0} alignItems="center">
-                        <Grid item>
+                        <Grid>
                           <Box sx={{ bgcolor: level?.color, width: 85, height: 8, borderRadius: '7px' }} />
                         </Grid>
-                        <Grid item>
+                        <Grid>
                           <Typography variant="subtitle1" fontSize="0.75rem">
                             {level?.label}
                           </Typography>
@@ -188,15 +182,9 @@ const ChangePasswordForm = () => {
                     </FormControl>
                   </Grid>
 
-                  {errors.submit && (
-                    <Grid item xs={12}>
-                      <FormHelperText error>{errors.submit}</FormHelperText>
-                    </Grid>
-                  )}
-                </Grid2>
-              </Grid2>
-            </Grid2>
-            <Grid container item xs={12} justifyContent="center">
+                </Grid>
+            </Grid>
+            <Grid container size={{ sm: 12, md: 12, lg: 12, xl: 12 }} justifyContent="center">
               <AnimateButton>
                 <Button
                   disableElevation

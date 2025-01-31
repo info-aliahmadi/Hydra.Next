@@ -7,18 +7,19 @@ import PermissionService from '@dashboard/(auth)/_service/PermissionService';
 import { useSession } from 'next-auth/react';
 
 interface PermissionAutoCompleteProps {
-  readonly value: Permission | null;
+  readonly value?: number;
   readonly setValue: (value: any) => void;
 }
 
 export default function PermissionAutoComplete({ value, setValue }: PermissionAutoCompleteProps) {
 
   const { data: session } = useSession();
-  let permissionService = new PermissionService(session as any);
+  const jwt = session?.accessToken;
+  let permissionService = new PermissionService(jwt ?? "");
 
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<Permission[]>([]);
-  const [newValue, setNewValue] = useState<Permission | null>(value);
+  const [newValue, setNewValue] = useState<number>(value ?? 0);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [clear, setClear] = useState<any>('');
@@ -37,8 +38,8 @@ export default function PermissionAutoComplete({ value, setValue }: PermissionAu
   }, [value]);
 
   const onChange = (event: React.SyntheticEvent<Element, Event>, value: Permission | null, reason: any, details?: any) => {
-    setValue(newValue?.id);
-    setNewValue(value);
+    setValue(value?.id ?? 0);
+    setNewValue(value?.id ?? 0);
   };
 
   const onInputChange = (event: React.SyntheticEvent<Element, Event>, newInputValue: string) => {

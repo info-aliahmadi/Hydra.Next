@@ -2,7 +2,8 @@
 import { useState } from 'react';
 
 // material-ui
-import { Grid, InputLabel, MenuItem, Select, Stack, useTheme } from '@mui/material';
+import { InputLabel, MenuItem, Select, Stack } from '@mui/material';
+import Grid from '@mui/material/Grid2';
 
 // third party
 import * as Yup from 'yup';
@@ -18,7 +19,6 @@ import { useSession } from 'next-auth/react';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const ChangeLanguageForm = () => {
-  const theme = useTheme();
   const [t, i18n] = useTranslation();
   const { data: session, update } = useSession();
 
@@ -28,10 +28,10 @@ const ChangeLanguageForm = () => {
 
   const [notify, setNotify] = useState({ open: false });
 
-  const changeLanguage = (lng) => {
+  const changeLanguage = (lng: Language) => {
     let locService = new LocalizationService(accessToken);
-    locService.setCurrentLanguage(i18n, theme, lng);
-    update({ ...session.user, defaultLanguage: lng.key });
+    locService.setCurrentLanguage(i18n, lng);
+    update({ ...session?.user, defaultLanguage: lng.key });
   };
 
   return (
@@ -41,11 +41,11 @@ const ChangeLanguageForm = () => {
         enableReinitialize={true}
         initialValues={{}}
         validationSchema={Yup.object().shape({})}
-        onSubmit={async (values, { errors, setErrors, setStatus, setSubmitting }) => {
+        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
             setSubmitting(true);
             setStatus({ success: true });
-          } catch (err) {
+          } catch (err: any) {
             console.error(err);
             setStatus({ success: false });
             setErrors({ submit: err.message });
@@ -55,15 +55,15 @@ const ChangeLanguageForm = () => {
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <Grid container direction="row" justifyContent="center">
-              <Grid item xs={12} sm={8} md={8} lg={6}>
+              <Grid size={{ xs: 12, sm: 12, md: 8, lg: 6, xl: 6 }}>
                 <Grid container spacing={2} direction="column" justifyContent="center">
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <Stack>
                       <InputLabel id="language-select-label">Default Language</InputLabel>
                       <Select
                         labelId="language-select-label"
                         id="demo-simple-select"
-                        value={currentLanguage.key}
+                        value={currentLanguage?.key}
                         label="Default Language"
                         onChange={handleChange}
                       >

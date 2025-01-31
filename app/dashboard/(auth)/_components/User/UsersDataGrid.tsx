@@ -31,11 +31,10 @@ import { MRT_Column } from '@root/app/types/MRT_Column';
 // ===============================|| COLOR BOX ||=============================== //
 
 const UserDetail = ({ row, t, fieldsName, language }: { row: MRT_Row<UserModel>, t: any, fieldsName: string, language: string }) => {
-  debugger
   return (
     <Grid2 container spacing={3} direction="row">
-      <Grid2 container spacing={3} columns={{ xs: 12, sm: 6, md: 3, lg: 3, xl: 3 }} direction="row" sx={{ justifyContent: 'center', alignItems: "center" }}>
-        {/* <Grid2 columns={{ xs: 12, md: 12 }}>
+      <Grid2 container spacing={3} size={{ xs: 12, sm: 6, md: 3, lg: 3, xl: 3 }} direction="row" sx={{ justifyContent: 'center', alignItems: "center" }}>
+        <Grid2 size={{ xs: 12, md: 12 }}>
           <Stack>
             <Box
               sx={{
@@ -48,33 +47,33 @@ const UserDetail = ({ row, t, fieldsName, language }: { row: MRT_Row<UserModel>,
               <Avatar
                 alt="profile user"
                 src={row.original.avatar ? CONFIG.AVATAR_BASEPATH + row.original.avatar : '/images/users/anonymous.png'}
-                sx={{ width: 100, height: 100 }}
+                sx={{ width: 200, height: 200 }}
               ></Avatar>
               <span>{row.original.name}</span>
             </Box>
           </Stack>
-        </Grid2> */}
+        </Grid2>
       </Grid2>
-      <Grid2 container spacing={3} columns={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }} >
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+      <Grid2 container spacing={3} size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 6 }} >
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="name">{t(fieldsName + 'name')}</InputLabel>
             <OutlinedInput id="name" type="text" value={row.original.name ? row.original.name : ''} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="userName">{t(fieldsName + 'userName')}</InputLabel>
             <OutlinedInput id="userName" type="text" value={row.original.userName ? row.original.userName : ''} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="email">{t(fieldsName + 'email')}</InputLabel>
             <OutlinedInput id="email" type="text" value={row.original.email ? row.original.email : ''} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="emailConfirmed">{t(fieldsName + 'emailConfirmed')}</InputLabel>
             <FormControlLabel
@@ -92,13 +91,13 @@ const UserDetail = ({ row, t, fieldsName, language }: { row: MRT_Row<UserModel>,
             />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="phoneNumber">{t(fieldsName + 'phoneNumber')}</InputLabel>
             <OutlinedInput id="phoneNumber" type="text" value={row.original.phoneNumber ? row.original.phoneNumber : ''} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="phoneNumberConfirmed">{t(fieldsName + 'phoneNumberConfirmed')}</InputLabel>{' '}
             <FormControlLabel
@@ -116,7 +115,7 @@ const UserDetail = ({ row, t, fieldsName, language }: { row: MRT_Row<UserModel>,
             />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="registerDate">{t(fieldsName + 'registerDate')}</InputLabel>
             <OutlinedInput
@@ -133,7 +132,7 @@ const UserDetail = ({ row, t, fieldsName, language }: { row: MRT_Row<UserModel>,
             />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="lockoutEnabled">{t(fieldsName + 'lockoutEnabled')}</InputLabel>
             <FormControlLabel
@@ -151,25 +150,25 @@ const UserDetail = ({ row, t, fieldsName, language }: { row: MRT_Row<UserModel>,
             />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="lockoutEnd">{t(fieldsName + 'lockoutEnd')}</InputLabel>
             <OutlinedInput id="lockoutEnd" type="text" value={row.original.lockoutEnd ? row.original.lockoutEnd : ''} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="accessFailedCount">{t(fieldsName + 'accessFailedCount')}</InputLabel>
             <OutlinedInput id="accessFailedCount" type="text" value={row.original.accessFailedCount ? row.original.accessFailedCount : 0} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 3 }}>
+        <Grid2 size={{ xs: 12, md: 3 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="defaultLanguage">{t(fieldsName + 'defaultLanguage')}</InputLabel>
             <OutlinedInput id="defaultLanguage" type="text" value={row.original.defaultLanguage ? row.original.defaultLanguage : ''} fullWidth disabled />
           </Stack>
         </Grid2>
-        <Grid2 columns={{ xs: 12, md: 4 }}>
+        <Grid2 size={{ xs: 12, md: 4 }}>
           <Stack spacing={1}>
             <InputLabel htmlFor="roles">{t('pages.roles')}</InputLabel>
             {/* <SelectRole disabled defaultValues={row.original.roleIds} /> */}
