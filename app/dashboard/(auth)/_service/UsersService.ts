@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { setDefaultHeader } from '@root/utils/axiosHeaders';
 import CONFIG from '@root/config';
-import { UserModel } from '../_types/User/UserModel';
 import Result from '@root/app/types/Result';
+import { UserModel } from '../_types/User/UserModel';
 
 export default class UsersService {
   constructor(jwt?: string) {

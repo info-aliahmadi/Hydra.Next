@@ -1,22 +1,688 @@
 {
-  "title": "سلام به ری اکت خوش آمدید",
+  "title": "به ریکت با استفاده از react-i18next خوش آمدید",
   "description": {
-    "part1": "توضیحات بخش اول",
-    "part2": "توضیحات بخش دوم"
+     "part1": "برای شروع، <1>src/App.js</1> را ویرایش کنید و برای بارگذاری مجدد ذخیره کنید.",
+    "part2": "با استفاده از دکمه‌های بالا بین زبان انگلیسی و آلمانی جابجا شوید."
   },
   "navigation": {
     "group-dashboard": "ناوبری",
-    "dashboard": "داشبرد",
+    "dashboard": "داشبورد",
     "authentication": "احراز هویت",
     "login": "ورود",
-    "register": "ثبتنام",
-    "utilities": "خدمات",
+    "register": "ثبت نام",
+    "utilities": "ابزارها",
     "util-typography": "تایپوگرافی",
     "util-color": "رنگ",
     "util-shadow": "سایه",
-    "ant-icons": "آیکون ها",
+    "ant-icons": "آیکون‌ها",
     "support": "پشتیبانی",
     "sample-page": "صفحه نمونه",
-    "documentation": "مستندات"
+    "documentation": "مستندات",
+    "users": "کاربران",
+    "roles": "نقش‌ها",
+    "permissions": "مجوزها",
+    "contents": "محتواها",
+    "article": "مقالات",
+    "page": "صفحات",
+    "topic": "موضوعات",
+    "menus": "منوها",
+    "slideshow": "اسلایدشو",
+    "links": "لینک‌ها",
+    "messages": "پیام‌ها",
+    "messaging": "پیام‌رسانی",
+    "messageInbox": "صندوق ورودی پیام",
+    "messageOutbox": "صندوق خروجی پیام",
+    "emails": "ایمیل‌ها",
+    "emailInbox": "صندوق ورودی ایمیل",
+    "emailOutbox": "Email Outbox",
+    "subscribe": "Subscribes",
+    "fileStorage": "Storage",
+    "sale": "Sale",
+    "product": "Products",
+    "order": "Orders",
+    "manufacturer": "Manufacturers"
+  },
+  "pages": {
+   "edit-profile": "ویرایش پروفایل",
+"change-password": "تغییر رمز عبور",
+"language": "زبان",
+"accountSettings": "تنظیمات حساب",
+"settings": "پیکربندی و تنظیمات",
+"users": "کاربران",
+"roles": "نقش‌ها",
+"permissions": "مجوزها",
+"topics": "موضوعات",
+"tags": "برچسب‌ها",
+"articles": "مقالات",
+"articlesTrash": "زباله‌دان مقالات",
+"pages": "صفحات",
+"menu": "منو",
+"slideshow": "اسلایدشو",
+"linkSection": "بخش لینک‌ها",
+"fileStorage": "ذخیره‌سازی",
+"filesList": "لیست فایل‌ها",
+"messagesInbox": "صندوق ورودی پیام",
+"messagesOutbox": "صندوق خروجی پیام",
+"messagesDraft": "پیش‌نویس پیام",
+"messagesTrash": "زباله‌دان پیام",
+"emailInboxs": "صندوق ورودی ایمیل",
+"emailInboxsTrash": "زباله‌دان ایمیل‌ها",
+"subscribes": "اشتراک‌ها",
+"countries": "کشورها",
+"product": "محصولات",
+"orders": "سفارش‌ها",
+"deliveryDates": "تاریخ‌های تحویل",
+"manufacturers": "تولیدکنندگان",
+    "cards": {
+      "users-list": "Users List",
+      "user-add": "Add New User",
+      "user-edit": "Edit User",
+      "user-profile": "Profile",
+      "user-security": "Security",
+      "roles-list": "Roles List",
+      "permissions-list": "Permissions List",
+      "topics-list": "Topics List",
+      "tags-list": "Tags List",
+      "articles-list": "Articles List",
+      "articlesTrash-list": "Articles Trash List",
+      "article-add": "Add New Article",
+      "article-edit": "Edit Article",
+      "pages-list": "Pages List",
+      "page-add": "Add New Page",
+      "page-edit": "Edit Page",
+      "menu": "Menu",
+      "slideshow": "Slideshow",
+      "linkSection-list": "Link Section List",
+      "linkSection-add": "Add New Section",
+      "linkSection-edit": "Edit Link Section",
+      "links-list": "Links List",
+      "link-add": "Add New Link",
+      "link-edit": "Edit Link Link",
+      "filesDirectory": "Directories",
+      "files": "Files",
+      "fileStorage": "File Storage",
+      "messagesInbox": "Messages Inbox",
+      "messagesOutbox": "Messages Outbox",
+      "messagesDraft": "Drafts",
+      "sendMessage": "Send Message",
+      "sendEmail": "Send Email",
+      "messagesTrash": "Messages Trash",
+      "messagesDeleted": "Deleted Messages",
+      "siteSettings": "Site Settings",
+      "messageSettings": "Message Settings",
+      "subscribes-list": "Subscribes List",
+      "subscribe-add": "Add New Subscribe",
+      "subscribe-edit": "Edit Subscribe",
+      "countries-list": "Countries List",
+      "country-add": "Add New Country",
+      "country-edit": "Edit Country",
+      "product-add": "Add New Product",
+      "product-edit": "Edit Product"
+    }
+  },
+  "fields": {
+    "name": "Name",
+    "firstname": "Firstname",
+    "lastname": "LastName",
+    "emaill": "Email",
+    "userName": "Username",
+    "phoneNumber": "Phone Number",
+    "old-password": "Old Password",
+    "confirm-password": "Confirm Password",
+    "new-password": "New Password",
+    "role": {
+      "name": "Name",
+      "normalizedname": "Normalized Name"
+    },
+    "permission": {
+      "name": "Name",
+      "normalizedname": "Normalized Name"
+    },
+    "siteSetting": {
+      "siteTitle": "Site Title",
+      "siteDescription": "Site Description",
+      "siteKeywords": "Site Keywords(SEO)",
+      "headerHtml": "Header Html",
+      "footerHtml": "Footer Html",
+      "numberOfPostsPerList": "Number Of Posts Per List"
+    },
+    "topic": {
+      "title": "Title",
+      "parent": "Parent Topic"
+    },
+    "tag": {
+      "title": "Tag Title"
+    },
+    "user": {
+      "name": "Name",
+      "userName": "Username",
+      "email": "Email",
+      "emailConfirmed": "Email Confirmed",
+      "phoneNumber": "Phone Number",
+      "phoneNumberConfirmed": "Phone Number Confirmed",
+      "registerDate": "Register Date",
+      "lockoutEnabled": "Lockout Enabled",
+      "lockoutEnd": "Lockout End",
+      "accessFailedCount": "Access Failed Count",
+      "defaultLanguage": "Default Language",
+      "password": "Password"
+    },
+    "article": {
+      "subject": "Subject",
+      "body": "Body",
+      "previewImageId": "Image Preview",
+      "previewImageUrl": "Image Preview Url",
+      "tags": "Tags",
+      "registerDate": "Register Date",
+      "publishDate": "Publish Date",
+      "writer": "Writer",
+      "writedBy": "Writed By",
+      "editor": "Editor",
+      "editedBy": "Edited By",
+      "editDate": "Edit Date",
+      "isDraft": "Is Draft",
+      "draft": "Draft",
+      "isPinned": "Pinned",
+      "published": "Published",
+      "topicsIds": "Topics",
+      "tagsIds": "Tags"
+    },
+    "page": {
+      "pageTitle": "Page Title",
+      "subject": "Subject",
+      "body": "Body",
+      "tags": "Tags",
+      "registerDate": "Register Date",
+      "writer": "Writer",
+      "writedBy": "Writed By",
+      "editor": "Editor",
+      "editedBy": "Edited By",
+      "editDate": "Edit Date"
+    },
+    "menu": {
+      "title": "Title",
+      "url": "Url Address",
+      "imagePreviewId": "Image Icon",
+      "order": "Order",
+      "parent": "Parent Topic"
+    },
+    "slideshow": {
+      "header": "Header",
+      "description": "Description",
+      "previewImage": "Media Preview",
+      "previewImageUrl": "Media Url",
+      "order": "Order",
+      "createDate": "Created Date",
+      "user": "Created By"
+    },
+    "linkSection": {
+      "key": "Key",
+      "title": "Title"
+    },
+    "link": {
+      "title": "Title",
+      "url": "Url",
+      "description": "Description",
+      "imagePreview": "Image Preview",
+      "imagePreviewId": "Image Preview",
+      "userName": "Created By"
+    },
+    "subscribe": {
+      "subscribeLabelId": "Label",
+      "subscribeLabelTitle": "Label",
+      "email": "Email",
+      "insertDate": "Insert Date"
+    },
+    "country": {
+      "Name": "Name",
+      "TwoLetterIsoCode": "TwoLetterIsoCode",
+      "ThreeLetterIsoCode": "ThreeLetterIsoCode",
+      "AllowsBilling": "AllowsBilling",
+      "AllowsShipping": "AllowsShipping",
+      "NumericIsoCode": "NumericIsoCode",
+      "SubjectToVat": "SubjectToVat",
+      "Published": "Published",
+      "DisplayOrder": "DisplayOrder",
+      "LimitedToStores": "LimitedToStores"
+    },
+    "message": {
+      "messageInbox": {
+        "messageType": {
+          "messageType": "Message Type",
+          "public": "Public",
+          "private": "Private",
+          "contact": "Contact",
+          "request": "Request"
+        },
+        "subject": "Subject",
+        "content": "Content",
+        "registerDate": "Register Date",
+        "fromUser": "From",
+        "viewMessage": "View Message",
+        "toUserIds": "To",
+        "toUsers": "To",
+        "recipients": "Recipients",
+        "attachments": "Attachments",
+        "publicMessageType": "Public Message"
+      },
+      "messageSettings": {
+        "recipientIdsForContactMessage": "Recipient Users For Contact Message",
+        "recipientIdsForRequestMessage": "Recipient Users For Request Message"
+      }
+    },
+    "email": {
+      "emailInbox": {
+        "subject": "Subject",
+        "content": "Content",
+        "registerDate": "Register Date",
+        "date": "Date Sent",
+        "fromAddress": "From",
+        "toAddress": "To",
+        "attachments": "Attachments"
+      }
+    },
+    "fileStorage": {
+      "files": "Files",
+      "file": "File"
+    },
+    "order": {
+      "id": "Order Id",
+      "shippingStatusTitle": "Shipping Status",
+      "orderStatusId": "Order Status",
+      "shippingMethodTitle": "Shipping Method",
+      "userName": "User Name",
+      "paymentStatusTitle": "Payment Status",
+      "createdOnUtcString": "Created On",
+      "userCurrencyTitle": "Currency",
+      "orderShippingTax": "Shipping Tax Amount",
+      "orderTax": "Amount Tax",
+      "orderDiscount": "Discount",
+      "orderTotal": "Order Total",
+      "refundedAmount": "Refunded Amount",
+      "orderNote": "Order Note",
+      "shippingTax": "Shipping Tax",
+      "shippingAmount": "Shipping Amount",
+      "shippingAmountTax": "Shipping Amount Tax",
+      "taxAmount": "Tax Amount",
+      "discountAmount": "Discount Amount",
+      "totalAmount": "Total Amount",
+      "finalPrice": "Final Price",
+      "paymentStatusId": "Payment Status",
+      "shippingStatusId": "Shipping Status",
+      "shippingMethodId": "Shipping Method",
+      "transactionTrackingCode": "Tracking Code",
+      "paymentTrackingCode": "Payment Code",
+      "trackingNumber": "Shipping Number",
+      "paymentDateUtcToString": "Payment Date",
+      "cardName": "Card Name",
+      "cardNumber": "Card Number",
+      "paymentTypeTitle": "Payment Type"
+    },
+    "orderItem": {
+      "id": "Id",
+      "unitPrice": "Unit Price",
+      "quantity": "Quantity",
+      "productName": "Product Name",
+      "discountAmount": "Discount Amount",
+      "totalPrice": "Total Price",
+      "totalPriceTax": "Total PriceTax"
+    },
+    "manufacturer": {
+      "id": "Id",
+      "name": "Name",
+      "metaKeywords": "Meta Keywords",
+      "metaTitle": "Meta Title",
+      "description": "Description",
+      "metaDescription": "Meta Description",
+      "pictureId": "PictureId",
+      "published": "Published",
+      "displayOrder": "Display Order"
+    },
+    "product": {
+      "id": "Id",
+      "name": "Name",
+      "metaKeywords": "Meta Keywords",
+      "metaTitle": "Meta Title",
+      "metaDescription": "Meta Description",
+      "shortDescription": "Short Description",
+      "fullDescription": "Full Description",
+      "deliveryDateId": "Delivery Date",
+      "taxCategoryId": "Tax Category",
+      "stockQuantity": "Stock Quantity",
+      "minStockQuantity": "Min Stock Quantity",
+      "notifyAdminForQuantityBelow": "Notify Admin For Quantity Below",
+      "orderMinimumQuantity": "Order Minimum Quantity",
+      "orderMaximumQuantity": "Order Maximum Quantity",
+      "price": "Price",
+      "oldPrice": "Old Price",
+      "availableStartDateTimeUtc": "Available Start At",
+      "availableEndDateTimeUtc": "Available End At",
+      "displayOrder": "Display Order",
+      "approvedRatingSum": "Aapproved Rating Sum",
+      "notApprovedRatingSum": "Not Approved Rating Sum",
+      "approvedTotalReviews": "Approved Total Reviews",
+      "notApprovedTotalReviews": "Not Approved Total Reviews",
+      "hasDiscountsApplied": "Has Discounts Applied",
+      "markAsNew": "Mark As New",
+      "markAsNewStartDateTimeUtc": "'Mark As New' Start At",
+      "markAsNewEndDateTimeUtc": "'Mark As New' End At",
+      "notReturnable": "Not Returnable",
+      "allowedQuantities": "Allowed Quantities",
+      "isTaxExempt": "Is Tax Exempt",
+      "showOnHomepage": "Show On Homepage",
+      "isFreeShipping": "Is Free Shipping",
+      "allowCustomerReviews": "Allow Customer Reviews",
+      "displayStockQuantity": "Display Stock Quantity",
+      "disableBuyButton": "Disable Buy Button",
+      "disableWishlistButton": "Disable Wishlist Button",
+      "availableForPreOrder": "Available For PreOrder",
+      "callForPrice": "Call For Price",
+      "published": "Published",
+      "draft": "Draft",
+      "createdOnUtc": "Created On",
+      "updatedOnUtc": "Updated On",
+      "categoryIds": "Categories",
+      "manufacturerIds": "Manufacturers",
+      "pictureIds": "Product Images",
+      "discountIds": "Discounts",
+      "previewImage": "Preview Image",
+      "relatedProductIds": "Related Products",
+      "attributeIds": "Attributes",
+      "productTags": "Product Tags",
+      "createdBy": "created By",
+      "editedBy": "Edited By"
+    }
+  },
+  "buttons": {
+    "submit": "Submit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "visitorlink": "Visitor Link",
+    "edit": "Edit",
+    "delete": "Delete",
+    "remove": "Remove",
+    "detail": "Detail",
+    "restore": "Restore",
+    "pin": "Pin",
+    "copyLink": "Click to Copy Link Url",
+    "copyLinkDone": "Copied!",
+    "download": "Download",
+    "change-password": "Change Password",
+    "user": {
+      "save": "Save",
+      "add": "New User",
+      "edit": "Edit User",
+      "delete": "Delete User"
+    },
+    "manufacturer": {
+      "add": "New Manufacturer",
+      "edit": "Edit Manufacturer",
+      "delete": "Delete Manufacturer",
+      "saveManufacturer": "Save Manufacturer"
+    },
+    "role": {
+      "add": "Add New Role",
+      "edit": "Edit Role",
+      "delete": "Delete Role"
+    },
+    "permission": {
+      "add": "New Permission",
+      "edit": "Edit Permission",
+      "delete": "Delete Permission",
+      "add-permission-to-role": "Add Permission"
+    },
+    "topic": {
+      "add": "New Topic",
+      "addMainTopic": "Add Main Topic",
+      "addSubTopic": "Add Sub Topic",
+      "edit": "Edit Topic Name",
+      "delete": "Delete Topic"
+    },
+    "tag": {
+      "add": "New Tag",
+      "edit": "Edit Tag Name",
+      "delete": "Delete Tag"
+    },
+    "article": {
+      "save": "Save",
+      "draft": "Save as Draft",
+      "add": "New Article",
+      "publish": "Publish",
+      "edit": "Edit Article",
+      "delete": "Delete Article",
+      "trash": "Trash"
+    },
+    "page": {
+      "save": "Save",
+      "add": "New Page",
+      "edit": "Edit Page",
+      "delete": "Delete Page"
+    },
+    "subscribe": {
+      "save": "Save",
+      "add": "New Subscribe",
+      "edit": "Edit Subscribe",
+      "delete": "Delete Subscribe"
+    },
+    "country": {
+      "save": "Save",
+      "add": "New Country",
+      "edit": "Edit Country",
+      "delete": "Delete Country"
+    },
+    "menu": {
+      "add": "New Menu",
+      "addMainMenu": "Add Main Menu",
+      "addSubMenu": "Add Sub Menu",
+      "edit": "Edit Menu",
+      "delete": "Delete Menu",
+      "saveOrder": "Save Order"
+    },
+    "slideshow": {
+      "add": "New Slide",
+      "edit": "Edit Slide",
+      "delete": "Delete Slide",
+      "saveOrder": "Save Order",
+      "visible": "Show The Slide",
+      "visibleOff": "Hide The Slide"
+    },
+    "linkSection": {
+      "add": "New Section",
+      "edit": "Edit Section",
+      "delete": "Delete Section",
+      "visible": "Show The Section",
+      "visibleOff": "Hide The Section"
+    },
+    "link": {
+      "add": "New Link",
+      "edit": "Edit Link",
+      "delete": "Delete Link",
+      "saveOrder": "Save Order"
+    },
+    "message": {
+      "messageInbox": {
+        "inbox": "Message Inbox",
+        "send": "Send Message",
+        "reply": "Reply",
+        "draft": "Save As Draft",
+        "delete": "Delete Message",
+        "pin": "Pin Message",
+        "trash": "Messages Trash"
+      },
+      "messageOutbox": {
+        "outbox": "Message Out",
+        "remove": "Remove Message"
+      }
+    },
+    "email": {
+      "emailInbox": {
+        "inbox": "Email Inbox",
+        "send": "Send Email",
+        "reply": "Reply",
+        "reload": "Relaod",
+        "draft": "Save As Draft",
+        "delete": "Delete Email",
+        "pin": "Pin Email",
+        "trash": "Emails Trash"
+      },
+      "emailOutbox": {
+        "outbox": "Emails Sent",
+        "remove": "Remove Email"
+      }
+    },
+    "fileStorage": {
+      "upload": "Upload",
+      "uploadFiles": "Upload Files",
+      "uploadedInfo": "Uploaded By {{user}} On {{date}}",
+      "edit": "Edit File",
+      "download": "Download",
+      "delete": "Delete File"
+    },
+    "product": {
+      "publish": "Publish",
+      "save": "Save",
+      "add": "Add New Product",
+      "edit": "Edit Product",
+      "draft": "Save as Draft",
+      "delete": "Delete Product",
+      "saveOrder": "Save Order"
+    }
+  },
+  "validation": {
+    "required-userName": "Username is required",
+    "valid-email": "Must be a valid email",
+    "required-email": "Email is required",
+    "required-old-password": "Old Password is Required",
+    "required-password": "Password is Required",
+    "required-new-password": "New Password is Required",
+    "role": {
+      "required-role-name": "Role name Is Required",
+      "maxlength-role-normalizedname": "Max Length is 255 Characters"
+    },
+    "permission": {
+      "required-permission-name": "Permission name Is Required",
+      "maxlength-permission-normalizedname": "Max Length is 255 Characters"
+    },
+    "siteSetting": {
+      "requiredSiteTitle": "Site Title Is Required"
+    },
+    "topic": {
+      "requiredTopicTitle": "Topic Title Is Required"
+    },
+    "tag": {
+      "requiredTagTitle": "Tag Title Is Required"
+    },
+    "article": {
+      "requiredSubject": "Subject Is Required",
+      "requiredBody": "Body Is Required",
+      "requiredPublishDate": "Publish Date Is Required",
+      "requiredTopics": "Select Topics Is Required"
+    },
+    "page": {
+      "requiredPageTitle": "Page Title Is Required",
+      "requiredSubject": "Subject Is Required",
+      "requiredBody": "Body Is Required"
+    },
+    "fileUpload": {
+      "labelFileTypeNotAllowed": "File Type Not Allowed",
+      "fileValidateTypeLabelExpectedTypes": "Expects {allButLastType} or {lastType}",
+      "labelMaxFileSizeExceeded": "File is too large",
+      "labelMaxFileSize": "Maximum file size is {filesize}",
+      "labelMinFileSizeExceeded": "File is too Small",
+      "labelMinFileSize": "Minimum file size is {filesize}",
+      "imagePreviewDescription": "Drag & Drop your files or <span class='filepond--label-action'>Browse</span>"
+    },
+    "menu": {
+      "requiredMenuTitle": "Title Is Required",
+      "requiredMenuUrl": "Url Address Is Required"
+    },
+    "slideshow": {
+      "requiredMenuHeader": "Header Is Required"
+    },
+    "linkSection": {
+      "requiredKey": "Key Is Required",
+      "requiredTitle": "Title Is Required"
+    },
+    "link": {
+      "requiredTitle": "Title Is Required",
+      "requiredUrl": "Url Is Required"
+    },
+    "message": {
+      "requiredSubject": "Subject Is Required",
+      "requiredUserIds": "Recipient of Message Is Required"
+    },
+    "email": {
+      "requiredSubject": "Subject Is Required",
+      "requiredtoAddress": "Recipient of Email Is Required"
+    },
+    "product": {
+      "requiredName": "Product name is require",
+      "requiredFullDescription": "Full Description is require",
+      "requiredCategoryIds": "Category is require",
+      "requiredDeliveryDateId": "Delivery Date is require",
+      "requiredTaxCategoryId": "Tax Category is require",
+      "requiredStockQuantity": "Stock Quantity is require",
+      "requiredMinStockQuantity": "Min Stock Quantity is require",
+      "requiredOrderMinimumQuantity": "Order Minimum Quantity is require",
+      "requiredOrderMaximumQuantity": "Order Maximum Quantity is require",
+      "requiredPrice": "Price is require",
+      "requiredCurrencyId": "Currency is require"
+    }
+  },
+  "tooltips": {
+    "switch-to-darkmode": "Switch to Dark Theme",
+    "switch-to-lightmode": "Switch to Light Theme",
+    "edit-avatar": "Change Avatar",
+    "delete-avatar": "Delete Avatar",
+    "reply": "Reply"
+  },
+  "notification": {
+    "success": "Success!",
+    "success-description": "The operation done successfully.",
+    "error": "Error!",
+    "error-description": "The operation failed."
+  },
+  "dialog": {
+    "add": {
+      "title": "Add New {{item}}"
+    },
+    "edit": {
+      "title": "Edit {{item}}"
+    },
+    "delete": {
+      "title": "Delete {{item}}",
+      "description": "Are You Sure to Delete This Item Permanently?",
+      "moveToTrash": "Are You Sure to Move This Item To Trash?"
+    },
+    "topic": {
+      "addMain": "Add Main Topic",
+      "addSub": "Add Sub Topic in {{parentTitle}}"
+    },
+    "tag": {
+      "addMain": "Add New Tag"
+    },
+    "menu": {
+      "addMain": "Add Main Menu",
+      "addSub": "Add Sub Menu in {{parentTitle}}"
+    },
+    "slideshow": {
+      "add": "Add New Slide"
+    },
+    "linkSection": {
+      "add": "Add New Section"
+    },
+    "link": {
+      "add": "Add New Link"
+    },
+    "subscribe": {
+      "add": "Add New Subscribe"
+    },
+    "country": {
+      "add": "Add New Country"
+    },
+    "payment": {
+      "title": "Payment Details"
+    }
   }
 }

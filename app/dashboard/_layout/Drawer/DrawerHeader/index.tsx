@@ -4,6 +4,7 @@ import { Stack, Chip } from '@mui/material';
 // project import
 import DrawerHeaderStyled from './DrawerHeaderStyled';
 import Logo from '@dashboard/_components/Logo/Logo';
+import CONFIG from '@root/config';
 
 // ==============================|| DRAWER HEADER ||============================== //
 
@@ -16,7 +17,7 @@ const DrawerHeader = ({ open }: {open: boolean}) => {
         <Logo />
         {open && (
           <Chip
-            label={process.env.REACT_APP_VERSION}
+            label={CONFIG.APP_VERSION}
             size="small"
             sx={{ height: 16, '& .MuiChip-label': { fontSize: '0.625rem', py: 0.25 } }}
             component="a"

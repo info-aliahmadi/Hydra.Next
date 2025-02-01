@@ -1,5 +1,6 @@
 // ==============================|| THEME CONFIG  ||============================== //
 const CONFIG = {
+  APP_VERSION: '1.2',
   DEFAULT_PATH: '/',
   MINIDRAWER: true,
   CONTAINER: true,
