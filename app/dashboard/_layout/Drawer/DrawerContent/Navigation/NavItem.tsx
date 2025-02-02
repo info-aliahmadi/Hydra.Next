@@ -22,7 +22,7 @@ const NavItem = ({ item, level }: { item: MenuItem, level: number }) => {
   const keyName = nsTranslation + item.id;
   const theme = useTheme();
   const dispatch = useDispatch();
-
+  const primaryColors : PaletteColor = theme.palette.primary;
   const { drawerOpen, openItem } = useSelector((state: any) => state.menu);
 
   let itemTarget = '_self';
@@ -72,15 +72,15 @@ const NavItem = ({ item, level }: { item: MenuItem, level: number }) => {
         py: !drawerOpen && level === 1 ? 1.25 : 1,
         ...(drawerOpen && {
           '&:hover': {
-            bgcolor: theme.palette.primary.light
+            bgcolor: primaryColors.lighter
           },
           '&.Mui-selected': {
-            bgcolor: theme.palette.primary.light,
-            borderRight: `2px solid ${theme.palette.primary.main}`,
+            bgcolor: primaryColors.lighter,
+            borderRight: `4px solid ${theme.palette.primary.main}`,
             color: iconSelectedColor,
             '&:hover': {
               color: iconSelectedColor,
-              bgcolor: theme.palette.primary.light
+              bgcolor: primaryColors.lighter
             }
           }
         }),

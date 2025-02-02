@@ -56,9 +56,9 @@ const MainDrawer = ({ open, handleDrawerToggle, handleDrawerOpen, handleDrawerCl
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
-              borderRight: `5px solid ${theme.palette.grey[400]}`,
+              borderRight: `5px solid ${theme.palette.grey[500]}`,
               backgroundImage: 'none',
-              boxShadow: 'inherit'
+              boxShadow: 'inherit',
             }
           }}
         >

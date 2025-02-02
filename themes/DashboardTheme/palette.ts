@@ -44,7 +44,7 @@ const Palette = (mode : 'light' | 'dark' | undefined) : any => {
             action: {
               disabled: paletteColor.grey[300]
             },
-            divider: paletteColor.grey[200],
+            divider: paletteColor.grey[400],
             background: {
               paper: paletteColor.grey[0],
               default: paletteColor.grey.A50

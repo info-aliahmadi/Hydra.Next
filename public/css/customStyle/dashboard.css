@@ -82,3 +82,10 @@ html::-webkit-scrollbar-thumb:hover {
 .MuiFormLabel-root{
   overflow : visible !important
 }
+.material-grid-container table td {
+  flex-direction: row;
+}
+.material-grid-container.rtl .Mui-TableHeadCell-ResizeHandle-Wrapper{
+  right: auto;
+  left: 0;
+}

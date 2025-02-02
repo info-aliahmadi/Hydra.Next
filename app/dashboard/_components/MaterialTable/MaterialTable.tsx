@@ -8,6 +8,7 @@ import moment from 'moment-jalaali';
 import { DateTimeViewer, DateViewer } from '@root//utils/DateViewer';
 import find from 'lodash/find';
 import { MRT_Column } from '@root/app/types/MRT_Column';
+import i18next from 'i18next';
 
 const dateFilter = ({ header, rangeFilterIndex }: { header: any, rangeFilterIndex: any }) => {
   let filterFn = header.column.getFilterFn().name;
@@ -257,20 +258,22 @@ function MaterialTable({
 
     if (dataApi) {
       fetchData();
-    } 
+    }
   }, [columnFilters, globalFilter, pagination.pageIndex, pagination.pageSize, sorting, refetch, dataSet]);
 
-  const supportedLanguage = ['de', 'en', 'es', 'fa', 'fr', 'it', 'nl', 'pt'];
+  const supportedLanguage = ['de', 'en', 'es', 'fa', 'ar', 'fr', 'it', 'nl', 'pt'];
 
   useEffect(() => {
     setFilterMode();
     setCells();
-
     if (supportedLanguage.find((x) => x == currentLanguage)) {
       let loadedLanguage;
       switch (currentLanguage) {
         case 'en':
           loadedLanguage = require('material-react-table/locales/en');
+          break;
+        case 'ar':
+          loadedLanguage = require('material-react-table/locales/ar');
           break;
         case 'fa':
           loadedLanguage = require('material-react-table/locales/fa');
@@ -306,82 +309,85 @@ function MaterialTable({
           setTableLocale(data);
         });
     }
-  }, []);
+  }, [currentLanguage]);
   const handleRefresh = () => {
     setIsRefetching(true);
   };
   return (
-    <MaterialReactTable
-      columns={columns}
-      data={dataApi ? data?.items ?? [] : dataSet || []} //data is always an array
-      initialState={{ showColumnFilters: false, density: defaultDensity }}
-      enableTopToolbar={enableTopToolbar ?? true}
-      enableColumnActions={enableColumnActions ?? true}
-      enableColumnFilters={enableColumnFilters ?? true}
-      enablePagination={enablePagination ?? true}
-      enableSorting={enableSorting ?? true}
-      enableColumnOrdering={enableColumnOrdering ?? true}
-      enableBottomToolbar={enableBottomToolbar ?? true}
-      enableRowPinning={enablePinning ?? true}
-      enableColumnPinning={enablePinning ?? true}
-      enableRowDragging={enableRowDragging ?? false}
-      enableColumnDragging={enableColumnDragging ?? false}
-      enableDensityToggle={enableDensityToggle ?? true}
-      enableColumnResizing={enableColumnResizing ?? true}
-      enableFullScreenToggle={enableFullScreenToggle ?? true}
-      enableGlobalFilterModes={enableGlobalFilterModes ?? true}
-      enableColumnFilterModes={enableColumnFilterModes ?? true}
-      enableExpanding={enableExpanding ?? false}
-      enableExpandAll={enableExpandAll ?? false}
-      manualFiltering={manualFiltering ?? true}
-      columnResizeMode= 'onChange'
-      layoutMode= 'grid'
-      manualPagination={manualPagination ?? true}
-      manualSorting={manualSorting ?? true}
-      muiToolbarAlertBannerProps={
-        isError
-          ? {
-            color: 'error',
-            children: 'Error loading data'
-          }
-          : undefined
-      }
-      positionToolbarAlertBanner="none"
-      getSubRows={getSubRows}
-      autoResetPageIndex={autoResetPageIndex ?? false}
-      onColumnFiltersChange={setColumnFilters}
-      onColumnFilterFnsChange={setColumnFilterFns}
-      onGlobalFilterChange={setGlobalFilter}
-      onPaginationChange={setPagination}
-      onSortingChange={setSorting}
-      enableRowActions={!!enableRowActions}
-      renderRowActions={renderRowActions}
-      displayColumnDefOptions={displayColumnDefOptions}
-      renderTopToolbarCustomActions={
-        renderTopToolbarCustomActions || (() => (
-          <IconButton onClick={() => handleRefresh()}>
-            <RefreshIcon />
-          </IconButton>
-        ))
-      }
-      renderRowActionMenuItems={renderRowActionMenuItems}
-      renderDetailPanel={renderDetailPanel}
-      muiTableBodyCellProps={muiTableBodyRowDragHandleProps}
-      enableRowOrdering={enableRowOrdering ?? false}
-      rowCount={dataApi ? data?.totalItems ?? 0 : dataSet?.length ?? 0}
-      state={{
-        columnFilters,
-        columnFilterFns,
-        globalFilter,
-        isLoading,
-        pagination,
-        showAlertBanner: isError,
-        showProgressBars: isRefetching,
-        sorting
-      }}
-      localization={tableLocale ?? undefined}
-      columnResizeDirection= {i18n.dir()}
-    />
+    <div className={'material-grid-container ' + i18next.dir()}>
+      <MaterialReactTable
+        columns={columns}
+        data={dataApi ? data?.items ?? [] : dataSet || []} //data is always an array
+        initialState={{ showColumnFilters: false, density: defaultDensity }}
+        enableTopToolbar={enableTopToolbar ?? true}
+        enableColumnActions={enableColumnActions ?? true}
+        enableColumnFilters={enableColumnFilters ?? true}
+        enablePagination={enablePagination ?? true}
+        enableSorting={enableSorting ?? true}
+        enableColumnOrdering={enableColumnOrdering ?? true}
+        enableBottomToolbar={enableBottomToolbar ?? true}
+        enableRowPinning={enablePinning ?? true}
+        enableColumnPinning={enablePinning ?? true}
+        enableRowDragging={enableRowDragging ?? false}
+        enableColumnDragging={enableColumnDragging ?? false}
+        enableDensityToggle={enableDensityToggle ?? true}
+        enableColumnResizing={enableColumnResizing ?? true}
+        enableFullScreenToggle={enableFullScreenToggle ?? true}
+        enableGlobalFilterModes={enableGlobalFilterModes ?? true}
+        enableColumnFilterModes={enableColumnFilterModes ?? true}
+        enableExpanding={enableExpanding ?? false}
+        enableExpandAll={enableExpandAll ?? false}
+        manualFiltering={manualFiltering ?? true}
+        columnResizeMode='onChange'
+        layoutMode='grid'
+        manualPagination={manualPagination ?? true}
+        manualSorting={manualSorting ?? true}
+        muiToolbarAlertBannerProps={
+          isError
+            ? {
+              color: 'error',
+              children: 'Error loading data'
+            }
+            : undefined
+        }
+        positionToolbarAlertBanner="none"
+        getSubRows={getSubRows}
+        autoResetPageIndex={autoResetPageIndex ?? false}
+        onColumnFiltersChange={setColumnFilters}
+        onColumnFilterFnsChange={setColumnFilterFns}
+        onGlobalFilterChange={setGlobalFilter}
+        onPaginationChange={setPagination}
+        onSortingChange={setSorting}
+        enableRowActions={!!enableRowActions}
+        renderRowActions={renderRowActions}
+        displayColumnDefOptions={displayColumnDefOptions}
+        renderTopToolbarCustomActions={
+          renderTopToolbarCustomActions || (() => (
+            <IconButton onClick={() => handleRefresh()}>
+              <RefreshIcon />
+            </IconButton>
+          ))
+        }
+        renderRowActionMenuItems={renderRowActionMenuItems}
+        renderDetailPanel={renderDetailPanel}
+        muiTableBodyCellProps={muiTableBodyRowDragHandleProps}
+        enableRowOrdering={enableRowOrdering ?? false}
+        rowCount={dataApi ? data?.totalItems ?? 0 : dataSet?.length ?? 0}
+        state={{
+          columnFilters,
+          columnFilterFns,
+          globalFilter,
+          isLoading,
+          pagination,
+          showAlertBanner: isError,
+          showProgressBars: isRefetching,
+          sorting
+        }}
+        localization={tableLocale ?? undefined}
+        columnResizeDirection={i18n.dir()}
+      />
+    </div>
+
   );
 }
 

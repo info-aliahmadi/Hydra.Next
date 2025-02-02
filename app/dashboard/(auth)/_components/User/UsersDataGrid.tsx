@@ -257,7 +257,7 @@ function UsersDataGrid() {
         type: 'dateTime'
       }
     ],
-    []
+    [language]
   );
 
   const handleUserList = useCallback(async (filters: GridDataBound) => {

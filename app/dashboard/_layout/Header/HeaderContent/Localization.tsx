@@ -9,21 +9,23 @@ import { Box, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
 import languageList from '@root/Localization/languageList';
 import { useTranslation } from 'react-i18next';
 import LocalizationService from '@root/Localization/LocalizationService';
+import { useSession } from 'next-auth/react';
 
 // ==============================|| HEADER CONTENT - NOTIFICATION ||============================== //
 
 const Localization = () => {
   const theme = useTheme();
   const [t, i18n] = useTranslation();
-
+  const { data: session } = useSession();
+  const jwt = session?.accessToken;
   let currentLanguage = languageList.find((l : any) => l.key === i18n.language);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  const changeLanguage = (lng :any) => {
-    let locService = new LocalizationService();
-    locService.setCurrentLanguage(i18n, theme, lng);
+  const changeLanguage = (lng :Language) => {
+    let locService = new LocalizationService(jwt);
+    locService.setCurrentLanguage(i18n, lng);
     setAnchorEl(null);
   };
   const handleClick = (event : any) => {
