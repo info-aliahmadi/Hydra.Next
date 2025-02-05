@@ -12,12 +12,14 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import axios from 'axios';
 import CONFIG from '@root/config';
 import { useSession } from 'next-auth/react';
+import { useTranslation } from 'react-i18next';
 
 // ==============================|| HEADER - CONTENT ||============================== //
 
 const HeaderContent = () => {
   const matchesXs = useMediaQuery((theme: any) => theme.breakpoints.down('md'));
 
+  const [t] = useTranslation();
   const { data: session, update } = useSession();
   const theme = useTheme();
 
@@ -35,7 +37,7 @@ const HeaderContent = () => {
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
 
       {theme.palette.mode == 'light' ? (
-        <Tooltip title={'tooltips.switch-to-darkmode'}>
+        <Tooltip title={t('tooltips.switch-to-darkmode')}>
           <IconButton
             disableRipple
             aria-label="open drawer"
@@ -48,7 +50,7 @@ const HeaderContent = () => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title={'tooltips.switch-to-lightmode'}>
+        <Tooltip title={t('tooltips.switch-to-lightmode')}>
           <IconButton
             disableRipple
             aria-label="open drawer"

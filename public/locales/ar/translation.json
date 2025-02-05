@@ -1,22 +1,691 @@
 {
-  "title": "سلام به ری اکت خوش آمدید",
+  "title": "خوش آمدید",
   "description": {
-    "part1": "توضیحات بخش اول",
-    "part2": "توضیحات بخش دوم"
+    "part1": "برای شروع، <1>src/App.js</1> را ویرایش کنید و برای بارگذاری مجدد ذخیره کنید.",
+    "part2": "با استفاده از دکمه‌های بالا بین زبان انگلیسی و آلمانی جابجا شوید."
   },
   "navigation": {
     "group-dashboard": "ناوبری",
-    "dashboard": "داشبرد",
+    "dashboard": "داشبورد",
+    "profile": "پروفایل",
+    "accountSettings": "تنظیمات",
+    "logout": "خروج",
     "authentication": "احراز هویت",
     "login": "ورود",
-    "register": "ثبتنام",
-    "utilities": "خدمات",
+    "register": "ثبت نام",
+    "utilities": "ابزارها",
     "util-typography": "تایپوگرافی",
     "util-color": "رنگ",
     "util-shadow": "سایه",
-    "ant-icons": "آیکون ها",
+    "ant-icons": "آیکون‌ها",
     "support": "پشتیبانی",
     "sample-page": "صفحه نمونه",
-    "documentation": "مستندات"
+    "documentation": "مستندات",
+    "users": "کاربران",
+    "roles": "نقش‌ها",
+    "permissions": "مجوزها",
+    "contents": "محتواها",
+    "article": "مقالات",
+    "page": "صفحات",
+    "topic": "موضوعات",
+    "menus": "منوها",
+    "slideshow": "اسلایدشو",
+    "links": "لینک‌ها",
+    "messages": "پیام‌ها",
+    "messaging": "پیام‌رسانی",
+    "messageInbox": "صندوق ورودی پیام",
+    "messageOutbox": "صندوق خروجی پیام",
+    "emails": "ایمیل‌ها",
+    "emailInbox": "صندوق ورودی ایمیل",
+    "emailOutbox": "Email Outbox",
+    "subscribe": "Subscribes",
+    "fileStorage": "Storage",
+    "sale": "Sale",
+    "product": "Products",
+    "order": "Orders",
+    "manufacturer": "Manufacturers"
+  },
+  "pages": {
+    "edit-profile": "ویرایش پروفایل",
+    "change-password": "تغییر رمز عبور",
+    "language": "زبان",
+    "accountSettings": "تنظیمات حساب",
+    "settings": "پیکربندی و تنظیمات",
+    "users": "کاربران",
+    "roles": "نقش‌ها",
+    "permissions": "مجوزها",
+    "topics": "موضوعات",
+    "tags": "برچسب‌ها",
+    "articles": "مقالات",
+    "articlesTrash": "زباله‌دان مقالات",
+    "pages": "صفحات",
+    "menu": "منو",
+    "slideshow": "اسلایدشو",
+    "linkSection": "بخش لینک‌ها",
+    "fileStorage": "ذخیره‌سازی",
+    "filesList": "لیست فایل‌ها",
+    "messagesInbox": "صندوق ورودی پیام",
+    "messagesOutbox": "صندوق خروجی پیام",
+    "messagesDraft": "پیش‌نویس پیام",
+    "messagesTrash": "زباله‌دان پیام",
+    "emailInboxs": "صندوق ورودی ایمیل",
+    "emailInboxsTrash": "زباله‌دان ایمیل‌ها",
+    "subscribes": "اشتراک‌ها",
+    "countries": "کشورها",
+    "product": "محصولات",
+    "orders": "سفارش‌ها",
+    "deliveryDates": "تاریخ‌های تحویل",
+    "manufacturers": "تولیدکنندگان",
+    "cards": {
+      "users-list": "لیست کاربران",
+      "user-add": "افزودن کاربر جدید",
+      "user-edit": "ویرایش کاربر",
+      "user-profile": "پروفایل",
+      "user-security": "امنیت",
+      "roles-list": "لیست نقش‌ها",
+      "permissions-list": "لیست مجوزها",
+      "topics-list": "لیست موضوعات",
+      "tags-list": "لیست برچسب‌ها",
+      "articles-list": "لیست مقالات",
+      "articlesTrash-list": "لیست زباله‌دان مقالات",
+      "article-add": "افزودن مقاله جدید",
+      "article-edit": "ویرایش مقاله",
+      "pages-list": "لیست صفحات",
+      "page-add": "افزودن صفحه جدید",
+      "page-edit": "ویرایش صفحه",
+      "menu": "منو",
+      "slideshow": "اسلایدشو",
+      "linkSection-list": "لیست بخش لینک‌ها",
+      "linkSection-add": "افزودن بخش جدید",
+      "linkSection-edit": "ویرایش بخش لینک",
+      "links-list": "لیست لینک‌ها",
+      "link-add": "افزودن لینک جدید",
+      "link-edit": "ویرایش لینک",
+      "filesDirectory": "دایرکتوری‌ها",
+      "files": "فایل‌ها",
+      "fileStorage": "ذخیره‌سازی فایل",
+      "messagesInbox": "صندوق ورودی پیام‌ها",
+      "messagesOutbox": "صندوق خروجی پیام‌ها",
+      "messagesDraft": "پیش‌نویس‌ها",
+      "sendMessage": "ارسال پیام",
+      "sendEmail": "ارسال ایمیل",
+      "messagesTrash": "زباله‌دان پیام‌ها",
+      "messagesDeleted": "پیام‌های حذف شده",
+      "siteSettings": "تنظیمات سایت",
+      "messageSettings": "تنظیمات پیام",
+      "subscribes-list": "لیست اشتراک‌ها",
+      "subscribe-add": "افزودن اشتراک جدید",
+      "subscribe-edit": "ویرایش اشتراک",
+      "countries-list": "لیست کشورها",
+      "country-add": "افزودن کشور جدید",
+      "country-edit": "ویرایش کشور",
+      "product-add": "افزودن محصول جدید",
+      "product-edit": "ویرایش محصول"
+    }
+  },
+  "fields": {
+    "name": "نام",
+    "firstname": "نام کوچک",
+    "lastname": "نام خانوادگی",
+    "emaill": "ایمیل",
+    "userName": "نام کاربری",
+    "phoneNumber": "شماره تلفن",
+    "old-password": "رمز عبور قدیمی",
+    "confirm-password": "تأیید رمز عبور",
+    "new-password": "رمز عبور جدید",
+    "role": {
+      "name": "نام",
+      "normalizedname": "نام نرمال شده"
+    },
+    "permission": {
+      "name": "نام",
+      "normalizedname": "نام نرمال شده"
+    },
+    "siteSetting": {
+      "siteTitle": "عنوان سایت",
+      "siteDescription": "توضیحات سایت",
+      "siteKeywords": "کلمات کلیدی سایت (SEO)",
+      "headerHtml": "هدر HTML",
+      "footerHtml": "فوتر HTML",
+      "numberOfPostsPerList": "تعداد پست‌ها در هر لیست"
+    },
+    "topic": {
+      "title": "عنوان",
+      "parent": "موضوع والد"
+    },
+    "tag": {
+      "title": "عنوان برچسب"
+    },
+    "user": {
+      "name": "نام",
+      "userName": "نام کاربری",
+      "email": "ایمیل",
+      "emailConfirmed": "ایمیل تأیید شده",
+      "phoneNumber": "شماره تلفن",
+      "phoneNumberConfirmed": "شماره تلفن تأیید شده",
+      "registerDate": "تاریخ ثبت‌نام",
+      "lockoutEnabled": "قفل فعال شده",
+      "lockoutEnd": "پایان قفل",
+      "accessFailedCount": "تعداد تلاش‌های ناموفق",
+      "defaultLanguage": "زبان پیش‌فرض",
+      "password": "رمز عبور"
+    },
+    "article": {
+      "subject": "موضوع",
+      "body": "متن",
+      "previewImageId": "پیش‌نمایش تصویر",
+      "previewImageUrl": "آدرس پیش‌نمایش تصویر",
+      "tags": "برچسب‌ها",
+      "registerDate": "تاریخ ثبت",
+      "publishDate": "تاریخ انتشار",
+      "writer": "نویسنده",
+      "writedBy": "نوشته شده توسط",
+      "editor": "ویرایشگر",
+      "editedBy": "ویرایش شده توسط",
+      "editDate": "تاریخ ویرایش",
+      "isDraft": "پیش‌نویس است",
+      "draft": "پیش‌نویس",
+      "isPinned": "پین شده",
+      "published": "منتشر شده",
+      "topicsIds": "موضوعات",
+      "tagsIds": "برچسب‌ها"
+    },
+    "page": {
+      "pageTitle": "عنوان صفحه",
+      "subject": "موضوع",
+      "body": "متن",
+      "tags": "برچسب‌ها",
+      "registerDate": "تاریخ ثبت",
+      "writer": "نویسنده",
+      "writedBy": "نوشته شده توسط",
+      "editor": "ویرایشگر",
+      "editedBy": "ویرایش شده توسط",
+      "editDate": "تاریخ ویرایش"
+    },
+    "menu": {
+      "title": "عنوان",
+      "url": "آدرس URL",
+      "imagePreviewId": "آیکون تصویر",
+      "order": "ترتیب",
+      "parent": "موضوع والد"
+    },
+    "slideshow": {
+      "header": "هدر",
+      "description": "توضیحات",
+      "previewImage": "پیش‌نمایش رسانه",
+      "previewImageUrl": "آدرس رسانه",
+      "order": "ترتیب",
+      "createDate": "تاریخ ایجاد",
+      "user": "ایجاد شده توسط"
+    },
+    "linkSection": {
+      "key": "کلید",
+      "title": "عنوان"
+    },
+    "link": {
+      "title": "عنوان",
+      "url": "آدرس URL",
+      "description": "توضیحات",
+      "imagePreview": "پیش‌نمایش تصویر",
+      "imagePreviewId": "پیش‌نمایش تصویر",
+      "userName": "ایجاد شده توسط"
+    },
+    "subscribe": {
+      "subscribeLabelId": "برچسب",
+      "subscribeLabelTitle": "برچسب",
+      "email": "ایمیل",
+      "insertDate": "تاریخ درج"
+    },
+    "country": {
+      "Name": "نام",
+      "TwoLetterIsoCode": "کد ایزو دو حرفی",
+      "ThreeLetterIsoCode": "کد ایزو سه حرفی",
+      "AllowsBilling": "اجازه صورتحساب",
+      "AllowsShipping": "اجازه حمل و نقل",
+      "NumericIsoCode": "کد ایزو عددی",
+      "SubjectToVat": "مشمول مالیات بر ارزش افزوده",
+      "Published": "منتشر شده",
+      "DisplayOrder": "ترتیب نمایش",
+      "LimitedToStores": "محدود به فروشگاه‌ها"
+    },
+    "message": {
+      "messageInbox": {
+        "messageType": {
+          "messageType": "نوع پیام",
+          "public": "عمومی",
+          "private": "خصوصی",
+          "contact": "تماس",
+          "request": "درخواست"
+        },
+        "subject": "موضوع",
+        "content": "محتوا",
+        "registerDate": "تاریخ ثبت",
+        "fromUser": "از",
+        "viewMessage": "مشاهده پیام",
+        "toUserIds": "به",
+        "toUsers": "به",
+        "recipients": "گیرندگان",
+        "attachments": "پیوست‌ها",
+        "publicMessageType": "پیام عمومی"
+      },
+      "messageSettings": {
+        "recipientIdsForContactMessage": "کاربران گیرنده برای پیام تماس",
+        "recipientIdsForRequestMessage": "کاربران گیرنده برای پیام درخواست"
+      }
+    },
+    "email": {
+      "emailInbox": {
+        "subject": "موضوع",
+        "content": "محتوا",
+        "registerDate": "تاریخ ثبت",
+        "date": "تاریخ ارسال",
+        "fromAddress": "از",
+        "toAddress": "به",
+        "attachments": "پیوست‌ها"
+      }
+    },
+    "fileStorage": {
+      "files": "فایل‌ها",
+      "file": "فایل"
+    },
+    "order": {
+      "id": "شناسه سفارش",
+      "shippingStatusTitle": "وضعیت حمل و نقل",
+      "orderStatusId": "وضعیت سفارش",
+      "shippingMethodTitle": "روش حمل و نقل",
+      "userName": "نام کاربر",
+      "paymentStatusTitle": "وضعیت پرداخت",
+      "createdOnUtcString": "تاریخ ایجاد",
+      "userCurrencyTitle": "واحد پول",
+      "orderShippingTax": "مالیات حمل و نقل",
+      "orderTax": "مالیات",
+      "orderDiscount": "تخفیف",
+      "orderTotal": "مجموع سفارش",
+      "refundedAmount": "مبلغ بازپرداخت شده",
+      "orderNote": "یادداشت سفارش",
+      "shippingTax": "مالیات حمل و نقل",
+      "shippingAmount": "مبلغ حمل و نقل",
+      "shippingAmountTax": "مالیات مبلغ حمل و نقل",
+      "taxAmount": "مبلغ مالیات",
+      "discountAmount": "مبلغ تخفیف",
+      "totalAmount": "مبلغ کل",
+      "finalPrice": "قیمت نهایی",
+      "paymentStatusId": "وضعیت پرداخت",
+      "shippingStatusId": "وضعیت حمل و نقل",
+      "shippingMethodId": "روش حمل و نقل",
+      "transactionTrackingCode": "کد پیگیری تراکنش",
+      "paymentTrackingCode": "کد پرداخت",
+      "trackingNumber": "شماره پیگیری",
+      "paymentDateUtcToString": "تاریخ پرداخت",
+      "cardName": "نام کارت",
+      "cardNumber": "شماره کارت",
+      "paymentTypeTitle": "نوع پرداخت"
+    },
+    "orderItem": {
+      "id": "شناسه",
+      "unitPrice": "قیمت واحد",
+      "quantity": "تعداد",
+      "productName": "نام محصول",
+      "discountAmount": "مبلغ تخفیف",
+      "totalPrice": "قیمت کل",
+      "totalPriceTax": "مالیات قیمت کل"
+    },
+    "manufacturer": {
+      "id": "شناسه",
+      "name": "نام",
+      "metaKeywords": "کلمات کلیدی متا",
+      "metaTitle": "عنوان متا",
+      "description": "توضیحات",
+      "metaDescription": "توضیحات متا",
+      "pictureId": "شناسه تصویر",
+      "published": "منتشر شده",
+      "displayOrder": "ترتیب نمایش"
+    },
+    "product": {
+      "id": "شناسه",
+      "name": "نام",
+      "metaKeywords": "کلمات کلیدی متا",
+      "metaTitle": "عنوان متا",
+      "metaDescription": "توضیحات متا",
+      "shortDescription": "توضیحات کوتاه",
+      "fullDescription": "توضیحات کامل",
+      "deliveryDateId": "تاریخ تحویل",
+      "taxCategoryId": "دسته‌بندی مالیات",
+      "stockQuantity": "موجودی انبار",
+      "minStockQuantity": "حداقل موجودی انبار",
+      "notifyAdminForQuantityBelow": "اطلاع به مدیر برای موجودی کمتر از",
+      "orderMinimumQuantity": "حداقل تعداد سفارش",
+      "orderMaximumQuantity": "حداکثر تعداد سفارش",
+      "price": "قیمت",
+      "oldPrice": "قیمت قدیمی",
+      "availableStartDateTimeUtc": "در دسترس از",
+      "availableEndDateTimeUtc": "در دسترس تا",
+      "displayOrder": "ترتیب نمایش",
+      "approvedRatingSum": "مجموع امتیازات تایید شده",
+      "notApprovedRatingSum": "مجموع امتیازات تایید نشده",
+      "approvedTotalReviews": "مجموع نظرات تایید شده",
+      "notApprovedTotalReviews": "مجموع نظرات تایید نشده",
+      "hasDiscountsApplied": "دارای تخفیف‌های اعمال شده",
+      "markAsNew": "علامت‌گذاری به عنوان جدید",
+      "markAsNewStartDateTimeUtc": "'علامت‌گذاری به عنوان جدید' از",
+      "markAsNewEndDateTimeUtc": "'علامت‌گذاری به عنوان جدید' تا",
+      "notReturnable": "غیر قابل بازگشت",
+      "allowedQuantities": "مقادیر مجاز",
+      "isTaxExempt": "معاف از مالیات",
+      "showOnHomepage": "نمایش در صفحه اصلی",
+      "isFreeShipping": "حمل و نقل رایگان",
+      "allowCustomerReviews": "اجازه نظرات مشتریان",
+      "displayStockQuantity": "نمایش موجودی انبار",
+      "disableBuyButton": "غیرفعال کردن دکمه خرید",
+      "disableWishlistButton": "غیرفعال کردن دکمه لیست علاقه‌مندی‌ها",
+      "availableForPreOrder": "در دسترس برای پیش‌سفارش",
+      "callForPrice": "تماس برای قیمت",
+      "published": "منتشر شده",
+      "draft": "پیش‌نویس",
+      "createdOnUtc": "ایجاد شده در",
+      "updatedOnUtc": "به‌روزرسانی شده در",
+      "categoryIds": "دسته‌بندی‌ها",
+      "manufacturerIds": "تولیدکنندگان",
+      "pictureIds": "تصاویر محصول",
+      "discountIds": "تخفیف‌ها",
+      "previewImage": "پیش‌نمایش تصویر",
+      "relatedProductIds": "محصولات مرتبط",
+      "attributeIds": "ویژگی‌ها",
+      "productTags": "برچسب‌های محصول",
+      "createdBy": "ایجاد شده توسط",
+      "editedBy": "ویرایش شده توسط"
+    }
+  },
+  "buttons": {
+    "submit": "ارسال",
+    "save": "ذخیره",
+    "cancel": "لغو",
+    "back": "بازگشت",
+    "visitorlink": "لینک بازدیدکننده",
+    "edit": "ویرایش",
+    "delete": "حذف",
+    "remove": "حذف",
+    "detail": "جزئیات",
+    "restore": "بازیابی",
+    "pin": "پین",
+    "copyLink": "برای کپی کردن لینک کلیک کنید",
+    "copyLinkDone": "کپی شد!",
+    "download": "دانلود",
+    "change-password": "تغییر رمز عبور",
+    "user": {
+      "save": "ذخیره",
+      "add": "کاربر جدید",
+      "edit": "ویرایش کاربر",
+      "delete": "حذف کاربر"
+    },
+    "manufacturer": {
+      "add": "تولیدکننده جدید",
+      "edit": "ویرایش تولیدکننده",
+      "delete": "حذف تولیدکننده",
+      "saveManufacturer": "ذخیره تولیدکننده"
+    },
+    "role": {
+      "add": "افزودن نقش جدید",
+      "edit": "ویرایش نقش",
+      "delete": "حذف نقش"
+    },
+    "permission": {
+      "add": "مجوز جدید",
+      "edit": "ویرایش مجوز",
+      "delete": "حذف مجوز",
+      "add-permission-to-role": "افزودن مجوز"
+    },
+    "topic": {
+      "add": "موضوع جدید",
+      "addMainTopic": "افزودن موضوع اصلی",
+      "addSubTopic": "افزودن زیر موضوع",
+      "edit": "ویرایش نام موضوع",
+      "delete": "حذف موضوع"
+    },
+    "tag": {
+      "add": "برچسب جدید",
+      "edit": "ویرایش نام برچسب",
+      "delete": "حذف برچسب"
+    },
+    "article": {
+      "save": "ذخیره",
+      "draft": "ذخیره به عنوان پیش‌نویس",
+      "add": "مقاله جدید",
+      "publish": "انتشار",
+      "edit": "ویرایش مقاله",
+      "delete": "حذف مقاله",
+      "trash": "زباله‌دان"
+    },
+    "page": {
+      "save": "ذخیره",
+      "add": "صفحه جدید",
+      "edit": "ویرایش صفحه",
+      "delete": "حذف صفحه"
+    },
+    "subscribe": {
+      "save": "ذخیره",
+      "add": "اشتراک جدید",
+      "edit": "ویرایش اشتراک",
+      "delete": "حذف اشتراک"
+    },
+    "country": {
+      "save": "ذخیره",
+      "add": "کشور جدید",
+      "edit": "ویرایش کشور",
+      "delete": "حذف کشور"
+    },
+    "menu": {
+      "add": "منوی جدید",
+      "addMainMenu": "افزودن منوی اصلی",
+      "addSubMenu": "افزودن زیر منو",
+      "edit": "ویرایش منو",
+      "delete": "حذف منو",
+      "saveOrder": "ذخیره ترتیب"
+    },
+    "slideshow": {
+      "add": "اسلاید جدید",
+      "edit": "ویرایش اسلاید",
+      "delete": "حذف اسلاید",
+      "saveOrder": "ذخیره ترتیب",
+      "visible": "نمایش اسلاید",
+      "visibleOff": "پنهان کردن اسلاید"
+    },
+    "linkSection": {
+      "add": "بخش جدید",
+      "edit": "ویرایش بخش",
+      "delete": "حذف بخش",
+      "visible": "نمایش بخش",
+      "visibleOff": "پنهان کردن بخش"
+    },
+    "link": {
+      "add": "لینک جدید",
+      "edit": "ویرایش لینک",
+      "delete": "حذف لینک",
+      "saveOrder": "ذخیره ترتیب"
+    },
+    "message": {
+      "messageInbox": {
+        "inbox": "صندوق ورودی پیام",
+        "send": "ارسال پیام",
+        "reply": "پاسخ",
+        "draft": "ذخیره به عنوان پیش‌نویس",
+        "delete": "حذف پیام",
+        "pin": "پین کردن پیام",
+        "trash": "زباله‌دان پیام‌ها"
+      },
+      "messageOutbox": {
+        "outbox": "صندوق خروجی پیام",
+        "remove": "حذف پیام"
+      }
+    },
+    "email": {
+      "emailInbox": {
+        "inbox": "صندوق ورودی ایمیل",
+        "send": "ارسال ایمیل",
+        "reply": "پاسخ",
+        "reload": "بارگذاری مجدد",
+        "draft": "ذخیره به عنوان پیش‌نویس",
+        "delete": "حذف ایمیل",
+        "pin": "پین کردن ایمیل",
+        "trash": "زباله‌دان ایمیل‌ها"
+      },
+      "emailOutbox": {
+        "outbox": "ایمیل‌های ارسال شده",
+        "remove": "حذف ایمیل"
+      }
+    },
+    "fileStorage": {
+      "upload": "بارگذاری",
+      "uploadFiles": "بارگذاری فایل‌ها",
+      "uploadedInfo": "بارگذاری شده توسط {{user}} در {{date}}",
+      "edit": "ویرایش فایل",
+      "download": "دانلود",
+      "delete": "حذف فایل"
+    },
+    "product": {
+      "publish": "انتشار",
+      "save": "ذخیره",
+      "add": "افزودن محصول جدید",
+      "edit": "ویرایش محصول",
+      "draft": "ذخیره به عنوان پیش‌نویس",
+      "delete": "حذف محصول",
+      "saveOrder": "ذخیره ترتیب"
+    }
+  },
+  "validation": {
+    "required-userName": "نام کاربری الزامی است",
+    "valid-email": "باید یک ایمیل معتبر باشد",
+    "required-email": "ایمیل الزامی است",
+    "required-old-password": "رمز عبور قدیمی الزامی است",
+    "required-password": "رمز عبور الزامی است",
+    "required-new-password": "رمز عبور جدید الزامی است",
+    "role": {
+      "required-role-name": "نام نقش الزامی است",
+      "maxlength-role-normalizedname": "حداکثر طول 255 کاراکتر است"
+    },
+    "permission": {
+      "required-permission-name": "نام مجوز الزامی است",
+      "maxlength-permission-normalizedname": "حداکثر طول 255 کاراکتر است"
+    },
+    "siteSetting": {
+      "requiredSiteTitle": "عنوان سایت الزامی است"
+    },
+    "topic": {
+      "requiredTopicTitle": "عنوان موضوع الزامی است"
+    },
+    "tag": {
+      "requiredTagTitle": "عنوان برچسب الزامی است"
+    },
+    "article": {
+      "requiredSubject": "موضوع الزامی است",
+      "requiredBody": "متن الزامی است",
+      "requiredPublishDate": "تاریخ انتشار الزامی است",
+      "requiredTopics": "انتخاب موضوعات الزامی است"
+    },
+    "page": {
+      "requiredPageTitle": "عنوان صفحه الزامی است",
+      "requiredSubject": "موضوع الزامی است",
+      "requiredBody": "متن الزامی است"
+    },
+    "fileUpload": {
+      "labelFileTypeNotAllowed": "نوع فایل مجاز نیست",
+      "fileValidateTypeLabelExpectedTypes": "انتظار می‌رود {allButLastType} یا {lastType}",
+      "labelMaxFileSizeExceeded": "فایل خیلی بزرگ است",
+      "labelMaxFileSize": "حداکثر اندازه فایل {filesize} است",
+      "labelMinFileSizeExceeded": "فایل خیلی کوچک است",
+      "labelMinFileSize": "حداقل اندازه فایل {filesize} است",
+      "imagePreviewDescription": "فایل‌های خود را بکشید و رها کنید یا <span class='filepond--label-action'>مرور کنید</span>"
+    },
+    "menu": {
+      "requiredMenuTitle": "عنوان الزامی است",
+      "requiredMenuUrl": "آدرس URL الزامی است"
+    },
+    "slideshow": {
+      "requiredMenuHeader": "هدر الزامی است"
+    },
+    "linkSection": {
+      "requiredKey": "کلید الزامی است",
+      "requiredTitle": "عنوان الزامی است"
+    },
+    "link": {
+      "requiredTitle": "عنوان الزامی است",
+      "requiredUrl": "آدرس URL الزامی است"
+    },
+    "message": {
+      "requiredSubject": "موضوع الزامی است",
+      "requiredUserIds": "گیرنده پیام الزامی است"
+    },
+    "email": {
+      "requiredSubject": "موضوع الزامی است",
+      "requiredtoAddress": "گیرنده ایمیل الزامی است"
+    },
+    "product": {
+      "requiredName": "نام محصول الزامی است",
+      "requiredFullDescription": "توضیحات کامل الزامی است",
+      "requiredCategoryIds": "دسته‌بندی الزامی است",
+      "requiredDeliveryDateId": "تاریخ تحویل الزامی است",
+      "requiredTaxCategoryId": "دسته‌بندی مالیات الزامی است",
+      "requiredStockQuantity": "موجودی انبار الزامی است",
+      "requiredMinStockQuantity": "حداقل موجودی انبار الزامی است",
+      "requiredOrderMinimumQuantity": "حداقل تعداد سفارش الزامی است",
+      "requiredOrderMaximumQuantity": "حداکثر تعداد سفارش الزامی است",
+      "requiredPrice": "قیمت الزامی است",
+      "requiredCurrencyId": "واحد پول الزامی است"
+    }
+  },
+  "tooltips": {
+    "switch-to-darkmode": "تغییر به حالت تاریک",
+    "switch-to-lightmode": "تغییر به حالت روشن",
+    "edit-avatar": "تغییر آواتار",
+    "delete-avatar": "حذف آواتار",
+    "reply": "پاسخ"
+  },
+  "notification": {
+    "success": "موفقیت!",
+    "success-description": "عملیات با موفقیت انجام شد.",
+    "error": "خطا!",
+    "error-description": "عملیات با خطا مواجه شد."
+  },
+  "dialog": {
+    "add": {
+      "title": "افزودن {{item}} جدید"
+    },
+    "edit": {
+      "title": "ویرایش {{item}}"
+    },
+    "delete": {
+      "title": "حذف {{item}}",
+      "description": "آیا مطمئن هستید که می‌خواهید این مورد را برای همیشه حذف کنید؟",
+      "moveToTrash": "آیا مطمئن هستید که می‌خواهید این مورد را به سطل زباله منتقل کنید؟"
+    },
+    "topic": {
+      "addMain": "افزودن موضوع اصلی",
+      "addSub": "افزودن موضوع فرعی در {{parentTitle}}"
+    },
+    "tag": {
+      "addMain": "افزودن برچسب جدید"
+    },
+    "menu": {
+      "addMain": "افزودن منوی اصلی",
+      "addSub": "افزودن منوی فرعی در {{parentTitle}}"
+    },
+    "slideshow": {
+      "add": "افزودن اسلاید جدید"
+    },
+    "linkSection": {
+      "add": "افزودن بخش جدید"
+    },
+    "link": {
+      "add": "افزودن لینک جدید"
+    },
+    "subscribe": {
+      "add": "افزودن اشتراک جدید"
+    },
+    "country": {
+      "add": "افزودن کشور جدید"
+    },
+    "payment": {
+      "title": "جزئیات پرداخت"
+    }
   }
 }
