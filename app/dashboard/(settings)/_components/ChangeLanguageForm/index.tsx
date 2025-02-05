@@ -31,7 +31,10 @@ const ChangeLanguageForm = () => {
   const changeLanguage = (lng: Language) => {
     let locService = new LocalizationService(accessToken);
     locService.setCurrentLanguage(i18n, lng);
-    update({ ...session?.user, defaultLanguage: lng.key });
+    if (session) {
+      session.user.defaultLanguage = lng.key;
+      update({ ...session, user: session.user });
+    }
   };
 
   return (

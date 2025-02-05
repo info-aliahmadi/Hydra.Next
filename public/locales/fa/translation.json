@@ -7,6 +7,9 @@
   "navigation": {
     "group-dashboard": "ناوبری",
     "dashboard": "داشبورد",
+    "profile": "پروفایل",
+    "accountSettings": "تنظیمات",
+    "logout": "خروج",
     "authentication": "احراز هویت",
     "login": "ورود",
     "register": "ثبت نام",

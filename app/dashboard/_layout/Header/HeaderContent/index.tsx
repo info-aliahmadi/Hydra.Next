@@ -9,7 +9,6 @@ import Notification from './Notification';
 import MobileSection from './MobileSection';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import CONFIG from '@root/config';
 import { useSession } from 'next-auth/react';
@@ -22,11 +21,10 @@ const HeaderContent = () => {
   const { data: session, update } = useSession();
   const theme = useTheme();
 
-  const { t } = useTranslation();
-  const handleThemeMode = (mode: 'light' | 'dark') => {
+  const handleThemeMode = async (mode: 'light' | 'dark') => {
     if (session) {
       session.user.defaultTheme = mode;
-      update({ ...session.user });
+      await update({ ...session, user: session.user });
     }
     axios.get(CONFIG.API_BASEPATH + '/Auth/SetDefaultTheme', { params: { defaultTheme: mode } }).catch((error) => {
     });

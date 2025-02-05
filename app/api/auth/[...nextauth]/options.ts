@@ -4,6 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import AuthenticationService from '@dashboard/(auth)/_service/Authentication/AuthenticationService';
 import { JWT } from 'next-auth/jwt';
 import { AdapterUser } from 'next-auth/adapters';
+import AccountService from '@root/app/dashboard/(auth)/_service/AccountService';
+import { UserModel } from '@root/app/dashboard/(auth)/_types/User/UserModel';
 
 export const options: NextAuthOptions = {
   callbacks: {
@@ -18,6 +20,7 @@ export const options: NextAuthOptions = {
     }): Promise<JWT> {
       // the processing of JWT occurs before handling sessions.
       if (user) {
+        console.log("user:" + JSON.stringify(user))
         token.name = user.name;
         token.userName = user.userName;
         token.email = user.email;
@@ -31,13 +34,23 @@ export const options: NextAuthOptions = {
 
       if (trigger === 'update' && session) {
         // Note, that `session` can be any arbitrary object, remember to validate it!
-        token.name = session.user.name;
-        token.userName = session.user.userName;
-        token.email = session.user.email;
-        token.avatar = session.user.avatar;
-        token.defaultLanguage = session.user.defaultLanguage;
-        token.defaultTheme = session.user.defaultTheme;
-        token.accessToken = session.user.accessToken;
+        
+        console.log("sessionvvvvvvv:" + JSON.stringify(session))
+        token.name = session?.user.name;
+        token.userName = session?.user.userName;
+        token.email = session?.user.email;
+        token.avatar = session?.user.avatar;
+        token.defaultLanguage = session?.user.defaultLanguage;
+        token.roles = session?.user.roles;
+        token.defaultTheme = session?.user.defaultTheme;
+        token.accessToken = session?.user.accessToken;
+
+        console.log("token:" + JSON.stringify(token))
+        let accountService = new AccountService(session?.user.accessToken);
+        let newRefreshToken = await accountService.refreshToken();
+        token.accessToken = newRefreshToken;
+
+        console.log("tokentokentoken:" + JSON.stringify(token))
       }
 
       return token;
@@ -45,6 +58,7 @@ export const options: NextAuthOptions = {
 
     //  The session receives the token from JWT
     async session({ session, token, user }: { session: Session; token: JWT; user: AdapterUser }) {
+
       session.user = {
         ...session.user,
         userName: token.userName as string,
@@ -55,10 +69,12 @@ export const options: NextAuthOptions = {
         defaultLanguage: token.defaultLanguage as string,
         defaultTheme: token.defaultTheme as "light" | "dark",
         avatar: token.avatar as string,
+        accessToken: token.accessToken as string,
       };
       session.error = token.error as string;
-      session.accessToken = token.accessToken as string
-      session.accessTokenExpires = token.expiresOn as number
+      session.accessToken = token.accessToken as string;
+      session.accessTokenExpires = token.accessTokenExpires as number;
+
 
       return session;
     }
@@ -83,10 +99,13 @@ export const options: NextAuthOptions = {
         }
       },
       async authorize(credentials): Promise<User | null> {
+        debugger
         const authenticationService = new AuthenticationService();
         let result = await authenticationService.login(credentials?.username as string, credentials?.password as string, true);
+        console.log(result);
+        console.log(JSON.stringify(result));
         if (result.succeeded) {
-          return result.data;
+          return result.data ?? null;
         } else {
           return null;
         }

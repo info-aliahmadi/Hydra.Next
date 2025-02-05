@@ -7,6 +7,9 @@
   "navigation": {
     "group-dashboard": "Navigation",
     "dashboard": "Dashboard",
+    "profile": "Profile",
+    "accountSettings": "Settings",
+    "logout": "Logout",
     "authentication": "Authentication",
     "login": "Login",
     "register": "Register",

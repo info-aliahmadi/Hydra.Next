@@ -9,7 +9,6 @@ import {
   ButtonBase,
   CardContent,
   ClickAwayListener,
-  Grid,
   IconButton,
   Paper,
   Popper,
@@ -18,7 +17,7 @@ import {
   Tabs,
   Typography
 } from '@mui/material';
-
+import Grid from '@mui/material/Grid2';
 // project import
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
@@ -29,6 +28,7 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 import CONFIG from '@root/config';
 import Transitions from '@dashboard/_components/@extended/Transitions';
 import MainCard from '@dashboard/_components/MainCard';
+import { useTranslation } from 'react-i18next';
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -56,6 +56,7 @@ function a11yProps(index: number) {
 
 const Profile = () => {
   const theme = useTheme();
+  const [t]= useTranslation();
 
   const { data: session } = useSession();
 
@@ -139,7 +140,7 @@ const Profile = () => {
                   <MainCard elevation={0} border={false} content={false}>
                     <CardContent sx={{ px: 2.5, pt: 3 }}>
                       <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid item>
+                        <Grid>
                           <Stack direction="row" spacing={1.25} alignItems="center">
                             <Avatar alt="" src={avatar} sx={{ width: 32, height: 32 }} />
                             <Stack>
@@ -150,7 +151,7 @@ const Profile = () => {
                             </Stack>
                           </Stack>
                         </Grid>
-                        <Grid item>
+                        <Grid>
                           <IconButton size="large" color="secondary" onClick={() => signOut()}>
                             <LogoutOutlined />
                           </IconButton>
@@ -170,7 +171,7 @@ const Profile = () => {
                                 textTransform: 'capitalize'
                               }}
                               icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                              label="Profile"
+                              label={t('navigation.profile')}
                               {...a11yProps(0)}
                             />
                             <Tab
@@ -182,7 +183,7 @@ const Profile = () => {
                                 textTransform: 'capitalize'
                               }}
                               icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                              label="Setting"
+                              label={t('navigation.accountSettings')}
                               {...a11yProps(1)}
                             />
                           </Tabs>

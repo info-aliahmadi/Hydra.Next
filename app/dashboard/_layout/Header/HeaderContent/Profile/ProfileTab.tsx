@@ -52,7 +52,7 @@ const ProfileTab = ({ handleLogout }: { handleLogout: () => void }) => {
         <ListItemIcon>
           <Logout fontSize="small" />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary={t('navigation.logout')} />
       </ListItemButton>
     </List>
   );

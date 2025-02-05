@@ -61,8 +61,13 @@ const ProfileForm = () => {
     accountService
       .updateCurrentUser(user)
       .then((result) => {
-        update({ ...session?.user, name: user.name, email: user.email, userName: user.userName, avatar: result.avatar, accessToken: result.accessToken });
-        setNotify({ open: true });
+        if (result.succeeded) {
+          let newUserInfo = { ...session?.user, name: user.name, email: user.email, userName: user.userName, phoneNumber: user.phoneNumber, avatar: result.data?.avatar};
+          update({ ...session, user: newUserInfo });
+          setNotify({ open: true });
+        } else {
+          setNotify({ open: true, type: 'error' });
+        }
       })
       .catch((error) => {
         setNotify({ open: true, type: 'error', description: error.message });
