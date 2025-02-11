@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 
 export const config = { matcher: ['/dashboard/:path*'] };
 
-export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
+export default withAuth(function middleware(request: NextRequestWithAuth) { }, {
   callbacks: {
     authorized: async ({ token, req }: { token: any; req: NextRequest }) => {
       debugger
@@ -18,9 +18,14 @@ export default withAuth(function middleware(request: NextRequestWithAuth) {}, {
           const route = AllRoutes.routes.find((item) => item.path == path);
 
           if (route) {
-            const Authorized = await isAuthorized(route.permission, jwt);
-            if (!Authorized) {
-              return false;
+            if (route.permission != null) {
+              const Authorized = await isAuthorized(route.permission, jwt);
+              if (!Authorized) {
+                return false;
+              }
+            } else if (route.permission == null) {
+              // just need to login
+              return true;
             }
           }
           return true;

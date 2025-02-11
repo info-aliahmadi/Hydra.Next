@@ -4,10 +4,13 @@
 const settingsRoutes = [
   {
     path: '/dashboard/change-language',
-    permission: 'AUTH.GET_PERMISSION_LIST'
-  },{
+    permission: null
+  }, {
+    path: '/dashboard/account/change-password',
+    permission: null
+  }, {
     path: '/dashboard/settings',
-    permission: 'AUTH.GET_PERMISSION_LIST'
+    permission: null
   }
 ];
 

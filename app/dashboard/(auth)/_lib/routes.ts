@@ -2,18 +2,20 @@
 
 // ==============================|| ROUTE ITEMS ||============================== //
 
+import { AUTH_PERMISSION_MANAGEMENT, AUTH_USER_MANAGEMENT } from "../../_lib/Permissions";
+
 const authRoutes = [
   {
     path: '/dashboard/user/list',
-    permission: 'AUTH.GET_PERMISSION_LIST'
+    permission: AUTH_USER_MANAGEMENT
   },
   {
     path: '/dashboard/role/list',
-    permission: 'AUTH.GET_PERMISSION_LIST'
+    permission: AUTH_PERMISSION_MANAGEMENT
   },
   {
     path: '/dashboard/permission/list',
-    permission: 'AUTH.GET_PERMISSION_LIST'
+    permission: AUTH_PERMISSION_MANAGEMENT
   }
 ];
 export default authRoutes;

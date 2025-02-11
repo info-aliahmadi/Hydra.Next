@@ -1,6 +1,7 @@
 // assets
 
 import { Badge, Security, People } from '@mui/icons-material';
+import { AUTH_PERMISSION_MANAGEMENT, AUTH_USER_MANAGEMENT } from '../../_lib/Permissions';
 // icons
 const icons = {
   Badge,
@@ -14,7 +15,7 @@ const authentication: MenuItem = {
   id: 'authentication',
   title: 'Authentication',
   type: 'group',
-  permission: 'AUTH.GET_PERMISSION_LIST',
+  permission: AUTH_USER_MANAGEMENT,
   children: [
     {
       id: 'users',
@@ -23,7 +24,7 @@ const authentication: MenuItem = {
       url: '/dashboard/user/list',
       icon: icons.People,
       breadcrumbs: false,
-      permission: 'AUTH.GET_PERMISSION_LIST'
+      permission: AUTH_USER_MANAGEMENT
     },
     {
       id: 'roles',
@@ -32,7 +33,7 @@ const authentication: MenuItem = {
       url: '/dashboard/role/list',
       icon: icons.Badge,
       breadcrumbs: false,
-      permission: 'AUTH.GET_PERMISSION_LIST'
+      permission: AUTH_PERMISSION_MANAGEMENT
     },
     {
       id: 'permissions',
@@ -41,7 +42,7 @@ const authentication: MenuItem = {
       url: '/dashboard/permission/list',
       icon: icons.Security,
       breadcrumbs: false,
-      permission: 'AUTH.GET_PERMISSION_LIST'
+      permission: AUTH_PERMISSION_MANAGEMENT
     }
   ]
 };

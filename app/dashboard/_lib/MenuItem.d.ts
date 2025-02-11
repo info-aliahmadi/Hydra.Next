@@ -5,7 +5,7 @@ interface MenuItem {
     url?: string | undefined;
     icon?: any;
     breadcrumbs?: boolean;
-    permission: string;
+    permission?: string | null;
     target?: string;
     external?: boolean;
     disabled? : boolean

@@ -12,7 +12,7 @@ const dashboard : MenuItem = {
   id: 'group-dashboard',
   title: 'Navigation',
   type: 'group',
-  permission: 'AUTH.GET_PERMISSION_LIST',
+  permission: null,
   children: [
     {
       id: 'dashboard',
@@ -21,7 +21,7 @@ const dashboard : MenuItem = {
       url: '/dashboard',
       icon: icons.DashboardOutlined,
       breadcrumbs: false,
-      permission: 'AUTH.GET_PERMISSION_LIST'
+      permission: null
     }
   ]
 };
