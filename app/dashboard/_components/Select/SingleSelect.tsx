@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Chip, FormControl, MenuItem, OutlinedInput, Select, InputLabel ,Box, useTheme,Theme } from '@mui/material';
 
-interface MonoSelectProps {
+interface SingleSelectProps {
   defaultValue: any,
   id: string,
   name: string,
@@ -19,7 +19,7 @@ interface StylesParams {
   theme: Theme
 }
 
-export default function MonoSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi }: Readonly<MonoSelectProps>) {
+export default function SingleSelect({ defaultValue, id, name, label, titleName, setFieldValue, error, disabled, dataApi }: Readonly<SingleSelectProps>) {
   const theme = useTheme();
   const [loading, setLoading] = useState(true);
   const [options, setOptions] = useState([]);

@@ -8,7 +8,7 @@ import { UserModel } from '../../(auth)/_types/User/UserModel';
 
 interface MultiAutoCompleteProps {
   id: string;
-  defaultValues: number[];
+  defaultValue?: number;
   setFieldValue: (field: string, value: any) => void;
   label: string;
   inputDataApi: (input: string) => Promise<Result<UserModel[]>>;
@@ -16,66 +16,62 @@ interface MultiAutoCompleteProps {
   disabled: boolean;
 }
 
-export default function MultiAutoComplete({ id, defaultValues, setFieldValue, label, inputDataApi, loadDataApi, disabled }: Readonly<MultiAutoCompleteProps>) {
+export default function SingleAutocomplete({ id, defaultValue, setFieldValue, label, inputDataApi, loadDataApi, disabled }: Readonly<MultiAutoCompleteProps>) {
 
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<readonly Option[]>([]);
-  const [values, setValues] = useState<Option[]>([]);
+  const [value, setValue] = useState<Option | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+
     if (!open) {
       setOptions([]);
     }
   }, [open]);
 
-  const loadAllData = (ids: number[]) => {
+  const loadAllData = (id: number) => {
     setLoading(true);
-    loadDataApi(ids).then((result) => {
-      const optionsData: Option[] = result.data?.map((x) => ({ id: x.id, name: x.name, selected: true })) as Option[];
+    const defIds = [id];
+    loadDataApi(defIds).then((result) => {
+
+      const optionsData: Option[] = result.data?.map((x) => ({ id: x.id, name: x.name })) as Option[];
       setOptions(optionsData);
-      setValues(optionsData);
+      setValue(optionsData[0])
       setLoading(false);
-    }).catch((error) => setLoading(false));;
+    }).catch((error) => setLoading(false));
   };
 
   useEffect(() => {
-    debugger
-    if (defaultValues == null || defaultValues === undefined || (Array.isArray(defaultValues) && defaultValues.length === 0)) {
-      setOptions([]);
+    if (defaultValue != undefined && defaultValue > 0) {
+      loadAllData(defaultValue);
     } else {
-      loadAllData(defaultValues);
+      setOptions([]);
     }
 
-  }, [JSON.stringify(defaultValues)]);
+  }, [defaultValue]);
 
 
-  const onChange = (event: React.SyntheticEvent, value: Option[], reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
-    if (reason == "selectOption" || reason == "removeOption") {
-      let ids = value?.map(a => a.id);
-      setFieldValue(id, ids);
-      setOptions(value);
-      setValues(value);
-    }
+  const onChange = (event: React.SyntheticEvent, value: Option | null, reason: AutocompleteChangeReason, details?: AutocompleteChangeDetails<Option> | undefined) => {
+    setFieldValue(id, value?.id);
+    setValue(value);
   };
   const onInputChange = (event: React.ChangeEvent<{}>, newInputValue: string) => {
     if (newInputValue !== 'undefined' && newInputValue !== null && newInputValue !== '') {
       setLoading(true);
       inputDataApi(newInputValue).then((result) => {
-        let optionsData: Option[] = result.data?.map((x) => ({ id: x.id, name: x.name })) as Option[];
+        const optionsData: Option[] = result.data?.map((x) => ({ id: x.id, name: x.name })) as Option[];
         setOptions(optionsData);
         setLoading(false);
       }).catch((error) => setLoading(false));
     }
   };
-
-  const selectedMultipleValues = React.useMemo(
+  const selectedSingleValue = React.useMemo(
     () => {
-      return options?.filter((x) => defaultValues.find((c) => c === x.id));
+      return options?.find((x) => x.id == defaultValue);
     },
-    [JSON.stringify(defaultValues)],
+    [defaultValue],
   );
-
   return (
     <Autocomplete
       id={id}
@@ -85,7 +81,7 @@ export default function MultiAutoComplete({ id, defaultValues, setFieldValue, la
       autoSelect={true}
       sx={{ minWidth: 300 }}
       open={open}
-      multiple
+      multiple={false}
       onOpen={() => {
         setOpen(true);
       }}
@@ -98,13 +94,14 @@ export default function MultiAutoComplete({ id, defaultValues, setFieldValue, la
       getOptionLabel={(option) => option.name || ''}
       isOptionEqualToValue={(option: Option, value: any) => option.id === value.id}
       loading={loading}
-      defaultValue={selectedMultipleValues}
-      value={values}
+      defaultValue={selectedSingleValue}
+      value={value}
       renderInput={(params: any) => (
         <TextField
           {...params}
           variant="outlined"
           size="small"
+          label={label}
           InputProps={{
             ...params.InputProps,
             endAdornment: (
